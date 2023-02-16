@@ -8,8 +8,17 @@ Type | GARAIO REM | REM | Description
 [Letting.Tenancy.Updated](#lettingtenancyupdated) | :white_check_mark: | :x: | Start and / or end date of a tenancy have been changed
 [Letting.Tenancy.Deleted](#lettingtenancydeleted) | :white_check_mark: | :x: | A tenancy has been deleted; this means that the tenancy never became effective
 [Letting.Tenancy.TenancyAgreementReferenceChanged](#lettingtenancytenancyagreementreferencechanged) | :white_check_mark: | :x: | The reference of a tenancy agreement has changed
+[Letting.Tenancy.SecurityDeposit.Change](#lettingtenancysecuritydepositchange)  | :white_check_mark: | :x: |  A system other than GARAIO REM changed security deposit details.
+[Letting.Tenancy.SecurityDeposit.Accepted](#lettingtenancysecuritydepositaccepted)  | :white_check_mark: | :x: | TODO
+[Letting.Tenancy.SecurityDeposit.Rejected](#lettingtenancysecuritydepositrejected)  | :white_check_mark: | :x: | TODO
 [Letting.Tenancy.MoveInConfirmed](#lettingtenancymoveinconfirmed) | :x: | :white_check_mark: | Confirms a tenant will move or has moved into a unit. This event is only raised for tenants that live or trade in a given unit. For example the event is not raised for tenants that act as guarantors or for tenants that have had their tenancy agreement changed while staying in the same unit.  |
 [Letting.Tenancy.MoveOutConfirmed](#lettingtenancymoveoutconfirmed) | :x: | :white_check_mark: | Confirms a tenant will move out or has moved out of a unit. Like Letting.Tenancy.MoveInConfirmed the event is also only raised when a tenant has lived or traded in person at the given unit. |
+[Letting.Tenancy.Create](#lettingtenancycreate) | :x: | :white_check_mark: | A new tenancy has been created by a system other than GARAIO REM.
+[Letting.Tenancy.Accepted](#lettingtenancyaccepted) | :x: | :white_check_mark: | TODO
+[Letting.Tenancy.Rejected](#lettingtenancyrejected) | :x: | :white_check_mark: | TODO
+[Letting.Reservation.Change](#lettingreservationchange) | :x: | :white_check_mark: | A system other than GARAIO REM reserved a unit.
+[Letting.Reservation.Accepted](#lettingreservationaccepted) | :x: | :white_check_mark: | TODO
+[Letting.Reservation.Rejected](#lettingreservationrejected) | :x: | :white_check_mark: | TODO
 
 ### Letting.Tenancy.Created
 
@@ -123,6 +132,27 @@ data | hash |
 }
 ```
 
+### Letting.Tenancy.SecurityDeposit.Change
+
+#### Example
+
+```json
+{"eventType":"Letting.Tenancy.TenancyAgreementSetSecurityDeposit",
+  "data":{
+    "tenancyAgreementReference":"1234.01.0001.01",
+    ""
+  }
+}
+```
+
+### Letting.Tenancy.SecurityDeposit.Accepted
+
+TODO
+
+### Letting.Tenancy.SecurityDeposit.Rejected
+
+TODO
+
 ### Letting.Tenancy.MoveInConfirmed
 
 Field | Type | Content / Remarks
@@ -196,3 +226,77 @@ data | hash |
 ```json
 TODO
 ```
+
+### Letting.Tenancy.Create
+
+Field | Type | Content / Remarks
+---|---|---
+eventType | string | Letting.Tenancy.Create
+data | hash |
+&nbsp;&nbsp;unitReference | string | unique unit identifier, eg '234.01.0001'
+&nbsp;&nbsp;tenancyAgreemenTypeCode | string | TODO
+&nbsp;&nbsp;createdAt | string | ISO 8601 encoded date
+&nbsp;&nbsp;startDate | string | Rental start date. ISO 8601 encoded date, eg '2019-05-25'
+&nbsp;&nbsp;endDate | string | Rental end date. ISO 8601 encoded date, eg '2019-05-25'; might be null
+&nbsp;&nbsp;tenants[] | array |
+&nbsp;&nbsp;&nbsp;&nbsp;firstName | string |
+&nbsp;&nbsp;&nbsp;&nbsp;surname | string |
+&nbsp;&nbsp;&nbsp;&nbsp;salutationTypeCode | string | TODO
+&nbsp;&nbsp;&nbsp;&nbsp;address.city | string |
+&nbsp;&nbsp;&nbsp;&nbsp;address.countryCode | string | e.g. 'CH'
+&nbsp;&nbsp;&nbsp;&nbsp;address.street | string |
+&nbsp;&nbsp;&nbsp;&nbsp;address.zipCode | string |
+&nbsp;&nbsp;&nbsp;&nbsp;email | string |
+&nbsp;&nbsp;&nbsp;&nbsp;phoneNumber | string |
+&nbsp;&nbsp;&nbsp;&nbsp;marriageStatus | string | TODO use typeCode instead?
+&nbsp;&nbsp;&nbsp;&nbsp;dateOfBirth | string | ISO 8601 encoded date, eg '2019-05-25'
+&nbsp;&nbsp;&nbsp;&nbsp;placeOfOrigin | string |
+&nbsp;&nbsp;&nbsp;&nbsp;nationalityCode | string | ISO country code, eg 'CH' TODO use typeCode?
+&nbsp;&nbsp;&nbsp;&nbsp;jobTitle | string |
+&nbsp;&nbsp;&nbsp;&nbsp;tenantIndustryTypeCode | string |
+&nbsp;&nbsp;paymentModeTypeCode | string | TODO
+&nbsp;&nbsp;numberOfPeople | integer | TODO
+&nbsp;&nbsp;terminationModeTypeCode | integer | TODO
+&nbsp;&nbsp;noticePeriodMonths | integer | Notice period in months
+&nbsp;&nbsp;securityDepositAmount | integer | Security deposit amount in CHF
+&nbsp;&nbsp;paymentMethod | integer | TODO use well known string-Codes on API?
+&nbsp;&nbsp;paymentIBAN | string |
+&nbsp;&nbsp;installationsForCommonUsage | string | Installations for common usage
+&nbsp;&nbsp;roomsForSoleUsage[] | array | Rooms for sole usage
+&nbsp;&nbsp;&nbsp;&nbsp;count | integer |
+&nbsp;&nbsp;&nbsp;&nbsp;kindTypeCode | integer |
+
+#### Example
+
+TODO
+
+### Letting.Tenancy.Accepted
+
+TODO
+
+### Letting.Tenancy.Rejected
+
+TODO
+
+### Letting.Reservation.Change
+
+#### Example
+
+```json
+{"eventType":"Letting.Reserve",
+  "data":{
+    "unitReference":"10001.786.29",
+    "reserved": true,
+    "reservationTypeCode": "01",
+    "reservationReason": "Offenes Mietangebot"
+  }
+}
+```
+
+### Letting.Reservation.Accepted
+
+TODO
+
+### Letting.Reservation.Rejected
+
+TODO
