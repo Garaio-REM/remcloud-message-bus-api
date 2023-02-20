@@ -134,16 +134,18 @@ data | hash |
 
 ### Letting.Tenancy.SecurityDeposit.Change
 
+Field | Type | Content / Remarks
+---|---|---
+eventType | string | Letting.Tenancy.SecurityDeposit.Change
+data | hash |
+&nbsp;&nbsp;tenancyAgreementReference | string | unique tenancy agreement identifier, eg '1234.01.0001.01'
+&nbsp;&nbsp;depositTypeCode | string |
+&nbsp;&nbsp;depositAmount | decimal | deposit amount in CHF
+&nbsp;&nbsp;custodianReference | string | reference of the person acting as a custodian. TODO verify whether that's usable
+
 #### Example
 
-```json
-{"eventType":"Letting.Tenancy.TenancyAgreementSetSecurityDeposit",
-  "data":{
-    "tenancyAgreementReference":"1234.01.0001.01",
-    ""
-  }
-}
-```
+TODO
 
 ### Letting.Tenancy.SecurityDeposit.Accepted
 
@@ -229,6 +231,15 @@ TODO
 
 ### Letting.Tenancy.Create
 
+Orders creation of a tenancy agreement in GARAIO REM.
+
+Tenant address matching process: For every given tenant
+
+* If the tenant is already present in GARAIO REM as a person, the existing person is used.
+  * Person equality is determined by comparing (`firstName`, `surname` and `dateOfBirth`)
+  * **TODO** If the remaining adress data given does not match, the person in the database is updated / not updated.
+* Otherwise, a new person is created.
+
 Field | Type | Content / Remarks
 ---|---|---
 eventType | string | Letting.Tenancy.Create
@@ -258,7 +269,7 @@ data | hash |
 &nbsp;&nbsp;numberOfPeople | integer | TODO
 &nbsp;&nbsp;terminationModeTypeCode | integer | TODO
 &nbsp;&nbsp;noticePeriodMonths | integer | Notice period in months
-&nbsp;&nbsp;securityDepositAmount | integer | Security deposit amount in CHF
+&nbsp;&nbsp;securityDepositAmount | decimal | Security deposit amount in CHF
 &nbsp;&nbsp;paymentMethod | integer | TODO use well known string-Codes on API?
 &nbsp;&nbsp;paymentIBAN | string |
 &nbsp;&nbsp;installationsForCommonUsage | string | Installations for common usage
@@ -280,13 +291,22 @@ TODO
 
 ### Letting.Reservation.Change
 
+Field | Type | Content / Remarks
+---|---|---
+eventType | string | Letting.Reservation.Change
+data | hash |
+&nbsp;&nbsp;unitReference | string | unique unit identifier, eg '234.01.0001'
+&nbsp;&nbsp;reserve | boolean | whether the unit is to be reserved (true) or the reserveration to be cancelled
+&nbsp;&nbsp;reservationTypeCode | string |
+&nbsp;&nbsp;reservationReason | string |
+
 #### Example
 
 ```json
 {"eventType":"Letting.Reserve",
   "data":{
     "unitReference":"10001.786.29",
-    "reserved": true,
+    "reserve": true,
     "reservationTypeCode": "01",
     "reservationReason": "Offenes Mietangebot"
   }
