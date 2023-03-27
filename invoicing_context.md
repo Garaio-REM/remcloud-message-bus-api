@@ -140,6 +140,7 @@ Field | Type | Content / Remarks
 `data` | `hash` |
 &nbsp;&nbsp;`externalReference` | `string` | external identifier from the order provider; must be a reference that was already published in a `Invoicing.Order.Created` message; **required**
 &nbsp;&nbsp;`supplierReference` | `string` | reference of the supplier (creditor); **required**
+&nbsp;&nbsp;`masterdataReference` | `string` | reference of a property / building / unit; **required**
 &nbsp;&nbsp;`subject` | `string` | Short description of the order
 &nbsp;&nbsp;`description` | `string` | Description of the order
 &nbsp;&nbsp;`deliveryInfo` | `string` | Free text for the delivery info, eg end of may
