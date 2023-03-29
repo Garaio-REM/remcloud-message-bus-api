@@ -83,7 +83,8 @@ Context | Description
 [Tenancy Application](tenancy_application_context.md)| Events related to tenancy applications
 [Tenant Portal](tenant_portal.md)| Events that occur on a Tenant Portal
 [Thirdparty Notification](thirdparty_notification.md) | Events that are related to a Thirdparty Notification. These events are issued by the Thirdparty Notification Service (Drittmeldung Service)
-[Damage Case](damage_case.md) | Events that are related to a Damage Case
+[Damage Case](damage_case_context.md) | Events that are related to a Damage Case
+[Property Check](property_check_context.md) | Events that are related to a Property Check
 
 ## Examples
 
