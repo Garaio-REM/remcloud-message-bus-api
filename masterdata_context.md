@@ -18,6 +18,7 @@ Type | GARAIO REM | REM | Description
 [Masterdata.Unit.ReferenceChanged](#masterdataunitreferencechanged) | :white_check_mark: | :white_check_mark: | The unit reference has changed
 [Masterdata.ManagementTeam.Updated](#masterdatamanagementteamupdated) | :white_check_mark: | :x: | A change to a property management team was applied; only changed roles are published
 [Masterdata.Configuration.SedexIdChanged](#masterdataconfigurationsedexidchanged) | :x: | :white_check_mark: | A new SedexID has been configured |
+[Masterdata.PersonContactData.Change](#masterdatapersoncontactdatachange) | :white_check_mark: | :x: | Change the commuication data of a person with this message
 
 ### Masterdata.Property.Created
 
@@ -419,6 +420,58 @@ data | hash |
 {"eventType":"Masterdata.Configuration.SedexIdChanged",
   "data":{
     "sedexId":"T-123456-2"
+  }
+}
+```
+
+### Masterdata.PersonContactData.Change
+
+This message is sent from an external message publisher to a GARAIO REM instance and allows to change communication data of a person.
+Set the recipient property in the headers, eg `"grem_wincasa"`. All attributes are optional unless noted otherwise in the remarks.
+Rules for all array attributes:
+
+- do not send the attribute if you do not want to change current data of this type
+- send an empty array (`[]`) to delete all current data of this type
+- send an array of valid date to fully replace the current data of this type
+
+GARAIO REM replies with a standard Accepted / Rejected message containing the personReference and reject reasons, where appropiate
+
+Field | Type | Content / Remarks
+---|---|---
+`eventType` | `string` | Masterdata.PersonContactData.Change
+`data` | `hash` |
+&nbsp;&nbsp;`personReference` | `string` | reference of the person that should receive the communication updates; **required**
+&nbsp;&nbsp;`privateEmails` | `array` | list of new private emails
+&nbsp;&nbsp;`businessEmails` | `array` | list of new business emails
+&nbsp;&nbsp;`otherEmails` | `array` | list of new other emails
+&nbsp;&nbsp;`privatePhoneNumbers` | `array` | list of new private phone numbers
+&nbsp;&nbsp;`businessPhoneNumbers` | `array` | list of new business phone numbers
+&nbsp;&nbsp;`mobilePhoneNumbers` | `array` | list of new mobile phone numbers
+&nbsp;&nbsp;`otherPhoneNumbers` | `array` | list of new other phone numbers
+&nbsp;&nbsp;`privateFaxNumbers` | `array` | list of new private fax numbers
+&nbsp;&nbsp;`businessFaxNumbers` | `array` | list of new business fax numbers
+&nbsp;&nbsp;`otherFaxNumbers` | `array` | list of new other fax numbers
+&nbsp;&nbsp;`privateUrls` | `array` | list of new private urls
+&nbsp;&nbsp;`businessUrls` | `array` | list of new business urls
+&nbsp;&nbsp;`otherUrls` | `array` | list of new other urls
+&nbsp;&nbsp;`contacts` | `array` |
+&nbsp;&nbsp;&nbsp;&nbsp;`name` | `string` | name of the contact
+&nbsp;&nbsp;&nbsp;&nbsp;`contactAddress` | `string` | address / email / phone number of the contact
+
+#### Example
+
+```json
+{"eventType":"Masterdata.PersonContactData.Change",
+  "data":{
+    "personReference":"123456",
+    "privateEmails":["me@outlook.com"],
+    "privatePhoneNumbers":["+41 79 123 45 67"],
+    "contacts":[
+      {
+        "name":"Max Muster",
+        "contactAddress":"him@outlook.com"
+      }
+    ]
   }
 }
 ```
