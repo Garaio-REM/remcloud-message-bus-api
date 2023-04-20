@@ -115,3 +115,24 @@ Additional `data` fields:
 | Field               | Type     | Content / Remarks                                   |
 | ------------------- | -------- | --------------------------------------------------- |
 | `externalReference` | `string` | The external reference given in the request message |
+
+### PendingIssue.Issue.Closed
+
+Sent by GREM whenever a message previously created by `PendingIssue.Issue.Close` that has an `externalRefernce` is closed by the user in GREM.
+
+| Field                           | Type     | Content / Remarks           |
+| ------------------------------- | -------- | --------------------------- |
+| `eventType`                     | `string` | `PendingIssue.Issue.Closed` |
+| `data`                          | `hash`   |                             |
+| &nbsp;&nbsp;`externalReference` | `string` | External reference          |
+
+#### Example
+
+```json
+{
+  "eventType": "PendingIssue.Issue.Closed",
+  "data": {
+    "externalReference": "ref"
+  }
+}
+```
