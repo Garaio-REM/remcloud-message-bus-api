@@ -18,7 +18,7 @@ Type | GARAIO REM | REM | Description
 [Masterdata.Unit.ReferenceChanged](#masterdataunitreferencechanged) | :white_check_mark: | :white_check_mark: | The unit reference has changed
 [Masterdata.ManagementTeam.Updated](#masterdatamanagementteamupdated) | :white_check_mark: | :x: | A change to a property management team was applied; only changed roles are published
 [Masterdata.Configuration.SedexIdChanged](#masterdataconfigurationsedexidchanged) | :x: | :white_check_mark: | A new SedexID has been configured |
-[Masterdata.PersonContactData.Change](#masterdatapersoncontactdatachange) | :white_check_mark: | :x: | Change the commuication data of a person with this message
+[Masterdata.PersonContactData.Update](#masterdatapersoncontactdataupdate) | :white_check_mark: | :x: | Update the contact data of a person with this message
 
 ### Masterdata.Property.Created
 
@@ -424,9 +424,9 @@ data | hash |
 }
 ```
 
-### Masterdata.PersonContactData.Change
+### Masterdata.PersonContactData.Update
 
-This message is sent from an external message publisher to a GARAIO REM instance and allows to change communication data of a person.
+This message is sent from an external message publisher to a GARAIO REM instance and allows to update contact data of a person.
 Set the recipient property in the headers, eg `"grem_wincasa"`. All attributes are optional unless noted otherwise in the remarks.
 Rules for all array attributes:
 
@@ -438,7 +438,7 @@ GARAIO REM replies with a standard Accepted / Rejected message containing the pe
 
 Field | Type | Content / Remarks
 ---|---|---
-`eventType` | `string` | Masterdata.PersonContactData.Change
+`eventType` | `string` | Masterdata.PersonContactData.Update
 `data` | `hash` |
 &nbsp;&nbsp;`personReference` | `string` | reference of the person that should receive the communication updates; **required**
 &nbsp;&nbsp;`privateEmails` | `array` | list of new private emails
@@ -461,7 +461,7 @@ Field | Type | Content / Remarks
 #### Example
 
 ```json
-{"eventType":"Masterdata.PersonContactData.Change",
+{"eventType":"Masterdata.PersonContactData.Update",
   "data":{
     "personReference":"123456",
     "privateEmails":["me@outlook.com"],
