@@ -85,7 +85,7 @@ or to a domain outside of property management. **IMPORTANT: Message attribute na
 | [Masterdata](masterdata_context.md)                   | Informs about changed data in the context of Property, Buildings and Units     |
 | [Notification](notification_context.md)               | Events that represent notifications; always addressed to a GARAIO REM instance |
 | [Owner Portal](owner_portal_context.md)               | Events related to owner portals                                                |
-| [Pending Issues](pending_issues.md)                   | Events related to pending issues ("Pendenzen")                                 |
+| [Pending Issue](pending_issue.md)                     | Events related to pending issues ("Pendenzen")                                 |
 | [Planning Application](planning_application.md)       | Events related to planning applications                                        |
 | [Property Check](property_check_context.md)           | Events that are related to a Property Check                                    |
 | [Sedex](sedex.md)                                     | Allows clients to send and receive Sedex-Messages                              |
