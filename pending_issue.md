@@ -2,10 +2,11 @@
 
 ## Events
 
-| Type                                                  | GARAIO REM         | REM | Description                         |
-| ----------------------------------------------------- | ------------------ | --- | ----------------------------------- |
-| [PendingIssue.Issue.Create](#pendingissueissuecreate) | :white_check_mark: | :x: | Request creation of a pending issue |
-| [PendingIssue.Issue.Close](#pendingissueissueclose)   | :white_check_mark: | :x: | Request closing of a pending issue  |
+| Type                                                  | GARAIO REM         | REM | Description                             |
+| ----------------------------------------------------- | ------------------ | --- | --------------------------------------- |
+| [PendingIssue.Issue.Create](#pendingissueissuecreate) | :white_check_mark: | :x: | Request creation of a pending issue     |
+| [PendingIssue.Issue.Close](#pendingissueissueclose)   | :white_check_mark: | :x: | Request closing of a pending issue      |
+| [PendingIssue.Issue.Closed](#pendingissueissueclosed) | :white_check_mark: | :x: | A pending issue has been closed in GREM |
 
 ### PendingIssue.Issue.Create
 
