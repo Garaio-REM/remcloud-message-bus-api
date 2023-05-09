@@ -2,6 +2,11 @@
 
 For interactions with GARAIO REM that follow a request/response pattern, the following result message types are commonly sent.
 
+## Response mapping using correlation_id
+
+These messages set the AMQP property `correlation_id` to contain the `message_id` of the request message.
+This means you can tell to what request message an `Accepted` or `Rejected` belongs by remembering the `message_id` of sent requests and comparing them to the `correlation_id` of received responses.
+
 ## Accepted message
 
 Named `*.Accepted`, this is sent by GARAIO REM to signal that a message was successfully processed.
