@@ -55,7 +55,7 @@ Notes
 
 * (1) The app specific uid is an alphanumeric, app wide unique key
 * (2) `2` ensures the message persists even if the broker restarts. In some RabbitMQ-Client libraries, `delivery_mode` might be mapped to a boolean property called `persistent` which shall be set to `true`
-* (3) Messages that respond to a message (`*.Accepted` / `*.Rejected`) send back the `message_id` of the received message as the correlation_id so that the sender can map the response. The property is only present in response messages
+* (3) Messages that respond to a message (`*.Accepted` / `*.Rejected`) send back the `message_id` of the received message as the correlation_id so that the sender can map the response. The property is only present in [result messages](./result_messages.md).
 
 ### Headers
 
