@@ -71,6 +71,7 @@ Notes
     "deliveryAddress": "Garaio AG\r\nLaupenstrasse 45\r\n3001 Bern",
     "languageCode":"fr",
     "backlinkUrl":"https://instance.external_system.ch/order/3",
+    "clerkUsername": "clerk",
     "orderItems":[
       {"lineNumber":1,
        "accountNumber":"100001",
