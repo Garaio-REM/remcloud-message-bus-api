@@ -9,6 +9,7 @@
 | [Letting.Tenancy.Deleted](#lettingtenancydeleted)                                                   | :white_check_mark: | :x:                | A tenancy has been deleted; this means that the tenancy never became effective |
 | [Letting.Tenancy.TenancyAgreementReferenceChanged](#lettingtenancytenancyagreementreferencechanged) | :white_check_mark: | :x:                | The reference of a tenancy agreement has changed                               |
 | [Letting.Reservation.Update](#lettingreservationupdate)                                             | :white_check_mark: | :x:                | Updates the reservation status of a unit.                                      |
+[Letting.TenancyAgreement.Create](#lettingtenancyagreementcreate)                               | :white_check_mark: | :x:                | A tenancy agreement should be created in GARAIO REM
 | [Letting.TenancyAgreementSecurityDepot.Update](#lettingtenancyagreementsecuritydepotupdate)         | :white_check_mark: | :x:                | Updates the reservation status of a unit.                                      |
 | [Letting.TenancyAgreementDetails.Update](#lettingtenancyagreementdetailsupdate)                     | :white_check_mark: | :x:                | Updates some details of a tenancy agreement.                                   |
 | [Letting.Tenancy.MoveInConfirmed](#lettingtenancymoveinconfirmed)                                   | :x:                | :white_check_mark: | Confirms a tenant will move or has moved into a unit. (2)                      |
@@ -252,6 +253,211 @@ The [Accept](./result_messages.md#accepted-message) message.
 #### Letting.Reservation.UpdateRejected
 
 The [Reject](./result_messages.md#rejected-message) message.
+
+### Letting.TenancyAgreement.Create
+
+This message is sent from an external message publisher to a GARAIO REM instance and allows to create a tenancy agreement. Set the recipient property in the headers, eg "grem_wincasa". Always required attributes are noted in the remarks. Depending on the tenancy agreement template configuration, additional attributes may be required.
+
+GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-message) / [Rejected](./result_messages.md#rejected-message) message containing the `tenancyAgreementReference` of the created tenancy agreement or reject reasons
+
+Field | Type | Content / Remarks
+---|---|---
+eventType | string | Letting.TenancyAgreement.Create
+data | hash |
+&nbsp;&nbsp;primaryUnitReference | string | reference of an available unit; **required**
+&nbsp;&nbsp;tenancyAgreementTypeCode | string | a valid tenancy agreement type code (see code table entries for valid codes);  **required**
+&nbsp;&nbsp;rentStartDate | string | ISO 8601 encoded date, eg '2019-03-01'; **required**
+&nbsp;&nbsp;primaryTenant | hash | data describing the primary tenant; a new tenant will be created if no tenant with the same name and dateOfBirth exists; **required**
+&nbsp;&nbsp;&nbsp;&nbsp;firstName | string | first name; **required**
+&nbsp;&nbsp;&nbsp;&nbsp;surname | string | surname; **required**
+&nbsp;&nbsp;&nbsp;&nbsp;address | hash | current address
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;city | string | city; **required**
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zipCode | string | zipCode; **required**
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;street | string | street incl. number; **required**
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;countryCode | string | ISO country code, eg 'CH'; defaults to 'CH'
+&nbsp;&nbsp;&nbsp;&nbsp;correspondenceLanguageCode | string | de, fr, it or en; **must be lower case**
+&nbsp;&nbsp;&nbsp;&nbsp;email | string | email address
+&nbsp;&nbsp;&nbsp;&nbsp;phoneNumber | string | phone number (international format)
+&nbsp;&nbsp;&nbsp;&nbsp;maritalStatus | string | one of the following values will be accepted: `unmarried`, `marrided`, `widowed`, `divorced`, `separated`, `civil_union`
+&nbsp;&nbsp;&nbsp;&nbsp;dateOfBirth | string | ISO 8601 encoded date, eg '2019-03-01'; **required**
+&nbsp;&nbsp;&nbsp;&nbsp;homeTown | string | home town
+&nbsp;&nbsp;&nbsp;&nbsp;nationalityCode | string | ISO country code, eg 'CH'
+&nbsp;&nbsp;&nbsp;&nbsp;jobTitle | string | job title
+&nbsp;&nbsp;&nbsp;&nbsp;salutation | string | one of the following values will be accepted: `none`, `sir`, `madam`
+&nbsp;&nbsp;jointTenants | array | data describing optional joint tenants; new tenants will be created if no tenant with the same name and dateOfBirth exists
+&nbsp;&nbsp;&nbsp;&nbsp;firstName | string | first name; **required**
+&nbsp;&nbsp;&nbsp;&nbsp;surname | string | surname; **required**
+&nbsp;&nbsp;&nbsp;&nbsp;address | hash | current address
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;city | string | city; **required**
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zipCode | string | zipCode; **required**
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;street | string | street incl. number; **required**
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;countryCode | string | ISO country code, eg 'CH';  **required**
+&nbsp;&nbsp;&nbsp;&nbsp;correspondenceLanguageCode | string | de, fr, it or en; **must be lower case, required**
+&nbsp;&nbsp;&nbsp;&nbsp;email | string | email address
+&nbsp;&nbsp;&nbsp;&nbsp;phoneNumber | string | phone number (international format)
+&nbsp;&nbsp;&nbsp;&nbsp;maritalStatus | string | one of the following values will be accepted: `unmarried`, `marrided`, `widowed`, `divorced`, `separated`, `civil_union`
+&nbsp;&nbsp;&nbsp;&nbsp;dateOfBirth | string | ISO 8601 encoded date, eg '2019-03-01'; **required**
+&nbsp;&nbsp;&nbsp;&nbsp;homeTown | string | home town
+&nbsp;&nbsp;&nbsp;&nbsp;nationalityCode | string | ISO country code, eg 'CH'
+&nbsp;&nbsp;&nbsp;&nbsp;jobTitle | string | job title
+&nbsp;&nbsp;&nbsp;&nbsp;salutation | string | one of the following values will be accepted: `none`, `sir`, `madam`
+&nbsp;&nbsp;rentRegulations | hash | optional rent regulations
+&nbsp;&nbsp;&nbsp;&nbsp;rentalTypeCode | string | a valid rental type code (see code table entries for valid codes)
+&nbsp;&nbsp;&nbsp;&nbsp;rentLockedUntil | string | ISO 8601 encoded date, eg '2019-03-01'
+&nbsp;&nbsp;&nbsp;&nbsp;rentLockedReason | string | reason why the rent is locked
+&nbsp;&nbsp;cancellationRegulations | hash | optional cancellation regulations
+&nbsp;&nbsp;&nbsp;&nbsp;cancellationModeCode | string | a valid cancellation mode code (see code table entries for valid codes)
+&nbsp;&nbsp;&nbsp;&nbsp;cancellationPeriodInMonths | integer | minimum number of months a cancellation must be announced in advance by the landlord
+&nbsp;&nbsp;&nbsp;&nbsp;cancellationPeriodTenantInMonths | integer | minimum number of months a cancellation must be announced in advance by the tenant
+&nbsp;&nbsp;&nbsp;&nbsp;earliestPossibleTerminationDateLandlord | string | ISO 8601 encoded date, eg '2019-03-01'
+&nbsp;&nbsp;&nbsp;&nbsp;earliestPossibleTerminationDatesTenant | string | ISO 8601 encoded date, eg '2019-03-01'
+&nbsp;&nbsp;securityDeposit | hash | security deposit
+&nbsp;&nbsp;&nbsp;&nbsp;depositTypeCode | string | a valid deposit type code (see code table entries for valid codes)
+&nbsp;&nbsp;&nbsp;&nbsp;depositAmount | decimal | amount to pay in CHF
+&nbsp;&nbsp;&nbsp;&nbsp;paidAmount | decimal | paid amount in CHF
+&nbsp;&nbsp;&nbsp;&nbsp;bankGuaranteeExpiration | string | ISO 8601 encoded date, eg '2023-12-31'
+&nbsp;&nbsp;&nbsp;&nbsp;refundedAt | string | ISO 8601 encoded date, eg '2024-12-31'
+&nbsp;&nbsp;&nbsp;&nbsp;depositAccountNumber | string | payment information. freetext, use e.g. for IBAN
+&nbsp;&nbsp;&nbsp;&nbsp;custodianReference | string | person reference of the custodian
+&nbsp;&nbsp;&nbsp;&nbsp;payerReference | string | person reference of the payer
+&nbsp;&nbsp;intendedUse | hash | intended use
+&nbsp;&nbsp;&nbsp;&nbsp;numberOfPeople | integer | number of people
+&nbsp;&nbsp;&nbsp;&nbsp;installationsForCommonUsage | string | freetext describing installations for common usage
+&nbsp;&nbsp;&nbsp;&nbsp;roomsForSoleUsage | array | rooms for sole usage
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unitTypeCode | string | a valid unit type code (see code table entries for valid codes)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;number | string | unit number
+
+#### Examples
+
+##### minimal required attributes
+
+```json
+{"eventType":"Letting.TenancyAgreement.Create",
+  "data":{
+    "primaryUnitReference":"1234.01.0001",
+    "tenancyAgreementTypeCode":"1",
+    "rentStartDate":"2023-06-01",
+    "primaryTenant":{
+      "firstName":"Max",
+      "surname":"Muster",
+      "address":{
+        "street":"Bahnhofstrasse 23",
+        "zipCode":"3000",
+        "city":"Bern",
+        "countryCode":"CH",
+      },
+      "correspondenceLanguageCode":"de",
+      "dateOfBirth":"1972-11-23"
+    }
+  }
+}
+```
+
+##### all available attributes
+
+```json
+{"eventType":"Letting.TenancyAgreement.Create",
+  "data":{
+    "primaryUnitReference":"1234.01.0001",
+    "tenancyAgreementTypeCode":"1",
+    "rentStartDate":"2023-06-01",
+    "primaryTenant":{
+      "firstName":"Max",
+      "surname":"Muster",
+      "address":{
+        "street":"Bahnhofstrasse 23",
+        "zipCode":"3000",
+        "city":"Bern",
+        "countryCode":"CH",
+      },
+      "correspondenceLanguageCode":"de",
+      "dateOfBirth":"1972-11-23",
+      "email":"max.muster@gmail.com",
+      "phoneNumber":"+41 123 45 67",
+      "maritalStatus":"civil_union",
+      "homeTown":"Bern",
+      "nationalityCode":"AT",
+      "jobTitle":"software engineer",
+      "salutation":"sir"
+    },
+    "jointTenants":[
+      {
+        "firstName":"Jeanine",
+        "surname":"Gibtsnicht",
+        "address":{
+          "street":"Freiestrasse 2a",
+          "zipCode":"5000",
+          "city":"Aarau",
+          "countryCode":"CH",
+        },
+        "correspondenceLanguageCode":"de",
+        "dateOfBirth":"1981-03-12",
+        "email":"jeanine.gibtsnicht@gmail.com",
+        "phoneNumber":"+41 765 43 21",
+        "maritalStatus":"civil_union",
+        "homeTown":"Aarau",
+        "nationalityCode":"DE",
+        "jobTitle":"Medizinische Praxisassistentin",
+        "salutation":"madam"
+      }
+    ],
+    "cancellationRegulations":{
+      "cancellationModeCode":"01",
+      "cancellationPeriodInMonths":3,
+      "cancellationPeriodTenantInMonths":3,
+      "earliestPossibleTerminationDateLandlord":"2023-12-31",
+      "earliestPossibleTerminationDatesTenant":"2023-12-31"
+    },
+    "securityDeposit":{
+      "depositTypeCode":"01",
+      "depositAmount":5000.00,
+      "paidAmount":5000.00,
+      "depositAccountNumber":"DE21700500000003600282",
+      "custodianReference":"123456",
+      "payerReference":"654321"
+    },
+    "intendedUse":{
+      "numberOfPeople":2,
+      "installationsForCommonUsage":"Veloraum",
+      "roomsForSoleUsage":[
+        {
+          "unitTypeCode":"26",
+          "number":"1234"
+        }
+      ]
+    }
+  }
+}
+```
+
+##### accepted response message
+
+```json
+{"eventType":"Letting.TenancyAgreement.CreateAccepted",
+  "data":{
+    "tenancyAgreementReference":"1234.01.0001.02"
+  }
+}
+```
+
+##### rejected response message
+
+```json
+{"eventType":"Letting.TenancyAgreement.CreateRejected",
+  "data":{
+    "reasons":[
+      {
+        "attribute":"primaryTenant.correspondenceLanguageCode",
+        "reason":"darf nicht leer sein"
+      },
+      {
+        "attribute":"primaryTenant.surname",
+        "reason":"darf nicht leer sein"
+      }
+    ]
+  }
+}
+```
 
 ### Letting.TenancyAgreementSecurityDepot.Update
 
