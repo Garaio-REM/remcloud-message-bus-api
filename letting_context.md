@@ -221,8 +221,8 @@ TODO
 | -------------------------------------- | --------- | ----------------------------------------------------------------------------- |
 | eventType                              | `string`  | Letting.Reservation.Update                                                    |
 | data                                   | `hash`    |                                                                               |
-| &nbsp;&nbsp;unitReference              | `string`  | unique unit identifier, eg '234.01.0001'                                      |
-| &nbsp;&nbsp;reserve                    | `boolean` | reserve the unit if true, free the unit if false                              |
+| &nbsp;&nbsp;unitReference              | `string`  | unique unit identifier, eg '234.01.0001'; **required**                        |
+| &nbsp;&nbsp;reserve                    | `boolean` | reserve the unit if `true`, free the unit if `false`; **required**            |
 | &nbsp;&nbsp;reservedForPersonReference | `string`  | person the unit is reserved for. reference; uniquely identifies a person. (1) |
 | &nbsp;&nbsp;reservationTypeCode        | `string`  | reservation type code ("Objektreservierungsart"). (1)                         |
 | &nbsp;&nbsp;reservationReason          | `string`  | reservation reason. (1)                                                       |
