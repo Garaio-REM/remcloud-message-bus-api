@@ -10,6 +10,7 @@
 | [Letting.Tenancy.TenancyAgreementReferenceChanged](#lettingtenancytenancyagreementreferencechanged) | :white_check_mark: | :x:                | The reference of a tenancy agreement has changed                               |
 | [Letting.Reservation.Update](#lettingreservationupdate)                                             | :white_check_mark: | :x:                | Updates the reservation status of a unit.                                      |
 | [Letting.TenancyAgreementSecurityDepot.Update](#lettingtenancyagreementsecuritydepotupdate)         | :white_check_mark: | :x:                | Updates the reservation status of a unit.                                      |
+| [Letting.TenancyAgreementDetails.Update](#lettingtenancyagreementdetailsupdate)                     | :white_check_mark: | :x:                | Updates some details of a tenancy agreement.                                   |
 | [Letting.Tenancy.MoveInConfirmed](#lettingtenancymoveinconfirmed)                                   | :x:                | :white_check_mark: | Confirms a tenant will move or has moved into a unit. (2)                      |
 | [Letting.Tenancy.MoveOutConfirmed](#lettingtenancymoveoutconfirmed)                                 | :x:                | :white_check_mark: | Confirms a tenant will move out or has moved out of a unit. (3)                |
 
@@ -287,10 +288,31 @@ Notes:
 }
 ```
 
-#### Letting.TenaancyAgreeementSecurityDepot.UpdateAccepted
+#### Letting.TenaancyAgreementSecurityDepot.UpdateAccepted
 
 The [Accept](./result_messages.md#accepted-message) message.
 
-#### Letting.TenaancyAgreeementSecurityDepot.UpdateRejected
+#### Letting.TenaancyAgreementSecurityDepot.UpdateRejected
 
 The [Reject](./result_messages.md#rejected-message) message.
+
+### Letting.TenancyAgreementDetails.Update
+
+| Field                                 | Type      | Content / Remarks                                            |
+| ------------------------------------- | --------- | ------------------------------------------------------------ |
+| eventType                             | `string`  | Letting.TenancyAgreementDetails.Update                       |
+| data                                  | `hash`    |                                                              |
+| &nbsp;&nbsp;tenancyAgreementReference | `string`  | tenancy agreement identifier, eg '234.01.0001'; **required** |
+| &nbsp;&nbsp;liabilityInsuranceChecked | `boolean` | whether the necessary liability insurance checks were done.  |
+
+#### Example
+
+```json
+{
+  "eventType":"Letting.TenancyAgreementDetails.Update",
+  "data": {
+    "tenancyAgreementReference": "10001.349.769.01",
+    "liabilityInsuranceChecked": true
+  }
+}
+```
