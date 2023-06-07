@@ -510,9 +510,21 @@ Notes:
 
 The [Accept](./result_messages.md#accepted-message) message.
 
+Additional `data` fields:
+
+| Field       | Type     | Content / Remarks               |
+| ----------- | -------- | ------------------------------- |
+| `reference` | `string` | The tenancy agreement reference |
+
 #### Letting.TenaancyAgreementSecurityDepot.UpdateRejected
 
 The [Reject](./result_messages.md#rejected-message) message.
+
+Additional `data` fields:
+
+| Field       | Type     | Content / Remarks               |
+| ----------- | -------- | ------------------------------- |
+| `reference` | `string` | The tenancy agreement reference |
 
 ### Letting.TenancyAgreementDetails.Update
 
@@ -534,3 +546,23 @@ The [Reject](./result_messages.md#rejected-message) message.
   }
 }
 ```
+
+#### Letting.TenancyAgreementDetails.UpdateAccepted
+
+The [Accept](./result_messages.md#accepted-message) message.
+
+Additional `data` fields:
+
+| Field       | Type     | Content / Remarks               |
+| ----------- | -------- | ------------------------------- |
+| `reference` | `string` | The tenancy agreement reference |
+
+#### Letting.TenancyAgreementDetails.UpdateRejected
+
+The [Reject](./result_messages.md#rejected-message) message.
+
+Additional `data` fields:
+
+| Field       | Type     | Content / Remarks               |
+| ----------- | -------- | ------------------------------- |
+| `reference` | `string` | The tenancy agreement reference |
