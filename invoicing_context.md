@@ -172,11 +172,11 @@ This message completely replaces an existing order in GARAIO REM; if you pass, f
 
 This message goes from the order provider to GARAIO REM. Set the recipient property in the headers, eg "grem_derham". GARAIO REM will the delete the referenced order, unless it is already connected to an invoice.
 
-Field | Type | Content / Remarks
----|---|---
-`eventType` | `string` | Invoicing.Order.Accepted
-`data` | `hash` |
-&nbsp;&nbsp;`externalReference` | `string` | unique external order identifier from the order provider; **required**
+| Field                           | Type     | Content / Remarks                                                      |
+| ------------------------------- | -------- | ---------------------------------------------------------------------- |
+| `eventType`                     | `string` | Invoicing.Order.Deleted                                                |
+| `data`                          | `hash`   |                                                                        |
+| &nbsp;&nbsp;`externalReference` | `string` | unique external order identifier from the order provider; **required** |
 
 #### Example
 
@@ -187,6 +187,24 @@ Field | Type | Content / Remarks
   }
 }
 ```
+
+#### Invoicing.Order.DeletedAccepted
+
+The [Accept](./result_messages.md#accepted-message) message.
+
+Additional `data` fields:
+
+| Field               | Type     | Content / Remarks                                   |
+| ------------------- | -------- | --------------------------------------------------- |
+| `externalReference` | `string` | The external reference given in the request message |
+
+#### Invoicing.Order.DeletedRejected
+
+The [Reject](./result_messages.md#rejected-message) message.
+
+| Field               | Type     | Content / Remarks                                   |
+| ------------------- | -------- | --------------------------------------------------- |
+| `externalReference` | `string` | The external reference given in the request message |
 
 ### Invoicing.Invoice.Created
 
