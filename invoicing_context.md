@@ -1,4 +1,4 @@
- Orders and Invoicing Context
+# Orders and Invoicing Context
 
 ## Events
 
@@ -51,7 +51,7 @@ This message goes from the order provider to GARAIO REM. Set the recipient prope
 
 Notes
 
-* (1) See [about reference and externalReference](#about-reference-and-externalreference).
+* (1) See [about reference and externalReference](#about-reference-and-externalreference-in-the-context-of-invoicinginvoice).
 
 #### Example
 
@@ -576,7 +576,7 @@ Sample Invoice Data to be created when minimal Swiss QR Code values are given:
 
 NOTE: the original SwissQR Code Standards can be found at: <https://www.paymentstandards.ch/dam/downloads/ig-qr-bill-en.pdf>
 
-## About reference and externalReference
+## About reference and externalReference in the context of Invoicing.Invoice.*
 
 While a `reference` is unique, an `externalReference` does not have to be. This has some implications for tracking state change notifications in later messages, e.g. being able to map a `Invoicing.Invoice.Booked` to the correct preceding `Invoicing.Invoice.Created`.
 
