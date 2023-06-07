@@ -168,6 +168,40 @@ This message completely replaces an existing order in GARAIO REM; if you pass, f
 | &nbsp;&nbsp;&nbsp;&nbsp;`bookingText`      | `string`  | optional booking text                                                                                                                            |
 | &nbsp;&nbsp;&nbsp;&nbsp;`amount`           | `decimal` | Quantity - optional / required depending on the accountNumber, eg. number of windows                                                             |
 
+#### Example
+
+```json
+{
+  "eventType":"Invoicing.Order.Updated",
+  "data":{
+    "externalReference":"1234",
+    "supplierReference":"100010",
+    "masterdataReference":"10001.152.132",
+    "subject":"Das ist ein Auftrag",
+    "description":"und das ist die <b>Beschreibung</b> des Auftrags",
+    "deliveryInfo":"end of may",
+    "discount":"5.00",
+    "discountDays":"10",
+    "offeringDate":"2020-11-03",
+    "contactAddress":"Garaio AG\\nLaupenstrasse 45\\n3001 Bern",
+    "deliveryAddress":"Garaio AG\\nLaupenstrasse 45\\n3001 Bern",
+    "languageCode":"fr",
+    "clerkUsername":"Testuser_5",
+    "orderItems":[
+      {
+        "lineNumber":1,
+        "accountNumber":"400000",
+        "costCenterNumber":"600",
+        "bookingAmount":100,
+        "amount":10,
+        "taxCode":"00",
+        "bookingText":"Regler defekt bei Heizkörper"
+      }
+    ]
+  }
+}
+```
+
 #### Responses
 
 You will get back either a [Invoicing.Order.Accepted](#invoicingorderaccepted) or a [Invoicing.Order.Rejected](#invoicingorderrejected).
@@ -198,17 +232,19 @@ The [Accept](./result_messages.md#accepted-message) message.
 
 Additional `data` fields:
 
-| Field               | Type     | Content / Remarks                                   |
-| ------------------- | -------- | --------------------------------------------------- |
-| `externalReference` | `string` | The external reference given in the request message |
+| Field               | Type      | Content / Remarks                                   |
+| ------------------- | --------- | --------------------------------------------------- |
+| `externalReference` | `string`  | The external reference given in the request message |
+| `reference`         | `longint` | unique identifier for the order                     |
 
 #### Invoicing.Order.DeletedRejected
 
 The [Reject](./result_messages.md#rejected-message) message.
 
-| Field               | Type     | Content / Remarks                                   |
-| ------------------- | -------- | --------------------------------------------------- |
-| `externalReference` | `string` | The external reference given in the request message |
+| Field               | Type      | Content / Remarks                                   |
+| ------------------- | --------- | --------------------------------------------------- |
+| `externalReference` | `string`  | The external reference given in the request message |
+| `reference`         | `longint` | unique identifier for the order                     |
 
 ### Invoicing.Invoice.Created
 
