@@ -168,6 +168,10 @@ This message completely replaces an existing order in GARAIO REM; if you pass, f
 | &nbsp;&nbsp;&nbsp;&nbsp;`bookingText`      | `string`  | optional booking text                                                                                                                            |
 | &nbsp;&nbsp;&nbsp;&nbsp;`amount`           | `decimal` | Quantity - optional / required depending on the accountNumber, eg. number of windows                                                             |
 
+#### Responses
+
+You will get back either a [Invoicing.Order.Accepted](#invoicingorderaccepted) or a [Invoicing.Order.Rejected](#invoicingorderrejected).
+
 ### Invoicing.Order.Deleted
 
 This message goes from the order provider to GARAIO REM. Set the recipient property in the headers, eg "grem_derham". GARAIO REM will the delete the referenced order, unless it is already connected to an invoice.
