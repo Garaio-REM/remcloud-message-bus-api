@@ -520,7 +520,7 @@ The [Reject](./result_messages.md#rejected-message) message.
 | ------------------------------------- | --------- | ------------------------------------------------------------ |
 | eventType                             | `string`  | Letting.TenancyAgreementDetails.Update                       |
 | data                                  | `hash`    |                                                              |
-| &nbsp;&nbsp;tenancyAgreementReference | `string`  | tenancy agreement identifier, eg '234.01.0001'; **required** |
+| &nbsp;&nbsp;reference                 | `string`  | tenancy agreement identifier, eg '234.01.0001'; **required** |
 | &nbsp;&nbsp;liabilityInsuranceChecked | `boolean` | whether the necessary liability insurance checks were done.  |
 
 #### Example
@@ -529,7 +529,7 @@ The [Reject](./result_messages.md#rejected-message) message.
 {
   "eventType":"Letting.TenancyAgreementDetails.Update",
   "data": {
-    "tenancyAgreementReference": "10001.349.769.01",
+    "reference": "10001.349.769.01",
     "liabilityInsuranceChecked": true
   }
 }
