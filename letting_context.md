@@ -250,9 +250,21 @@ Notes:
 
 The [Accept](./result_messages.md#accepted-message) message.
 
+Additional `data` fields:
+
+| Field           | Type     | Content / Remarks                               |
+| --------------- | -------- | ----------------------------------------------- |
+| `unitReference` | `string` | The unit reference given in the request message |
+
 #### Letting.Reservation.UpdateRejected
 
 The [Reject](./result_messages.md#rejected-message) message.
+
+Additional `data` fields:
+
+| Field           | Type     | Content / Remarks                               |
+| --------------- | -------- | ----------------------------------------------- |
+| `unitReference` | `string` | The unit reference given in the request message |
 
 ### Letting.TenancyAgreement.Create
 
