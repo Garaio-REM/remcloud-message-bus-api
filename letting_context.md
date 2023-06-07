@@ -473,17 +473,17 @@ data | hash |
 
 ### Letting.TenancyAgreementSecurityDepot.Update
 
-| Field                                 | Type      | Content / Remarks                                         |
-| ------------------------------------- | --------- | --------------------------------------------------------- |
-| eventType                             | `string`  | Letting.TenancyAgreementSecurityDepot.Update              |
-| data                                  | `hash`    |                                                           |
-| &nbsp;&nbsp;tenancyAgreementReference | `string`  | tenancy agreement reference; **required**                 |
-| &nbsp;&nbsp;depositTypeCode           | `string`  | deposit type code ("Depot-Art"); **required**             |
-| &nbsp;&nbsp;custodianReference        | `string`  | person that is the custodian for the depot; reference (1) |
-| &nbsp;&nbsp;payerReference            | `string`  | person that pays the depot; reference (1)                 |
-| &nbsp;&nbsp;depositAmount             | `decimal` | amount to pay in CHF (1)                                  |
-| &nbsp;&nbsp;paidAmount                | `decimal` | paid amount in CHF (1)                                    |
-| &nbsp;&nbsp;depositAccountNumber      | `string`  | payment information. freetext, use e.g. for IBAN (1)      |
+| Field                            | Type      | Content / Remarks                                         |
+| -------------------------------- | --------- | --------------------------------------------------------- |
+| eventType                        | `string`  | Letting.TenancyAgreementSecurityDepot.Update              |
+| data                             | `hash`    |                                                           |
+| &nbsp;&nbsp;reference            | `string`  | tenancy agreement reference; **required**                 |
+| &nbsp;&nbsp;depositTypeCode      | `string`  | deposit type code ("Depot-Art"); **required**             |
+| &nbsp;&nbsp;custodianReference   | `string`  | person that is the custodian for the depot; reference (1) |
+| &nbsp;&nbsp;payerReference       | `string`  | person that pays the depot; reference (1)                 |
+| &nbsp;&nbsp;depositAmount        | `decimal` | amount to pay in CHF (1)                                  |
+| &nbsp;&nbsp;paidAmount           | `decimal` | paid amount in CHF (1)                                    |
+| &nbsp;&nbsp;depositAccountNumber | `string`  | payment information. freetext, use e.g. for IBAN (1)      |
 
 Notes:
 
@@ -495,7 +495,7 @@ Notes:
 {
   "eventType":"Letting.Reservation.Update",
   "data": {
-    "tenancyAgreementReference": "10001.869.474.01",
+    "reference": "10001.869.474.01",
     "depositTypeCode": "1",
     "custodianReference": "100006",
     "payerReference": "100007",
