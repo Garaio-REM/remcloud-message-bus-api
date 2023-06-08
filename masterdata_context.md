@@ -434,7 +434,7 @@ Rules for all array attributes:
 - send an empty array (`[]`) to delete all current data of this type
 - send an array of valid date to fully replace the current data of this type
 
-GARAIO REM replies with a standard Accepted / Rejected message containing the personReference and reject reasons, where appropiate
+GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-message) / [Rejected](./result_messages.md#rejected-message) message containing the personReference and reject reasons, where appropiate
 
 Field | Type | Content / Remarks
 ---|---|---
@@ -458,7 +458,9 @@ Field | Type | Content / Remarks
 &nbsp;&nbsp;&nbsp;&nbsp;`name` | `string` | name of the contact
 &nbsp;&nbsp;&nbsp;&nbsp;`contactAddress` | `string` | address / email / phone number of the contact
 
-#### Example
+#### Examples
+
+##### add email, phone number and contect data
 
 ```json
 {"eventType":"Masterdata.PersonContactData.Update",
@@ -470,6 +472,32 @@ Field | Type | Content / Remarks
       {
         "name":"Max Muster",
         "contactAddress":"him@outlook.com"
+      }
+    ]
+  }
+}
+```
+
+##### accepted response message
+
+```json
+{"eventType":"Letting.PersonContactData.UpdateAccepted",
+  "data":{
+    "personReference":"123456"
+  }
+}
+```
+
+##### rejected response message
+
+```json
+{"eventType":"Letting.PersonContactData.UpdateRejected",
+  "data":{
+    "personReference":"123456",
+    "reasons":[
+      {
+        "attribute":"privateEmails",
+        "reason":"enthält ungültige Email-Adressen"
       }
     ]
   }
