@@ -71,6 +71,11 @@ Some messages must contain additional properties. Please refer to [Header Proper
 
 Events are messages that can be received by multiple subscribers. The message body contains a json data structure.
 
+## Naming Conventions
+
+Messages that end with a verb in the simple past (eg `Created`) describe events that happened in the GARAIO REM domain.
+Messages that end with an imperative (eg `Create`) describe commands that trigger an effect in the GARAIO REM domain.
+
 ## Contexts
 
 Events are grouped by contexts. A context relates to a certain subdomain within the domain of property management,
