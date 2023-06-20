@@ -9,7 +9,8 @@
 | [Letting.Tenancy.Deleted](#lettingtenancydeleted)                                                   | :white_check_mark: | :x:                | A tenancy has been deleted; this means that the tenancy never became effective |
 | [Letting.Tenancy.TenancyAgreementReferenceChanged](#lettingtenancytenancyagreementreferencechanged) | :white_check_mark: | :x:                | The reference of a tenancy agreement has changed                               |
 | [Letting.Reservation.Update](#lettingreservationupdate)                                             | :white_check_mark: | :x:                | Updates the reservation status of a unit.                                      |
-[Letting.TenancyAgreement.Create](#lettingtenancyagreementcreate)                               | :white_check_mark: | :x:                | A tenancy agreement should be created in GARAIO REM
+| [Letting.TenancyAgreement.Create](#lettingtenancyagreementcreate)                                   | :white_check_mark: | :x:                | A tenancy agreement should be created in GARAIO REM                            |
+| [Letting.TenancyAgreement.Delete](#lettingtenancyagreementdelete)                                   | :white_check_mark: | :x:                | A tenancy agreement should be deleted in GARAIO REM                            |
 | [Letting.TenancyAgreementSecurityDepot.Update](#lettingtenancyagreementsecuritydepotupdate)         | :white_check_mark: | :x:                | Updates the reservation status of a unit.                                      |
 | [Letting.TenancyAgreementDetails.Update](#lettingtenancyagreementdetailsupdate)                     | :white_check_mark: | :x:                | Updates some details of a tenancy agreement.                                   |
 | [Letting.Tenancy.MoveInConfirmed](#lettingtenancymoveinconfirmed)                                   | :x:                | :white_check_mark: | Confirms a tenant will move or has moved into a unit. (2)                      |
@@ -470,6 +471,36 @@ data | hash |
   }
 }
 ```
+
+### Letting.TenancyAgreement.Delete
+
+Delete requests for activated tenancy agreements will be rejected (only agreements in states `in_erfassung` and `validiert` are deletable).
+
+| Field                 | Type     | Content / Remarks                         |
+| --------------------- | -------- | ----------------------------------------- |
+| eventType             | `string` | Letting.TenancyAgreement.Delete           |
+| data                  | `hash`   |                                           |
+| &nbsp;&nbsp;reference | `string` | tenancy agreement reference; **required** |
+
+#### Letting.TenancyAgreement.DeleteAccepted
+
+The [Accept](./result_messages.md#accepted-message) message.
+
+Additional `data` fields:
+
+| Field       | Type     | Content / Remarks               |
+| ----------- | -------- | ------------------------------- |
+| `reference` | `string` | The tenancy agreement reference |
+
+#### Letting.TenancyAgreement.DeleteRejected
+
+The [Reject](./result_messages.md#rejected-message) message.
+
+Additional `data` fields:
+
+| Field       | Type     | Content / Remarks               |
+| ----------- | -------- | ------------------------------- |
+| `reference` | `string` | The tenancy agreement reference |
 
 ### Letting.TenancyAgreementSecurityDepot.Update
 
