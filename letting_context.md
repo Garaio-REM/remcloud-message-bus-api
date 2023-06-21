@@ -10,6 +10,7 @@
 | [Letting.Tenancy.TenancyAgreementReferenceChanged](#lettingtenancytenancyagreementreferencechanged) | :white_check_mark: | :x:                | The reference of a tenancy agreement has changed                               |
 | [Letting.Reservation.Update](#lettingreservationupdate)                                             | :white_check_mark: | :x:                | Updates the reservation status of a unit.                                      |
 | [Letting.TenancyAgreement.Create](#lettingtenancyagreementcreate)                                   | :white_check_mark: | :x:                | A tenancy agreement should be created in GARAIO REM                            |
+| [Letting.TenancyAgreement.Activate](#lettingtenancyagreementactivate)                               | :white_check_mark: | :x:                | A tenancy agreement should be activated in GARAIO REM                          |
 | [Letting.TenancyAgreement.Delete](#lettingtenancyagreementdelete)                                   | :white_check_mark: | :x:                | A tenancy agreement should be deleted in GARAIO REM                            |
 | [Letting.TenancyAgreementSecurityDepot.Update](#lettingtenancyagreementsecuritydepotupdate)         | :white_check_mark: | :x:                | Updates the reservation status of a unit.                                      |
 | [Letting.TenancyAgreementDetails.Update](#lettingtenancyagreementdetailsupdate)                     | :white_check_mark: | :x:                | Updates some details of a tenancy agreement.                                   |
@@ -471,6 +472,36 @@ data | hash |
   }
 }
 ```
+
+### Letting.TenancyAgreement.Activate
+
+Activate a tenancy agreement in GREM.
+
+| Field                 | Type     | Content / Remarks                         |
+| --------------------- | -------- | ----------------------------------------- |
+| eventType             | `string` | Letting.TenancyAgreement.Activate         |
+| data                  | `hash`   |                                           |
+| &nbsp;&nbsp;reference | `string` | tenancy agreement reference; **required** |
+
+#### Letting.TenancyAgreement.ActivateAccepted
+
+The [Accept](./result_messages.md#accepted-message) message.
+
+Additional `data` fields:
+
+| Field       | Type     | Content / Remarks               |
+| ----------- | -------- | ------------------------------- |
+| `reference` | `string` | The tenancy agreement reference |
+
+#### Letting.TenancyAgreement.ActivateRejected
+
+The [Reject](./result_messages.md#rejected-message) message.
+
+Additional `data` fields:
+
+| Field       | Type     | Content / Remarks               |
+| ----------- | -------- | ------------------------------- |
+| `reference` | `string` | The tenancy agreement reference |
 
 ### Letting.TenancyAgreement.Delete
 
