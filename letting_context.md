@@ -289,7 +289,7 @@ data | hash |
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zipCode | string | zipCode; **required**
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;street | string | street incl. number; **required**
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;countryCode | string | ISO country code, eg 'CH'; defaults to 'CH'
-&nbsp;&nbsp;&nbsp;&nbsp;correspondenceLanguageCode | string | de, fr, it or en; **must be lower case**
+&nbsp;&nbsp;&nbsp;&nbsp;correspondenceLanguageCode | string | de, fr, it or en; **must be lower case, required**
 &nbsp;&nbsp;&nbsp;&nbsp;email | string | email address
 &nbsp;&nbsp;&nbsp;&nbsp;phoneNumber | string | phone number (international format)
 &nbsp;&nbsp;&nbsp;&nbsp;maritalStatus | string | one of the following values will be accepted: `unmarried`, `marrided`, `widowed`, `divorced`, `separated`, `civil_union`
