@@ -319,7 +319,8 @@ data | hash |
 &nbsp;&nbsp;&nbsp;&nbsp;rentalTypeCode | string | a valid rental type code (see code table entries for valid codes)
 &nbsp;&nbsp;&nbsp;&nbsp;rentLockedUntil | string | ISO 8601 encoded date, eg '2019-03-01'
 &nbsp;&nbsp;&nbsp;&nbsp;rentLockedReason | string | reason why the rent is locked
-&nbsp;&nbsp;cancellationRegulations | hash | optional cancellation regulations
+&nbsp;&nbsp;limitedUntil | string | optional ISO 8601 encoded date, eg '2019-03-31'; if applied, valid cancellationRegulations must be applied, too
+&nbsp;&nbsp;cancellationRegulations | hash | cancellation regulations
 &nbsp;&nbsp;&nbsp;&nbsp;cancellationModeCode | string | a valid cancellation mode code (see code table entries for valid codes)
 &nbsp;&nbsp;&nbsp;&nbsp;cancellationPeriodInMonths | integer | minimum number of months a cancellation must be announced in advance by the landlord
 &nbsp;&nbsp;&nbsp;&nbsp;cancellationPeriodTenantInMonths | integer | minimum number of months a cancellation must be announced in advance by the tenant
