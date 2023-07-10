@@ -47,7 +47,7 @@ Notes
     "categoryCode": "00",
     "recipientUsername": "Testuser_1",
     "senderUsername": "Testuser_2",
-    "externalUrl": "https://example.com"
+    "backlinkUrl": "https://example.com"
   }
 }
 ```
