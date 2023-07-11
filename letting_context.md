@@ -279,7 +279,7 @@ Field | Type | Content / Remarks
 eventType | string | Letting.TenancyAgreement.Create
 data | hash |
 &nbsp;&nbsp;primaryUnitReference | string | reference of an available unit; **required**
-&nbsp;&nbsp;tenancyAgreementTypeCode | string | a valid tenancy agreement type code (see code table entries for valid codes);  **required**
+&nbsp;&nbsp;tenancyAgreementTypeCode | string | a valid tenancy agreement type code (see code table entries (mietvertrag_typ)for valid codes);  **required**
 &nbsp;&nbsp;rentStartDate | string | ISO 8601 encoded date, eg '2019-03-01'; **required**
 &nbsp;&nbsp;primaryTenant | hash | data describing the primary tenant; a new tenant will be created if no tenant with the same name and dateOfBirth exists; **required**
 &nbsp;&nbsp;&nbsp;&nbsp;firstName | string | first name; **required**
@@ -290,6 +290,7 @@ data | hash |
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;street | string | street incl. number; **required**
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;countryCode | string | ISO country code, eg 'CH'; defaults to 'CH'
 &nbsp;&nbsp;&nbsp;&nbsp;correspondenceLanguageCode | string | de, fr, it or en; **must be lower case, required**
+&nbsp;&nbsp;&nbsp;&nbsp;tenantIndustryCode | string | a valid rental type code (see code table entries (branche_mieter) for valid codes)
 &nbsp;&nbsp;&nbsp;&nbsp;email | string | email address
 &nbsp;&nbsp;&nbsp;&nbsp;phoneNumber | string | phone number (international format)
 &nbsp;&nbsp;&nbsp;&nbsp;maritalStatus | string | one of the following values will be accepted: `unmarried`, `marrided`, `widowed`, `divorced`, `separated`, `civil_union`
@@ -316,18 +317,18 @@ data | hash |
 &nbsp;&nbsp;&nbsp;&nbsp;jobTitle | string | job title
 &nbsp;&nbsp;&nbsp;&nbsp;salutation | string | one of the following values will be accepted: `none`, `sir`, `madam`
 &nbsp;&nbsp;rentRegulations | hash | optional rent regulations
-&nbsp;&nbsp;&nbsp;&nbsp;rentalTypeCode | string | a valid rental type code (see code table entries for valid codes)
+&nbsp;&nbsp;&nbsp;&nbsp;rentalTypeCode | string | a valid rental type code (see code table entries (mieter_art) for valid codes)
 &nbsp;&nbsp;&nbsp;&nbsp;rentLockedUntil | string | ISO 8601 encoded date, eg '2019-03-01'
 &nbsp;&nbsp;&nbsp;&nbsp;rentLockedReason | string | reason why the rent is locked
 &nbsp;&nbsp;limitedUntil | string | optional ISO 8601 encoded date, eg '2019-03-31'; if applied, valid cancellationRegulations must be applied, too
 &nbsp;&nbsp;cancellationRegulations | hash | cancellation regulations
-&nbsp;&nbsp;&nbsp;&nbsp;cancellationModeCode | string | a valid cancellation mode code (see code table entries for valid codes)
+&nbsp;&nbsp;&nbsp;&nbsp;cancellationModeCode | string | a valid cancellation mode code (see code table entries (kuendigungs_termin) for valid codes)
 &nbsp;&nbsp;&nbsp;&nbsp;cancellationPeriodInMonths | integer | minimum number of months a cancellation must be announced in advance by the landlord
 &nbsp;&nbsp;&nbsp;&nbsp;cancellationPeriodTenantInMonths | integer | minimum number of months a cancellation must be announced in advance by the tenant
 &nbsp;&nbsp;&nbsp;&nbsp;earliestPossibleTerminationDateLandlord | string | ISO 8601 encoded date, eg '2019-03-01'
 &nbsp;&nbsp;&nbsp;&nbsp;earliestPossibleTerminationDatesTenant | string | ISO 8601 encoded date, eg '2019-03-01'
 &nbsp;&nbsp;securityDeposit | hash | security deposit
-&nbsp;&nbsp;&nbsp;&nbsp;depositTypeCode | string | a valid deposit type code (see code table entries for valid codes)
+&nbsp;&nbsp;&nbsp;&nbsp;depositTypeCode | string | a valid deposit type code (see code table entries (depot_art) for valid codes)
 &nbsp;&nbsp;&nbsp;&nbsp;depositAmount | decimal | amount to pay in CHF
 &nbsp;&nbsp;&nbsp;&nbsp;paidAmount | decimal | paid amount in CHF
 &nbsp;&nbsp;&nbsp;&nbsp;bankGuaranteeExpiration | string | ISO 8601 encoded date, eg '2023-12-31'
@@ -339,7 +340,7 @@ data | hash |
 &nbsp;&nbsp;&nbsp;&nbsp;numberOfPeople | integer | number of people
 &nbsp;&nbsp;&nbsp;&nbsp;installationsForCommonUsage | string | freetext describing installations for common usage
 &nbsp;&nbsp;&nbsp;&nbsp;roomsForSoleUsage | array | rooms for sole usage
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unitTypeCode | string | a valid unit type code (see code table entries for valid codes)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unitTypeCode | string | a valid unit type code (see code table entries (objekt_art) for valid codes)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;number | string | unit number
 
 #### Examples
@@ -385,6 +386,7 @@ data | hash |
         "city":"Bern",
         "countryCode":"CH",
       },
+      "tenantIndustryCode":"01",
       "correspondenceLanguageCode":"de",
       "dateOfBirth":"1972-11-23",
       "email":"max.muster@gmail.com",
