@@ -342,6 +342,9 @@ data | hash |
 &nbsp;&nbsp;&nbsp;&nbsp;roomsForSoleUsage | array | rooms for sole usage
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unitTypeCode | string | a valid unit type code (see code table entries (objekt_art) for valid codes)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;number | string | unit number
+&nbsp;&nbsp;initialRentForm | hash | initial rent form data
+&nbsp;&nbsp;&nbsp;&nbsp;reason | string | Reason for the rent
+&nbsp;&nbsp;&nbsp;&nbsp;withSupportContribution | boolean | has the tenancy agreement support contribution?
 
 #### Examples
 
@@ -442,6 +445,10 @@ data | hash |
           "number":"1234"
         }
       ]
+    },
+    "initialRentForm": {
+      "reason":"Erstvermietung",
+      "withSupportContribution":false,
     }
   }
 }
