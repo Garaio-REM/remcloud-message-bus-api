@@ -272,7 +272,7 @@ Additional `data` fields:
 
 This message is sent from an external message publisher to a GARAIO REM instance and allows to create a tenancy agreement. Set the recipient property in the headers, eg "grem_wincasa". Always required attributes are noted in the remarks. Depending on the tenancy agreement template configuration, additional attributes may be required.
 
-GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-message) / [Rejected](./result_messages.md#rejected-message) message containing the `tenancyAgreementReference` of the created tenancy agreement or reject reasons
+GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-message) / [Rejected](./result_messages.md#rejected-message) message containing the `tenancyAgreementReference` and VAT state infos of the created tenancy agreement or reject reasons
 
 Field | Type | Content / Remarks
 ---|---|---
@@ -459,7 +459,13 @@ data | hash |
 ```json
 {"eventType":"Letting.TenancyAgreement.CreateAccepted",
   "data":{
-    "tenancyAgreementReference":"1234.01.0001.02"
+    "tenancyAgreementReference":"1234.01.0001.02",
+    "vat":{
+      "validFrom":"2023-06-01",
+      "liable":false,
+      "code":"NO",
+      "primaryTenancyAgreementReference":null
+    }
   }
 }
 ```
