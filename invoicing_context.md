@@ -365,7 +365,8 @@ Notes
     "externalReference":"1234",
     "creditorReference":"5555",
     "accountingReference":"4711",
-    "totalGrossAmount":1200.50
+    "totalGrossAmount":1200.50,
+    "invoiceDate":"2020-10-21"
   }
 }
 ```
