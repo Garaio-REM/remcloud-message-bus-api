@@ -12,3 +12,6 @@ Property | Type | Value | Example | Description
 ---|---|---|---|---
 recipient | string | <app_id> | headers: { recipient: 'rem_kunde_XYZ' } | Identifies the indented receiver of a message
 local_authority | boolean | true or false | headers: { local_authority: true }  | A value of true indicates that an event can be forwarded to local authorities (Gemeinden)
+
+## Echo Headers
+Headers starting with 'echo-' are are copied verbatim into the accepted or rejected message.
