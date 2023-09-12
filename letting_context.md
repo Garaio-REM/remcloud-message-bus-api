@@ -281,6 +281,7 @@ data | hash |
 &nbsp;&nbsp;primaryUnitReference | string | reference of an available unit; **required**
 &nbsp;&nbsp;tenancyAgreementTypeCode | string | a valid tenancy agreement type code (see code table entries (mietvertrag_typ)for valid codes);  **required**
 &nbsp;&nbsp;rentStartDate | string | ISO 8601 encoded date, eg '2019-03-01'; **required**
+&nbsp;&nbsp;contractDate | string | ISO 8601 encoded date, eg '2019-02-18'; **required**
 &nbsp;&nbsp;primaryTenant | hash | data describing the primary tenant; a new tenant will be created if no tenant with the same name and dateOfBirth exists; **required**
 &nbsp;&nbsp;&nbsp;&nbsp;firstName | string | first name; **required**
 &nbsp;&nbsp;&nbsp;&nbsp;surname | string | surname; **required**
@@ -356,6 +357,7 @@ data | hash |
     "primaryUnitReference":"1234.01.0001",
     "tenancyAgreementTypeCode":"1",
     "rentStartDate":"2023-06-01",
+    "contractDate":"2023-05-15",
     "primaryTenant":{
       "firstName":"Max",
       "surname":"Muster",
