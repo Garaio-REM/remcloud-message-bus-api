@@ -282,6 +282,7 @@ data | hash |
 &nbsp;&nbsp;tenancyAgreementTypeCode | string | a valid tenancy agreement type code (see code table entries (mietvertrag_typ)for valid codes);  **required**
 &nbsp;&nbsp;rentStartDate | string | ISO 8601 encoded date, eg '2019-03-01'; **required**
 &nbsp;&nbsp;contractDate | string | ISO 8601 encoded date, eg '2019-02-18'; **required**
+&nbsp;&nbsp;paymentModeCode | string | a valid code from the zahlmodus code table; defaults to '01' (monthly in advance)
 &nbsp;&nbsp;primaryTenant | hash | data describing the primary tenant; a new tenant will be created if no tenant with the same name and dateOfBirth exists; **required**
 &nbsp;&nbsp;&nbsp;&nbsp;firstName | string | first name; **required**
 &nbsp;&nbsp;&nbsp;&nbsp;surname | string | surname; **required**
@@ -358,6 +359,7 @@ data | hash |
     "tenancyAgreementTypeCode":"1",
     "rentStartDate":"2023-06-01",
     "contractDate":"2023-05-15",
+    "paymentModeCode":"03",
     "primaryTenant":{
       "firstName":"Max",
       "surname":"Muster",
