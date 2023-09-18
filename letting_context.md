@@ -480,7 +480,8 @@ data | hash |
         {"code":"10",
         "amount":10.0}
       ]
-    }
+    },
+    "paymentModeCode":"01"
   }
 }
 ```
