@@ -471,6 +471,15 @@ data | hash |
       "liable":false,
       "code":"NO",
       "primaryTenancyAgreementReference":null
+    },
+    "rentalCosts":{
+      "netRent":2000.0,
+      "grossRentExcludingVat": 2010.0,
+      "additionalCosts":10.0,
+      "additionalCostsComponents":[
+        {"code":"10",
+        "amount":10.0}
+      ]
     }
   }
 }
