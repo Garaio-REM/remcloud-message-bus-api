@@ -281,6 +281,8 @@ data | hash |
 &nbsp;&nbsp;primaryUnitReference | string | reference of an available unit; **required**
 &nbsp;&nbsp;tenancyAgreementTypeCode | string | a valid tenancy agreement type code (see code table entries (mietvertrag_typ)for valid codes);  **required**
 &nbsp;&nbsp;rentStartDate | string | ISO 8601 encoded date, eg '2019-03-01'; **required**
+&nbsp;&nbsp;contractDate | string | ISO 8601 encoded date, eg '2019-02-18'; **required**
+&nbsp;&nbsp;paymentModeCode | string | a valid code from the zahlmodus code table; defaults to '01' (monthly in advance)
 &nbsp;&nbsp;primaryTenant | hash | data describing the primary tenant; a new tenant will be created if no tenant with the same name and dateOfBirth exists; **required**
 &nbsp;&nbsp;&nbsp;&nbsp;firstName | string | first name; **required**
 &nbsp;&nbsp;&nbsp;&nbsp;surname | string | surname; **required**
@@ -299,6 +301,7 @@ data | hash |
 &nbsp;&nbsp;&nbsp;&nbsp;nationalityCode | string | ISO country code, eg 'CH'
 &nbsp;&nbsp;&nbsp;&nbsp;jobTitle | string | job title
 &nbsp;&nbsp;&nbsp;&nbsp;salutation | string | one of the following values will be accepted: `none`, `sir`, `madam`
+&nbsp;&nbsp;&nbsp;&nbsp;iban | string | a valid IBAN for payouts
 &nbsp;&nbsp;jointTenants | array | data describing optional joint tenants; new tenants will be created if no tenant with the same name and dateOfBirth exists
 &nbsp;&nbsp;&nbsp;&nbsp;firstName | string | first name; **required**
 &nbsp;&nbsp;&nbsp;&nbsp;surname | string | surname; **required**
@@ -356,6 +359,8 @@ data | hash |
     "primaryUnitReference":"1234.01.0001",
     "tenancyAgreementTypeCode":"1",
     "rentStartDate":"2023-06-01",
+    "contractDate":"2023-05-15",
+    "paymentModeCode":"03",
     "primaryTenant":{
       "firstName":"Max",
       "surname":"Muster",
@@ -398,7 +403,8 @@ data | hash |
       "homeTown":"Bern",
       "nationalityCode":"AT",
       "jobTitle":"software engineer",
-      "salutation":"sir"
+      "salutation":"sir",
+      "iban":"CH9531999000000001234"
     },
     "jointTenants":[
       {
