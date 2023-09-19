@@ -470,6 +470,7 @@ data | hash |
       "validFrom":"2023-06-01",
       "liable":false,
       "code":"NO",
+      "rate":7.7,
       "primaryTenancyAgreementReference":null
     },
     "rentalCosts":{
