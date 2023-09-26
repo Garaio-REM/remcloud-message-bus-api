@@ -594,7 +594,7 @@ Notes:
 
 ```json
 {
-  "eventType":"Letting.Reservation.Update",
+  "eventType":"Letting.TenancyAgreementSecurityDepot.Update",
   "data": {
     "reference": "10001.869.474.01",
     "depositTypeCode": "1",
