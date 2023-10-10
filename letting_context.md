@@ -486,7 +486,9 @@ data | hash |
       "mortageRate":2.75,
       "mortageRateDate":"2005-01-01",
       "costIncreaseDate":"",
-      "country_index_date":""
+      "countryIndexDate":"",
+      "countryIndexBaseYear":null,
+      "countryIndexPoints":null
     },
     "paymentModeCode":"01"
   }
