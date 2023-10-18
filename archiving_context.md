@@ -10,12 +10,12 @@
 
 A document has been sent to an external document management system (DMS).
 
-| Field                    | Type     | Content / Remarks                                  |
-| ------------------------ | -------- | -------------------------------------------------- |
-| `eventType`              | `string` | `Archiving.Document.Archived`                      |
-| `data`                   | `hash`   |                                                    |
-| &nbsp;&nbsp;`dmsId`      | `string` | ID of the corresponding document in the DMS        |
-| &nbsp;&nbsp;`internalId` | `string` | Internal ID (table `dokumente`). Caution, see (1). |
+| Field                    | Type      | Content / Remarks                                  |
+| ------------------------ | --------- | -------------------------------------------------- |
+| `eventType`              | `string`  | `Archiving.Document.Archived`                      |
+| `data`                   | `hash`    |                                                    |
+| &nbsp;&nbsp;`dmsId`      | `string`  | ID of the corresponding document in the DMS        |
+| &nbsp;&nbsp;`internalId` | `integer` | Internal ID (table `dokumente`). Caution, see (1). |
 
 Notes
 
@@ -27,7 +27,7 @@ Notes
 {"eventType":"Archiving.Document.Archived",
   "data":{
     "dmsId":"1234",
-    "internalId":"5555"
+    "internalId":5555
   }
 }
 ```
