@@ -83,6 +83,7 @@ or to a domain outside of property management. **IMPORTANT: Message attribute na
 
 | Context                                               | Description                                                                    |
 | ----------------------------------------------------- | ------------------------------------------------------------------------------ |
+| [Archiving](archiving_context.md)                     | Events that are related to archiving Documents                                 |
 | [Damage Case](damage_case_context.md)                 | Events that are related to a Damage Case                                       |
 | [Invoicing](invoicing_context.md)                     | Events related to orders and invoicing                                         |
 | [Letting](letting_context.md)                         | Events related to the letting process                                          |
