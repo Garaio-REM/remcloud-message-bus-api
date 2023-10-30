@@ -302,6 +302,7 @@ data | hash |
 &nbsp;&nbsp;&nbsp;&nbsp;jobTitle | string | job title
 &nbsp;&nbsp;&nbsp;&nbsp;salutation | string | one of the following values will be accepted: `none`, `sir`, `madam`
 &nbsp;&nbsp;&nbsp;&nbsp;iban | string | a valid IBAN for payouts
+&nbsp;&nbsp;&nbsp;&nbsp;assignBuildingAddress | boolean | should the building address be assigned per rent start date?
 &nbsp;&nbsp;jointTenants | array | data describing optional joint tenants; new tenants will be created if no tenant with the same name and dateOfBirth exists
 &nbsp;&nbsp;&nbsp;&nbsp;firstName | string | first name; **required**
 &nbsp;&nbsp;&nbsp;&nbsp;surname | string | surname; **required**
@@ -319,6 +320,7 @@ data | hash |
 &nbsp;&nbsp;&nbsp;&nbsp;nationalityCode | string | ISO country code, eg 'CH'
 &nbsp;&nbsp;&nbsp;&nbsp;jobTitle | string | job title
 &nbsp;&nbsp;&nbsp;&nbsp;salutation | string | one of the following values will be accepted: `none`, `sir`, `madam`
+&nbsp;&nbsp;&nbsp;&nbsp;assignBuildingAddress | boolean | should the building address be assigned per rent start date?
 &nbsp;&nbsp;rentRegulations | hash | optional rent regulations
 &nbsp;&nbsp;&nbsp;&nbsp;rentalTypeCode | string | a valid rental type code (see code table entries (mieter_art) for valid codes)
 &nbsp;&nbsp;&nbsp;&nbsp;rentLockedUntil | string | ISO 8601 encoded date, eg '2019-03-01'
@@ -404,7 +406,8 @@ data | hash |
       "nationalityCode":"AT",
       "jobTitle":"software engineer",
       "salutation":"sir",
-      "iban":"CH9531999000000001234"
+      "iban":"CH9531999000000001234",
+      "assignBuildingAddress": true
     },
     "jointTenants":[
       {
@@ -424,7 +427,8 @@ data | hash |
         "homeTown":"Aarau",
         "nationalityCode":"DE",
         "jobTitle":"Medizinische Praxisassistentin",
-        "salutation":"madam"
+        "salutation":"madam",
+        "assignBuildingAddress": false
       }
     ],
     "cancellationRegulations":{
