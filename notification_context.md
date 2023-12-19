@@ -17,6 +17,8 @@ eventType | string | Notification.Message.Created
 data | hash |
 &nbsp;&nbsp;externalReference | string | external, unique case identifier; **required**
 &nbsp;&nbsp;masterdataReference | string | reference of a property / building / unit; **required**
+&nbsp;&nbsp;categoryCode | string | optional for the category code - this value must match a 'code' within the 'notification_kategorie' of the CodeTabelle.  Blank or non-matching values will fall back to the default based on the sending system's name. (Ideally, in the future, these categories can be found via GraphQL, until they will be provided by Garaio REM personnel as needed).
+&nbsp;&nbsp;recipientUsername | string | optional recipient username (within GREM) to override the default recipient.  Blank or non-matching values will fallback to the default based on the given 'masterdataReference'.
 &nbsp;&nbsp;sender | string | optional sender info (email address, name...)
 &nbsp;&nbsp;mimetype | string | mimetype describing the message format (text/plain, text/markdown...); **required**
 &nbsp;&nbsp;message | string | notification message; **required**
