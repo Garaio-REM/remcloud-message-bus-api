@@ -31,10 +31,21 @@ This message is sent by an external message published to GARAIO REM. Set the rec
 Notes
 
 * (1) Defaults to application user for given app_id
-* (2) You may pass the class name and the reference of a business object. Qualifiying business object classes
-  * are a descendant of ApplicationRecord
-  * have a `referenz` attribute
-* (3) You'll receive a `PendingIssue.Issue.Closed` when the user closes the issue
+* (2) You may pass the class name and the reference of a business object. As of now the following targets are supported:
+  * `Buchhaltung`
+  * `Buchung`
+  * `DauerauftragZahlung`
+  * `Haus`
+  * `Kreditorenauftrag`
+  * `KreditorRechnung`
+  * `Mietvertrag`
+  * `Objekt`
+  * `OffertAnfrage`
+  * `Organisationseinheit`
+  * `Person`
+  * `Textbaustein`
+  * `Verwaltungseinheit`
+  (3) You'll receive a `PendingIssue.Issue.Closed` when the user closes the issue
 
 #### Example
 
