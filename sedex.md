@@ -62,7 +62,7 @@ data | hash ||
 &nbsp;&nbsp;&nbsp;&nbsp;content| string | content for the transmitted data file
 
 The message_id, which is part of every message, is used here as id for the message sent to Sedex. This id will later
-be returned by Sedex in the receipt (see [Sedex.Messaging.MessageSent](#sedexmessagingmessagesent). The id used must
+be returned by Sedex in the receipt (see [Sedex.Messaging.MessageSent](#sedexmessagingmessagesent)). The id used must
 therefore be globally unique.
 #### Example
 ```json

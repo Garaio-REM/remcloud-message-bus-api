@@ -2,7 +2,7 @@
 
 ## Events
 
-Events in this context are always fired for a single grem instance. The [recipient](/header_properties.md/#AdditionalHeaderProperties) header property must be set to the grem instance name in order to route the event to the customer, e.g. recepient: grem_demo1
+Events in this context are always fired for a single grem instance. The [recipient](/header_properties.md/#AdditionalHeaderProperties) header property must be set to the grem instance name in order to route the event to the customer, e.g. recipient: grem_demo1
 
 Type | GARAIO REM | REM | Description
 ---|---|---|---
@@ -18,7 +18,7 @@ Field | Type | Content / Remarks
 `eventType` | `string` | `TenancyApplication.Dossier.Selected`
 `data` | `hash` |
 &nbsp;&nbsp;`dossierId` | `string` | Unique identifier within the tenancy application platform |
-&nbsp;&nbsp;`unitReference` | ``string`` | `String` referencing an existing unit in the target GARAIO REM |
+&nbsp;&nbsp;`unitReference` | `string` | `String` referencing an existing unit in the target GARAIO REM |
 &nbsp;&nbsp;`requestedMovingDate` | `string` | ISO 8601 encoded date, eg `'1980-02-17'`; might be null |
 &nbsp;&nbsp;`applicants` | `array` | list of applicants; must contain at least one applicant |
 &nbsp;&nbsp;&nbsp;&nbsp;`address` | `hash` | address data for this applicant; might be null |
@@ -40,7 +40,8 @@ Field | Type | Content / Remarks
 #### Example
 
 ```json
-{"eventType":"TenancyApplication.Dossier.Selected",
+{
+  "eventType":"TenancyApplication.Dossier.Selected",
   "data":{
     "applicants":[
       {"address":
@@ -64,7 +65,6 @@ Field | Type | Content / Remarks
     "dossierId":"1111",
     "requestedMovingDate":"2019-08-01",
     "unitReference":"1234.01.0001"
-    }
   }
 }
 ```
@@ -122,7 +122,6 @@ Field | Type | Content / Remarks
       },
     "unitReference":"1234.01.0001",
     "dossierId":"1111"
-    }
   }
 }
 ```
@@ -138,10 +137,10 @@ Field | Type | Content / Remarks
 #### Example
 
 ```json
-{"eventType":"TenancyApplication.AllDossiersProcessed",
+{
+  "eventType":"TenancyApplication.AllDossiersProcessed",
   "data":{
     "unitReference":"1234.01.0001"
-    }
   }
 }
 ```
@@ -199,7 +198,6 @@ Field | Type | Content / Remarks
       },
     "unitReference":"1234.01.0001",
     "externalObjectId":"201"
-    }
   }
 }
 ```

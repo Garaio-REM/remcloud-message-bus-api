@@ -130,7 +130,7 @@ Additional `data` fields:
 
 ### PendingIssue.Issue.Closed
 
-Sent by GREM whenever a message previously created by `PendingIssue.Issue.Close` that has an `externalRefernce` is closed by the user in GREM.
+Sent by GREM whenever a message previously created by `PendingIssue.Issue.Close` that has an `externalReference` is closed by the user in GREM.
 
 | Field                           | Type     | Content / Remarks           |
 | ------------------------------- | -------- | --------------------------- |

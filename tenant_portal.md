@@ -1,7 +1,7 @@
 # Tenant Portal Context
 ## Events
 
-Events in this context are always fired for a single grem instance. The [recipient](/header_properties.md/#AdditionalHeaderProperties) header property must be set to the grem instance name in order to route the event to the customer, e.g. recepient: grem_demo1
+Events in this context are always fired for a single grem instance. The [recipient](/header_properties.md/#AdditionalHeaderProperties) header property must be set to the grem instance name in order to route the event to the customer, e.g. recipient: grem_demo1
 
 Type | GARAIO REM | REM | Description
 ---|---|---|---
@@ -22,13 +22,13 @@ Field | Type | Content / Remarks
 #### Example
 
 ```json
-{"eventType":"TenantPortal.Tenant.Registered",
+{
+  "eventType":"TenantPortal.Tenant.Registered",
   "data":{
     "tenantReference":"100004",
     "unitReference":"1234.01.0001",
     "registrationCode":"A1234B99",
     "onboardingUrl":"https://mieterportal.garaio.com"
-    }
   }
 }
 ```
