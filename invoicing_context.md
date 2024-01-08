@@ -225,7 +225,7 @@ This message goes from the order provider to GARAIO REM. Set the recipient prope
 | ------------------------------- | -------- | --------------------------------------------------------------------------------- |
 | `eventType`                     | `string` | Invoicing.Order.Deleted                                                           |
 | `data`                          | `hash`   |                                                                                   |
-| &nbsp;&nbsp;`reference`         | `string` | unique identifer for the order; maybe required, see (1)                           |
+| &nbsp;&nbsp;`reference`         | `string` | unique identifier for the order; maybe required, see (1)                           |
 | &nbsp;&nbsp;`externalReference` | `string` | external order identifier from the order provider; maybe required, see (1) |
 
 Notes

@@ -19,6 +19,8 @@ Type | GARAIO REM | REM | Description
 [Masterdata.ManagementTeam.Updated](#masterdatamanagementteamupdated) | :white_check_mark: | :x: | A change to a property management team was applied; only changed roles are published
 [Masterdata.Configuration.SedexIdChanged](#masterdataconfigurationsedexidchanged) | :x: | :white_check_mark: | A new SedexID has been configured |
 [Masterdata.PersonContactData.Update](#masterdatapersoncontactdataupdate) | :white_check_mark: | :x: | Update the contact data of a person with this message
+[Masterdata.Person.Create](#masterdatapersoncreate) | :white_check_mark: | :x: | Create a new person record with this message
+[Masterdata.Person.Update](#masterdatapersonupdate) | :white_check_mark: | :x: | Update the masterdata of a person with this message
 
 ### Masterdata.Property.Created
 
@@ -190,7 +192,7 @@ data | hash |
 &nbsp;&nbsp;zipCode | string |
 &nbsp;&nbsp;city | string |
 &nbsp;&nbsp;countryCode | string | ISO country code, eg 'CH'
-&nbsp;&nbsp;wgs84Position | hash | Geo Coordinates; only presesnt if the geo coordinates have changed, might be null
+&nbsp;&nbsp;wgs84Position | hash | Geo Coordinates; only present if the geo coordinates have changed, might be null
 &nbsp;&nbsp;&nbsp;latitude | decimal | Latitude
 &nbsp;&nbsp;&nbsp;longitude | decimal | Longitude
 &nbsp;&nbsp;startOfAdministration | string | ISO 8601 encoded date, eg '2019-03-01'
@@ -234,7 +236,7 @@ data | hash |
 A user might change the reference of a building in GARAIO REM. This event reflects such a change. If you store building data you must apply this change to your data.
 
 Note that a change of building reference also leads to a change of object references and tenancy agreement references in that building.
-These changes will be published by seperate messages, namely Masterdata.Unit.ReferenceChanged and Letting.Tenancy.TenancyAgreementReferenceChanged.
+These changes will be published by separate messages, namely Masterdata.Unit.ReferenceChanged and Letting.Tenancy.TenancyAgreementReferenceChanged.
 
 Field | Type | Content / Remarks
 ---|---|---
@@ -345,7 +347,7 @@ data | hash |
 A user might change the reference of a unit in GARAIO REM. This event reflects such a change. If you store unit data in a local domain model you must apply this change to your data.
 
 Note that a change of unit reference also leads to a change of tenancy agreement references in that unit.
-These changes will be published by seperate messages, namely Letting.Tenancy.TenancyAgreementReferenceChanged.
+These changes will be published by separate messages, namely `Letting.Tenancy.TenancyAgreementReferenceChanged`.
 
 Field | Type | Content / Remarks
 ---|---|---
@@ -430,11 +432,11 @@ This message is sent from an external message publisher to a GARAIO REM instance
 Set the recipient property in the headers, eg `"grem_wincasa"`. All attributes are optional unless noted otherwise in the remarks.
 Rules for all array attributes:
 
-- do not send the attribute if you do not want to change current data of this type
+- do not send the attribute if you do not want to create current data of this type
 - send an empty array (`[]`) to delete all current data of this type
 - send an array of valid date to fully replace the current data of this type
 
-GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-message) / [Rejected](./result_messages.md#rejected-message) message containing the personReference and reject reasons, where appropiate
+GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-message) / [Rejected](./result_messages.md#rejected-message) message containing the personReference and reject reasons, where appropriate
 
 Field | Type | Content / Remarks
 ---|---|---
@@ -460,7 +462,7 @@ Field | Type | Content / Remarks
 
 #### Examples
 
-##### add email, phone number and contect data
+##### add email, phone number and contact data
 
 ```json
 {"eventType":"Masterdata.PersonContactData.Update",
@@ -498,6 +500,210 @@ Field | Type | Content / Remarks
       {
         "attribute":"privateEmails",
         "reason":"enthält ungültige Email-Adressen"
+      }
+    ]
+  }
+}
+```
+
+### Masterdata.Person.Create
+
+This message is sent from an external message publisher to a GARAIO REM instance and allows to update contact data of a person.
+Set the recipient property in the headers, eg `"grem_wincasa"`. All attributes are optional unless noted otherwise in the remarks.
+
+GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-message) / [Rejected](./result_messages.md#rejected-message) message containing the personReference and reject reasons, where appropriate
+
+Field | Type | Content / Remarks
+---|---|---
+`eventType` | `string` | `Masterdata.Person.Create`
+`data` | `hash` |
+&nbsp;&nbsp;`firstName` | `string` | first name; **required**
+&nbsp;&nbsp;`surname` | `string` | surname; **required**
+&nbsp;&nbsp;`nameSuffix1` | `string` | additional name suffix (i.e. `'c/o Garaio REM AG'`)
+&nbsp;&nbsp;`nameAddition2` | `string` | additional field to store name information on company records
+&nbsp;&nbsp;`salutation` | `string` | one of the following values will be accepted: `none`, `sir`, `madam`. Send _either_ `salutation` _or_ `salutationCode` but not both.
+&nbsp;&nbsp;`salutationCode` | `string` | a value of the salutation code table (see code table entries "Anreden" for valid codes). Send _either_ `salutation` _or_ `salutationCode` but not both.
+&nbsp;&nbsp;`additionalSalutation` | `string` (max 50 characters) | additional salutation (i.e. `Dr. med.`)
+&nbsp;&nbsp;`maritalStatus` | `string` | one of the following values will be accepted: `unmarried`, `married`, `widowed`, `divorced`, `separated`, `civil_union`. Send _either_ `maritalStatus` _or_ `maritalStatusCode` but not both.
+&nbsp;&nbsp;`maritalStatusCode` | `string` | a value of the marital status code table (see code table entries "Zivilstände" for valid codes). Send _either_ `maritalStatus` _or_ `maritalStatusCode` but not both.
+&nbsp;&nbsp;`jobTitle` | `string` | job title
+&nbsp;&nbsp;`dateOfBirth` | `string` | ISO 8601 encoded date, eg `'2019-03-01'`; **required**
+&nbsp;&nbsp;`dateOfDeath` | `string` | ISO 8601 encoded date, eg `'2019-03-01'`
+&nbsp;&nbsp;`homeTown` | `string` | home town
+&nbsp;&nbsp;`nationalityCode` | `string` | ISO country code, eg `'CH'`
+&nbsp;&nbsp;`sensitive` | `boolean` | sensitive flag. `true` if the person is sensitive and only people with the "Personen Admin" role can mutate that record afterwards.
+&nbsp;&nbsp;`rating` | `string` | defines the creditor rating of this person.
+&nbsp;&nbsp;`modeOfDispatch` | `string` | defines the mode of dispatch for this person. One of the following values will be accepted: `email`, `post`
+&nbsp;&nbsp;`sendEMail` | `string` |  email address where the person wants to receive documents if `modeOfDispatch` is set to `email`
+&nbsp;&nbsp;`isCreditor` | `boolean` | declares whether this person has a creditor profile.
+&nbsp;&nbsp;`creditorProfileIsBlocked` | `boolean` | declares whether this person's creditor profile is blocked.
+&nbsp;&nbsp;`discount` | `decimal` | discount for this person
+&nbsp;&nbsp;`skonto` | `decimal` | skonto for this person in percent.
+&nbsp;&nbsp;`skontoInfo` | `string` | skonto information for this person.
+&nbsp;&nbsp;`skontoDays` | `integer` | skonto information for this person. Must be empty, 0 or a positive integer
+&nbsp;&nbsp;`creditorIndustry` | `string` | creditor industry code for this person. Must be a valid creditor industry code (see code table entries "Kreditorbranchen" for valid codes).
+&nbsp;&nbsp;`tenantIndustryCode` | `string` | tenant industry code for this person. Must be a valid tenant industry code (see code table entries "Mieterbranchen" for valid codes).
+&nbsp;&nbsp;`companyGroupReference` | `string` | company group reference for this person. Must be a valid reference of an existing company record in GARAIO REM.
+&nbsp;&nbsp;`brandName` | `string` | brand name for this record
+&nbsp;&nbsp;`hasDunningBlock` | `boolean` | declares whether this person has a dunning block. `true` if they should have a dunning block and `false` if they shouldn't.
+&nbsp;&nbsp;`isVATexempt` | `boolean` | declares whether this record is VAT exempt. `true` if they should be VAT exempt and `false` if they shouldn't.
+&nbsp;&nbsp;`UIDnumber` | `string` | UID number for this person. Must be a valid UID number (i.e. `461.079.435`).
+&nbsp;&nbsp;`VATnr` | `string` | VAT number for this person. Must be a valid VAT number (i.e. `461.079.435`).
+&nbsp;&nbsp;`hasPaymentBlock` | `boolean` | declares whether this person has a payment block. `true` if they should have a payment block and `false` if they shouldn't.
+&nbsp;&nbsp;`paymentBlockReason` | `string` | reason for the payment block for this person.
+&nbsp;&nbsp;`correspondenceLanguageCode` | `string` | `'de'`, `'fr'`, `'it'` or `'en'`; **must be lower case, required**
+&nbsp;&nbsp;`address` | `hash` | current address
+&nbsp;&nbsp;&nbsp;&nbsp;`city` | `string` | city; **required**
+&nbsp;&nbsp;&nbsp;&nbsp;`zipCode` | `string` | zipCode; **required**
+&nbsp;&nbsp;&nbsp;&nbsp;`street` | `string` | street incl. number; **required**
+&nbsp;&nbsp;&nbsp;&nbsp;`countryCode` | `string` | ISO country code, eg `'CH'`; defaults to `'CH'`
+
+#### example
+
+```json
+{"eventType":"Masterdata.Person.Create",
+  "data":{
+    "firstName":"Max",
+    "surname":"Muster",
+    "dateOfBirth":"1980-01-01",
+    "correspondenceLanguageCode":"de",
+    "jobTitle":"CEO",
+    "homeTown":"Bern",
+    "nationalityCode":"ch",
+    "maritalStatus":"married",
+    "salutation":"SIR",
+    "address":{
+      "city":"Bern",
+      "zipCode":"3007",
+      "street":"Gartenstrasse 1/3",
+      "countryCode":"CH"
+    }
+  }
+}
+```
+
+##### accepted response message
+
+```json
+{"eventType":"Masterdata.Person.CreateAccepted",
+  "data":{
+    "personReference":"123456"
+  }
+}
+```
+
+##### rejected response message
+
+```json
+{"eventType":"Masterdata.Person.CreateRejected",
+  "data":{
+    "reasons":[
+      {
+        "attribute":"surname",
+        "reason":"darf nicht leer sein"
+      }
+    ]
+  }
+}
+```
+
+### Masterdata.Person.Update
+
+This message is sent from an external message publisher to a GARAIO REM instance and allows to update contact data of a person.
+Set the recipient property in the headers, eg `"grem_wincasa"`. All attributes are optional unless noted otherwise in the remarks.
+
+GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-message) / [Rejected](./result_messages.md#rejected-message) message containing the personReference and reject reasons, where appropriate
+
+Field | Type | Content / Remarks
+---|---|---
+`eventType` | `string` | `Masterdata.Person.Update`
+`data` | `hash` |
+&nbsp;&nbsp;`personReference` | `string` | reference of the person that should receive the communication updates; **required**
+&nbsp;&nbsp;`firstName` | `string` | first name; **required**
+&nbsp;&nbsp;`surname` | `string` | surname; **required**
+&nbsp;&nbsp;`nameSuffix1` | `string` | additional name suffix (i.e. `'c/o Garaio REM AG'`)
+&nbsp;&nbsp;`nameAddition2` | `string` | additional field to store name information on company records
+&nbsp;&nbsp;`salutation` | `string` | one of the following values will be accepted: `none`, `sir`, `madam`. Send _either_ `salutation` _or_ `salutationCode` but not both.
+&nbsp;&nbsp;`salutationCode` | `string` | a value of the salutation code table (see code table entries "Anreden" for valid codes). Send _either_ `salutation` _or_ `salutationCode` but not both.
+&nbsp;&nbsp;`additionalSalutation` | `string` (max 50 characters) | additional salutation (i.e. `Dr. med.`)
+&nbsp;&nbsp;`maritalStatus` | `string` | one of the following values will be accepted: `unmarried`, `married`, `widowed`, `divorced`, `separated`, `civil_union`. Send _either_ `maritalStatus` _or_ `maritalStatusCode` but not both.
+&nbsp;&nbsp;`maritalStatusCode` | `string` | a value of the marital status code table (see code table entries "Zivilstände" for valid codes). Send _either_ `maritalStatus` _or_ `maritalStatusCode` but not both.
+&nbsp;&nbsp;`jobTitle` | `string` | job title
+&nbsp;&nbsp;`dateOfBirth` | `string` | ISO 8601 encoded date, eg `'2019-03-01'`
+&nbsp;&nbsp;`dateOfDeath` | `string` | ISO 8601 encoded date, eg `'2019-03-01'`
+&nbsp;&nbsp;`homeTown` | `string` | home town
+&nbsp;&nbsp;`nationalityCode` | `string` | ISO country code, eg `'CH'`
+&nbsp;&nbsp;`sensitive` | `boolean` | sensitive flag. `true` if the person is sensitive and only people with the "Personen Admin" role can mutate that record afterwards.
+&nbsp;&nbsp;`rating` | `string` | defines the creditor rating of this person.
+&nbsp;&nbsp;`modeOfDispatch` | `string` | defines the mode of dispatch for this person. One of the following values will be accepted: `email`, `post`
+&nbsp;&nbsp;`sendEMail` | `string` |  email address where the person wants to receive documents if `modeOfDispatch` is set to `email`
+&nbsp;&nbsp;`isCreditor` | `boolean` | declares whether this person has a creditor profile.
+&nbsp;&nbsp;`creditorProfileIsBlocked` | `boolean` | declares whether this person's creditor profile is blocked.
+&nbsp;&nbsp;`discount` | `decimal` | discount for this person
+&nbsp;&nbsp;`skonto` | `decimal` | skonto for this person in percent.
+&nbsp;&nbsp;`skontoInfo` | `string` | skonto information for this person.
+&nbsp;&nbsp;`skontoDays` | `integer` | skonto information for this person. Must be empty, 0 or a positive integer
+&nbsp;&nbsp;`creditorIndustry` | `string` | creditor industry code for this person. Must be a valid creditor industry code (see code table entries "Kreditorbranchen" for valid codes).
+&nbsp;&nbsp;`tenantIndustryCode` | `string` | tenant industry code for this person. Must be a valid tenant industry code (see code table entries "Mieterbranchen" for valid codes).
+&nbsp;&nbsp;`companyGroupReference` | `string` | company group reference for this person. Must be a valid reference of an existing company record in GARAIO REM.
+&nbsp;&nbsp;`brandName` | `string` | brand name for this record
+&nbsp;&nbsp;`hasDunningBlock` | `boolean` | declares whether this person has a dunning block. `true` if they should have a dunning block and `false` if they shouldn't.
+&nbsp;&nbsp;`isVATexempt` | `boolean` | declares whether this record is VAT exempt. `true` if they should be VAT exempt and `false` if they shouldn't.
+&nbsp;&nbsp;`UIDnumber` | `string` | UID number for this person. Must be a valid UID number (i.e. `461.079.435`).
+&nbsp;&nbsp;`VATnr` | `string` | VAT number for this person. Must be a valid VAT number (i.e. `461.079.435`).
+&nbsp;&nbsp;`hasPaymentBlock` | `boolean` | declares whether this person has a payment block. `true` if they should have a payment block and `false` if they shouldn't.
+&nbsp;&nbsp;`paymentBlockReason` | `string` | reason for the payment block for this person.
+&nbsp;&nbsp;`correspondenceLanguageCode` | `string` | `'de'`, `'fr'`, `'it'` or `'en'`; **must be lower case**
+&nbsp;&nbsp;`address` | `hash` | current address
+&nbsp;&nbsp;&nbsp;&nbsp;`city` | `string` | city
+&nbsp;&nbsp;&nbsp;&nbsp;`zipCode` | `string` | zipCode
+&nbsp;&nbsp;&nbsp;&nbsp;`street` | `string` | street incl. number
+&nbsp;&nbsp;&nbsp;&nbsp;`countryCode` | `string` | ISO country code, eg `'CH'`; defaults to `'CH'`
+
+#### example
+
+```json
+{"eventType":"Masterdata.Person.Create",
+  "data":{
+    "firstName":"Max",
+    "surname":"Muster",
+    "dateOfBirth":"1980-01-01",
+    "correspondenceLanguageCode":"de",
+    "jobTitle":"CEO",
+    "homeTown":"Bern",
+    "nationalityCode":"ch",
+    "maritalStatus":"married",
+    "salutation":"SIR",
+    "address":{
+      "city":"Bern",
+      "zipCode":"3007",
+      "street":"Gartenstrasse 1/3",
+      "countryCode":"CH"
+    }
+  }
+}
+```
+
+##### accepted response message
+
+```json
+{"eventType":"Masterdata.Person.UpdateAccepted",
+  "data":{
+    "personReference":"123456"
+  }
+}
+```
+
+##### rejected response message
+
+```json
+{"eventType":"Masterdata.Person.UpdateRejected",
+  "data":{
+    "personReference":"123456",
+    "reasons":[
+      {
+        "attribute":"surname",
+        "reason":"darf nicht leer sein"
       }
     ]
   }
