@@ -1,5 +1,7 @@
 # Pending Issue
 
+Pending Issue messages are meant to be used by customers that run their own services and want to integrate them by managing pending issues. **They are not meant to be used by third party services. These should use [notifications](notification_context.md) instead.**
+
 ## Events
 
 | Type                                                  | GARAIO REM         | REM | Description                             |
