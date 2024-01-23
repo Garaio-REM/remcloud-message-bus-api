@@ -16,6 +16,7 @@
 | [Letting.TenancyAgreementDetails.Update](#lettingtenancyagreementdetailsupdate)                     | :white_check_mark: | :x:                | Updates some details of a tenancy agreement.                                   |
 | [Letting.Tenancy.MoveInConfirmed](#lettingtenancymoveinconfirmed)                                   | :x:                | :white_check_mark: | Confirms a tenant will move or has moved into a unit. (2)                      |
 | [Letting.Tenancy.MoveOutConfirmed](#lettingtenancymoveoutconfirmed)                                 | :x:                | :white_check_mark: | Confirms a tenant will move out or has moved out of a unit. (3)                |
+| [Letting.Tenant.Updated](#lettingtenantupdated)                                                     | :white_check_mark: | :x:                | Notification when tenant information has been updated/changed                  |
 
 Notes
 
@@ -24,6 +25,8 @@ Notes
 * (3) Like Letting.Tenancy.MoveInConfirmed the event is also only raised when a tenant has lived or traded in person at the given unit.
 
 ### Letting.Tenancy.Created
+
+NOTE: We have discoved minor differences in the logic for sending the _preferred_ `email` and `phoneNumber` in mbus messages, the priority is always the same for all persons, while GraphQL queries send different values Legal and Physical persons.  At the moment, we are not planning to change this behaviour without consulting our partners, in order to prevent unexpected side effects.
 
 | Field                                   | Type     | Content / Remarks                                         |
 | --------------------------------------- | -------- | --------------------------------------------------------- |
@@ -38,7 +41,7 @@ Notes
 | &nbsp;&nbsp;&nbsp;&nbsp;firstName       | `string` |                                                           |
 | &nbsp;&nbsp;&nbsp;&nbsp;surname         | `string` |                                                           |
 | &nbsp;&nbsp;&nbsp;&nbsp;languageCode    | `string` | de, fr, it or en; **must be lower case**                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;nationalityCode | `string` | ISO country code, eg 'CH'                                 |
+| &nbsp;&nbsp;&nbsp;&nbsp;nationalityCode | `string` | ISO country code (ISO 3166-1 alpha-2), eg 'CH'            |
 | &nbsp;&nbsp;&nbsp;&nbsp;phoneNumber     | `string` | might be null                                             |
 | &nbsp;&nbsp;&nbsp;&nbsp;email           | `string` | might be null                                             |
 
@@ -673,3 +676,76 @@ Additional `data` fields:
 | Field       | Type     | Content / Remarks               |
 | ----------- | -------- | ------------------------------- |
 | `reference` | `string` | The tenancy agreement reference |
+
+
+### Letting.Tenant.Updated
+
+Letting.Tenant messages are sent when a tenant isupdated or merged with another person.
+
+**These messages are sent for EACH Tenancy Agreement that the tenant is linked to and only sent to relevant parties.** _This is accomplished (on the backend), by including the `propery` and `unit` so that we can check the associated Tags to filter for allowed message recipients.)_
+
+Because we send a message for each Tenancy, we also send the following fields: `tenancyAgreementReference`, `unitReference`, `tenantReference` to ensure a successful lookup on the remote system. `tenant` fields are optional and will generally only be sent if they have changed. The possible Tenant fields to be sent should be the same as those in the [Letting.Tenant.Create](./#lettingtenantcreate) message. _(Please notify us if you find any discrepancies.)_
+
+* In the case of a removed **email** or **phoneNumber**, the corresponding preferred value will always be sent, as it is difficult to know if the preferred value has changed.
+* In the case of a **tenant merge**, the full tenant data will be sent, as it is difficult to know what has changed, since the old record has already been removed at the time of building this message.  It is also important to note, that in the case of a merge the `reference` field will be changed and MUST be updated in order to match all future tenant references in ANY subsequent messages.
+
+NOTE:
+
+| Field                                   | Type     | Content / Remarks                                                                         |
+| --------------------------------------- | -------- | ----------------------------------------------------------------------------------------- |
+| eventType                               | `string` | Letting.Tenant.Updated                                                                    |
+| data                                    | `hash`   |                                                                                           |
+| &nbsp;&nbsp;tenancyAgreementReference   | `string` | unique tenancy agreement identifier, eg '1234.01.0001.01'                                 |
+| &nbsp;&nbsp;unitReference               | `string` | unique unit identifier, eg '234.01.0001'                                                  |
+| &nbsp;&nbsp;tenantReference             | `string` | unique tenant identifier, eg '100004' - this is ALWAYS the reference previously published |
+| &nbsp;&nbsp;tenant                      | `hash`   | ALL TENANT FIELDS except REFERENCE are optional and will only be send when changed        |
+| &nbsp;&nbsp;&nbsp;&nbsp;reference       | `string` | unique tenant identifier, eg '100004' - this is ALWAYS the reference to be persisted and will be used in future `tenantReference` messages |
+| &nbsp;&nbsp;&nbsp;&nbsp;firstName       | `string` |                                                                                           |
+| &nbsp;&nbsp;&nbsp;&nbsp;surname         | `string` |                                                                                           |
+| &nbsp;&nbsp;&nbsp;&nbsp;languageCode    | `string` | de, fr, it or en; **must be lower case**                                                  |
+| &nbsp;&nbsp;&nbsp;&nbsp;nationalityCode | `string` | ISO country code (ISO 3166-1 alpha-2), eg 'CH'                                            |
+| &nbsp;&nbsp;&nbsp;&nbsp;phoneNumber     | `string` |                                                                                           |
+| &nbsp;&nbsp;&nbsp;&nbsp;email           | `string` |                                                                                           |
+
+#### Example
+
+Typical tenant updated message example:
+
+**NOTE:** `tenantReference` _(prior reference)_ and `tenant.reference` will be the same.
+
+```json
+{"eventType":"Letting.Tenancy.Created",
+  "data":{
+    "tenancyAgreementReference":"10001.786.29.01",
+    "unitReference":"10001.786.29",
+    "tenantReference":"100004",
+    "tenant":{
+      "reference":"100004",
+      "email":"name@home-mail.xy"
+    }
+  }
+}
+```
+
+Typical tenant merge message example:
+
+**NOTE:** the difference in `tenantReference` _(prior reference)_ from `tenant.reference` _(new reference)_
+
+```json
+{"eventType":"Letting.Tenancy.Created",
+  "data":{
+    "tenancyAgreementReference":"10001.786.29.01",
+    "unitReference":"10001.786.29",
+    "tenantReference":"100004",
+    "tenant":{
+      "reference":"987654",
+      "firstName":"John",
+      "surname":"Doe",
+      "languageCode":"en",
+      "nationalityCode":"CH",
+      "phoneNumber":"+41 79 123 45 67",
+      "email":"name@home-mail.xy"
+    }
+  }
+}
+```
