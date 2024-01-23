@@ -27,7 +27,8 @@ Notes
 
 ### Letting.Tenancy.Created
 
-**NOTE:** New tenant fields have been added to be consistent with the GraphQL API. Also note that the logic for the preferred phoneNumber and email fields has also changed to be consistent with the GraphQL API (the preferred value is now based on the person type).
+**NOTE:** New tenant fields have been added to be consistent with the GraphQL API, these include (fullName, type, dateOfBirth, type, allphoneNumbers, allEmails & postalAddress)
+Also note that the logic for the preferred phoneNumber and email fields has also changed to be consistent with the GraphQL API (the preferred value is now based on the person type).
 
 | Field                                      | Type     | Content / Remarks                                         |
 | ------------------------------------------ | -------- | --------------------------------------------------------- |
@@ -45,7 +46,6 @@ Notes
 | &nbsp;&nbsp;&nbsp;&nbsp;nationalityCode    | `string` | ISO country code, eg 'CH'                                 |
 | &nbsp;&nbsp;&nbsp;&nbsp;phoneNumber        | `string` | preferred number (based on person type) - might be null   |
 | &nbsp;&nbsp;&nbsp;&nbsp;email              | `string` | preferred email (based on person type) - might be null    |
-| new fields                                 |          | Introduced in v1.21 (Q1 2024)                             |
 | &nbsp;&nbsp;&nbsp;&nbsp;fullName           | `string` | built from the individual name parts, respecting the type of tenant (corporate or physical) |
 | &nbsp;&nbsp;&nbsp;&nbsp;type               | `string` | LEGAL (a company) or PHYSICAL (Physical person)           |
 | &nbsp;&nbsp;&nbsp;&nbsp;dateOfBirth        | `string` | ISO 8601 encoded date, eg '2019-05-30'                    |
