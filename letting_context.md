@@ -51,8 +51,10 @@ stateDiagram-v2
     Deactivated --> [*]
 ```
 
-**NOTE:** New tenant fields have been added to be consistent with the GraphQL API. Also note that the logic for the preferred phoneNumber and email fields has also changed to be consistent with the GraphQL API (the preferred value is now based on the person type).
+**NOTE:** New tenant fields have been added to be consistent with the GraphQL API, these include (fullName, type, dateOfBirth, type, allphoneNumbers, allEmails & postalAddress)
+Also note that the logic for the preferred phoneNumber and email fields has also changed to be consistent with the GraphQL API (the preferred value is now based on the person type).
 
+<<<<<<< HEAD
 NOTE: We have discovered minor differences in the logic for sending the _preferred_ `email` and `phoneNumber` in mbus messages, the priority is always the same for all persons, while GraphQL queries send different values for Legal and Physical persons. At the moment, we are not planning to change this behaviour without consulting our partners, in order to prevent unexpected side effects.
 
 ### Letting.Tenancy.Created
@@ -90,6 +92,40 @@ NOTE: We have discovered minor differences in the logic for sending the _preferr
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zipCode           | `string`          |                                                                                             |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;postOfficeBoxText | `string`          | See eCH-0010 specs                                                                          |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;street            | `string`          | Street name including number where appropriate                                              |
+=======
+| Field                                      | Type     | Content / Remarks                                         |
+| ------------------------------------------ | -------- | --------------------------------------------------------- |
+| eventType                                  | `string` | Letting.Tenancy.Created                                   |
+| data                                       | `hash`   |                                                           |
+| &nbsp;&nbsp;startDate                      | `string` | ISO 8601 encoded date, eg '2019-05-25'                    |
+| &nbsp;&nbsp;endDate                        | `string` | ISO 8601 encoded date, eg '2019-05-25'; might be null     |
+| &nbsp;&nbsp;tenancyAgreementReference      | `string` | unique tenancy agreement identifier, eg '1234.01.0001.01' |
+| &nbsp;&nbsp;unitReference                  | `string` | unique unit identifier, eg '234.01.0001'                  |
+| &nbsp;&nbsp;tenant                         | `hash`   |                                                           |
+| &nbsp;&nbsp;&nbsp;&nbsp;reference          | `string` | tenant reference; uniquely identifies a person            |
+| &nbsp;&nbsp;&nbsp;&nbsp;firstName          | `string` |                                                           |
+| &nbsp;&nbsp;&nbsp;&nbsp;surname            | `string` |                                                           |
+| &nbsp;&nbsp;&nbsp;&nbsp;languageCode       | `string` | de, fr, it or en; **must be lower case**                  |
+| &nbsp;&nbsp;&nbsp;&nbsp;nationalityCode    | `string` | ISO country code, eg 'CH'                                 |
+| &nbsp;&nbsp;&nbsp;&nbsp;phoneNumber        | `string` | preferred number (based on person type) - might be null   |
+| &nbsp;&nbsp;&nbsp;&nbsp;email              | `string` | preferred email (based on person type) - might be null    |
+| &nbsp;&nbsp;&nbsp;&nbsp;fullName           | `string` | built from the individual name parts, respecting the type of tenant (corporate or physical) |
+| &nbsp;&nbsp;&nbsp;&nbsp;type               | `string` | LEGAL (a company) or PHYSICAL (Physical person)           |
+| &nbsp;&nbsp;&nbsp;&nbsp;dateOfBirth        | `string` | ISO 8601 encoded date, eg '2019-05-30'                    |
+| &nbsp;&nbsp;&nbsp;&nbsp;allphoneNumbers    | `array of hashes` | a list of all available email addresses and type |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;phoneNumber  | `string` |                                                           |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type         | `string` | one of: PRIVATE, PROFESSIONAL, MOBILE or OTHER            |
+| &nbsp;&nbsp;&nbsp;&nbsp;allEmails          | `array of hashes` | a list of all available email addresses and type |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;emailAddress | `string` |                                                           |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type         | `string` | one of: PRIVATE, PROFESSIONAL or OTHER                    |
+| &nbsp;&nbsp;&nbsp;&nbsp;postalAddress      | `hash`   | current address fields conformant to the eCH-0010 specs   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addressLine1 | `string` | See eCH-0010 specs                                        |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;countryCode  | `string` | ISO 3166-1 alpha-2 country code, eg CH                    |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;city         | `string` |                                                           |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zipCode      | `string` |                                                           |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;postOfficeBoxText | `string` | See eCH-0010 specs                                   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;street       | `string` | Street name including number where appropriate            |
+>>>>>>> 052c4c6 (minor clarifications)
 
 #### Example
 
