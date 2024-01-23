@@ -714,7 +714,7 @@ Typical tenant updated message example:
 **NOTE:** `tenantReference` _(prior reference)_ and `tenant.reference` will be the same.
 
 ```json
-{"eventType":"Letting.Tenancy.Created",
+{"eventType":"Letting.Tenant.Updated",
   "data":{
     "tenancyAgreementReference":"10001.786.29.01",
     "unitReference":"10001.786.29",
@@ -732,7 +732,7 @@ Typical tenant merge message example:
 **NOTE:** the difference in `tenantReference` _(prior reference)_ from `tenant.reference` _(new reference)_
 
 ```json
-{"eventType":"Letting.Tenancy.Created",
+{"eventType":"Letting.Tenant.Updated",
   "data":{
     "tenancyAgreementReference":"10001.786.29.01",
     "unitReference":"10001.786.29",
