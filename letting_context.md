@@ -723,6 +723,9 @@ Letting.Tenant messages are sent when a tenant isupdated or merged with another 
 
 Because we send a message for each Tenancy, we also send the following fields: `tenancyAgreementReference`, `unitReference`, `tenantReference` to ensure a successful lookup on the remote system. `tenant` fields are optional and will generally only be sent if they have changed. The possible Tenant fields to be sent should be the same as those in the [Letting.Tenant.Create](./#lettingtenantcreate) message. _(Please notify us if you find any discrepancies.)_
 
+* When an address is added the full address data indluding a `validFrom` (in case it is an address for the future).
+* When an address is deleted the full current address data will be sent (it is possible that an older address was deleted and the adress hasn't actually changed).
+* when an address is changed (updated) we will only send the address fields that have changed (and the `validFrom` date - incase it is a future address)
 * In the case of a removed **email** or **phoneNumber**, the corresponding preferred value will always be sent, as it is difficult to know if the preferred value has changed.
 * In the case of a **tenant merge**, the full tenant data will be sent, as it is difficult to know what has changed, since the old record has already been removed at the time of building this message.  It is also important to note, that in the case of a merge the `reference` field will be changed and MUST be updated in order to match all future tenant references in ANY subsequent messages.
 
@@ -759,12 +762,13 @@ NOTE:
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zipCode      | `string` |                                                                                             |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;postOfficeBoxText | `string` | See eCH-0010 specs                                                                     |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;street       | `string` | Street name including number where appropriate                                              |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;validFrom    | `string` | Some Addresses will be created for the future                                               |
 
 #### Example
 
 Typical tenant updated message example:
 
-**NOTE:** `tenantReference` _(prior reference)_ and `tenant.reference` will be the same.
+**NOTE:** in most cases the `tenantReference` _(prior reference)_ and `tenant.reference` _(new reference)_ will be the same.
 
 ```json
 {"eventType":"Letting.Tenant.Updated",
@@ -774,7 +778,16 @@ Typical tenant updated message example:
     "tenantReference":"100004",
     "tenant":{
       "reference":"100004",
-      "email":"name@home-mail.xy"
+      "email":"name@home-mail.xy",
+      "postalAddress":{
+        "addressLine1":"Haupt Mieter",
+        "countryCode":"CH",
+        "city":"Bern",
+        "zipCode":"3000",
+        "postOfficeBoxText":"Postfach 1234",
+        "street":"Hauptstrasse 1",
+        "validFrom":"2024-01-01"
+      }
     }
   }
 }
@@ -782,7 +795,7 @@ Typical tenant updated message example:
 
 Typical tenant merge message example:
 
-**NOTE:** the difference in `tenantReference` _(prior reference)_ from `tenant.reference` _(new reference)_
+**NOTE:** in the case of a merge the `tenantReference` _(prior reference)_ is different from `tenant.reference` _(new reference)_
 
 ```json
 {"eventType":"Letting.Tenant.Updated",
