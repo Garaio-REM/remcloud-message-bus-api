@@ -519,6 +519,7 @@ Field | Type | Content / Remarks
 `data` | `hash` |
 &nbsp;&nbsp;`firstName` | `string` | first name; **required**
 &nbsp;&nbsp;`surname` | `string` | surname; **required**
+&nbsp;&nbsp;`reference` | `string` | an optional reference that must be unique. If none is provided, GARAIO REM will generate one.
 &nbsp;&nbsp;`nameSuffix1` | `string` | additional name suffix (i.e. `'c/o Garaio REM AG'`)
 &nbsp;&nbsp;`nameAddition2` | `string` | additional field to store name information on company records
 &nbsp;&nbsp;`salutation` | `string` | one of the following values will be accepted: `none`, `sir`, `madam`. Send _either_ `salutation` _or_ `salutationCode` but not both.
