@@ -28,22 +28,38 @@ Notes
 
 NOTE: We have discoved minor differences in the logic for sending the _preferred_ `email` and `phoneNumber` in mbus messages, the priority is always the same for all persons, while GraphQL queries send different values Legal and Physical persons.  At the moment, we are not planning to change this behaviour without consulting our partners, in order to prevent unexpected side effects.
 
-| Field                                   | Type     | Content / Remarks                                         |
-| --------------------------------------- | -------- | --------------------------------------------------------- |
-| eventType                               | `string` | Letting.Tenancy.Created                                   |
-| data                                    | `hash`   |                                                           |
-| &nbsp;&nbsp;startDate                   | `string` | ISO 8601 encoded date, eg '2019-05-25'                    |
-| &nbsp;&nbsp;endDate                     | `string` | ISO 8601 encoded date, eg '2019-05-25'; might be null     |
-| &nbsp;&nbsp;tenancyAgreementReference   | `string` | unique tenancy agreement identifier, eg '1234.01.0001.01' |
-| &nbsp;&nbsp;unitReference               | `string` | unique unit identifier, eg '234.01.0001'                  |
-| &nbsp;&nbsp;tenant                      | `hash`   |                                                           |
-| &nbsp;&nbsp;&nbsp;&nbsp;reference       | `string` | tenant reference; uniquely identifies a person            |
-| &nbsp;&nbsp;&nbsp;&nbsp;firstName       | `string` |                                                           |
-| &nbsp;&nbsp;&nbsp;&nbsp;surname         | `string` |                                                           |
-| &nbsp;&nbsp;&nbsp;&nbsp;languageCode    | `string` | de, fr, it or en; **must be lower case**                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;nationalityCode | `string` | ISO country code (ISO 3166-1 alpha-2), eg 'CH'            |
-| &nbsp;&nbsp;&nbsp;&nbsp;phoneNumber     | `string` | might be null                                             |
-| &nbsp;&nbsp;&nbsp;&nbsp;email           | `string` | might be null                                             |
+| Field                                      | Type     | Content / Remarks                                         |
+| ------------------------------------------ | -------- | --------------------------------------------------------- |
+| eventType                                  | `string` | Letting.Tenancy.Created                                   |
+| data                                       | `hash`   |                                                           |
+| &nbsp;&nbsp;startDate                      | `string` | ISO 8601 encoded date, eg '2019-05-25'                    |
+| &nbsp;&nbsp;endDate                        | `string` | ISO 8601 encoded date, eg '2019-05-25'; might be null     |
+| &nbsp;&nbsp;tenancyAgreementReference      | `string` | unique tenancy agreement identifier, eg '1234.01.0001.01' |
+| &nbsp;&nbsp;unitReference                  | `string` | unique unit identifier, eg '234.01.0001'                  |
+| &nbsp;&nbsp;tenant                         | `hash`   |                                                           |
+| &nbsp;&nbsp;&nbsp;&nbsp;reference          | `string` | tenant reference; uniquely identifies a person            |
+| &nbsp;&nbsp;&nbsp;&nbsp;firstName          | `string` |                                                           |
+| &nbsp;&nbsp;&nbsp;&nbsp;surname            | `string` |                                                           |
+| &nbsp;&nbsp;&nbsp;&nbsp;languageCode       | `string` | de, fr, it or en; **must be lower case**                  |
+| &nbsp;&nbsp;&nbsp;&nbsp;nationalityCode    | `string` | ISO country code (ISO 3166-1 alpha-2), eg 'CH'            |
+| &nbsp;&nbsp;&nbsp;&nbsp;phoneNumber        | `string` | might be null                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;email              | `string` | might be null                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;fullName           | `string` | built from the individual name parts, respecting the type of tenant (corporate or physical) |
+| &nbsp;&nbsp;&nbsp;&nbsp;type               | `string` | LEGAL (a company) or PHYSICAL (Physical person)           |
+| &nbsp;&nbsp;&nbsp;&nbsp;dateOfBirth        | `string` | ISO 8601 encoded date, eg '2019-05-30'                    |
+| &nbsp;&nbsp;&nbsp;&nbsp;allphoneNumbers    | `array of hashes` | a list of all available email addresses and type |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;phoneNumber  | `string` |                                                           |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type         | `string` | one of: PRIVATE, PROFESSIONAL, MOBILE or OTHER            |
+| &nbsp;&nbsp;&nbsp;&nbsp;allEmails          | `array of hashes` | a list of all available email addresses and type |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;emailAddress | `string` |                                                           |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type         | `string` | one of: PRIVATE, PROFESSIONAL or OTHER                    |
+| &nbsp;&nbsp;&nbsp;&nbsp;postalAddress      | `hash`   | current address fields conformant to the eCH-0010 specs   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addressLine1 | `string` | See eCH-0010 specs                                        |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;countryCode  | `string` | ISO 3166-1 alpha-2 country code, eg CH                    |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;city         | `string` |                                                           |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zipCode      | `string` |                                                           |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;postOfficeBoxText | `string` | See eCH-0010 specs                                   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;street       | `string` | Street name including number where appropriate            |
 
 #### Example
 
@@ -61,7 +77,28 @@ NOTE: We have discoved minor differences in the logic for sending the _preferred
       "languageCode":"de",
       "nationalityCode":"AT",
       "phoneNumber":"+41 31 331 21 11",
-      "email":"email@test-mail.xy"
+      "email":"name@home-mail.xy",
+      "fullName":"Haupt Mieter",
+      "type":"PHYSICAL",
+      "dateOfBirth":"1980-01-01",
+      "allphoneNumbers":[
+        {"phoneNumber":"+41 31 331 21 11","type":"PRIVATE"},
+        {"phoneNumber":"+41 31 331 21 12","type":"PROFESSIONAL"},
+        {"phoneNumber":"+41 31 331 21 13","type":"MOBILE"},
+        {"phoneNumber":"+41 31 331 21 14","type":"OTHER"}
+      ],
+      "allEmails":[
+        {"emailAddress":"name@home-mail.xy","type":"PRIVATE"},
+        {"emailAddress":"username@work-mail.yz","type":"PROFESSIONAL"}
+      ],
+      "postalAddress":{
+        "addressLine1":"Haupt Mieter",
+        "countryCode":"CH",
+        "city":"Bern",
+        "zipCode":"3000",
+        "postOfficeBoxText":"Postfach 1234",
+        "street":"Hauptstrasse 1"
+      }
     }
   }
 }
@@ -686,32 +723,52 @@ Letting.Tenant messages are sent when a tenant isupdated or merged with another 
 
 Because we send a message for each Tenancy, we also send the following fields: `tenancyAgreementReference`, `unitReference`, `tenantReference` to ensure a successful lookup on the remote system. `tenant` fields are optional and will generally only be sent if they have changed. The possible Tenant fields to be sent should be the same as those in the [Letting.Tenant.Create](./#lettingtenantcreate) message. _(Please notify us if you find any discrepancies.)_
 
+* When an address is added the full address data indluding a `validFrom` (in case it is an address for the future).
+* When an address is deleted the full current address data will be sent (it is possible that an older address was deleted and the adress hasn't actually changed).
+* when an address is changed (updated) we will only send the address fields that have changed (and the `validFrom` date - incase it is a future address)
 * In the case of a removed **email** or **phoneNumber**, the corresponding preferred value will always be sent, as it is difficult to know if the preferred value has changed.
 * In the case of a **tenant merge**, the full tenant data will be sent, as it is difficult to know what has changed, since the old record has already been removed at the time of building this message.  It is also important to note, that in the case of a merge the `reference` field will be changed and MUST be updated in order to match all future tenant references in ANY subsequent messages.
 
 NOTE:
 
-| Field                                   | Type     | Content / Remarks                                                                         |
-| --------------------------------------- | -------- | ----------------------------------------------------------------------------------------- |
-| eventType                               | `string` | Letting.Tenant.Updated                                                                    |
-| data                                    | `hash`   |                                                                                           |
-| &nbsp;&nbsp;tenancyAgreementReference   | `string` | unique tenancy agreement identifier, eg '1234.01.0001.01'                                 |
-| &nbsp;&nbsp;unitReference               | `string` | unique unit identifier, eg '234.01.0001'                                                  |
-| &nbsp;&nbsp;tenantReference             | `string` | unique tenant identifier, eg '100004' - this is ALWAYS the reference previously published |
-| &nbsp;&nbsp;tenant                      | `hash`   | ALL TENANT FIELDS except REFERENCE are optional and will only be send when changed        |
-| &nbsp;&nbsp;&nbsp;&nbsp;reference       | `string` | unique tenant identifier, eg '100004' - this is ALWAYS the reference to be persisted and will be used in future `tenantReference` messages |
-| &nbsp;&nbsp;&nbsp;&nbsp;firstName       | `string` |                                                                                           |
-| &nbsp;&nbsp;&nbsp;&nbsp;surname         | `string` |                                                                                           |
-| &nbsp;&nbsp;&nbsp;&nbsp;languageCode    | `string` | de, fr, it or en; **must be lower case**                                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;nationalityCode | `string` | ISO country code (ISO 3166-1 alpha-2), eg 'CH'                                            |
-| &nbsp;&nbsp;&nbsp;&nbsp;phoneNumber     | `string` |                                                                                           |
-| &nbsp;&nbsp;&nbsp;&nbsp;email           | `string` |                                                                                           |
+| Field                                      | Type     | Content / Remarks                                                                           |
+| ------------------------------------------ | -------- | ------------------------------------------------------------------------------------------- |
+| eventType                                  | `string` | Letting.Tenant.Updated                                                                      |
+| data                                       | `hash`   |                                                                                             |
+| &nbsp;&nbsp;tenancyAgreementReference      | `string` | unique tenancy agreement identifier, eg '1234.01.0001.01'                                   |
+| &nbsp;&nbsp;unitReference                  | `string` | unique unit identifier, eg '234.01.0001'                                                    |
+| &nbsp;&nbsp;tenantReference                | `string` | unique tenant identifier, eg '100004' - this is ALWAYS the reference previously published   |
+| &nbsp;&nbsp;tenant                         | `hash`   | ALL TENANT FIELDS except REFERENCE are optional and will only be send when changed          |
+| &nbsp;&nbsp;&nbsp;&nbsp;reference          | `string` | unique tenant identifier, eg '100004' - this is ALWAYS the reference to be persisted and the reference that will be used in future `tenantReference` values |
+| &nbsp;&nbsp;&nbsp;&nbsp;firstName          | `string` |                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;surname            | `string` |                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;languageCode       | `string` | de, fr, it or en; **must be lower case**                                                    |
+| &nbsp;&nbsp;&nbsp;&nbsp;nationalityCode    | `string` | ISO country code (ISO 3166-1 alpha-2), eg 'CH'                                              |
+| &nbsp;&nbsp;&nbsp;&nbsp;phoneNumber        | `string` |                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;email              | `string` |                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;fullName           | `string` | built from the individual name parts, respecting the type of tenant (corporate or physical) |
+| &nbsp;&nbsp;&nbsp;&nbsp;type               | `string` | LEGAL (a company) or PHYSICAL (Physical person)                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;dateOfBirth        | `string` | ISO 8601 encoded date, eg '2019-05-30'                                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;allphoneNumbers    | `array of hashes` | a list of all available email addresses and type                                   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;phoneNumber  | `string` |                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type         | `string` | one of: PRIVATE, PROFESSIONAL, MOBILE or OTHER                                              |
+| &nbsp;&nbsp;&nbsp;&nbsp;allEmails          | `array of hashes` | a list of all available email addresses and type                                   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;emailAddress | `string` |                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type         | `string` | one of: PRIVATE, PROFESSIONAL or OTHER                                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;postalAddress      | `hash`   | current address fields conformant to the eCH-0010 specs                                     |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addressLine1 | `string` | See eCH-0010 specs                                                                          |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;countryCode  | `string` | ISO 3166-1 alpha-2 country code, eg CH                                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;city         | `string` |                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zipCode      | `string` |                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;postOfficeBoxText | `string` | See eCH-0010 specs                                                                     |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;street       | `string` | Street name including number where appropriate                                              |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;validFrom    | `string` | Some Addresses will be created for the future                                               |
 
 #### Example
 
 Typical tenant updated message example:
 
-**NOTE:** `tenantReference` _(prior reference)_ and `tenant.reference` will be the same.
+**NOTE:** in most cases the `tenantReference` _(prior reference)_ and `tenant.reference` _(new reference)_ will be the same.
 
 ```json
 {"eventType":"Letting.Tenant.Updated",
@@ -721,7 +778,16 @@ Typical tenant updated message example:
     "tenantReference":"100004",
     "tenant":{
       "reference":"100004",
-      "email":"name@home-mail.xy"
+      "email":"name@home-mail.xy",
+      "postalAddress":{
+        "addressLine1":"Haupt Mieter",
+        "countryCode":"CH",
+        "city":"Bern",
+        "zipCode":"3000",
+        "postOfficeBoxText":"Postfach 1234",
+        "street":"Hauptstrasse 1",
+        "validFrom":"2024-01-01"
+      }
     }
   }
 }
@@ -729,7 +795,7 @@ Typical tenant updated message example:
 
 Typical tenant merge message example:
 
-**NOTE:** the difference in `tenantReference` _(prior reference)_ from `tenant.reference` _(new reference)_
+**NOTE:** in the case of a merge the `tenantReference` _(prior reference)_ is different from `tenant.reference` _(new reference)_
 
 ```json
 {"eventType":"Letting.Tenant.Updated",
@@ -739,12 +805,33 @@ Typical tenant merge message example:
     "tenantReference":"100004",
     "tenant":{
       "reference":"987654",
-      "firstName":"John",
-      "surname":"Doe",
-      "languageCode":"en",
-      "nationalityCode":"CH",
-      "phoneNumber":"+41 79 123 45 67",
-      "email":"name@home-mail.xy"
+      "firstName":"Haupt",
+      "surname":"Mieter",
+      "languageCode":"de",
+      "nationalityCode":"AT",
+      "phoneNumber":"+41 31 331 21 11",
+      "email":"name@home-mail.xy",
+      "fullName":"Haupt Mieter",
+      "type":"PHYSICAL",
+      "dateOfBirth":"1980-01-01",
+      "allphoneNumbers":[
+        {"phoneNumber":"+41 31 331 21 11","type":"PRIVATE"},
+        {"phoneNumber":"+41 31 331 21 12","type":"PROFESSIONAL"},
+        {"phoneNumber":"+41 31 331 21 13","type":"MOBILE"},
+        {"phoneNumber":"+41 31 331 21 14","type":"OTHER"}
+      ],
+      "allEmails":[
+        {"emailAddress":"name@home-mail.xy","type":"PRIVATE"},
+        {"emailAddress":"username@work-mail.yz","type":"PROFESSIONAL"}
+      ],
+      "postalAddress":{
+        "addressLine1":"Haupt Mieter",
+        "countryCode":"CH",
+        "city":"Bern",
+        "zipCode":"3000",
+        "postOfficeBoxText":"Postfach 1234",
+        "street":"Hauptstrasse 1"
+      }
     }
   }
 }
