@@ -518,7 +518,7 @@ Field | Type | Content / Remarks
 `eventType` | `string` | `Masterdata.Person.Create`
 `data` | `hash` |
 &nbsp;&nbsp;`firstName` | `string` | first name; **required**
-&nbsp;&nbsp;`surname` | `string` | surname; **required**
+&nbsp;&nbsp;`surname` | `string` | surname for natural persons or company name for legal persons; **required**
 &nbsp;&nbsp;`reference` | `string` | an optional reference that must be unique. If none is provided, GARAIO REM will generate one.
 &nbsp;&nbsp;`nameSuffix1` | `string` | additional name suffix (i.e. `'c/o Garaio REM AG'`)
 &nbsp;&nbsp;`nameAddition2` | `string` | additional field to store name information on company records
@@ -528,7 +528,8 @@ Field | Type | Content / Remarks
 &nbsp;&nbsp;`maritalStatus` | `string` | one of the following values will be accepted: `unmarried`, `married`, `widowed`, `divorced`, `separated`, `civil_union`. Send _either_ `maritalStatus` _or_ `maritalStatusCode` but not both.
 &nbsp;&nbsp;`maritalStatusCode` | `string` | a value of the marital status code table (see code table entries "Zivilstände" for valid codes). Send _either_ `maritalStatus` _or_ `maritalStatusCode` but not both.
 &nbsp;&nbsp;`jobTitle` | `string` | job title
-&nbsp;&nbsp;`dateOfBirth` | `string` | ISO 8601 encoded date, eg `'2019-03-01'`; **required**
+&nbsp;&nbsp;`personType` | `string` | person code for this person. Can be one of the following values: `'natural_person'` for natural persons and `'legal_person'` for legal persons and `'condominium'` for condominiums. Defaults to `natural_person`.
+&nbsp;&nbsp;`dateOfBirth` | `string` | ISO 8601 encoded date, eg `'2019-03-01'`; only **required** if person is a natural person
 &nbsp;&nbsp;`dateOfDeath` | `string` | ISO 8601 encoded date, eg `'2019-03-01'`
 &nbsp;&nbsp;`homeTown` | `string` | home town
 &nbsp;&nbsp;`nationalityCode` | `string` | ISO country code, eg `'CH'`
@@ -621,7 +622,7 @@ Field | Type | Content / Remarks
 `data` | `hash` |
 &nbsp;&nbsp;`personReference` | `string` | reference of the person that should receive the communication updates; **required**
 &nbsp;&nbsp;`firstName` | `string` | first name; **required**
-&nbsp;&nbsp;`surname` | `string` | surname; **required**
+&nbsp;&nbsp;`surname` | `string` | surname for natural persons or company name for legal persons; **required**
 &nbsp;&nbsp;`nameSuffix1` | `string` | additional name suffix (i.e. `'c/o Garaio REM AG'`)
 &nbsp;&nbsp;`nameAddition2` | `string` | additional field to store name information on company records
 &nbsp;&nbsp;`salutation` | `string` | one of the following values will be accepted: `none`, `sir`, `madam`. Send _either_ `salutation` _or_ `salutationCode` but not both.
@@ -630,6 +631,7 @@ Field | Type | Content / Remarks
 &nbsp;&nbsp;`maritalStatus` | `string` | one of the following values will be accepted: `unmarried`, `married`, `widowed`, `divorced`, `separated`, `civil_union`. Send _either_ `maritalStatus` _or_ `maritalStatusCode` but not both.
 &nbsp;&nbsp;`maritalStatusCode` | `string` | a value of the marital status code table (see code table entries "Zivilstände" for valid codes). Send _either_ `maritalStatus` _or_ `maritalStatusCode` but not both.
 &nbsp;&nbsp;`jobTitle` | `string` | job title
+&nbsp;&nbsp;`personType` | `string` | person code for this person. Can be one of the following values: `'natural_person'` for natural persons and `'legal_person'` for legal persons and `'condominium'` for condominiums.
 &nbsp;&nbsp;`dateOfBirth` | `string` | ISO 8601 encoded date, eg `'2019-03-01'`
 &nbsp;&nbsp;`dateOfDeath` | `string` | ISO 8601 encoded date, eg `'2019-03-01'`
 &nbsp;&nbsp;`homeTown` | `string` | home town
