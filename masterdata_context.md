@@ -517,6 +517,8 @@ Field | Type | Content / Remarks
 ---|---|---
 `eventType` | `string` | `Masterdata.Person.Create`
 `data` | `hash` |
+&nbsp;&nbsp;`createdAt` | `string` | ISO 8601 encoded timestamp, eg `'2024-02-06T14:10:11+01:00'`. Defaults to current time. |
+&nbsp;&nbsp;`updatedAt` | `string` | ISO 8601 encoded timestamp, eg `'2024-02-06T14:10:11+01:00'`. Defaults to current time. |
 &nbsp;&nbsp;`firstName` | `string` | first name; **required**
 &nbsp;&nbsp;`surname` | `string` | surname; **required**
 &nbsp;&nbsp;`reference` | `string` | an optional reference that must be unique. If none is provided, GARAIO REM will generate one.
@@ -619,6 +621,8 @@ Field | Type | Content / Remarks
 ---|---|---
 `eventType` | `string` | `Masterdata.Person.Update`
 `data` | `hash` |
+&nbsp;&nbsp;`createdAt` | `string` | ISO 8601 encoded timestamp, eg `'2024-02-06T14:10:11+01:00'`. Left unchanged if not given. |
+&nbsp;&nbsp;`updatedAt` | `string` | ISO 8601 encoded timestamp, eg `'2024-02-06T14:10:11+01:00'`. Defaults to current time. |
 &nbsp;&nbsp;`personReference` | `string` | reference of the person that should receive the communication updates; **required**
 &nbsp;&nbsp;`firstName` | `string` | first name; **required**
 &nbsp;&nbsp;`surname` | `string` | surname; **required**
