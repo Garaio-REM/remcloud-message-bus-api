@@ -28,38 +28,38 @@ Notes
 
 NOTE: We have discoved minor differences in the logic for sending the _preferred_ `email` and `phoneNumber` in mbus messages, the priority is always the same for all persons, while GraphQL queries send different values Legal and Physical persons.  At the moment, we are not planning to change this behaviour without consulting our partners, in order to prevent unexpected side effects.
 
-| Field                                      | Type     | Content / Remarks                                         |
-| ------------------------------------------ | -------- | --------------------------------------------------------- |
-| eventType                                  | `string` | Letting.Tenancy.Created                                   |
-| data                                       | `hash`   |                                                           |
-| &nbsp;&nbsp;startDate                      | `string` | ISO 8601 encoded date, eg '2019-05-25'                    |
-| &nbsp;&nbsp;endDate                        | `string` | ISO 8601 encoded date, eg '2019-05-25'; might be null     |
-| &nbsp;&nbsp;tenancyAgreementReference      | `string` | unique tenancy agreement identifier, eg '1234.01.0001.01' |
-| &nbsp;&nbsp;unitReference                  | `string` | unique unit identifier, eg '234.01.0001'                  |
-| &nbsp;&nbsp;tenant                         | `hash`   |                                                           |
-| &nbsp;&nbsp;&nbsp;&nbsp;reference          | `string` | tenant reference; uniquely identifies a person            |
-| &nbsp;&nbsp;&nbsp;&nbsp;firstName          | `string` |                                                           |
-| &nbsp;&nbsp;&nbsp;&nbsp;surname            | `string` |                                                           |
-| &nbsp;&nbsp;&nbsp;&nbsp;languageCode       | `string` | de, fr, it or en; **must be lower case**                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;nationalityCode    | `string` | ISO country code (ISO 3166-1 alpha-2), eg 'CH'            |
-| &nbsp;&nbsp;&nbsp;&nbsp;phoneNumber        | `string` | might be null                                             |
-| &nbsp;&nbsp;&nbsp;&nbsp;email              | `string` | might be null                                             |
-| &nbsp;&nbsp;&nbsp;&nbsp;fullName           | `string` | built from the individual name parts, respecting the type of tenant (corporate or physical) |
-| &nbsp;&nbsp;&nbsp;&nbsp;type               | `string` | LEGAL (a company) or PHYSICAL (Physical person)           |
-| &nbsp;&nbsp;&nbsp;&nbsp;dateOfBirth        | `string` | ISO 8601 encoded date, eg '2019-05-30'                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;allphoneNumbers    | `array of hashes` | a list of all available email addresses and type |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;phoneNumber  | `string` |                                                           |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type         | `string` | one of: PRIVATE, PROFESSIONAL, MOBILE or OTHER            |
-| &nbsp;&nbsp;&nbsp;&nbsp;allEmails          | `array of hashes` | a list of all available email addresses and type |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;emailAddress | `string` |                                                           |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type         | `string` | one of: PRIVATE, PROFESSIONAL or OTHER                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;postalAddress      | `hash`   | current address fields conformant to the eCH-0010 specs   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addressLine1 | `string` | See eCH-0010 specs                                        |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;countryCode  | `string` | ISO 3166-1 alpha-2 country code, eg CH                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;city         | `string` |                                                           |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zipCode      | `string` |                                                           |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;postOfficeBoxText | `string` | See eCH-0010 specs                                   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;street       | `string` | Street name including number where appropriate            |
+| Field                                           | Type              | Content / Remarks                                                                           |
+| ----------------------------------------------- | ----------------- | ------------------------------------------------------------------------------------------- |
+| eventType                                       | `string`          | Letting.Tenancy.Created                                                                     |
+| data                                            | `hash`            |                                                                                             |
+| &nbsp;&nbsp;startDate                           | `string`          | ISO 8601 encoded date, eg '2019-05-25'                                                      |
+| &nbsp;&nbsp;endDate                             | `string`          | ISO 8601 encoded date, eg '2019-05-25'; might be null                                       |
+| &nbsp;&nbsp;tenancyAgreementReference           | `string`          | unique tenancy agreement identifier, eg '1234.01.0001.01'                                   |
+| &nbsp;&nbsp;unitReference                       | `string`          | unique unit identifier, eg '234.01.0001'                                                    |
+| &nbsp;&nbsp;tenant                              | `hash`            |                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;reference               | `string`          | tenant reference; uniquely identifies a person                                              |
+| &nbsp;&nbsp;&nbsp;&nbsp;firstName               | `string`          |                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;surname                 | `string`          |                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;languageCode            | `string`          | de, fr, it or en; **must be lower case**                                                    |
+| &nbsp;&nbsp;&nbsp;&nbsp;nationalityCode         | `string`          | ISO country code (ISO 3166-1 alpha-2), eg 'CH'                                              |
+| &nbsp;&nbsp;&nbsp;&nbsp;phoneNumber             | `string`          | might be null                                                                               |
+| &nbsp;&nbsp;&nbsp;&nbsp;email                   | `string`          | might be null                                                                               |
+| &nbsp;&nbsp;&nbsp;&nbsp;fullName                | `string`          | built from the individual name parts, respecting the type of tenant (corporate or physical) |
+| &nbsp;&nbsp;&nbsp;&nbsp;type                    | `string`          | LEGAL (a company) or PHYSICAL (Physical person)                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;dateOfBirth             | `string`          | ISO 8601 encoded date, eg '2019-05-30'                                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;allphoneNumbers         | `array of hashes` | a list of all available email addresses and type                                            |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;phoneNumber       | `string`          |                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type              | `string`          | one of: PRIVATE, PROFESSIONAL, MOBILE or OTHER                                              |
+| &nbsp;&nbsp;&nbsp;&nbsp;allEmails               | `array of hashes` | a list of all available email addresses and type                                            |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;emailAddress      | `string`          |                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type              | `string`          | one of: PRIVATE, PROFESSIONAL or OTHER                                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;postalAddress           | `hash`            | current address fields conformant to the eCH-0010 specs                                     |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addressLine1      | `string`          | See eCH-0010 specs                                                                          |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;countryCode       | `string`          | ISO 3166-1 alpha-2 country code, eg CH                                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;city              | `string`          |                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zipCode           | `string`          |                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;postOfficeBoxText | `string`          | See eCH-0010 specs                                                                          |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;street            | `string`          | Street name including number where appropriate                                              |
 
 #### Example
 
@@ -314,82 +314,86 @@ This message is sent from an external message publisher to a GARAIO REM instance
 
 GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-message) / [Rejected](./result_messages.md#rejected-message) message containing the `tenancyAgreementReference`, VAT state infos and rental costs of the created tenancy agreement or reject reasons
 
-Field | Type | Content / Remarks
----|---|---
-eventType | string | Letting.TenancyAgreement.Create
-data | hash |
-&nbsp;&nbsp;primaryUnitReference | string | reference of an available unit; **required**
-&nbsp;&nbsp;tenancyAgreementTypeCode | string | a valid tenancy agreement type code (see code table entries (`mietvertrag_typ`) for valid codes);  **required**
-&nbsp;&nbsp;rentStartDate | string | ISO 8601 encoded date, eg '2019-03-01'; **required**
-&nbsp;&nbsp;contractDate | string | ISO 8601 encoded date, eg '2019-02-18'; **required**
-&nbsp;&nbsp;paymentModeCode | string | a valid code from the zahlmodus code table; defaults to '01' (monthly in advance)
-&nbsp;&nbsp;primaryTenant | hash | data describing the primary tenant; a new tenant will be created if no tenant with the same name and dateOfBirth exists; **required**
-&nbsp;&nbsp;&nbsp;&nbsp;firstName | string | first name; **required**
-&nbsp;&nbsp;&nbsp;&nbsp;surname | string | surname; **required**
-&nbsp;&nbsp;&nbsp;&nbsp;address | hash | current address
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;city | string | city; **required**
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zipCode | string | zipCode; **required**
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;street | string | street incl. number; **required**
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;countryCode | string | ISO country code, eg 'CH'; defaults to 'CH'
-&nbsp;&nbsp;&nbsp;&nbsp;correspondenceLanguageCode | string | de, fr, it or en; **must be lower case, required**
-&nbsp;&nbsp;&nbsp;&nbsp;tenantIndustryCode | string | a valid rental type code (see code table entries (`branche_mieter`) for valid codes)
-&nbsp;&nbsp;&nbsp;&nbsp;email | string | email address
-&nbsp;&nbsp;&nbsp;&nbsp;phoneNumber | string | phone number (international format)
-&nbsp;&nbsp;&nbsp;&nbsp;maritalStatus | string | one of the following values will be accepted: `unmarried`, `married`, `widowed`, `divorced`, `separated`, `civil_union`
-&nbsp;&nbsp;&nbsp;&nbsp;dateOfBirth | string | ISO 8601 encoded date, eg '2019-03-01'; **required**
-&nbsp;&nbsp;&nbsp;&nbsp;homeTown | string | home town
-&nbsp;&nbsp;&nbsp;&nbsp;nationalityCode | string | ISO country code, eg 'CH'
-&nbsp;&nbsp;&nbsp;&nbsp;jobTitle | string | job title
-&nbsp;&nbsp;&nbsp;&nbsp;salutation | string | one of the following values will be accepted: `none`, `sir`, `madam`
-&nbsp;&nbsp;&nbsp;&nbsp;iban | string | a valid IBAN for payouts
-&nbsp;&nbsp;&nbsp;&nbsp;assignBuildingAddress | boolean | should the building address be assigned per rent start date?
-&nbsp;&nbsp;jointTenants | array | data describing optional joint tenants; new tenants will be created if no tenant with the same name and dateOfBirth exists
-&nbsp;&nbsp;&nbsp;&nbsp;firstName | string | first name; **required**
-&nbsp;&nbsp;&nbsp;&nbsp;surname | string | surname; **required**
-&nbsp;&nbsp;&nbsp;&nbsp;address | hash | current address
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;city | string | city; **required**
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zipCode | string | zipCode; **required**
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;street | string | street incl. number; **required**
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;countryCode | string | ISO country code, eg 'CH';  **required**
-&nbsp;&nbsp;&nbsp;&nbsp;correspondenceLanguageCode | string | de, fr, it or en; **must be lower case, required**
-&nbsp;&nbsp;&nbsp;&nbsp;email | string | email address
-&nbsp;&nbsp;&nbsp;&nbsp;phoneNumber | string | phone number (international format)
-&nbsp;&nbsp;&nbsp;&nbsp;maritalStatus | string | one of the following values will be accepted: `unmarried`, `married`, `widowed`, `divorced`, `separated`, `civil_union`
-&nbsp;&nbsp;&nbsp;&nbsp;dateOfBirth | string | ISO 8601 encoded date, eg '2019-03-01'; **required**
-&nbsp;&nbsp;&nbsp;&nbsp;homeTown | string | home town
-&nbsp;&nbsp;&nbsp;&nbsp;nationalityCode | string | ISO country code, eg 'CH'
-&nbsp;&nbsp;&nbsp;&nbsp;jobTitle | string | job title
-&nbsp;&nbsp;&nbsp;&nbsp;salutation | string | one of the following values will be accepted: `none`, `sir`, `madam`
-&nbsp;&nbsp;&nbsp;&nbsp;assignBuildingAddress | boolean | should the building address be assigned per rent start date?
-&nbsp;&nbsp;rentRegulations | hash | optional rent regulations
-&nbsp;&nbsp;&nbsp;&nbsp;rentalTypeCode | string | a valid rental type code (see code table entries (`mieter_art`) for valid codes)
-&nbsp;&nbsp;&nbsp;&nbsp;rentLockedUntil | string | ISO 8601 encoded date, eg '2019-03-01'
-&nbsp;&nbsp;&nbsp;&nbsp;rentLockedReason | string | reason why the rent is locked
-&nbsp;&nbsp;limitedUntil | string | optional ISO 8601 encoded date, eg '2019-03-31'; if applied, valid cancellationRegulations must be applied, too
-&nbsp;&nbsp;cancellationRegulations | hash | cancellation regulations
-&nbsp;&nbsp;&nbsp;&nbsp;cancellationModeCode | string | a valid cancellation mode code (see code table entries (`kuendigungs_termin`) for valid codes)
-&nbsp;&nbsp;&nbsp;&nbsp;cancellationPeriodInMonths | integer | minimum number of months a cancellation must be announced in advance by the landlord
-&nbsp;&nbsp;&nbsp;&nbsp;cancellationPeriodTenantInMonths | integer | minimum number of months a cancellation must be announced in advance by the tenant
-&nbsp;&nbsp;&nbsp;&nbsp;earliestPossibleTerminationDateLandlord | string | ISO 8601 encoded date, eg '2019-03-01'
-&nbsp;&nbsp;&nbsp;&nbsp;earliestPossibleTerminationDatesTenant | string | ISO 8601 encoded date, eg '2019-03-01'
-&nbsp;&nbsp;securityDeposit | hash | security deposit
-&nbsp;&nbsp;&nbsp;&nbsp;depositTypeCode | string | a valid deposit type code (see code table entries (depot_art) for valid codes)
-&nbsp;&nbsp;&nbsp;&nbsp;depositAmount | decimal | amount to pay in CHF
-&nbsp;&nbsp;&nbsp;&nbsp;paidAmount | decimal | paid amount in CHF
-&nbsp;&nbsp;&nbsp;&nbsp;bankGuaranteeExpiration | string | ISO 8601 encoded date, eg '2023-12-31'
-&nbsp;&nbsp;&nbsp;&nbsp;refundedAt | string | ISO 8601 encoded date, eg '2024-12-31'
-&nbsp;&nbsp;&nbsp;&nbsp;depositAccountNumber | string | payment information. freetext, use e.g. for IBAN
-&nbsp;&nbsp;&nbsp;&nbsp;custodianReference | string | person reference of the custodian
-&nbsp;&nbsp;&nbsp;&nbsp;payerReference | string | person reference of the payer
-&nbsp;&nbsp;intendedUse | hash | intended use
-&nbsp;&nbsp;&nbsp;&nbsp;numberOfPeople | integer | number of people
-&nbsp;&nbsp;&nbsp;&nbsp;installationsForCommonUsage | string | freetext describing installations for common usage
-&nbsp;&nbsp;&nbsp;&nbsp;roomsForSoleUsage | array | rooms for sole usage
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unitTypeCode | string | a valid unit type code (see code table entries (`objekt_art`) for valid codes)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;number | string | unit number
-&nbsp;&nbsp;initialRentForm | hash | initial rent form data
-&nbsp;&nbsp;&nbsp;&nbsp;reason | string | Reason for the rent
-&nbsp;&nbsp;&nbsp;&nbsp;withSupportContribution | boolean | has the tenancy agreement support contribution?
+| Field                                                             | Type      | Content / Remarks                                                                                                                                                                              |
+| ----------------------------------------------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `eventType`                                                       | `string`  | Letting.TenancyAgreement.Create                                                                                                                                                                |
+| `data`                                                            | `hash`    |                                                                                                                                                                                                |
+| &nbsp;&nbsp;`primaryUnitReference`                                | `string`  | reference of an available unit; **required**                                                                                                                                                   |
+| &nbsp;&nbsp;`tenancyAgreementTypeCode`                            | `string`  | a valid tenancy agreement type code (see code table entries (`mietvertrag_typ`) for valid codes);  **required**                                                                                |
+| &nbsp;&nbsp;`rentStartDate`                                       | `string`  | ISO 8601 encoded date, eg '2019-03-01'; **required**                                                                                                                                           |
+| &nbsp;&nbsp;`contractDate`                                        | `string`  | ISO 8601 encoded date, eg '2019-02-18'; **required**                                                                                                                                           |
+| &nbsp;&nbsp;`paymentModeCode`                                     | `string`  | a valid code from the zahlmodus code table; defaults to '01' (monthly in advance)                                                                                                              |
+| &nbsp;&nbsp;`primaryTenant`                                       | `hash`    | data describing the primary tenant; a new tenant will be created if no tenant with the same name and dateOfBirth exists; **required**                                                          |
+| &nbsp;&nbsp;&nbsp;&nbsp;`firstName`                               | `string`  | first name; **required**                                                                                                                                                                       |
+| &nbsp;&nbsp;&nbsp;&nbsp;`surname`                                 | `string`  | surname; **required**                                                                                                                                                                          |
+| &nbsp;&nbsp;&nbsp;&nbsp;`address`                                 | `hash`    | current address                                                                                                                                                                                |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`city`                        | `string`  | city; **required**                                                                                                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`zipCode`                     | `string`  | zipCode; **required**                                                                                                                                                                          |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`street`                      | `string`  | street incl. number; **required**                                                                                                                                                              |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`countryCode`                 | `string`  | ISO country code, eg 'CH'; defaults to 'CH'                                                                                                                                                    |
+| &nbsp;&nbsp;&nbsp;&nbsp;`correspondenceLanguageCode`              | `string`  | de, fr, it or en; **must be lower case, required**                                                                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;`tenantIndustryCode`                      | `string`  | a valid rental type code (see code table entries (`branche_mieter`) for valid codes)                                                                                                           |
+| &nbsp;&nbsp;&nbsp;&nbsp;`email`                                   | `string`  | email address                                                                                                                                                                                  |
+| &nbsp;&nbsp;&nbsp;&nbsp;`phoneNumber`                             | `string`  | phone number (international format)                                                                                                                                                            |
+| &nbsp;&nbsp;&nbsp;&nbsp;`maritalStatus`                           | `string`  | one of the following values will be accepted: `unmarried`, `married`, `widowed`, `divorced`, `separated`, `civil_union`. Send _either_ `maritalStatus` _or_ `maritalStatusCode` but not both.  |
+| &nbsp;&nbsp;&nbsp;&nbsp;`maritalStatusCode`                       | `string`  | a value of the marital status code table (see code table entries "Zivilstände" for valid codes). Send _either_ `maritalStatus` _or_ `maritalStatusCode` but not both.                          |
+| &nbsp;&nbsp;&nbsp;&nbsp;`dateOfBirth`                             | `string`  | ISO 8601 encoded date, eg '2019-03-01'; **required**                                                                                                                                           |
+| &nbsp;&nbsp;&nbsp;&nbsp;`homeTown`                                | `string`  | home town                                                                                                                                                                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;`nationalityCode`                         | `string`  | ISO country code, eg 'CH'                                                                                                                                                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;`jobTitle`                                | `string`  | job title                                                                                                                                                                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;`salutation`                              | `string`  | one of the following values will be accepted: `none`, `sir`, `madam`. Send _either_ `salutation` _or_ `salutationCode` but not both.                                                           |
+| &nbsp;&nbsp;&nbsp;&nbsp;`salutationCode`                          | `string`  | a value of the salutation code table (see code table entries "Anreden" for valid codes). Send _either_ `salutation` _or_ `salutationCode` but not both.                                        |
+| &nbsp;&nbsp;&nbsp;&nbsp;`iban`                                    | `string`  | a valid IBAN for payouts                                                                                                                                                                       |
+| &nbsp;&nbsp;&nbsp;&nbsp;`assignBuildingAddress`                   | `boolean` | should the building address be assigned per rent start date?                                                                                                                                   |
+| &nbsp;&nbsp;`jointTenants`                                        | `array`   | data describing optional joint tenants; new tenants will be created if no tenant with the same name and dateOfBirth exists                                                                     |
+| &nbsp;&nbsp;&nbsp;&nbsp;`firstName`                               | `string`  | first name; **required**                                                                                                                                                                       |
+| &nbsp;&nbsp;&nbsp;&nbsp;`surname`                                 | `string`  | surname; **required**                                                                                                                                                                          |
+| &nbsp;&nbsp;&nbsp;&nbsp;`address`                                 | `hash`    | current address                                                                                                                                                                                |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`city`                        | `string`  | city; **required**                                                                                                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`zipCode`                     | `string`  | zipCode; **required**                                                                                                                                                                          |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`street`                      | `string`  | street incl. number; **required**                                                                                                                                                              |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`countryCode`                 | `string`  | ISO country code, eg 'CH';  **required**                                                                                                                                                       |
+| &nbsp;&nbsp;&nbsp;&nbsp;`correspondenceLanguageCode`              | `string`  | de, fr, it or en; **must be lower case, required**                                                                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;`email`                                   | `string`  | email address                                                                                                                                                                                  |
+| &nbsp;&nbsp;&nbsp;&nbsp;`phoneNumber`                             | `string`  | phone number (international format)                                                                                                                                                            |
+| &nbsp;&nbsp;&nbsp;&nbsp;`maritalStatus`                           | `string`  | one of the following values will be accepted: `unmarried`, `married`, `widowed`, `divorced`, `separated`, `civil_union`.  Send _either_ `maritalStatus` _or_ `maritalStatusCode` but not both. |
+| &nbsp;&nbsp;&nbsp;&nbsp;`maritalStatusCode`                       | `string`  | a value of the marital status code table (see code table entries "Zivilstände" for valid codes). Send _either_ `maritalStatus` _or_ `maritalStatusCode` but not both.                          |
+| &nbsp;&nbsp;&nbsp;&nbsp;`dateOfBirth`                             | `string`  | ISO 8601 encoded date, eg '2019-03-01'; **required**                                                                                                                                           |
+| &nbsp;&nbsp;&nbsp;&nbsp;`homeTown`                                | `string`  | home town                                                                                                                                                                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;`nationalityCode`                         | `string`  | ISO country code, eg 'CH'                                                                                                                                                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;`jobTitle`                                | `string`  | job title                                                                                                                                                                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;`salutation`                              | `string`  | one of the following values will be accepted: `none`, `sir`, `madam`. Send _either_ `salutation` _or_ `salutationCode` but not both.                                                           |
+| &nbsp;&nbsp;&nbsp;&nbsp;`salutationCode`                          | `string`  | a value of the salutation code table (see code table entries "Anreden" for valid codes). Send _either_ `salutation` _or_ `salutationCode` but not both.                                        |
+| &nbsp;&nbsp;&nbsp;&nbsp;`assignBuildingAddress`                   | `boolean` | should the building address be assigned per rent start date?                                                                                                                                   |
+| &nbsp;&nbsp;`rentRegulations`                                     | `hash`    | optional rent regulations                                                                                                                                                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;`rentalTypeCode`                          | `string`  | a valid rental type code (see code table entries (`mieter_art`) for valid codes)                                                                                                               |
+| &nbsp;&nbsp;&nbsp;&nbsp;`rentLockedUntil`                         | `string`  | ISO 8601 encoded date, eg '2019-03-01'                                                                                                                                                         |
+| &nbsp;&nbsp;&nbsp;&nbsp;`rentLockedReason`                        | `string`  | reason why the rent is locked                                                                                                                                                                  |
+| &nbsp;&nbsp;`limitedUntil`                                        | `string`  | optional ISO 8601 encoded date, eg '2019-03-31'; if applied, valid cancellationRegulations must be applied, too                                                                                |
+| &nbsp;&nbsp;`cancellationRegulations`                             | `hash`    | cancellation regulations                                                                                                                                                                       |
+| &nbsp;&nbsp;&nbsp;&nbsp;`cancellationModeCode`                    | `string`  | a valid cancellation mode code (see code table entries (`kuendigungs_termin`) for valid codes)                                                                                                 |
+| &nbsp;&nbsp;&nbsp;&nbsp;`cancellationPeriodInMonths`              | `integer` | minimum number of months a cancellation must be announced in advance by the landlord                                                                                                           |
+| &nbsp;&nbsp;&nbsp;&nbsp;`cancellationPeriodTenantInMonths`        | `integer` | minimum number of months a cancellation must be announced in advance by the tenant                                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;`earliestPossibleTerminationDateLandlord` | `string`  | ISO 8601 encoded date, eg '2019-03-01'                                                                                                                                                         |
+| &nbsp;&nbsp;&nbsp;&nbsp;`earliestPossibleTerminationDatesTenant`  | `string`  | ISO 8601 encoded date, eg '2019-03-01'                                                                                                                                                         |
+| &nbsp;&nbsp;`securityDeposit`                                     | `hash`    | security deposit                                                                                                                                                                               |
+| &nbsp;&nbsp;&nbsp;&nbsp;`depositTypeCode`                         | `string`  | a valid deposit type code (see code table entries (depot_art) for valid codes)                                                                                                                 |
+| &nbsp;&nbsp;&nbsp;&nbsp;`depositAmount`                           | `decimal` | amount to pay in CHF                                                                                                                                                                           |
+| &nbsp;&nbsp;&nbsp;&nbsp;`paidAmount`                              | `decimal` | paid amount in CHF                                                                                                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;`bankGuaranteeExpiration`                 | `string`  | ISO 8601 encoded date, eg '2023-12-31'                                                                                                                                                         |
+| &nbsp;&nbsp;&nbsp;&nbsp;`refundedAt`                              | `string`  | ISO 8601 encoded date, eg '2024-12-31'                                                                                                                                                         |
+| &nbsp;&nbsp;&nbsp;&nbsp;`depositAccountNumber`                    | `string`  | payment information. freetext, use e.g. for IBAN                                                                                                                                               |
+| &nbsp;&nbsp;&nbsp;&nbsp;`custodianReference`                      | `string`  | person reference of the custodian                                                                                                                                                              |
+| &nbsp;&nbsp;&nbsp;&nbsp;`payerReference`                          | `string`  | person reference of the payer                                                                                                                                                                  |
+| &nbsp;&nbsp;`intendedUse`                                         | `hash`    | intended use                                                                                                                                                                                   |
+| &nbsp;&nbsp;&nbsp;&nbsp;`numberOfPeople`                          | `integer` | number of people                                                                                                                                                                               |
+| &nbsp;&nbsp;&nbsp;&nbsp;`installationsForCommonUsage`             | `string`  | freetext describing installations for common usage                                                                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;`roomsForSoleUsage`                       | `array`   | rooms for sole usage                                                                                                                                                                           |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`unitTypeCode`                | `string`  | a valid unit type code (see code table entries (`objekt_art`) for valid codes)                                                                                                                 |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`number`                      | `string`  | unit number                                                                                                                                                                                    |
+| &nbsp;&nbsp;`initialRentForm`                                     | `hash`    | initial rent form data                                                                                                                                                                         |
+| &nbsp;&nbsp;&nbsp;&nbsp;`reason`                                  | `string`  | Reason for the rent                                                                                                                                                                            |
+| &nbsp;&nbsp;&nbsp;&nbsp;`withSupportContribution`                 | `boolean` | has the tenancy agreement support contribution?                                                                                                                                                |
 
 #### Examples
 
@@ -731,38 +735,38 @@ Because we send a message for each Tenancy, we also send the following fields: `
 
 NOTE:
 
-| Field                                      | Type     | Content / Remarks                                                                           |
-| ------------------------------------------ | -------- | ------------------------------------------------------------------------------------------- |
-| eventType                                  | `string` | Letting.Tenant.Updated                                                                      |
-| data                                       | `hash`   |                                                                                             |
-| &nbsp;&nbsp;tenancyAgreementReference      | `string` | unique tenancy agreement identifier, eg '1234.01.0001.01'                                   |
-| &nbsp;&nbsp;unitReference                  | `string` | unique unit identifier, eg '234.01.0001'                                                    |
-| &nbsp;&nbsp;tenantReference                | `string` | unique tenant identifier, eg '100004' - this is ALWAYS the reference previously published   |
-| &nbsp;&nbsp;tenant                         | `hash`   | ALL TENANT FIELDS except REFERENCE are optional and will only be send when changed          |
-| &nbsp;&nbsp;&nbsp;&nbsp;reference          | `string` | unique tenant identifier, eg '100004' - this is ALWAYS the reference to be persisted and the reference that will be used in future `tenantReference` values |
-| &nbsp;&nbsp;&nbsp;&nbsp;firstName          | `string` |                                                                                             |
-| &nbsp;&nbsp;&nbsp;&nbsp;surname            | `string` |                                                                                             |
-| &nbsp;&nbsp;&nbsp;&nbsp;languageCode       | `string` | de, fr, it or en; **must be lower case**                                                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;nationalityCode    | `string` | ISO country code (ISO 3166-1 alpha-2), eg 'CH'                                              |
-| &nbsp;&nbsp;&nbsp;&nbsp;phoneNumber        | `string` |                                                                                             |
-| &nbsp;&nbsp;&nbsp;&nbsp;email              | `string` |                                                                                             |
-| &nbsp;&nbsp;&nbsp;&nbsp;fullName           | `string` | built from the individual name parts, respecting the type of tenant (corporate or physical) |
-| &nbsp;&nbsp;&nbsp;&nbsp;type               | `string` | LEGAL (a company) or PHYSICAL (Physical person)                                             |
-| &nbsp;&nbsp;&nbsp;&nbsp;dateOfBirth        | `string` | ISO 8601 encoded date, eg '2019-05-30'                                                      |
-| &nbsp;&nbsp;&nbsp;&nbsp;allphoneNumbers    | `array of hashes` | a list of all available email addresses and type                                   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;phoneNumber  | `string` |                                                                                             |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type         | `string` | one of: PRIVATE, PROFESSIONAL, MOBILE or OTHER                                              |
-| &nbsp;&nbsp;&nbsp;&nbsp;allEmails          | `array of hashes` | a list of all available email addresses and type                                   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;emailAddress | `string` |                                                                                             |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type         | `string` | one of: PRIVATE, PROFESSIONAL or OTHER                                                      |
-| &nbsp;&nbsp;&nbsp;&nbsp;postalAddress      | `hash`   | current address fields conformant to the eCH-0010 specs                                     |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addressLine1 | `string` | See eCH-0010 specs                                                                          |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;countryCode  | `string` | ISO 3166-1 alpha-2 country code, eg CH                                                      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;city         | `string` |                                                                                             |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zipCode      | `string` |                                                                                             |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;postOfficeBoxText | `string` | See eCH-0010 specs                                                                     |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;street       | `string` | Street name including number where appropriate                                              |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;validFrom    | `string` | Some Addresses will be created for the future                                               |
+| Field                                           | Type              | Content / Remarks                                                                                                                                           |
+| ----------------------------------------------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| eventType                                       | `string`          | Letting.Tenant.Updated                                                                                                                                      |
+| data                                            | `hash`            |                                                                                                                                                             |
+| &nbsp;&nbsp;tenancyAgreementReference           | `string`          | unique tenancy agreement identifier, eg '1234.01.0001.01'                                                                                                   |
+| &nbsp;&nbsp;unitReference                       | `string`          | unique unit identifier, eg '234.01.0001'                                                                                                                    |
+| &nbsp;&nbsp;tenantReference                     | `string`          | unique tenant identifier, eg '100004' - this is ALWAYS the reference previously published                                                                   |
+| &nbsp;&nbsp;tenant                              | `hash`            | ALL TENANT FIELDS except REFERENCE are optional and will only be send when changed                                                                          |
+| &nbsp;&nbsp;&nbsp;&nbsp;reference               | `string`          | unique tenant identifier, eg '100004' - this is ALWAYS the reference to be persisted and the reference that will be used in future `tenantReference` values |
+| &nbsp;&nbsp;&nbsp;&nbsp;firstName               | `string`          |                                                                                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;surname                 | `string`          |                                                                                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;languageCode            | `string`          | de, fr, it or en; **must be lower case**                                                                                                                    |
+| &nbsp;&nbsp;&nbsp;&nbsp;nationalityCode         | `string`          | ISO country code (ISO 3166-1 alpha-2), eg 'CH'                                                                                                              |
+| &nbsp;&nbsp;&nbsp;&nbsp;phoneNumber             | `string`          |                                                                                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;email                   | `string`          |                                                                                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;fullName                | `string`          | built from the individual name parts, respecting the type of tenant (corporate or physical)                                                                 |
+| &nbsp;&nbsp;&nbsp;&nbsp;type                    | `string`          | LEGAL (a company) or PHYSICAL (Physical person)                                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;dateOfBirth             | `string`          | ISO 8601 encoded date, eg '2019-05-30'                                                                                                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;allphoneNumbers         | `array of hashes` | a list of all available email addresses and type                                                                                                            |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;phoneNumber       | `string`          |                                                                                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type              | `string`          | one of: PRIVATE, PROFESSIONAL, MOBILE or OTHER                                                                                                              |
+| &nbsp;&nbsp;&nbsp;&nbsp;allEmails               | `array of hashes` | a list of all available email addresses and type                                                                                                            |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;emailAddress      | `string`          |                                                                                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type              | `string`          | one of: PRIVATE, PROFESSIONAL or OTHER                                                                                                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;postalAddress           | `hash`            | current address fields conformant to the eCH-0010 specs                                                                                                     |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addressLine1      | `string`          | See eCH-0010 specs                                                                                                                                          |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;countryCode       | `string`          | ISO 3166-1 alpha-2 country code, eg CH                                                                                                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;city              | `string`          |                                                                                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zipCode           | `string`          |                                                                                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;postOfficeBoxText | `string`          | See eCH-0010 specs                                                                                                                                          |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;street            | `string`          | Street name including number where appropriate                                                                                                              |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;validFrom         | `string`          | Some Addresses will be created for the future                                                                                                               |
 
 #### Example
 
