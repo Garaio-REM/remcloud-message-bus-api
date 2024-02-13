@@ -670,7 +670,7 @@ Field | Type | Content / Remarks
 #### example
 
 ```json
-{"eventType":"Masterdata.Person.Create",
+{"eventType":"Masterdata.Person.Update",
   "data":{
     "firstName":"Max",
     "surname":"Muster",
