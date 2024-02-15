@@ -562,6 +562,7 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
 | &nbsp;&nbsp;&nbsp;&nbsp;`street`         | `string`                     | street incl. number; **required**                                                                                                                                                                                  |
 | &nbsp;&nbsp;&nbsp;&nbsp;`countryCode`    | `string`                     | ISO country code, eg `'CH'`; defaults to `'CH'`                                                                                                                                                                    |
 
+
 #### example
 
 ```json
