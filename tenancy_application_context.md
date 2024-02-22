@@ -56,6 +56,7 @@ Field | Type | Content / Remarks
         "firstName":"Max",
         "hometown":"Bern",
         "jobTitle":"Software Engineer",
+        "language":"DE",
         "marriageStatus":"married",
         "nationalityCode":"CH",
         "phoneNumber":"555 123 456",
