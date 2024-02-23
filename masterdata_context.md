@@ -560,7 +560,7 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
 | &nbsp;&nbsp;&nbsp;&nbsp;`city`           | `string`                     | city; **required**                                                                                                                                                                                                 |
 | &nbsp;&nbsp;&nbsp;&nbsp;`zipCode`        | `string`                     | zipCode; **required**                                                                                                                                                                                              |
 | &nbsp;&nbsp;&nbsp;&nbsp;`street`         | `string`                     | street incl. number; **required**                                                                                                                                                                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;`countryCode`    | `string`                     | ISO country code, eg `'CH'`; defaults to `'CH'`                                                                                                                                                                    |
+| &nbsp;&nbsp;&nbsp;&nbsp;`countryCode`    | `string`                     | ISO country code, eg `'CH'`; **required**                                                                                                                                                                    |
 | &nbsp;&nbsp;`contactData`                | `hash`                       | [ContactData](types/contact_data.md) of this person.                                                                                                                                                               |
 
 #### example
@@ -663,10 +663,10 @@ Field | Type | Content / Remarks
 &nbsp;&nbsp;`paymentBlockReason` | `string` | reason for the payment block for this person.
 &nbsp;&nbsp;`correspondenceLanguageCode` | `string` | `'de'`, `'fr'`, `'it'` or `'en'`; **must be lower case**
 &nbsp;&nbsp;`address` | `hash` | current address
-&nbsp;&nbsp;&nbsp;&nbsp;`city` | `string` | city
-&nbsp;&nbsp;&nbsp;&nbsp;`zipCode` | `string` | zipCode
-&nbsp;&nbsp;&nbsp;&nbsp;`street` | `string` | street incl. number
-&nbsp;&nbsp;&nbsp;&nbsp;`countryCode` | `string` | ISO country code, eg `'CH'`; defaults to `'CH'`
+&nbsp;&nbsp;&nbsp;&nbsp;`city` | `string` | city; **required**
+&nbsp;&nbsp;&nbsp;&nbsp;`zipCode` | `string` | zipCode; **required**
+&nbsp;&nbsp;&nbsp;&nbsp;`street` | `string` | street incl. number; **required**
+&nbsp;&nbsp;&nbsp;&nbsp;`countryCode` | `string` | ISO country code, eg `'CH'`; **required**
 &nbsp;&nbsp;`contactData`| `hash` | [ContactData](types/contact_data.md) of this person.
 
 #### example

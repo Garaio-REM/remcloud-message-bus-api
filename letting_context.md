@@ -330,7 +330,7 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`city`                        | `string`  | city; **required**                                                                                                                                                                             |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`zipCode`                     | `string`  | zipCode; **required**                                                                                                                                                                          |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`street`                      | `string`  | street incl. number; **required**                                                                                                                                                              |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`countryCode`                 | `string`  | ISO country code, eg 'CH'; defaults to 'CH'                                                                                                                                                    |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`countryCode`                 | `string`  | ISO country code, eg 'CH'; **required**                                           |
 | &nbsp;&nbsp;&nbsp;&nbsp;`correspondenceLanguageCode`              | `string`  | de, fr, it or en; **must be lower case, required**                                                                                                                                             |
 | &nbsp;&nbsp;&nbsp;&nbsp;`tenantIndustryCode`                      | `string`  | a valid rental type code (see code table entries (`branche_mieter`) for valid codes)                                                                                                           |
 | &nbsp;&nbsp;&nbsp;&nbsp;`email`                                   | `string`  | email address                                                                                                                                                                                  |
@@ -366,7 +366,7 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
 | &nbsp;&nbsp;&nbsp;&nbsp;`salutationCode`                          | `string`  | a value of the salutation code table (see code table entries "Anreden" for valid codes). Send _either_ `salutation` _or_ `salutationCode` but not both.                                        |
 | &nbsp;&nbsp;&nbsp;&nbsp;`assignBuildingAddress`                   | `boolean` | should the building address be assigned per rent start date?                                                                                                                                   |
 | &nbsp;&nbsp;`rentRegulations`                                     | `hash`    | optional rent regulations                                                                                                                                                                      |
-| &nbsp;&nbsp;&nbsp;&nbsp;`rentalTypeCode`                          | `string`  | a valid rental type code (see code table entries (`mieter_art`) for valid codes)                                                                                                               |
+| &nbsp;&nbsp;&nbsp;&nbsp;`rentalTypeCode`                          | `string`  | a valid rental type code (see code table entries (`mieter_art`) for valid codes); **required**                                                                                                               |
 | &nbsp;&nbsp;&nbsp;&nbsp;`rentLockedUntil`                         | `string`  | ISO 8601 encoded date, eg '2019-03-01'                                                                                                                                                         |
 | &nbsp;&nbsp;&nbsp;&nbsp;`rentLockedReason`                        | `string`  | reason why the rent is locked                                                                                                                                                                  |
 | &nbsp;&nbsp;`limitedUntil`                                        | `string`  | optional ISO 8601 encoded date, eg '2019-03-31'; if applied, valid cancellationRegulations must be applied, too                                                                                |
@@ -718,10 +718,9 @@ Additional `data` fields:
 | ----------- | -------- | ------------------------------- |
 | `reference` | `string` | The tenancy agreement reference |
 
-
 ### Letting.Tenant.Updated
 
-Letting.Tenant messages are sent when a tenant isupdated or merged with another person.
+Letting.Tenant messages are sent when a tenant is updated or merged with another person.
 
 **These messages are sent for EACH Tenancy Agreement that the tenant is linked to and only sent to relevant parties.** _This is accomplished (on the backend), by including the `propery` and `unit` so that we can check the associated Tags to filter for allowed message recipients.)_
 
