@@ -662,11 +662,12 @@ Field | Type | Content / Remarks
 &nbsp;&nbsp;`hasPaymentBlock` | `boolean` | declares whether this person has a payment block. `true` if they should have a payment block and `false` if they shouldn't.
 &nbsp;&nbsp;`paymentBlockReason` | `string` | reason for the payment block for this person.
 &nbsp;&nbsp;`correspondenceLanguageCode` | `string` | `'de'`, `'fr'`, `'it'` or `'en'`; **must be lower case**
-&nbsp;&nbsp;`address` | `hash` | current address
+&nbsp;&nbsp;`address` | `hash` | current address; do pass a complete address or leave it empty, partial updates are not supported
 &nbsp;&nbsp;&nbsp;&nbsp;`city` | `string` | city; **required**
 &nbsp;&nbsp;&nbsp;&nbsp;`zipCode` | `string` | zipCode; **required**
 &nbsp;&nbsp;&nbsp;&nbsp;`street` | `string` | street incl. number; **required**
 &nbsp;&nbsp;&nbsp;&nbsp;`countryCode` | `string` | ISO country code, eg `'CH'`; **required**
+&nbsp;&nbsp;&nbsp;&nbsp;`validFrom` | `string` | optional ISO 8601 encoded date; pass a future date to create or update an address that becomes valid in the future
 &nbsp;&nbsp;`contactData`| `hash` | [ContactData](types/contact_data.md) of this person.
 
 #### example
