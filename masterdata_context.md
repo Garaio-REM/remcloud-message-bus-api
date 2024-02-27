@@ -636,7 +636,6 @@ Field | Type | Content / Remarks
 &nbsp;&nbsp;`maritalStatus` | `string` | one of the following values will be accepted: `unmarried`, `married`, `widowed`, `divorced`, `separated`, `civil_union`. Send _either_ `maritalStatus` _or_ `maritalStatusCode` but not both.
 &nbsp;&nbsp;`maritalStatusCode` | `string` | a value of the marital status code table (see code table entries "Zivilstände" for valid codes). Send _either_ `maritalStatus` _or_ `maritalStatusCode` but not both.
 &nbsp;&nbsp;`jobTitle` | `string` | job title
-&nbsp;&nbsp;`personType` | `string` | person code for this person. Can be one of the following values: `'natural_person'` for natural persons and `'legal_person'` for legal persons and `'condominium'` for condominiums.
 &nbsp;&nbsp;`dateOfBirth` | `string` | ISO 8601 encoded date, eg `'2019-03-01'`
 &nbsp;&nbsp;`dateOfDeath` | `string` | ISO 8601 encoded date, eg `'2019-03-01'`
 &nbsp;&nbsp;`homeTown` | `string` | home town
