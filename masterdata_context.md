@@ -669,11 +669,12 @@ Field | Type | Content / Remarks
 &nbsp;&nbsp;&nbsp;&nbsp;`validFrom` | `string` | optional ISO 8601 encoded date; pass a future date to create or update an address that becomes valid in the future
 &nbsp;&nbsp;`contactData`| `hash` | [ContactData](types/contact_data.md) of this person.
 
-#### example
+#### examples
 
 ```json
 {"eventType":"Masterdata.Person.Update",
   "data":{
+    "personReference":"123456",
     "firstName":"Max",
     "surname":"Muster",
     "dateOfBirth":"1980-01-01",
@@ -688,6 +689,23 @@ Field | Type | Content / Remarks
       "zipCode":"3007",
       "street":"Gartenstrasse 1/3",
       "countryCode":"CH"
+    }
+  }
+}
+```
+
+##### create a new address in the future (assuming today is the 4.3.2024)
+
+```json
+{"eventType":"Masterdata.Person.Update",
+  "data":{
+    "personReference":"123456",
+    "address":{
+      "city":"Aarau Rohr",
+      "zipCode":"5032",
+      "street":"Salamattweg 15",
+      "countryCode":"CH",
+      "validFrom":"2024-04-01"
     }
   }
 }
