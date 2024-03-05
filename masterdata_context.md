@@ -626,8 +626,8 @@ Field | Type | Content / Remarks
 &nbsp;&nbsp;`createdAt` | `string` | ISO 8601 encoded timestamp, eg `'2024-02-06T14:10:11+01:00'`. Left unchanged if not given. |
 &nbsp;&nbsp;`updatedAt` | `string` | ISO 8601 encoded timestamp, eg `'2024-02-06T14:10:11+01:00'`. Defaults to current time. |
 &nbsp;&nbsp;`personReference` | `string` | reference of the person that should receive the communication updates; **required**
-&nbsp;&nbsp;`firstName` | `string` | first name; **required**
-&nbsp;&nbsp;`surname` | `string` | surname for natural persons or company name for legal persons; **required**
+&nbsp;&nbsp;`firstName` | `string` | first name
+&nbsp;&nbsp;`surname` | `string` | surname for natural persons or company name for legal persons
 &nbsp;&nbsp;`nameSuffix1` | `string` | additional name suffix (i.e. `'c/o Garaio REM AG'`)
 &nbsp;&nbsp;`nameAddition2` | `string` | additional field to store name information on company records
 &nbsp;&nbsp;`salutation` | `string` | one of the following values will be accepted: `none`, `sir`, `madam`. Send _either_ `salutation` _or_ `salutationCode` but not both.
