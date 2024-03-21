@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## master (2023-03-21)
+
+Add booking details to Invoicing.Invoice.Booked
+
 ## master (2022-12-08)
 
 Invoicing.Order.Created / Updated Messages allow empty orderItems again
