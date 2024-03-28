@@ -330,7 +330,7 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`city`                        | `string`  | city; **required**                                                                                                                                                                             |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`zipCode`                     | `string`  | zipCode; **required**                                                                                                                                                                          |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`street`                      | `string`  | street incl. number; **required**                                                                                                                                                              |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`countryCode`                 | `string`  | ISO country code, eg 'CH'; **required**                                           |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`countryCode`                 | `string`  | ISO country code, eg 'CH'; **required**                                                                                                                                                        |
 | &nbsp;&nbsp;&nbsp;&nbsp;`correspondenceLanguageCode`              | `string`  | de, fr, it or en; **must be lower case, required**                                                                                                                                             |
 | &nbsp;&nbsp;&nbsp;&nbsp;`tenantIndustryCode`                      | `string`  | a valid rental type code (see code table entries (`branche_mieter`) for valid codes)                                                                                                           |
 | &nbsp;&nbsp;&nbsp;&nbsp;`email`                                   | `string`  | email address                                                                                                                                                                                  |
@@ -344,7 +344,7 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
 | &nbsp;&nbsp;&nbsp;&nbsp;`salutation`                              | `string`  | one of the following values will be accepted: `none`, `sir`, `madam`. Send _either_ `salutation` _or_ `salutationCode` but not both.                                                           |
 | &nbsp;&nbsp;&nbsp;&nbsp;`salutationCode`                          | `string`  | a value of the salutation code table (see code table entries "Anreden" for valid codes). Send _either_ `salutation` _or_ `salutationCode` but not both.                                        |
 | &nbsp;&nbsp;&nbsp;&nbsp;`iban`                                    | `string`  | a valid IBAN for payouts                                                                                                                                                                       |
-| &nbsp;&nbsp;&nbsp;&nbsp;`bic`                                     | `string`  | a valid BIC (Bank Identification Code) for payouts. For CH and LI IBANs, this field must be omitted or set to `null`. For other country IBANs, this field is required.
+| &nbsp;&nbsp;&nbsp;&nbsp;`bic`                                     | `string`  | a valid BIC (Bank Identification Code) for payouts. For CH and LI IBANs, this field must be omitted or set to `null`. For other country IBANs, this field is required.                         |
 | &nbsp;&nbsp;&nbsp;&nbsp;`assignBuildingAddress`                   | `boolean` | should the building address be assigned per rent start date?                                                                                                                                   |
 | &nbsp;&nbsp;`jointTenants`                                        | `array`   | data describing optional joint tenants; new tenants will be created if no tenant with the same name and dateOfBirth exists                                                                     |
 | &nbsp;&nbsp;&nbsp;&nbsp;`firstName`                               | `string`  | first name; **required**                                                                                                                                                                       |
@@ -367,7 +367,7 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
 | &nbsp;&nbsp;&nbsp;&nbsp;`salutationCode`                          | `string`  | a value of the salutation code table (see code table entries "Anreden" for valid codes). Send _either_ `salutation` _or_ `salutationCode` but not both.                                        |
 | &nbsp;&nbsp;&nbsp;&nbsp;`assignBuildingAddress`                   | `boolean` | should the building address be assigned per rent start date?                                                                                                                                   |
 | &nbsp;&nbsp;`rentRegulations`                                     | `hash`    | optional rent regulations                                                                                                                                                                      |
-| &nbsp;&nbsp;&nbsp;&nbsp;`rentalTypeCode`                          | `string`  | a valid rental type code (see code table entries (`mieter_art`) for valid codes); **required**                                                                                                               |
+| &nbsp;&nbsp;&nbsp;&nbsp;`rentalTypeCode`                          | `string`  | a valid rental type code (see code table entries (`mieter_art`) for valid codes); **required**                                                                                                 |
 | &nbsp;&nbsp;&nbsp;&nbsp;`rentLockedUntil`                         | `string`  | ISO 8601 encoded date, eg '2019-03-01'                                                                                                                                                         |
 | &nbsp;&nbsp;&nbsp;&nbsp;`rentLockedReason`                        | `string`  | reason why the rent is locked                                                                                                                                                                  |
 | &nbsp;&nbsp;`limitedUntil`                                        | `string`  | optional ISO 8601 encoded date, eg '2019-03-31'; if applied, valid cancellationRegulations must be applied, too                                                                                |
@@ -511,6 +511,13 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
 
 ##### accepted response message
 
+| Field                                | Type      | Content / Remarks                                                               |
+| ------------------------------------ | --------- | ------------------------------------------------------------------------------- |
+| `rentReserves`                       | `hash`    | Rent reserves ("Mietzinsreserven")                                              |
+| &nbsp;&nbsp;`fromRentBase`           | `decimal` | Reserves from rent base ("Aufgrund Mietzinsbasis"), in CHF                      |
+| &nbsp;&nbsp;`fromInsufficientReturn` | `decimal` | Reserves from insufficient return ("Aufgrund ungenügender Rendite"), in CHF     |
+| &nbsp;&nbsp;`fromLocalStandards`     | `decimal` | Reserves from local standards ("Aufgrund Orts- und Quartierüblichkeit"), in CHF |
+
 ```json
 {"eventType":"Letting.TenancyAgreement.CreateAccepted",
   "data":{
@@ -539,7 +546,12 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
       "countryIndexBaseYear":null,
       "countryIndexPoints":null
     },
-    "paymentModeCode":"01"
+    "paymentModeCode":"01",
+    "rentReserves": {
+      "fromRentBase": 0.0,
+      "fromInsufficientReturn": 0.0,
+      "fromLocalStandards": 0.0
+    }
   }
 }
 ```
