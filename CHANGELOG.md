@@ -1,5 +1,12 @@
 ﻿# Changelog
 
+## master (2023-04-02)
+
+Add uniqueness validations to Invoicing.Invoice.Created
+
+- creditorReference + externalReference must be unique
+- dmsReference
+
 ## master (2023-03-21)
 
 Add booking details to Invoicing.Invoice.Booked
