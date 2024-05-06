@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## master (2024-05-06)
+
+Add reason to Invoicing.Invoice.Deleted and Invoicing.Invoice.Cancelled messages
+
 ## master (2023-04-02)
 
 Add uniqueness validations to Invoicing.Invoice.Created
