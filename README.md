@@ -8,17 +8,9 @@ RabbitMQ itself implements [AMQP](https://www.amqp.org/).
 
 The master branch in this repository reflects current development. If you need the specs for a specific release, have a look at the corresponding branch.
 
-## Access
+## Getting Started
 
-If you wish to access the REM-Cloud Message Bus please contact us on [info@garaio-rem.ch](mailto:info@garaio-rem.ch).
-
-Once you're granted access, credentials and access details are sent to you. The access details contain:
-
-| Detail             | Description                                                                                                                                   |
-| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| app id             | An app id (Unique Application ID) (e.g: `'YourService'`). The app id is also the name of your queue from which you can retrieve your messages |
-| user id / password | Login  credentials for RabbitMQ                                                                                                               |
-| exchange name      | The name of the exchange to which you can send messages                                                                                       |
+See [Getting Started](./getting_started.md).
 
 ## About this specification
 
