@@ -63,6 +63,10 @@ Some messages must contain additional properties. Please refer to [Header Proper
 
 Events are messages that can be received by multiple subscribers. The message body contains a json data structure.
 
+### Error handling
+
+If your message does not adhere to the basic rules given above, it will be discarded and you'll receive an [Errors.Message.Invalid](./errors.md#errorsmessageinvalid) with detailed error information.
+
 ## Naming Conventions
 
 Messages that end with a verb in the simple past (eg `Created`) describe events that happened in the GARAIO REM domain.
@@ -90,6 +94,7 @@ or to a domain outside of property management. **IMPORTANT: Message attribute na
 | [Tenancy Application](tenancy_application_context.md) | Events related to tenancy applications                                         |
 | [Tenant Portal](tenant_portal.md)                     | Events that occur on a Tenant Portal                                           |
 | [Thirdparty Notification](thirdparty_notification.md) | Events related to a Thirdparty Notification. (1)                               |
+| [Errors](errors.md)                                   | Errors due to invalid messages                                                 |
 
 Notes:
 
