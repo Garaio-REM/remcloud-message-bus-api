@@ -511,12 +511,22 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
 
 ##### accepted response message
 
-| Field                                | Type      | Content / Remarks                                                               |
-| ------------------------------------ | --------- | ------------------------------------------------------------------------------- |
-| `rentReserves`                       | `hash`    | Rent reserves ("Mietzinsreserven")                                              |
-| &nbsp;&nbsp;`fromRentBase`           | `decimal` | Reserves from rent base ("Aufgrund Mietzinsbasis"), in CHF                      |
-| &nbsp;&nbsp;`fromInsufficientReturn` | `decimal` | Reserves from insufficient return ("Aufgrund ungenügender Rendite"), in CHF     |
-| &nbsp;&nbsp;`fromLocalStandards`     | `decimal` | Reserves from local standards ("Aufgrund Orts- und Quartierüblichkeit"), in CHF |
+| Field                                               | Type      | Content / Remarks                                                               |
+| --------------------------------------------------- | --------- | ------------------------------------------------------------------------------- |
+| `rentReserves`                                      | `hash`    | Rent reserves ("Mietzinsreserven")                                              |
+| &nbsp;&nbsp;`fromRentBasePercent`                   | `decimal` | "Aufgrund Mietzinsbasis", in Percent                                            |
+| &nbsp;&nbsp;`fromRentBaseAmount`                    | `decimal` | "Aufgrund Mietzinsbasis", in CHF                                                |
+| &nbsp;&nbsp;`mortgageRateAdjustment`                | `decimal` | "Hypozinsanpassung", in Percent                                                 |
+| &nbsp;&nbsp;`countryIndexAdjustment`                | `decimal` | "Landesindexanpassung", in Percent                                              |
+| &nbsp;&nbsp;`costIncreaseAdjustment`                | `decimal` | "Kostensteigerungsanpassung", in Percent                                        |
+| &nbsp;&nbsp;`fromInsufficientReturnPercent`          | `decimal` | "aufgrund ungenügender Bruttorendite", in Percent                               |
+| &nbsp;&nbsp;`fromInsufficientReturnAmount`           | `decimal` | "aufgrund ungenügender Bruttorendite", in CHF                                   |
+| &nbsp;&nbsp;`fromLocalStandardsPercent`             | `decimal` | "aufgrund Orts- und Quartierüblichkeit", in Percent                             |
+| &nbsp;&nbsp;`fromLocalStandardsAmount`              | `decimal` | "aufgrund Orts- und Quartierüblichkeit", in CHF                                 |
+| &nbsp;&nbsp;`fromValueAddingInvestmentsPercent`     | `decimal` | "aufgrund wertvermehrender Investitionen", in Percent                           |
+| &nbsp;&nbsp;`fromValueAddingInvestmentsAmount`      | `decimal` | "aufgrund wertvermehrender Investitionen", in CHF                               |
+| &nbsp;&nbsp;`fromValueAddingInvestmentsPotentials`  | `Array`   | Array of hashes (typeCode, amount, notes)                                       |
+| &nbsp;&nbsp;`fromValueAddingInvestmentsTable`       | `Array`   | Array of hashes (title, percent, amount)                                        |
 
 ```json
 {"eventType":"Letting.TenancyAgreement.CreateAccepted",
@@ -548,9 +558,27 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
     },
     "paymentModeCode":"01",
     "rentReserves": {
-      "fromRentBase": 0.0,
-      "fromInsufficientReturn": 0.0,
-      "fromLocalStandards": 0.0
+      "fromRentBasePercent":8.24,
+      "fromRentBaseAmount":62.698,
+      "mortgageRateAdjustment":6.0,
+      "countryIndexAdjustment":2.42,
+      "costIncreaseAdjustment":0.0,
+      "fromInsufficientReturnPercent":1.1,
+      "fromInsufficientReturnAmount":1000.0,
+      "fromLocalStandardsPercent":1.2,
+      "fromLocalStandardsAmount":2000.0,
+      "fromValueAddingInvestmentsPercent":1.3,
+      "fromValueAddingInvestmentsAmount":3000.0,
+      "fromValueAddingInvestmentsPotentials":[
+        { "typeCode":"30",
+          "amount":300.0
+          "notes":null}
+      ],
+      "fromValueAddingInvestmentsTable":[
+        { "title":"Mietzins-Reserve aufgrund wertvermehrender Investitionen",
+          "percent": "5.9%",
+          "amount": "44.00"}
+      ]
     }
   }
 }

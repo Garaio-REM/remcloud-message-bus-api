@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## master (2024-05-27)
+
+add complete mietzinsreserve to TenancyAgreement.Create.Accepted message
+
 ## master (2024-05-06)
 
 Add reason to Invoicing.Invoice.Deleted and Invoicing.Invoice.Cancelled messages
