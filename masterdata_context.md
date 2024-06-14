@@ -385,7 +385,7 @@ data | hash |
 #### Example
 
 ```json
-{"eventType":"Masterdata.Property.ManagementTeam.Updated",
+{"eventType":"Masterdata.ManagementTeam.Updated",
   "data":{
     "propertyReference":"1234",
     "managementTeamChanges":[
