@@ -22,7 +22,7 @@ data | hash |
 &nbsp;&nbsp;sender | string | optional sender info (email address, name...)
 &nbsp;&nbsp;mimetype | string | mimetype describing the message format (text/plain, text/markdown...); **required**
 &nbsp;&nbsp;message | string | notification message; **required**
-&nbsp;&nbsp;backlinkUrl | string | optional url to navigate to the sending system; **must be a complete url that the local browser can resolve (including protocol), e.g. <https://www.google.com>**
+&nbsp;&nbsp;backlinkUrl | string | REQUIRED url to navigate to the sending system; **must be a complete url that the local browser can resolve (including protocol), e.g. <https://www.google.com>**
 
 #### Example
 
