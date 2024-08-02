@@ -15,16 +15,31 @@ Field | Type | Content / Remarks
 ---|---|---
 eventType | string | Notification.Message.Created
 data | hash |
-&nbsp;&nbsp;externalReference | string | external, unique case identifier; **required**
-&nbsp;&nbsp;masterdataReference | string | reference of a property / building / unit; **required**
+&nbsp;&nbsp;backlinkUrl | string | REQUIRED url to navigate to the sending system; **must be a complete url that the local browser can resolve (including protocol), e.g. <https://www.google.com>**
 &nbsp;&nbsp;categoryCode | string | optional for the category code - this value must match a 'code' within the 'notification_kategorie' of the CodeTabelle.  Blank or non-matching values will fall back to the default based on the sending system's name. (Ideally, in the future, these categories can be found via GraphQL, until they will be provided by Garaio REM personnel as needed).
-&nbsp;&nbsp;recipientUsername | string | optional recipient username (within GREM) to override the default recipient.  Blank or non-matching values will fallback to the default based on the given 'masterdataReference'.
-&nbsp;&nbsp;sender | string | optional sender info (email address, name...)
+&nbsp;&nbsp;externalReference | string | external, unique case identifier; **required**
+&nbsp;&nbsp;masterdataReference | string | reference of a property / building / unit; **required** without **recipientUsername**
+&nbsp;&nbsp;recipientUsername | string | optional recipient username (within GREM) to override the default recipient.  Blank or non-matching values will fallback to the default based on the given 'masterdataReference'. **required** without **masterdataReference**
 &nbsp;&nbsp;mimetype | string | mimetype describing the message format (text/plain, text/markdown...); **required**
 &nbsp;&nbsp;message | string | notification message; **required**
-&nbsp;&nbsp;backlinkUrl | string | REQUIRED url to navigate to the sending system; **must be a complete url that the local browser can resolve (including protocol), e.g. <https://www.google.com>**
+&nbsp;&nbsp;sender | string | optional sender info (email address, name...)
 
 #### Example
+
+Minimal Message
+
+```json
+{"eventType":"Notification.Message.Created",
+  "data":{
+    "externalReference":"1234",
+    "masterdataReference":"4712.01.0001",
+    "mimetype":"text/plain",
+    "message":"something happened",
+    "backlinkUrl":"https://instance.external_system.ch/case/3",
+  }
+}
+```
+Typical Message
 
 ```json
 {"eventType":"Notification.Message.Created",
