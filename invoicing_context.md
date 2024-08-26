@@ -288,9 +288,9 @@ You may want to set the `source_app_id` if the invoice origin does not correspon
 | &nbsp;&nbsp;`creditorReference`                         | `string`  | reference of the creditor (supplier) (7)                                                                                                          |
 | &nbsp;&nbsp;`accountingReference`                       | `string`  | reference of the accounting                                                                                                                       |
 | &nbsp;&nbsp;`swissQrCode`                               | `hash`    | swissQrCode; **optional** (2)                                                                                                                                   |
-| &nbsp;&nbsp;`iban`                                      | `string`  | ESR Payments are deprecated, when used also send `esrReference`, use `swissQrCode` instead. iban for the payment (optional); (3)                                |
-| &nbsp;&nbsp;`esrReference`                              | `string`  | ESR Payments are deprecated, when used also send `iban`, use `swissQrCode` instead. reference number on the payment slip. (6)                                   |
-| &nbsp;&nbsp;`esrParticipantNumber`                      | `string`  | ESR Payments are deprecated, use `swissQrCode` instead. pass this number together with the esrReference if you don't have an iban or swissQrCodeText            |
+| &nbsp;&nbsp;`iban`                                      | `string`  | ESR Payments are deprecated, use `swissQrCode` instead; when used also send `esrReference`. iban for the payment (optional); (3)                                |
+| &nbsp;&nbsp;`esrReference`                              | `string`  | ESR Payments are deprecated, use `swissQrCode` instead; when used also send `iban`. reference number on the payment slip. (6)                                   |
+| &nbsp;&nbsp;`esrParticipantNumber`                      | `string`  | ESR Payments are deprecated, use `swissQrCode` instead. pass this number together with the esrReference if you don't have an iban or swissQrCode            |
 | &nbsp;&nbsp;`languageCode`                              | `string`  | de, fr, it or en; **required** to send error reasons using the desired language; **must be lower case**                                                         |
 | &nbsp;&nbsp;`notes`                                     | `string`  | ESR Payments are deprecated, use `swissQrCode` instead. up to four lines of text at up to 28 chars per line, separated by CRLF (optional)                       |
 | &nbsp;&nbsp;`documentUrl`                               | `string`  | url to the invoice pdf; **must be an url to a pdf that the local browser can resolve**                                                                          |
@@ -320,8 +320,9 @@ You may want to set the `source_app_id` if the invoice origin does not correspon
 Notes
 
 * (1) See [about reference and externalReference](#about-reference-and-externalreference-in-the-context-of-invoicing).
-* (2) When 'swissQrCode' is used, then the following top-level fields MUST be empty or omitted: 'iban', 'esrReference', 'esrParticipantNumber', 'totalGrossAmount' and 'notes') See the [SwissQRCode Section](#minimal-swiss-qr-code-when-creating-an-invoice) at the end of this page to understand Garaio REM Invoicing with SwissQrCodes.
-* (3) Always pass the iban or swissQrCodeText, if you pass the iban field esr attributes and swissQrCodeText must be empty or omitted.
+* (2) When `swissQrCode` is used, the following top-level fields **must** be empty or omitted: `iban`, `esrReference`, `esrParticipantNumber`, `totalGrossAmount` and `notes`; see the [SwissQRCode Section](#minimal-swiss-qr-code-when-creating-an-invoice) at the end of this page to understand Garaio REM Invoicing with SwissQrCodes.
+Do **not** pass a `swissQrCode.iban` if you do not pass a `creditorReference`; GARAIO REM will reply with a rejected message since it cannot handle an `iban` without a creditor
+* (3) Deprecated; use `swissQrCode` instead; if you pass the `iban`, esr attributes and `swissQrCode` must be empty or omitted. Do **not** pass an `iban` or `swissQrCode.iban` if you do not pass a `creditorReference`; GARAIO REM will reply with a rejected message since it cannot handle an `iban` without a creditor
 * (4) We only support the start/end format using ISO 8601 encoded dates (no time inclusion is supported) using the separator '/' or '--', eg '2020-01-31/2020-06-30' or '2020-01-31--2020-06-30' (<https://en.wikipedia.org/wiki/ISO_8601#Time_intervals>)
 * (5) If you apply a development code, a development accounting plan code is required as well
 * (6) Pass this number together with the esrParticipantNumber if you don't have an iban or swissQrCodeText.
