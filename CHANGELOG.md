@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+## unreleased
+
+- Add `Documents.Document.Add`
+
 ## master (2024-05-27)
 
 add complete mietzinsreserve to TenancyAgreement.Create.Accepted message
