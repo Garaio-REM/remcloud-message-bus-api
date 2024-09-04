@@ -184,7 +184,7 @@ This message completely replaces an existing order in GARAIO REM; if you pass, f
 
 Notes:
 
-* (1) You have to provide either `reference` or `externalReference`. The reference you provide must be a reference that has previously beem published in a `Invoicing.Order.Created` message.
+* (1) You have to provide either `reference` or `externalReference`. The reference you provide must be a reference that has previously been published in a `Invoicing.Order.Created` message.
 
 #### Example
 

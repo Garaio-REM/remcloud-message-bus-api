@@ -710,7 +710,7 @@ Notes:
 }
 ```
 
-#### Letting.TenaancyAgreementSecurityDepot.UpdateAccepted
+#### Letting.TenancyAgreementSecurityDepot.UpdateAccepted
 
 The [Accept](./result_messages.md#accepted-message) message.
 
@@ -775,12 +775,12 @@ Additional `data` fields:
 
 Letting.Tenant messages are sent when a tenant is updated or merged with another person.
 
-**These messages are sent for EACH Tenancy Agreement that the tenant is linked to and only sent to relevant parties.** _This is accomplished (on the backend), by including the `propery` and `unit` so that we can check the associated Tags to filter for allowed message recipients.)_
+**These messages are sent for EACH Tenancy Agreement that the tenant is linked to and only sent to relevant parties.** _This is accomplished (on the backend), by including the `property` and `unit` so that we can check the associated Tags to filter for allowed message recipients.)_
 
 Because we send a message for each Tenancy, we also send the following fields: `tenancyAgreementReference`, `unitReference`, `tenantReference` to ensure a successful lookup on the remote system. `tenant` fields are optional and will generally only be sent if they have changed. The possible Tenant fields to be sent should be the same as those in the [Letting.Tenant.Create](./#lettingtenantcreate) message. _(Please notify us if you find any discrepancies.)_
 
 * When an address is added the full address data indluding a `validFrom` (in case it is an address for the future).
-* When an address is deleted the full current address data will be sent (it is possible that an older address was deleted and the adress hasn't actually changed).
+* When an address is deleted the full current address data will be sent (it is possible that an older address was deleted and the address hasn't actually changed).
 * when an address is changed (updated) we will only send the address fields that have changed (and the `validFrom` date - incase it is a future address)
 * In the case of a removed **email** or **phoneNumber**, the corresponding preferred value will always be sent, as it is difficult to know if the preferred value has changed.
 * In the case of a **tenant merge**, the full tenant data will be sent, as it is difficult to know what has changed, since the old record has already been removed at the time of building this message.  It is also important to note, that in the case of a merge the `reference` field will be changed and MUST be updated in order to match all future tenant references in ANY subsequent messages.
