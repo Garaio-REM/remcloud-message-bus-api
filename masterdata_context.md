@@ -16,6 +16,7 @@ Type | GARAIO REM | REM | Description
 [Masterdata.Unit.Updated](#masterdataunitupdated) | :white_check_mark: | :white_check_mark: | Data associated to a rentable unit has changed; you get the reference plus all changed attributes
 [Masterdata.Unit.Deleted](#masterdataunitdeleted) | :white_check_mark: | :white_check_mark: | The unit was deleted
 [Masterdata.Unit.ReferenceChanged](#masterdataunitreferencechanged) | :white_check_mark: | :white_check_mark: | The unit reference has changed
+[Masterdata.Condominium.Updated](#masterdatacondominiumupdated) | :white_check_mark: | :x: | Data associated to a condominium has changed; you get the reference plus all changed attributes
 [Masterdata.ManagementTeam.Updated](#masterdatamanagementteamupdated) | :white_check_mark: | :x: | A change to a property management team was applied; only changed roles are published
 [Masterdata.Configuration.SedexIdChanged](#masterdataconfigurationsedexidchanged) | :x: | :white_check_mark: | A new SedexID has been configured |
 [Masterdata.PersonContactData.Update](#masterdatapersoncontactdataupdate) | :white_check_mark: | :x: | Update the contact data of a person with this message
@@ -363,6 +364,45 @@ data | hash |
   "data":{
     "reference":"1234.01.0001",
     "newReference":"1234.01.0002"
+  }
+}
+```
+
+### Masterdata.Condominium.Updated
+
+Field | Type | Content / Remarks
+---|---|---
+`eventType` | string | `Masterdata.Condominium.Updated`
+`data` | hash |
+&nbsp;&nbsp;`reference` | string | Unique identifier for the condominium unit
+&nbsp;&nbsp;`unitTypeCode` | string | Code to identify the unit type
+&nbsp;&nbsp;`storeyCode` | string | Code to identify the unit storey
+&nbsp;&nbsp;`location` | string | Location of the unit, where appropriate, e.g., left, middle, right; this is free text and might be null
+&nbsp;&nbsp;`numberOfRooms` | string | Number of rooms as a decimal, e.g., "3.0"; might be null
+&nbsp;&nbsp;`ewid` | integer | [Read about it](https://www.bfs.admin.ch/bfs/de/home/register/personenregister/registerharmonisierung/minimaler-inhalt-einwohnerregister/egid-ewid.html), might be null
+&nbsp;&nbsp;`bfsId` | string | [Read about it](https://www.bfs.admin.ch/bfs/de/home/register/gebaeude-wohnungsregister/gebaeudeadressen.html), might be null
+&nbsp;&nbsp;`unitCategoryCode` | string | Code to identify the unit category
+&nbsp;&nbsp;`headVotes` | integer | Number of head votes for the condominium unit
+&nbsp;&nbsp;`m2` | decimal | Area in square meters, might be null
+&nbsp;&nbsp;`m3` | decimal | Volume in cubic meters, might be null
+
+#### Example
+
+```json
+{
+  "eventType": "Masterdata.Condominium.Updated",
+  "data": {
+    "reference": "10001.561.339",
+    "unitTypeCode": "10",
+    "storeyCode": "3",
+    "location": null,
+    "numberOfRooms": "3.0",
+    "ewid": null,
+    "bfsId": null,
+    "unitCategoryCode": "1",
+    "headVotes": 1,
+    "m2": null,
+    "m3": null
   }
 }
 ```
