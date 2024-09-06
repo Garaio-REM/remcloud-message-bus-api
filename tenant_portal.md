@@ -32,3 +32,60 @@ Field | Type | Content / Remarks
   }
 }
 ```
+
+### TenantPortal.Tenant.Accepted
+
+This message goes from GARAIO REM to the portal and signals that the tenant has been accepted by Garai REM.
+
+
+| Field                         |	Type     |	Content / Remarks                                           |
+|-------------------------------|----------|--------------------------------------------------------------|
+| `eventType`	                  | `string` | Invoicing.Order.Accepted                                     |
+| `data`                      	| `hash`   |                                                              |
+| &nbsp;&nbsp;`tenantReference` | `string` | unique person identifier, eg `'1234'`                        |
+| &nbsp;&nbsp;`unitReference`   | `string` | String referencing an existing unit in the target GARAIO REM |
+
+#### Example
+```json
+{"eventType":"Invoicing.Order.Accepted",
+  "data":{
+    "tenantReference":"1234",
+    "unitReference":"1234.01.0001"
+  }
+}
+```
+
+### TenantPortal.Tenant.Rejected
+
+This message goes from GARAIO REM to the portal and signals that the tenant has been rejected by Garai REM. GARAIO REM validation errors are mapped into the reasons array.
+
+| Field                               |	Type     |	Content / Remarks                                           |
+|-------------------------------------|----------|--------------------------------------------------------------|
+| `eventType`	                        | `string` | Invoicing.Order.Rejected                                     |
+| `data`	                            | `hash`   |                                                              |
+| &nbsp;&nbsp;`tenantReference`       | `string` | unique person identifier, eg `'1234'`                        |
+| &nbsp;&nbsp;`unitReference`         | `string` | String referencing an existing unit in the target GARAIO REM |
+| &nbsp;&nbsp;`reasons`               | `array`  |                                                              |
+| &nbsp;&nbsp;&nbsp;&nbsp;`attribute` | `string` | name of the attribute, eg. "masterdataReference"; (1)        |
+| &nbsp;&nbsp;&nbsp;&nbsp;`lineNumber`| `string` | line number, eg. "1" (or null)                               |
+| &nbsp;&nbsp;&nbsp;&nbsp;`reason`    | `string` | reason, eg. "ist nicht bekannt"                              |
+
+**Notes:**
+
+* (1) might be null if the reason does not map to a specific attribute
+
+#### Example
+```json
+{"eventType":"Invoicing.Order.Rejected",
+  "data":{
+    "tenantReference":"1234",
+    "unitReference":"1234.01.0001",
+    "reasons":[
+      {"attribute":"tenantReference",
+       "lineNumber":null,
+       "reason":"ungültige Person-Referenz: invalid'"
+      }
+    ]
+  }
+}
+```
