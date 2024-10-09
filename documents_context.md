@@ -4,15 +4,15 @@
 
 | Type                                            | GARAIO REM         | REM | Description               |
 | ----------------------------------------------- | ------------------ | --- | ------------------------- |
-| [Documents.Document.Add](#documentsdocumentadd) | :white_check_mark: | :x: | Stores a document in GREM |
+| [Documents.Document.Create](#documentsdocumentadd) | :white_check_mark: | :x: | Stores a document in GREM |
 
-### Documents.Document.Add
+### Documents.Document.Create
 
 This is a work in progress, [contact us](https://github.com/Garaio-REM/grem-dev-guide) if you have questions.
 
 | Field                            | Type     | Content / Remarks                                                              |
 | -------------------------------- | -------- | ------------------------------------------------------------------------------ |
-| `eventType`                      | `string` | `Documents.Document.Add`                                                       |
+| `eventType`                      | `string` | `Documents.Document.Create`                                                       |
 | `data`                           | `hash`   |                                                                                |
 | &nbsp;&nbsp;`fetchUrl`           | `string` | an URL where the document can be downloaded from (3) **required**              |
 | &nbsp;&nbsp;`docType`            | `string` | the document type, see (1) **required**                                        |
@@ -42,7 +42,7 @@ Notes
 #### Example
 
 ```json
-{"eventType":"Documents.Document.Add",
+{"eventType":"Documents.Document.Create",
   "data":{
     "fetchUrl": "http://www.example.com/document",
     "docType": "Dokument",
