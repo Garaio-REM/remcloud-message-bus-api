@@ -1,8 +1,8 @@
 ﻿# Changelog
 
-## unreleased
+## unreleased (planned for v1.24)
 
-- Add `Documents.Document.Add`
+- Add `Documents.Document.Create`
 
 ## master (2024-05-27)
 
