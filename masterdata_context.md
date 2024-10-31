@@ -498,7 +498,7 @@ Field | Type | Content / Remarks
 &nbsp;&nbsp;`otherUrls` | `array` | list of new other urls
 &nbsp;&nbsp;`contacts` | `array` |
 &nbsp;&nbsp;&nbsp;&nbsp;`name` | `string` | name of the contact
-&nbsp;&nbsp;&nbsp;&nbsp;`contactAddress` | `string` | address / email / phone number of the contact
+&nbsp;&nbsp;&nbsp;&nbsp;`contactAddress` | `string` | address / email / phone number of the contact; **required**
 
 #### Examples
 
