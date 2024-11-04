@@ -20,6 +20,7 @@ Type | GARAIO REM | REM | Description
 [Masterdata.ManagementTeam.Updated](#masterdatamanagementteamupdated) | :white_check_mark: | :x: | A change to a property management team was applied; only changed roles are published
 [Masterdata.Configuration.SedexIdChanged](#masterdataconfigurationsedexidchanged) | :x: | :white_check_mark: | A new SedexID has been configured |
 [Masterdata.PersonContactData.Update](#masterdatapersoncontactdataupdate) | :white_check_mark: | :x: | Update the contact data of a person with this message
+[Masterdata.PersonPaymentDetails.Update](#masterdatapersonpaymentdetailsupdate) | :white_check_mark: | :x: | Update the payment details of a person with this message
 [Masterdata.Person.Create](#masterdatapersoncreate) | :white_check_mark: | :x: | Create a new person record with this message
 [Masterdata.Person.Update](#masterdatapersonupdate) | :white_check_mark: | :x: | Update the masterdata of a person with this message
 
@@ -540,6 +541,79 @@ Field | Type | Content / Remarks
       {
         "attribute":"privateEmails",
         "reason":"enthält ungültige Email-Adressen"
+      }
+    ]
+  }
+}
+```
+
+### Masterdata.PersonPaymentDetails.Update
+
+This message is sent from an external message publisher to a GARAIO REM instance and allows to update payment of a person.
+Set the recipient property in the headers, eg `"grem_wincasa"`. All attributes are optional unless noted otherwise in the remarks.
+Rules for all array attributes:
+
+- do not send the attribute if you do not want to create current data of this type
+- send an empty array (`[]`) to delete all current data of this type
+- send an array of valid date to fully replace the current data of this type
+- payment details that exist but are not contained in the paymentDetails will be locked
+
+GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-message) / [Rejected](./result_messages.md#rejected-message) message containing the personReference and reject reasons, where appropriate
+
+Field | Type | Content / Remarks
+---|---|---
+`eventType` | `string` | Masterdata.PersonContactData.Update
+`data` | `hash` |
+&nbsp;&nbsp;`personReference` | `string` | reference of the person that should receive the communication updates; **required**
+&nbsp;&nbsp;`paymentDetails` | `array` | list of new payment details
+&nbsp;&nbsp;&nbsp;&nbsp;`iban` | `string` | iban
+&nbsp;&nbsp;&nbsp;&nbsp;`ibanName` | `string` | iban name, e.g. name of the bank
+&nbsp;&nbsp;&nbsp;&nbsp;`bic` | `string` | bic
+&nbsp;&nbsp;&nbsp;&nbsp;`locked` | `boolean` | should the payment detail be locked
+&nbsp;&nbsp;&nbsp;&nbsp;`lockReason` | `string` | why should the payment detail be locked? required if you set `locked` to `true`
+&nbsp;&nbsp;&nbsp;&nbsp;`defaultPaymentDetail` | `boolean` | should this payment detail be the default? Set it to `true` if the payment detail should become the default. Do not send `false` since that makes no sense, we will ignore it. If you send `true` for more than one payment detail, the last one wins
+&nbsp;&nbsp;`deactivationReason` | `string` | Reason why payment details that are not transmitted will be locked; **required**
+
+#### Examples
+
+##### add iban and bic
+
+```json
+{"eventType":"Masterdata.PersonPaymentDetails.Update",
+  "data":{
+    "personReference":"123456",
+    "paymentDetails":[
+      {
+        "iban":"DE19500105176829385733",
+        "bic":"WELADEDLLEV",
+        "defaultPaymentDetail":true
+      }
+    ],
+    "deactivationReason":"deactivated by API"
+  }
+}
+```
+
+##### accepted response message
+
+```json
+{"eventType":"Letting.PersonPaymentDetails.UpdateAccepted",
+  "data":{
+    "personReference":"123456"
+  }
+}
+```
+
+##### rejected response message
+
+```json
+{"eventType":"Letting.PersonPaymentDetails.UpdateRejected",
+  "data":{
+    "personReference":"123456",
+    "reasons":[
+      {
+        "attribute":"iban",
+        "reason":"Ungültig"
       }
     ]
   }
