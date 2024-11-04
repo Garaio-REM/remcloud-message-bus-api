@@ -706,8 +706,6 @@ Field | Type | Content / Remarks
 &nbsp;&nbsp;`hasPaymentBlock` | `boolean` | declares whether this person has a payment block. `true` if they should have a payment block and `false` if they shouldn't.
 &nbsp;&nbsp;`paymentBlockReason` | `string` | reason for the payment block for this person.
 &nbsp;&nbsp;`correspondenceLanguageCode` | `string` | `'de'`, `'fr'`, `'it'` or `'en'`; **must be lower case**
-&nbsp;&nbsp;`iban` | `string` | IBAN for this person.
-&nbsp;&nbsp;`bic` | `string` | BIC for this person.
 &nbsp;&nbsp;`address` | `hash` | current address; do pass a complete address or leave it empty, partial updates are not supported
 &nbsp;&nbsp;&nbsp;&nbsp;`city` | `string` | city; **required**
 &nbsp;&nbsp;&nbsp;&nbsp;`zipCode` | `string` | zipCode; **required**
