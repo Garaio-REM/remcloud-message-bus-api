@@ -566,7 +566,7 @@ Field | Type | Content / Remarks
 `data` | `hash` |
 &nbsp;&nbsp;`personReference` | `string` | reference of the person that should receive the communication updates; **required**
 &nbsp;&nbsp;`paymentDetails` | `array` | list of new payment details
-&nbsp;&nbsp;&nbsp;&nbsp;`iban` | `string` | iban
+&nbsp;&nbsp;&nbsp;&nbsp;`iban` | `string` | iban; **required**
 &nbsp;&nbsp;&nbsp;&nbsp;`ibanName` | `string` | iban name, e.g. name of the bank
 &nbsp;&nbsp;&nbsp;&nbsp;`bic` | `string` | bic
 &nbsp;&nbsp;&nbsp;&nbsp;`locked` | `boolean` | should the payment detail be locked
