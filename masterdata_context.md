@@ -612,8 +612,8 @@ Field | Type | Content / Remarks
     "personReference":"123456",
     "reasons":[
       {
-        "attribute":"iban",
-        "reason":"Ungültig"
+        "attribute": "IBAN DE19500105176829385733",
+        "reason": "Beim Sperren muss ein Sperrgrund angegeben werden"
       }
     ]
   }
