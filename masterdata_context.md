@@ -562,7 +562,7 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
 
 Field | Type | Content / Remarks
 ---|---|---
-`eventType` | `string` | Masterdata.PersonContactData.Update
+`eventType` | `string` | Masterdata.PersonPaymentDetails.Update
 `data` | `hash` |
 &nbsp;&nbsp;`personReference` | `string` | reference of the person that should receive the communication updates; **required**
 &nbsp;&nbsp;`paymentDetails` | `array` | list of new payment details
