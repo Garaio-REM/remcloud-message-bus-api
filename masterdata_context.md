@@ -524,7 +524,7 @@ Field | Type | Content / Remarks
 ##### accepted response message
 
 ```json
-{"eventType":"Letting.PersonContactData.UpdateAccepted",
+{"eventType":"Masterdata.PersonContactData.UpdateAccepted",
   "data":{
     "personReference":"123456"
   }
@@ -534,7 +534,7 @@ Field | Type | Content / Remarks
 ##### rejected response message
 
 ```json
-{"eventType":"Letting.PersonContactData.UpdateRejected",
+{"eventType":"Masterdata.PersonContactData.UpdateRejected",
   "data":{
     "personReference":"123456",
     "reasons":[
@@ -597,7 +597,7 @@ Field | Type | Content / Remarks
 ##### accepted response message
 
 ```json
-{"eventType":"Letting.PersonPaymentDetails.UpdateAccepted",
+{"eventType":"Masterdata.PersonPaymentDetails.UpdateAccepted",
   "data":{
     "personReference":"123456"
   }
@@ -607,7 +607,7 @@ Field | Type | Content / Remarks
 ##### rejected response message
 
 ```json
-{"eventType":"Letting.PersonPaymentDetails.UpdateRejected",
+{"eventType":"Masterdata.PersonPaymentDetails.UpdateRejected",
   "data":{
     "personReference":"123456",
     "reasons":[
