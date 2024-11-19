@@ -102,6 +102,10 @@ Notes:
 
 * (1) These events are issued by the Thirdparty Notification Service (Drittmeldung Service)
 
+## Custom tables
+
+You send/manage custom table data alongside messages, see [custom tables](custom_tables.md).
+
 ## Examples
 
 [Ruby script to publish a notification message](examples/ruby/publish_notification.rb)
