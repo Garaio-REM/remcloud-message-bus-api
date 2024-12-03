@@ -16,7 +16,9 @@ The contents of these tables can be managed via the GARAIO REM UI. The tables ar
 
 ## Custom tables on the API
 
-Data for custom tables can be sent by third party systems to GARAIO REM alongside many messages. Custom table data is sent via the field `data.customTables`.
+Data for custom tables can be sent by third party systems to GARAIO REM alongside many messages. There's also [Custom.EntityData.Update](./custom_context.md#customentitydataupdate) to update only the custom data.
+
+Custom table data is sent via the field `data.customTables`.
 
 An example:
 
@@ -134,7 +136,7 @@ and the `objekt_id` written to `person_objekt_rating` will be `23`.
 
 You can also use IDs directly. So, in the example above, you could've also specified `{ "objekt_id": 23 }` to achieve the same result.
 
-Prefer using references. This feature is intended to make life easier for customers who integrate via direct read access on the database instead of the GraphQL API.
+Prefer using references. This feature is intended to make life easier for customers who integrate via direct read access on the database instead of the GraphQL API. Note that all other APIs will refer to records via their reference, never their technical id.
 If you are not doing so currently: We advise against using direct read database access. It burdens you with the challenge and responsability of keeping your integrations stable on new releases, which bring schema and data changes.
 
 ## Limitations
