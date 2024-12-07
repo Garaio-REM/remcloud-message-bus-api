@@ -15,7 +15,8 @@ Field | Type | Content / Remarks
 ---|---|---
 eventType | string | Notification.Message.Created
 data | hash |
-&nbsp;&nbsp;backlinkUrl | string | REQUIRED url to navigate to the sending system; **must be a complete url that the local browser can resolve (including protocol), e.g. <https://www.google.com>**
+&nbsp;&nbsp;subject | string | Notification subject; optional if a masterdataReference is passed
+&nbsp;&nbsp;backlinkUrl | string | optional url to navigate to the sending system; **must be a complete url that the local browser can resolve (including protocol), e.g. <https://www.google.com>**
 &nbsp;&nbsp;categoryCode | string | optional for the category code - this value must match a 'code' within the 'notification_kategorie' of the CodeTabelle.  Blank or non-matching values will fall back to the default based on the sending system's name. (Ideally, in the future, these categories can be found via GraphQL, until they will be provided by Garaio REM personnel as needed).
 &nbsp;&nbsp;externalReference | string | external, unique case identifier; **required**
 &nbsp;&nbsp;masterdataReference | string | reference of a property / building / unit; **required** without **recipientUsername**
@@ -26,7 +27,21 @@ data | hash |
 
 #### Example
 
-Minimal Message
+Minimal Message without a masterdataReference
+
+```json
+{"eventType":"Notification.Message.Created",
+  "data":{
+    "externalReference":"1234",
+    "subject":"Invoice 12345678.pdf",
+    "mimetype":"text/plain",
+    "message":"something went wrong",
+    "backlinkUrl":"https://instance.external_system.ch/case/3",
+  }
+}
+```
+
+Minimal Message with a masterdataReference
 
 ```json
 {"eventType":"Notification.Message.Created",
@@ -39,6 +54,7 @@ Minimal Message
   }
 }
 ```
+
 Typical Message
 
 ```json
