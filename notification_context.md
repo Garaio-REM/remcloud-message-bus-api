@@ -35,8 +35,7 @@ Minimal Message without a masterdataReference
     "externalReference":"1234",
     "subject":"Invoice 12345678.pdf",
     "mimetype":"text/plain",
-    "message":"something went wrong",
-    "backlinkUrl":"https://instance.external_system.ch/case/3",
+    "message":"something went wrong"
   }
 }
 ```
@@ -49,8 +48,7 @@ Minimal Message with a masterdataReference
     "externalReference":"1234",
     "masterdataReference":"4712.01.0001",
     "mimetype":"text/plain",
-    "message":"something happened",
-    "backlinkUrl":"https://instance.external_system.ch/case/3",
+    "message":"something happened"
   }
 }
 ```
