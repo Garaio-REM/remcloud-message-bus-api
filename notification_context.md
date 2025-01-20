@@ -27,7 +27,7 @@ data | hash |
 
 #### Example
 
-Minimal Message without a masterdataReference
+Minimal message without a `masterdataReference`:
 
 ```json
 {"eventType":"Notification.Message.Created",
@@ -40,7 +40,7 @@ Minimal Message without a masterdataReference
 }
 ```
 
-Minimal Message with a masterdataReference
+Minimal message with a `masterdataReference`:
 
 ```json
 {"eventType":"Notification.Message.Created",
@@ -63,7 +63,7 @@ Typical Message
     "sender":"max.muster@mailprovider.com",
     "mimetype":"text/plain",
     "message":"something happened",
-    "backlinkUrl":"https://instance.external_system.ch/case/3",
+    "backlinkUrl":"https://instance.external_system.ch/case/3"
   }
 }
 ```
@@ -83,7 +83,7 @@ data | hash |
 ```json
 {"eventType":"Notification.Case.Closed",
   "data":{
-    "externalReference":"1234",
+    "externalReference":"1234"
   }
 }
 ```
