@@ -37,7 +37,7 @@ Notes
   * unit
   * invoicing-invoice
   * letting-tenancy-agreement
-* (3) If the download from `fetchUrl` fails, GREM will send back a `Documents.Document.CreateRejected` message with details.
+* (3) If the download from `fetchUrl` fails, GREM will send back a `Documents.Document.Rejected` message with details.
 
 #### Example
 
@@ -53,7 +53,7 @@ Notes
 }
 ```
 
-#### Documents.Document.CreateAccepted
+#### Documents.Document.Accepted
 
 The [Accept](./result_messages.md#accepted-message) message.
 
@@ -63,7 +63,7 @@ Additional `data` fields:
 | ----------- | -------- | -------------------------------------------- |
 | `reference` | `string` | The reference of the newly created document. |
 
-#### Documents.Document.CreateRejected
+#### Documents.Document.Rejected
 
 The [Reject](./result_messages.md#rejected-message) message.
 
