@@ -20,7 +20,7 @@ This is a work in progress, [contact us](https://github.com/Garaio-REM/grem-dev-
 | &nbsp;&nbsp;`relatedToReference` | `string` | the reference of the business object this document relates to **required**     |
 | &nbsp;&nbsp;`fileName`           | `string` | the file name **required**                                                     |
 | &nbsp;&nbsp;`description`        | `string` | description of the document                                                    |
-| &nbsp;&nbsp;`replaceRemoteDocumentWithUrl` | `string` | provide the URL of the RemoteDokument url you want this Document to replace        |
+| &nbsp;&nbsp;`replaceRemoteDocumentWithUrl` | `string` | provide the URL of the RemoteDokument url you want this Document to replace |
 
 Notes
 
