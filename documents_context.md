@@ -10,17 +10,17 @@
 
 This is a work in progress, [contact us](https://github.com/Garaio-REM/grem-dev-guide) if you have questions.
 
-| Field                                      | Type     | Required | Content / Remarks                                                   |
-| ------------------------------------------ | -------- | ------------------------------------------------------------------------------ |
-| `eventType`                                | `string` | **true** | `Documents.Document.Create`                                         |
-| `data`                                     | `hash`   | **true** |                                                                     |
-| &nbsp;&nbsp;`fetchUrl`                     | `string` | **true** | an URL where the document can be downloaded from (3)                |
-| &nbsp;&nbsp;`docType`                      | `string` | **true** | the document type, see (1)                                          |
-| &nbsp;&nbsp;`relatedToType`                | `string` | **true** | the type of the business object this document relates to, see (2)   |
-| &nbsp;&nbsp;`relatedToReference`           | `string` | **true** | the reference of the business object this document relates to       |
-| &nbsp;&nbsp;`fileName`                     | `string` | **true** | the file name                                                       |
-| &nbsp;&nbsp;`description`                  | `string` |  false   | description of the document                                         |
-| &nbsp;&nbsp;`replaceRemoteDocumentWithUrl` | `string` |  false   | the RemoteDokument with the given URL (and maches relatedTo fields) |
+| Field                            | Type     | Content / Remarks                                                              |
+| -------------------------------- | -------- | ------------------------------------------------------------------------------ |
+| `eventType`                      | `string` | `Documents.Document.Create`                                                       |
+| `data`                           | `hash`   |                                                                                |
+| &nbsp;&nbsp;`fetchUrl`           | `string` | an URL where the document can be downloaded from (3) **required**              |
+| &nbsp;&nbsp;`docType`            | `string` | the document type, see (1) **required**                                        |
+| &nbsp;&nbsp;`relatedToType`      | `string` | the type of the business object this document relates to, see (2) **required** |
+| &nbsp;&nbsp;`relatedToReference` | `string` | the reference of the business object this document relates to **required**     |
+| &nbsp;&nbsp;`fileName`           | `string` | the file name **required**                                                     |
+| &nbsp;&nbsp;`description`        | `string` | description of the document                                                    |
+| &nbsp;&nbsp;`replaceRemoteDocumentWithUrl`        | `string` | provide the URL of the RemoteDokument url you want this Document to replace        |
 
 Notes
 
