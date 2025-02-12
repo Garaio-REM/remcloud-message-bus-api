@@ -68,7 +68,7 @@ data | hash |
 &nbsp;&nbsp;countryCode | string | ISO country code, eg 'CH'
 &nbsp;&nbsp;mandateTerminatedBy | string | ISO date, eg '2018-12-31'
 &nbsp;&nbsp;endOfAdministration | string | ISO 8601 encoded date, eg '2019-03-01'
-&nbsp;&nbsp;administrationKind| string | One of the following values: <ul><li>MEG</li><li>VOLL</li><li>TECHNISCH</li><li>ADMINISTRATIV</li><li>BACKMANAGEMENT</li><li>CENTERMANAGEMENT</li><li>EXTERNAL_SYSTEM</li><li>STEWE</li><li>INKASSO</li><li>UNBEKANNT</li></ul>
+&nbsp;&nbsp;administrationKind| string | (REM1 only) One of the following values: <ul><li>MEG</li><li>VOLL</li><li>TECHNISCH</li><li>ADMINISTRATIV</li><li>BACKMANAGEMENT</li><li>CENTERMANAGEMENT</li><li>EXTERNAL_SYSTEM</li><li>STEWE</li><li>INKASSO</li><li>UNBEKANNT</li></ul>
 
 #### Example
 
