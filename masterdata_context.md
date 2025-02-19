@@ -787,6 +787,7 @@ Field | Type | Content / Remarks
 &nbsp;&nbsp;&nbsp;&nbsp;`street` | `string` | street incl. number; **required**
 &nbsp;&nbsp;&nbsp;&nbsp;`postbox` | `string` | postbox; **optional**
 &nbsp;&nbsp;&nbsp;&nbsp;`mailboxNumber` | `string` | mailbox number; **optional**
+&nbsp;&nbsp;&nbsp;&nbsp;`supplement`    | `string` | address supplement, e.g. Elektro-Fachgeschäft; **optional**
 &nbsp;&nbsp;&nbsp;&nbsp;`countryCode` | `string` | ISO country code, eg `'CH'`; **required**
 &nbsp;&nbsp;&nbsp;&nbsp;`validFrom` | `string` | optional ISO 8601 encoded date; pass a future date to create or update an address that becomes valid in the future
 &nbsp;&nbsp;`contactData`| `hash` | [ContactData](types/contact_data.md) of this person.
