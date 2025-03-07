@@ -690,6 +690,8 @@ Additional `data` fields:
 | &nbsp;&nbsp;depositAmount        | `decimal` | amount to pay in CHF (1)                                  |
 | &nbsp;&nbsp;paidAmount           | `decimal` | paid amount in CHF (1)                                    |
 | &nbsp;&nbsp;depositAccountNumber | `string`  | payment information. freetext, use e.g. for IBAN (1)      |
+| &nbsp;&nbsp;refundedAt           | `string`  | ISO 8601 encoded date, eg '2019-05-25'                    |
+| &nbsp;&nbsp;refundedByInfo       | `string`  | refunded by information, freetext                         |
 
 Notes:
 
@@ -701,13 +703,15 @@ Notes:
 {
   "eventType":"Letting.TenancyAgreementSecurityDepot.Update",
   "data": {
-    "reference": "10001.869.474.01",
-    "depositTypeCode": "1",
-    "custodianReference": "100006",
-    "payerReference": "100007",
-    "depositAmount": "10",
-    "paidAmount": "0",
-    "depositAccountNumber": "CH00 0000 0000 0000 0000 0"
+    "reference":"10001.869.474.01",
+    "depositTypeCode":"1",
+    "custodianReference":"100006",
+    "payerReference":"100007",
+    "depositAmount":"10",
+    "paidAmount":"0",
+    "depositAccountNumber":"CH00 0000 0000 0000 0000 0",
+    "refundedAt":"2019-05-25",
+    "refundedByInfo":"some info"
   }
 }
 ```
