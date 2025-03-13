@@ -6,6 +6,9 @@ Type | GARAIO REM | REM | Description
 ---|---|---|---
 [Masterdata.Property.Created](#masterdatapropertycreated) | :white_check_mark: | :white_check_mark: | A new property has been created
 [Masterdata.Property.Updated](#masterdatapropertyupdated) | :white_check_mark: | :white_check_mark: | Data associated to a property has changed; you get changed attributes only
+[Masterdata.Property.FacilityManager.Created](#masterdatapropertyfacilitymanagercreated) | :white_check_mark: | :x: | A facility manager has been created |
+[Masterdata.Property.FacilityManager.Updated](#masterdatapropertyfacilitymanagerupdated) | :white_check_mark: | :x: | A facility manager has been updated |
+[Masterdata.Property.FacilityManager.Deleted](#masterdatapropertyfacilitymanagerdeleted) | :white_check_mark: | :x: | A facility manager has been deleted |
 [Masterdata.Property.TagAdded](#masterdatapropertytagadded) | :white_check_mark: | :x: | A tag was added to a property; please read the specs for this event carefully
 [Masterdata.Property.TagRemoved](#masterdatapropertytagremoved) | :white_check_mark: | :x: | A tag was removed from a property; please read the specs for this event carefully
 [Masterdata.Building.Created](#masterdatabuildingcreated) | :white_check_mark: | :white_check_mark: | A building has been created
@@ -78,6 +81,95 @@ data | hash |
     "reference":"1234",
     "description":"my property renamed",
     "endOfAdministration": "2018-12-31"
+  }
+}
+```
+
+### Masterdata.Property.FacilityManager.Created
+
+This message is published when a facility manager was created in GARAIO REM; only attributes that do not contain null values are published
+
+Field | Type | Content / Remarks
+---|---|---
+`eventType` | `string` | Masterdata.Property.FacilityManager.Created
+`data` | `hash` |
+&nbsp;&nbsp;`propertyReference` | `string` | reference of the property the facility manager works for; null, if he works for a specific building
+&nbsp;&nbsp;`buildingReference` | `string` | reference of the building the facility manager works for; null, if he works for a whole property
+&nbsp;&nbsp;`personReference` | `string` | reference of the person that represents the facility manager
+&nbsp;&nbsp;`employerReference` | `string` | reference of the person that represents the facility manager employer
+&nbsp;&nbsp;`roleCode` | `string` | code of the role the facility manager has; (see code table "Hauswarte" for valid codes)
+&nbsp;&nbsp;`validFrom` | `string` | ISO 8601 encoded date, eg `'2019-03-01'`
+&nbsp;&nbsp;`validUntil` | `string` | ISO 8601 encoded date, eg `'2019-03-31'`; only set if the facility manager contract is terminated
+&nbsp;&nbsp;`employmentRate` | `decimal` | employment rate in percent
+&nbsp;&nbsp;`externalReference` | `string` | external reference (eg contact reference)
+
+#### Example
+
+```json
+{"eventType":"Masterdata.Property.FacilityManager.Created",
+  "data":{
+    "propertyReference":"1234",
+    "personReference":"5678",
+    "employerReference":"9012",
+    "roleCode":"RH01",
+    "validFrom":"2019-03-01",
+    "validUntil":"2019-03-31",
+    "employmentRate":100.0,
+    "externalReference":"XT-568-12"
+  }
+}
+```
+
+### Masterdata.Property.FacilityManager.Updated
+
+This message is published when a facility manager was updated in GARAIO REM; only the key attributes and attributes that changed are published
+
+Field | Type | Content / Remarks
+---|---|---
+`eventType` | `string` | Masterdata.Property.FacilityManager.Created
+`data` | `hash` |
+&nbsp;&nbsp;`propertyReference` | `string` | reference of the property the facility manager works for; null, if he works for a specific building
+&nbsp;&nbsp;`buildingReference` | `string` | reference of the building the facility manager works for; null, if he works for a whole property
+&nbsp;&nbsp;`personReference` | `string` | reference of the person that represents the facility manager
+&nbsp;&nbsp;`employerReference` | `string` | reference of the person that represents the facility manager employer
+&nbsp;&nbsp;`roleCode` | `string` | code of the role the facility manager has; (see code table "Hauswarte" for valid codes)
+&nbsp;&nbsp;`validFrom` | `string` | ISO 8601 encoded date, eg `'2019-03-01'`
+&nbsp;&nbsp;`validUntil` | `string` | ISO 8601 encoded date, eg `'2019-03-31'`; only set if the facility manager contract is terminated
+&nbsp;&nbsp;`employmentRate` | `decimal` | employment rate in percent
+&nbsp;&nbsp;`externalReference` | `string` | external reference (eg contact reference)
+
+#### Example (contract termination)
+
+```json
+{"eventType":"Masterdata.Property.FacilityManager.Updated",
+  "data":{
+    "propertyReference":"1234",
+    "personReference":"5678",
+    "validUntil":"2019-03-31",
+  }
+}
+```
+
+### Masterdata.Property.FacilityManager.Deleted
+
+This message is published when a facility manager was deleted in GARAIO REM; only the key attributes are published
+
+Field | Type | Content / Remarks
+---|---|---
+`eventType` | `string` | Masterdata.Property.FacilityManager.Created
+`data` | `hash` |
+&nbsp;&nbsp;`propertyReference` | `string` | reference of the property the facility manager works for; null, if he works for a specific building
+&nbsp;&nbsp;`buildingReference` | `string` | reference of the building the facility manager works for; null, if he works for a whole property
+&nbsp;&nbsp;`personReference` | `string` | reference of the person that represents the facility manager
+
+#### Example
+
+```json
+{"eventType":"Masterdata.Property.FacilityManager.Deleted",
+  "data":{
+    "propertyReference":"1234",
+    "personReference":"5678",
+    "validUntil":"2019-03-31",
   }
 }
 ```
