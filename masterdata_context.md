@@ -2,30 +2,33 @@
 
 ## Events
 
-Type | GARAIO REM | REM | Description
----|---|---|---
-[Masterdata.Property.Created](#masterdatapropertycreated) | :white_check_mark: | :white_check_mark: | A new property has been created
-[Masterdata.Property.Updated](#masterdatapropertyupdated) | :white_check_mark: | :white_check_mark: | Data associated to a property has changed; you get changed attributes only
-[Masterdata.Property.FacilityManager.Created](#masterdatapropertyfacilitymanagercreated) | :white_check_mark: | :x: | A facility manager has been created |
-[Masterdata.Property.FacilityManager.Updated](#masterdatapropertyfacilitymanagerupdated) | :white_check_mark: | :x: | A facility manager has been updated |
-[Masterdata.Property.FacilityManager.Deleted](#masterdatapropertyfacilitymanagerdeleted) | :white_check_mark: | :x: | A facility manager has been deleted |
-[Masterdata.Property.TagAdded](#masterdatapropertytagadded) | :white_check_mark: | :x: | A tag was added to a property; please read the specs for this event carefully
-[Masterdata.Property.TagRemoved](#masterdatapropertytagremoved) | :white_check_mark: | :x: | A tag was removed from a property; please read the specs for this event carefully
-[Masterdata.Building.Created](#masterdatabuildingcreated) | :white_check_mark: | :white_check_mark: | A building has been created
-[Masterdata.Building.Updated](#masterdatabuildingupdated) | :white_check_mark: | :white_check_mark: | Data associated to a building has changed; you get the reference plus all changed attributes
-[Masterdata.Building.Deleted](#masterdatabuildingdeleted) | :white_check_mark: | :white_check_mark:| The building was deleted
-[Masterdata.Building.ReferenceChanged](#masterdatabuildingreferencechanged) | :white_check_mark: | :x: | The building reference has changed
-[Masterdata.Unit.Created](#masterdataunitcreated) | :white_check_mark: | :white_check_mark: | A rentable unit has been created
-[Masterdata.Unit.Updated](#masterdataunitupdated) | :white_check_mark: | :white_check_mark: | Data associated to a rentable unit has changed; you get the reference plus all changed attributes
-[Masterdata.Unit.Deleted](#masterdataunitdeleted) | :white_check_mark: | :white_check_mark: | The unit was deleted
-[Masterdata.Unit.ReferenceChanged](#masterdataunitreferencechanged) | :white_check_mark: | :white_check_mark: | The unit reference has changed
-[Masterdata.Condominium.Updated](#masterdatacondominiumupdated) | :white_check_mark: | :x: | Data associated to a condominium has changed; you get the reference plus all changed attributes
-[Masterdata.ManagementTeam.Updated](#masterdatamanagementteamupdated) | :white_check_mark: | :x: | A change to a property management team was applied; only changed roles are published
-[Masterdata.Configuration.SedexIdChanged](#masterdataconfigurationsedexidchanged) | :x: | :white_check_mark: | A new SedexID has been configured |
-[Masterdata.PersonContactData.Update](#masterdatapersoncontactdataupdate) | :white_check_mark: | :x: | Update the contact data of a person with this message
-[Masterdata.PersonPaymentDetails.Update](#masterdatapersonpaymentdetailsupdate) | :white_check_mark: | :x: | Update the payment details of a person with this message
-[Masterdata.Person.Create](#masterdatapersoncreate) | :white_check_mark: | :x: | Create a new person record with this message
-[Masterdata.Person.Update](#masterdatapersonupdate) | :white_check_mark: | :x: | Update the masterdata of a person with this message
+| Type | GARAIO REM | REM | Description |
+|---|---|---|---|
+| [Masterdata.Property.Created](#masterdatapropertycreated) | :white_check_mark: | :white_check_mark: | A new property has been created |
+| [Masterdata.Property.Updated](#masterdatapropertyupdated) | :white_check_mark: | :white_check_mark: | Data associated to a property has changed; you get changed attributes only |
+| [Masterdata.Property.FacilityManager.Created](#masterdatapropertyfacilitymanagercreated) | :white_check_mark: | :x: | A facility manager has been created |
+| [Masterdata.Property.FacilityManager.Updated](#masterdatapropertyfacilitymanagerupdated) | :white_check_mark: | :x: | A facility manager has been updated |
+| [Masterdata.Property.FacilityManager.Deleted](#masterdatapropertyfacilitymanagerdeleted) | :white_check_mark: | :x: | A facility manager has been deleted |
+| [Masterdata.Property.TagAdded](#masterdatapropertytagadded) | :white_check_mark: | :x: | A tag was added to a property; please read the specs for this event carefully |
+| [Masterdata.Property.TagRemoved](#masterdatapropertytagremoved) | :white_check_mark: | :x: | A tag was removed from a property; please read the specs for this event carefully |
+| [Masterdata.Rent.Created](#masterdatarentcreated) | :white_check_mark: | :x: | A new rent configuration has been created |
+| [Masterdata.Rent.Updated](#masterdatarentupdated) | :white_check_mark: | :x: | Data associated to a rent configuration has changed |
+| [Masterdata.Rent.Deleted](#masterdatarentdeleted) | :white_check_mark: | :x: | A rent configuration was deleted |
+| [Masterdata.Building.Created](#masterdatabuildingcreated) | :white_check_mark: | :white_check_mark: | A building has been created |
+| [Masterdata.Building.Updated](#masterdatabuildingupdated) | :white_check_mark: | :white_check_mark: | Data associated to a building has changed; you get the reference plus all changed attributes |
+| [Masterdata.Building.Deleted](#masterdatabuildingdeleted) | :white_check_mark: | :white_check_mark:| The building was deleted |
+| [Masterdata.Building.ReferenceChanged](#masterdatabuildingreferencechanged) | :white_check_mark: | :x: | The building reference has changed |
+| [Masterdata.Unit.Created](#masterdataunitcreated) | :white_check_mark: | :white_check_mark: | A rentable unit has been created |
+| [Masterdata.Unit.Updated](#masterdataunitupdated) | :white_check_mark: | :white_check_mark: | Data associated to a rentable unit has changed; you get the reference plus all changed attributes |
+| [Masterdata.Unit.Deleted](#masterdataunitdeleted) | :white_check_mark: | :white_check_mark: | The unit was deleted |
+| [Masterdata.Unit.ReferenceChanged](#masterdataunitreferencechanged) | :white_check_mark: | :white_check_mark: | The unit reference has changed |
+| [Masterdata.Condominium.Updated](#masterdatacondominiumupdated) | :white_check_mark: | :x: | Data associated to a condominium has changed; you get the reference plus all changed attributes |
+| [Masterdata.ManagementTeam.Updated](#masterdatamanagementteamupdated) | :white_check_mark: | :x: | A change to a property management team was applied; only changed roles are published |
+| [Masterdata.Configuration.SedexIdChanged](#masterdataconfigurationsedexidchanged) | :x: | :white_check_mark: | A new SedexID has been configured |
+| [Masterdata.PersonContactData.Update](#masterdatapersoncontactdataupdate) | :white_check_mark: | :x: | Update the contact data of a person with this message |
+| [Masterdata.PersonPaymentDetails.Update](#masterdatapersonpaymentdetailsupdate) | :white_check_mark: | :x: | Update the payment details of a person with this message |
+| [Masterdata.Person.Create](#masterdatapersoncreate) | :white_check_mark: | :x: | Create a new person record with this message |
+| [Masterdata.Person.Update](#masterdatapersonupdate) | :white_check_mark: | :x: | Update the masterdata of a person with this message |
 
 ### Masterdata.Property.Created
 
@@ -218,6 +221,111 @@ data | hash |
   "data":{
     "reference":"1234",
     "tag":"t001"
+  }
+}
+```
+
+### Masterdata.Rent.Created
+
+| Field | Type | Content / Remarks |
+|---|---|---|
+| eventType | string | Masterdata.Rent.Created |
+| data | hash | |
+| &nbsp;&nbsp;unitReference | string | unique identifier for the unit this rent belongs to |
+| &nbsp;&nbsp;validFrom | string | ISO 8601 encoded date when this rent configuration becomes valid |
+| &nbsp;&nbsp;approved | boolean | whether the rent is approved |
+| &nbsp;&nbsp;netRent | number | net rent amount |
+| &nbsp;&nbsp;totalArea | number | total area in m² |
+| &nbsp;&nbsp;effectiveArea | number | effective/usable area in m² |
+| &nbsp;&nbsp;areaTypeCode | string | code indicating the type of area measurement used |
+| &nbsp;&nbsp;totalVolume | number | total volume in m³ |
+| &nbsp;&nbsp;effectiveVolume | number | effective/usable volume in m³ |
+| &nbsp;&nbsp;numberOfUnits | integer | number of units this rent applies to |
+| &nbsp;&nbsp;components | array | array of rent components |
+| &nbsp;&nbsp;&nbsp;&nbsp;type | string | component type code |
+| &nbsp;&nbsp;&nbsp;&nbsp;amount | number | net amount of the component |
+
+#### Example
+
+```json
+{
+  "eventType": "Masterdata.Rent.Created",
+  "data": {
+    "unitReference": "1234.01.0001",
+    "validFrom": "2025-04-01",
+    "approved": true,
+    "netRent": 1500.00,
+    "totalArea": 75.5,
+    "effectiveArea": 70.0,
+    "areaTypeCode": "SIA416",
+    "totalVolume": 226.5,
+    "effectiveVolume": 210.0,
+    "numberOfUnits": 1,
+    "components": [
+      {
+        "type": "NET_RENT",
+        "amount": 1500.00
+      }
+    ]
+  }
+}
+```
+
+### Masterdata.Rent.Updated
+
+| Field | Type | Content / Remarks |
+|---|---|---|
+| eventType | string | Masterdata.Rent.Updated |
+| data | hash | |
+| &nbsp;&nbsp;unitReference | string | unique identifier for the unit this rent belongs to |
+| &nbsp;&nbsp;validFrom | string | ISO 8601 encoded date when this rent configuration becomes valid |
+| &nbsp;&nbsp;netRent | number | net rent amount (if changed) |
+| &nbsp;&nbsp;totalArea | number | total area in m² (if changed) |
+| &nbsp;&nbsp;effectiveArea | number | effective/usable area in m² (if changed) |
+| &nbsp;&nbsp;areaTypeCode | string | code indicating the type of area measurement used (if changed) |
+| &nbsp;&nbsp;totalVolume | number | total volume in m³ (if changed) |
+| &nbsp;&nbsp;effectiveVolume | number | effective/usable volume in m³ (if changed) |
+| &nbsp;&nbsp;numberOfUnits | integer | number of units this rent applies to (if changed) |
+| &nbsp;&nbsp;components | array | array of rent components (if changed) |
+| &nbsp;&nbsp;&nbsp;&nbsp;type | string | component type code |
+| &nbsp;&nbsp;&nbsp;&nbsp;amount | number | net amount of the component |
+
+#### Example
+
+```json
+{
+  "eventType": "Masterdata.Rent.Updated",
+  "data": {
+    "unitReference": "1234.01.0001",
+    "validFrom": "2025-04-01",
+    "netRent": 1600.00,
+    "components": [
+      {
+        "type": "NET_RENT",
+        "amount": 1600.00
+      }
+    ]
+  }
+}
+```
+
+### Masterdata.Rent.Deleted
+
+| Field | Type | Content / Remarks |
+|---|---|---|
+| eventType | string | Masterdata.Rent.Deleted |
+| data | hash | |
+| &nbsp;&nbsp;unitReference | string | unique identifier for the unit this rent belongs to |
+| &nbsp;&nbsp;validFrom | string | ISO 8601 encoded date of the rent configuration that was deleted |
+
+#### Example
+
+```json
+{
+  "eventType": "Masterdata.Rent.Deleted",
+  "data": {
+    "unitReference": "1234.01.0001",
+    "validFrom": "2025-04-01"
   }
 }
 ```
@@ -719,59 +827,59 @@ Set the recipient property in the headers, eg `"grem_wincasa"`. All attributes a
 
 GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-message) / [Rejected](./result_messages.md#rejected-message) message containing the personReference and reject reasons, where appropriate
 
-| Field                                    | Type                         | Content / Remarks                                                                                                                                                                                                  |
+| Field | Type | Content / Remarks |
 | ---------------------------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `eventType`                              | `string`                     | `Masterdata.Person.Create`                                                                                                                                                                                         |
-| `data`                                   | `hash`                       |                                                                                                                                                                                                                    |
-| &nbsp;&nbsp;`createdAt`                  | `string`                     | ISO 8601 encoded timestamp, eg `'2024-02-06T14:10:11+01:00'`. Defaults to current time.                                                                                                                            |
-| &nbsp;&nbsp;`updatedAt`                  | `string`                     | ISO 8601 encoded timestamp, eg `'2024-02-06T14:10:11+01:00'`. Defaults to current time.                                                                                                                            |
-| &nbsp;&nbsp;`allowDuplicates`            | `boolean`                    | Whether to allow creation of duplicates (i.e. multiple people with the same first name, surname, city, zipCode and street). Defaults to false.                                                                     |
-| &nbsp;&nbsp;`firstName`                  | `string`                     | first name; **required**                                                                                                                                                                                           |
-| &nbsp;&nbsp;`surname`                    | `string`                     | surname for natural persons or company name for legal persons; **required**                                                                                                                                        |
-| &nbsp;&nbsp;`reference`                  | `string`                     | an optional reference that must be unique. If none is provided, GARAIO REM will generate one.                                                                                                                      |
-| &nbsp;&nbsp;`nameSuffix1`                | `string`                     | additional name suffix (i.e. `'c/o Garaio REM AG'`)                                                                                                                                                                |
-| &nbsp;&nbsp;`nameAddition2`              | `string`                     | additional field to store name information on company records                                                                                                                                                      |
-| &nbsp;&nbsp;`salutation`                 | `string`                     | one of the following values will be accepted: `none`, `sir`, `madam`. Send _either_ `salutation` _or_ `salutationCode` but not both.                                                                               |
-| &nbsp;&nbsp;`salutationCode`             | `string`                     | a value of the salutation code table (see code table entries "Anreden" for valid codes). Send _either_ `salutation` _or_ `salutationCode` but not both.                                                            |
-| &nbsp;&nbsp;`additionalSalutation`       | `string` (max 50 characters) | additional salutation (i.e. `Dr. med.`)                                                                                                                                                                            |
-| &nbsp;&nbsp;`maritalStatus`              | `string`                     | one of the following values will be accepted: `unmarried`, `married`, `widowed`, `divorced`, `separated`, `civil_union`. Send _either_ `maritalStatus` _or_ `maritalStatusCode` but not both.                      |
-| &nbsp;&nbsp;`maritalStatusCode`          | `string`                     | a value of the marital status code table (see code table entries "Zivilstände" for valid codes). Send _either_ `maritalStatus` _or_ `maritalStatusCode` but not both.                                              |
-| &nbsp;&nbsp;`jobTitle`                   | `string`                     | job title                                                                                                                                                                                                          |
+| `eventType` | `string` | `Masterdata.Person.Create` |
+| `data` | `hash` | |
+| &nbsp;&nbsp;`createdAt` | `string` | ISO 8601 encoded timestamp, eg `'2024-02-06T14:10:11+01:00'`. Defaults to current time. |
+| &nbsp;&nbsp;`updatedAt` | `string` | ISO 8601 encoded timestamp, eg `'2024-02-06T14:10:11+01:00'`. Defaults to current time. |
+| &nbsp;&nbsp;`allowDuplicates` | `boolean` | Whether to allow creation of duplicates (i.e. multiple people with the same first name, surname, city, zipCode and street). Defaults to false. |
+| &nbsp;&nbsp;`firstName` | `string` | first name; **required** |
+| &nbsp;&nbsp;`surname` | `string` | surname for natural persons or company name for legal persons; **required** |
+| &nbsp;&nbsp;`reference` | `string` | an optional reference that must be unique. If none is provided, GARAIO REM will generate one. |
+| &nbsp;&nbsp;`nameSuffix1` | `string` | additional name suffix (i.e. `'c/o Garaio REM AG'`) |
+| &nbsp;&nbsp;`nameAddition2` | `string` | additional field to store name information on company records |
+| &nbsp;&nbsp;`salutation` | `string` | one of the following values will be accepted: `none`, `sir`, `madam`. Send _either_ `salutation` _or_ `salutationCode` but not both. |
+| &nbsp;&nbsp;`salutationCode` | `string` | a value of the salutation code table (see code table entries "Anreden" for valid codes). Send _either_ `salutation` _or_ `salutationCode` but not both. |
+| &nbsp;&nbsp;`additionalSalutation` | `string` (max 50 characters) | additional salutation (i.e. `Dr. med.`) |
+| &nbsp;&nbsp;`maritalStatus` | `string` | one of the following values will be accepted: `unmarried`, `married`, `widowed`, `divorced`, `separated`, `civil_union`. Send _either_ `maritalStatus` _or_ `maritalStatusCode` but not both. |
+| &nbsp;&nbsp;`maritalStatusCode` | `string` | a value of the marital status code table (see code table entries "Zivilstände" for valid codes). Send _either_ `maritalStatus` _or_ `maritalStatusCode` but not both. |
+| &nbsp;&nbsp;`jobTitle` | `string` | job title |
 | &nbsp;&nbsp;`personType`                 | `string`                     | person code for this person. Can be one of the following values: `'natural_person'` for natural persons and `'legal_person'` for legal persons and `'condominium'` for condominiums. Defaults to `natural_person`. |
-| &nbsp;&nbsp;`dateOfBirth`                | `string`                     | ISO 8601 encoded date, eg `'2019-03-01'`; only **required** if person is a natural person                                                                                                                          |
-| &nbsp;&nbsp;`dateOfDeath`                | `string`                     | ISO 8601 encoded date, eg `'2019-03-01'`                                                                                                                                                                           |
-| &nbsp;&nbsp;`homeTown`                   | `string`                     | home town                                                                                                                                                                                                          |
-| &nbsp;&nbsp;`nationalityCode`            | `string`                     | ISO country code, eg `'CH'`                                                                                                                                                                                        |
-| &nbsp;&nbsp;`sensitive`                  | `boolean`                    | sensitive flag. `true` if the person is sensitive and only people with the "Personen Admin" role can mutate that record afterwards.                                                                                |
-| &nbsp;&nbsp;`rating`                     | `string`                     | defines the creditor rating of this person.                                                                                                                                                                        |
-| &nbsp;&nbsp;`modeOfDispatch`             | `string`                     | defines the mode of dispatch for this person. One of the following values will be accepted: `email`, `post`                                                                                                        |
-| &nbsp;&nbsp;`sendEMail`                  | `string`                     | email address where the person wants to receive documents if `modeOfDispatch` is set to `email`                                                                                                                    |
-| &nbsp;&nbsp;`isCreditor`                 | `boolean`                    | declares whether this person has a creditor profile.                                                                                                                                                               |
-| &nbsp;&nbsp;`creditorProfileIsBlocked`   | `boolean`                    | declares whether this person's creditor profile is blocked.                                                                                                                                                        |
-| &nbsp;&nbsp;`discount`                   | `decimal`                    | discount for this person                                                                                                                                                                                           |
-| &nbsp;&nbsp;`skonto`                     | `decimal`                    | skonto for this person in percent.                                                                                                                                                                                 |
-| &nbsp;&nbsp;`skontoInfo`                 | `string`                     | skonto information for this person.                                                                                                                                                                                |
-| &nbsp;&nbsp;`skontoDays`                 | `integer`                    | skonto information for this person. Must be empty, 0 or a positive integer                                                                                                                                         |
-| &nbsp;&nbsp;`creditorIndustryCodes`      | `array`                      | Creditor industry codes (given as strings) for this person. Must be a valid creditor industry codes (see code table entries "Kreditorbranchen" for valid codes).                                                   |
-| &nbsp;&nbsp;`tenantIndustryCode`         | `string`                     | tenant industry code for this person. Must be a valid tenant industry code (see code table entries "Mieterbranchen" for valid codes).                                                                              |
-| &nbsp;&nbsp;`companyGroupReference`      | `string`                     | company group reference for this person. Must be a valid reference of an existing company record in GARAIO REM.                                                                                                    |
-| &nbsp;&nbsp;`brandName`                  | `string`                     | brand name for this record                                                                                                                                                                                         |
-| &nbsp;&nbsp;`hasDunningBlock`            | `boolean`                    | declares whether this person has a dunning block. `true` if they should have a dunning block and `false` if they shouldn't.                                                                                        |
-| &nbsp;&nbsp;`isVATexempt`                | `boolean`                    | declares whether this record is VAT exempt. `true` if they should be VAT exempt and `false` if they shouldn't.                                                                                                     |
-| &nbsp;&nbsp;`UIDnumber`                  | `string`                     | UID number for this person. Must be a valid UID number (i.e. `461.079.435`).                                                                                                                                       |
-| &nbsp;&nbsp;`VATnr`                      | `string`                     | VAT number for this person. Must be a valid VAT number (i.e. `461.079.435`).                                                                                                                                       |
-| &nbsp;&nbsp;`hasPaymentBlock`            | `boolean`                    | declares whether this person has a payment block. `true` if they should have a payment block and `false` if they shouldn't.                                                                                        |
-| &nbsp;&nbsp;`paymentBlockReason`         | `string`                     | reason for the payment block for this person.                                                                                                                                                                      |
+| &nbsp;&nbsp;`dateOfBirth` | `string` | ISO 8601 encoded date, eg `'2019-03-01'`; only **required** if person is a natural person |
+| &nbsp;&nbsp;`dateOfDeath` | `string` | ISO 8601 encoded date, eg `'2019-03-01'` |
+| &nbsp;&nbsp;`homeTown` | `string` | home town |
+| &nbsp;&nbsp;`nationalityCode` | `string` | ISO country code, eg `'CH'` |
+| &nbsp;&nbsp;`sensitive` | `boolean` | sensitive flag. `true` if the person is sensitive and only people with the "Personen Admin" role can mutate that record afterwards. |
+| &nbsp;&nbsp;`rating` | `string` | defines the creditor rating of this person. |
+| &nbsp;&nbsp;`modeOfDispatch` | `string` | defines the mode of dispatch for this person. One of the following values will be accepted: `email`, `post` |
+| &nbsp;&nbsp;`sendEMail` | `string` |  email address where the person wants to receive documents if `modeOfDispatch` is set to `email` |
+| &nbsp;&nbsp;`isCreditor` | `boolean` | declares whether this person has a creditor profile. |
+| &nbsp;&nbsp;`creditorProfileIsBlocked` | `boolean` | declares whether this person's creditor profile is blocked. |
+| &nbsp;&nbsp;`discount` | `decimal` | discount for this person |
+| &nbsp;&nbsp;`skonto` | `decimal` | skonto for this person in percent. |
+| &nbsp;&nbsp;`skontoInfo` | `string` | skonto information for this person. |
+| &nbsp;&nbsp;`skontoDays` | `integer` | skonto information for this person. Must be empty, 0 or a positive integer |
+| &nbsp;&nbsp;`creditorIndustryCodes` | `array` | Creditor industry codes (given as strings) for this person. Must be a valid creditor industry codes (see code table entries "Kreditorbranchen" for valid codes). |
+| &nbsp;&nbsp;`tenantIndustryCode` | `string` | tenant industry code for this person. Must be a valid tenant industry code (see code table entries "Mieterbranchen" for valid codes). |
+| &nbsp;&nbsp;`companyGroupReference` | `string` | company group reference for this person. Must be a valid reference of an existing company record in GARAIO REM. |
+| &nbsp;&nbsp;`brandName` | `string` | brand name for this record |
+| &nbsp;&nbsp;`hasDunningBlock` | `boolean` | declares whether this person has a dunning block. `true` if they should have a dunning block and `false` if they shouldn't. |
+| &nbsp;&nbsp;`isVATexempt` | `boolean` | declares whether this record is VAT exempt. `true` if they should be VAT exempt and `false` if they shouldn't. |
+| &nbsp;&nbsp;`UIDnumber` | `string` | UID number for this person. Must be a valid UID number (i.e. `461.079.435`). |
+| &nbsp;&nbsp;`VATnr` | `string` | VAT number for this person. Must be a valid VAT number (i.e. `461.079.435`). |
+| &nbsp;&nbsp;`hasPaymentBlock` | `boolean` | declares whether this person has a payment block. `true` if they should have a payment block and `false` if they shouldn't. |
+| &nbsp;&nbsp;`paymentBlockReason` | `string` | reason for the payment block for this person. |
 | &nbsp;&nbsp;`correspondenceLanguageCode` | `string`                     | `'de'`, `'fr'`, `'it'` or `'en'`; must be lower case, defaults to `de`.                                                                                                                                            |
 | &nbsp;&nbsp;`iban`                       | `string`                     | IBAN for this person.                                                                                                                                                                                              |
 | &nbsp;&nbsp;`bic`                        | `string`                     | BIC for this person.                                                                                                                                                                                               |
-| &nbsp;&nbsp;`address`                    | `hash`                       | current address                                                                                                                                                                                                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;`city`           | `string`                     | city; **required**                                                                                                                                                                                                 |
-| &nbsp;&nbsp;&nbsp;&nbsp;`zipCode`        | `string`                     | zipCode; **required**                                                                                                                                                                                              |
-| &nbsp;&nbsp;&nbsp;&nbsp;`street`         | `string`                     | street incl. number; **required**                                                                                                                                                                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;`postbox`        | `string`                     | postbox; **optional**                                                                                                                                                                                              |
-| &nbsp;&nbsp;&nbsp;&nbsp;`mailboxNumber`  | `string`                     | mailbox number; **optional**                                                                                                                                                                                       |
-| &nbsp;&nbsp;&nbsp;&nbsp;`supplement`     | `string`                     | address supplement, e.g. Elektro-Fachgeschäft; **optional**                                                                                                                                                        |
+| &nbsp;&nbsp;`address` | `hash` | current address |
+| &nbsp;&nbsp;&nbsp;&nbsp;`city` | `string` | city; **required** |
+| &nbsp;&nbsp;&nbsp;&nbsp;`zipCode` | `string` | zipCode; **required** |
+| &nbsp;&nbsp;&nbsp;&nbsp;`street` | `string` | street incl. number; **required** |
+| &nbsp;&nbsp;&nbsp;&nbsp;`postbox` | `string` | postbox; **optional** |
+| &nbsp;&nbsp;&nbsp;&nbsp;`mailboxNumber` | `string` | mailbox number; **optional** |
+| &nbsp;&nbsp;&nbsp;&nbsp;`supplement` | `string` | address supplement, e.g. Elektro-Fachgeschäft; **optional** |
 | &nbsp;&nbsp;&nbsp;&nbsp;`countryCode`    | `string`                     | ISO country code, eg `'CH'`. Defaults to 'CH'.                                                                                                                                                                     |
 | &nbsp;&nbsp;`contactData`                | `hash`                       | [ContactData](types/contact_data.md) of this person.                                                                                                                                                               |
 
