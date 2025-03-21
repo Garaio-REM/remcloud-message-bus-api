@@ -14,6 +14,9 @@
 | [Masterdata.Rent.Created](#masterdatarentcreated) | :white_check_mark: | :x: | A new rent configuration has been created |
 | [Masterdata.Rent.Updated](#masterdatarentupdated) | :white_check_mark: | :x: | Data associated to a rent configuration has changed |
 | [Masterdata.Rent.Deleted](#masterdatarentdeleted) | :white_check_mark: | :x: | A rent configuration was deleted |
+| [Masterdata.RentReserve.Created](#masterdatarentreservecreated) | :white_check_mark: | :x: | A new rent reserve has been created |
+| [Masterdata.RentReserve.Updated](#masterdatarentreserveupdated) | :white_check_mark: | :x: | Data associated to a rent reserve has changed |
+| [Masterdata.RentReserve.Deleted](#masterdatarentreservedeleted) | :white_check_mark: | :x: | A rent reserve was deleted |
 | [Masterdata.Building.Created](#masterdatabuildingcreated) | :white_check_mark: | :white_check_mark: | A building has been created |
 | [Masterdata.Building.Updated](#masterdatabuildingupdated) | :white_check_mark: | :white_check_mark: | Data associated to a building has changed; you get the reference plus all changed attributes |
 | [Masterdata.Building.Deleted](#masterdatabuildingdeleted) | :white_check_mark: | :white_check_mark:| The building was deleted |
@@ -323,6 +326,80 @@ data | hash |
 ```json
 {
   "eventType": "Masterdata.Rent.Deleted",
+  "data": {
+    "unitReference": "1234.01.0001",
+    "validFrom": "2025-04-01"
+  }
+}
+```
+
+### Masterdata.RentReserve.Created
+
+| Field | Type | Content / Remarks |
+|---|---|---|
+| eventType | string | Masterdata.RentReserve.Created |
+| data | hash | |
+| &nbsp;&nbsp;unitReference | string | unique identifier for the unit this rent reserve belongs to |
+| &nbsp;&nbsp;validFrom | string | ISO 8601 encoded date when this rent reserve becomes valid |
+| &nbsp;&nbsp;amount | decimal | amount of the rent reserve |
+| &nbsp;&nbsp;note | string | additional note or remark about the rent reserve |
+| &nbsp;&nbsp;typeCode | string | code indicating the type of rent reserve; (see code table entries (`mietzinsreserve_typ`) for valid codes) |
+
+#### Example
+
+```json
+{
+  "eventType": "Masterdata.RentReserve.Created",
+  "data": {
+    "unitReference": "1234.01.0001",
+    "validFrom": "2025-04-01",
+    "amount": 500.00,
+    "note": "Annual rent reserve",
+    "typeCode": "STANDARD"
+  }
+}
+```
+
+### Masterdata.RentReserve.Updated
+
+| Field | Type | Content / Remarks |
+|---|---|---|
+| eventType | string | Masterdata.RentReserve.Updated |
+| data | hash | |
+| &nbsp;&nbsp;unitReference | string | unique identifier for the unit this rent reserve belongs to |
+| &nbsp;&nbsp;validFrom | string | ISO 8601 encoded date when this rent reserve becomes valid |
+| &nbsp;&nbsp;amount | decimal | amount of the rent reserve (if changed) |
+| &nbsp;&nbsp;note | string | additional note or remark about the rent reserve (if changed) |
+| &nbsp;&nbsp;typeCode | string | code indicating the type of rent reserve (if changed); (see code table entries (`mietzinsreserve_typ`) for valid codes) |
+
+#### Example
+
+```json
+{
+  "eventType": "Masterdata.RentReserve.Updated",
+  "data": {
+    "unitReference": "1234.01.0001",
+    "validFrom": "2025-04-01",
+    "amount": 600.00,
+    "note": "Updated annual rent reserve"
+  }
+}
+```
+
+### Masterdata.RentReserve.Deleted
+
+| Field | Type | Content / Remarks |
+|---|---|---|
+| eventType | string | Masterdata.RentReserve.Deleted |
+| data | hash | |
+| &nbsp;&nbsp;unitReference | string | unique identifier for the unit this rent reserve belongs to |
+| &nbsp;&nbsp;validFrom | string | ISO 8601 encoded date of the rent reserve that was deleted |
+
+#### Example
+
+```json
+{
+  "eventType": "Masterdata.RentReserve.Deleted",
   "data": {
     "unitReference": "1234.01.0001",
     "validFrom": "2025-04-01"
