@@ -14,9 +14,9 @@
 | [Masterdata.Rent.Created](#masterdatarentcreated) | :white_check_mark: | :x: | A new rent configuration has been created |
 | [Masterdata.Rent.Updated](#masterdatarentupdated) | :white_check_mark: | :x: | Data associated to a rent configuration has changed |
 | [Masterdata.Rent.Deleted](#masterdatarentdeleted) | :white_check_mark: | :x: | A rent configuration was deleted |
-| [Masterdata.RentReserve.Created](#masterdatarentreservecreated) | :white_check_mark: | :x: | A new rent reserve has been created |
-| [Masterdata.RentReserve.Updated](#masterdatarentreserveupdated) | :white_check_mark: | :x: | Data associated to a rent reserve has changed |
-| [Masterdata.RentReserve.Deleted](#masterdatarentreservedeleted) | :white_check_mark: | :x: | A rent reserve was deleted |
+| [Masterdata.RentIncreasePotential.Created](#masterdatarentincreasepotentialcreated) | :white_check_mark: | :x: | A new rent reserve has been created |
+| [Masterdata.RentIncreasePotential.Updated](#masterdatarentincreasepotentialupdated) | :white_check_mark: | :x: | Data associated to a rent reserve has changed |
+| [Masterdata.RentIncreasePotential.Deleted](#masterdatarentincreasepotentialdeleted) | :white_check_mark: | :x: | A rent reserve was deleted |
 | [Masterdata.Building.Created](#masterdatabuildingcreated) | :white_check_mark: | :white_check_mark: | A building has been created |
 | [Masterdata.Building.Updated](#masterdatabuildingupdated) | :white_check_mark: | :white_check_mark: | Data associated to a building has changed; you get the reference plus all changed attributes |
 | [Masterdata.Building.Deleted](#masterdatabuildingdeleted) | :white_check_mark: | :white_check_mark:| The building was deleted |
@@ -333,11 +333,11 @@ data | hash |
 }
 ```
 
-### Masterdata.RentReserve.Created
+### Masterdata.RentIncreasePotential.Created
 
 | Field | Type | Content / Remarks |
 |---|---|---|
-| eventType | string | Masterdata.RentReserve.Created |
+| eventType | string | Masterdata.RentIncreasePotential.Created |
 | data | hash | |
 | &nbsp;&nbsp;unitReference | string | unique identifier for the unit this rent reserve belongs to |
 | &nbsp;&nbsp;validFrom | string | ISO 8601 encoded date when this rent reserve becomes valid |
@@ -349,7 +349,7 @@ data | hash |
 
 ```json
 {
-  "eventType": "Masterdata.RentReserve.Created",
+  "eventType": "Masterdata.RentIncreasePotential.Created",
   "data": {
     "unitReference": "1234.01.0001",
     "validFrom": "2025-04-01",
@@ -360,11 +360,11 @@ data | hash |
 }
 ```
 
-### Masterdata.RentReserve.Updated
+### Masterdata.RentIncreasePotential.Updated
 
 | Field | Type | Content / Remarks |
 |---|---|---|
-| eventType | string | Masterdata.RentReserve.Updated |
+| eventType | string | Masterdata.RentIncreasePotential.Updated |
 | data | hash | |
 | &nbsp;&nbsp;unitReference | string | unique identifier for the unit this rent reserve belongs to |
 | &nbsp;&nbsp;validFrom | string | ISO 8601 encoded date when this rent reserve becomes valid |
@@ -376,7 +376,7 @@ data | hash |
 
 ```json
 {
-  "eventType": "Masterdata.RentReserve.Updated",
+  "eventType": "Masterdata.RentIncreasePotential.Updated",
   "data": {
     "unitReference": "1234.01.0001",
     "validFrom": "2025-04-01",
@@ -386,11 +386,11 @@ data | hash |
 }
 ```
 
-### Masterdata.RentReserve.Deleted
+### Masterdata.RentIncreasePotential.Deleted
 
 | Field | Type | Content / Remarks |
 |---|---|---|
-| eventType | string | Masterdata.RentReserve.Deleted |
+| eventType | string | Masterdata.RentIncreasePotential.Deleted |
 | data | hash | |
 | &nbsp;&nbsp;unitReference | string | unique identifier for the unit this rent reserve belongs to |
 | &nbsp;&nbsp;validFrom | string | ISO 8601 encoded date of the rent reserve that was deleted |
@@ -399,7 +399,7 @@ data | hash |
 
 ```json
 {
-  "eventType": "Masterdata.RentReserve.Deleted",
+  "eventType": "Masterdata.RentIncreasePotential.Deleted",
   "data": {
     "unitReference": "1234.01.0001",
     "validFrom": "2025-04-01"
