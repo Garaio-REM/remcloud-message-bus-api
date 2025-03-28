@@ -108,6 +108,7 @@ Field | Type | Content / Remarks
 &nbsp;&nbsp;`validUntil` | `string` | ISO 8601 encoded date, eg `'2019-03-31'`; only set if the facility manager contract is terminated
 &nbsp;&nbsp;`employmentRate` | `decimal` | employment rate in percent
 &nbsp;&nbsp;`externalReference` | `string` | external reference (eg contact reference)
+&nbsp;&nbsp;`comment` | `string` | free text
 
 #### Example
 
@@ -121,7 +122,8 @@ Field | Type | Content / Remarks
     "validFrom":"2019-03-01",
     "validUntil":"2019-03-31",
     "employmentRate":100.0,
-    "externalReference":"XT-568-12"
+    "externalReference":"XT-568-12",
+    "comment":"some notes"
   }
 }
 ```
@@ -143,6 +145,7 @@ Field | Type | Content / Remarks
 &nbsp;&nbsp;`validUntil` | `string` | ISO 8601 encoded date, eg `'2019-03-31'`; only set if the facility manager contract is terminated
 &nbsp;&nbsp;`employmentRate` | `decimal` | employment rate in percent
 &nbsp;&nbsp;`externalReference` | `string` | external reference (eg contact reference)
+&nbsp;&nbsp;`comment` | `string` | free text
 
 #### Example (contract termination)
 
@@ -152,6 +155,7 @@ Field | Type | Content / Remarks
     "propertyReference":"1234",
     "personReference":"5678",
     "validUntil":"2019-03-31",
+    "comment":"some notes"
   }
 }
 ```
