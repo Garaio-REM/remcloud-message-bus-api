@@ -6,9 +6,9 @@
 |---|---|---|---|
 | [Masterdata.Property.Created](#masterdatapropertycreated) | :white_check_mark: | :white_check_mark: | A new property has been created |
 | [Masterdata.Property.Updated](#masterdatapropertyupdated) | :white_check_mark: | :white_check_mark: | Data associated to a property has changed; you get changed attributes only |
-| [Masterdata.Property.FacilityManager.Created](#masterdatapropertyfacilitymanagercreated) | :white_check_mark: | :x: | A facility manager has been created |
-| [Masterdata.Property.FacilityManager.Updated](#masterdatapropertyfacilitymanagerupdated) | :white_check_mark: | :x: | A facility manager has been updated |
-| [Masterdata.Property.FacilityManager.Deleted](#masterdatapropertyfacilitymanagerdeleted) | :white_check_mark: | :x: | A facility manager has been deleted |
+| [Masterdata.FacilityManager.Created](#masterdatafacilitymanagercreated) | :white_check_mark: | :x: | A facility manager has been created |
+| [Masterdata.FacilityManager.Updated](#masterdatafacilitymanagerupdated) | :white_check_mark: | :x: | A facility manager has been updated |
+| [Masterdata.FacilityManager.Deleted](#masterdatafacilitymanagerdeleted) | :white_check_mark: | :x: | A facility manager has been deleted |
 | [Masterdata.Property.TagAdded](#masterdatapropertytagadded) | :white_check_mark: | :x: | A tag was added to a property; please read the specs for this event carefully |
 | [Masterdata.Property.TagRemoved](#masterdatapropertytagremoved) | :white_check_mark: | :x: | A tag was removed from a property; please read the specs for this event carefully |
 | [Masterdata.Rent.Created](#masterdatarentcreated) | :white_check_mark: | :x: | A new rent configuration has been created |
@@ -91,13 +91,13 @@ data | hash |
 }
 ```
 
-### Masterdata.Property.FacilityManager.Created
+### Masterdata.FacilityManager.Created
 
 This message is published when a facility manager was created in GARAIO REM; only attributes that do not contain null values are published
 
 Field | Type | Content / Remarks
 ---|---|---
-`eventType` | `string` | Masterdata.Property.FacilityManager.Created
+`eventType` | `string` | Masterdata.FacilityManager.Created
 `data` | `hash` |
 &nbsp;&nbsp;`propertyReference` | `string` | reference of the property the facility manager works for; null, if he works for a specific building
 &nbsp;&nbsp;`buildingReference` | `string` | reference of the building the facility manager works for; null, if he works for a whole property
@@ -113,7 +113,7 @@ Field | Type | Content / Remarks
 #### Example
 
 ```json
-{"eventType":"Masterdata.Property.FacilityManager.Created",
+{"eventType":"Masterdata.FacilityManager.Created",
   "data":{
     "propertyReference":"1234",
     "personReference":"5678",
@@ -128,13 +128,13 @@ Field | Type | Content / Remarks
 }
 ```
 
-### Masterdata.Property.FacilityManager.Updated
+### Masterdata.FacilityManager.Updated
 
 This message is published when a facility manager was updated in GARAIO REM; only the key attributes and attributes that changed are published
 
 Field | Type | Content / Remarks
 ---|---|---
-`eventType` | `string` | Masterdata.Property.FacilityManager.Created
+`eventType` | `string` | Masterdata.FacilityManager.Created
 `data` | `hash` |
 &nbsp;&nbsp;`propertyReference` | `string` | reference of the property the facility manager works for; null, if he works for a specific building
 &nbsp;&nbsp;`buildingReference` | `string` | reference of the building the facility manager works for; null, if he works for a whole property
@@ -150,7 +150,7 @@ Field | Type | Content / Remarks
 #### Example (contract termination)
 
 ```json
-{"eventType":"Masterdata.Property.FacilityManager.Updated",
+{"eventType":"Masterdata.FacilityManager.Updated",
   "data":{
     "propertyReference":"1234",
     "personReference":"5678",
@@ -160,13 +160,13 @@ Field | Type | Content / Remarks
 }
 ```
 
-### Masterdata.Property.FacilityManager.Deleted
+### Masterdata.FacilityManager.Deleted
 
 This message is published when a facility manager was deleted in GARAIO REM; only the key attributes are published
 
 Field | Type | Content / Remarks
 ---|---|---
-`eventType` | `string` | Masterdata.Property.FacilityManager.Created
+`eventType` | `string` | Masterdata.FacilityManager.Created
 `data` | `hash` |
 &nbsp;&nbsp;`propertyReference` | `string` | reference of the property the facility manager works for; null, if he works for a specific building
 &nbsp;&nbsp;`buildingReference` | `string` | reference of the building the facility manager works for; null, if he works for a whole property
@@ -175,7 +175,7 @@ Field | Type | Content / Remarks
 #### Example
 
 ```json
-{"eventType":"Masterdata.Property.FacilityManager.Deleted",
+{"eventType":"Masterdata.FacilityManager.Deleted",
   "data":{
     "propertyReference":"1234",
     "personReference":"5678",
