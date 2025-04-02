@@ -134,7 +134,7 @@ This message is published when a facility manager was updated in GARAIO REM; onl
 
 Field | Type | Content / Remarks
 ---|---|---
-`eventType` | `string` | Masterdata.FacilityManager.Created
+`eventType` | `string` | Masterdata.FacilityManager.Updated
 `data` | `hash` |
 &nbsp;&nbsp;`propertyReference` | `string` | reference of the property the facility manager works for; null, if he works for a specific building
 &nbsp;&nbsp;`buildingReference` | `string` | reference of the building the facility manager works for; null, if he works for a whole property
@@ -166,7 +166,7 @@ This message is published when a facility manager was deleted in GARAIO REM; onl
 
 Field | Type | Content / Remarks
 ---|---|---
-`eventType` | `string` | Masterdata.FacilityManager.Created
+`eventType` | `string` | Masterdata.FacilityManager.Deleted
 `data` | `hash` |
 &nbsp;&nbsp;`propertyReference` | `string` | reference of the property the facility manager works for; null, if he works for a specific building
 &nbsp;&nbsp;`buildingReference` | `string` | reference of the building the facility manager works for; null, if he works for a whole property
