@@ -305,6 +305,8 @@ You may want to set the `source_app_id` if the invoice origin does not correspon
 | &nbsp;&nbsp;`dueDate`                                      | `string`  | ISO 8601 encoded date, eg '2020-10-21'; optional, defaults to today                                                                                             |
 | &nbsp;&nbsp;`bookingDate`                                  | `string`  | ISO 8601 encoded date, eg '2020-10-21'; optional, defaults to today                                                                                             |
 | &nbsp;&nbsp;`transitoryDeferralPeriod`                     | `string`  | optional, ISO 8601 Time-Interval with restrictions, see (4); **NOTE: this field may NOT be used with 'transitoryDeferralDates' within 'invoiceItems'**          |
+| &nbsp;&nbsp;`discountPercent`                              | `decimal` | optional discount percentage that applies to the invoice                                                                                                        |
+| &nbsp;&nbsp;`discountDays`                                 | `integer` | optional number of days for which the discount is valid                                                                                                         |
 | &nbsp;&nbsp;`invoiceItems`                                 | `array`   | if AVK is configured for strict mode, at least one item is required; if strict mode is disabled, you may pass an empty array, null or omit the attribute        |
 | &nbsp;&nbsp;&nbsp;&nbsp;`itemNumber`                       | `integer` | invoice item number to preserve order; **required**                                                                                                             |
 | &nbsp;&nbsp;&nbsp;&nbsp;`accountNumber`                    | `string`  | accounting account number, prefixed by the accounting reference, eg "6056.10122"                                                                                |
@@ -382,7 +384,9 @@ Do **not** pass a `swissQrCode.iban` if you do not pass a `creditorReference`; G
     "creditorReference":"5555",
     "accountingReference":"4711",
     "totalGrossAmount":1200.50,
-    "invoiceDate":"2020-10-21"
+    "invoiceDate":"2020-10-21",
+    "discount":"5.00",
+    "discountDays":"10"
   }
 }
 ```
