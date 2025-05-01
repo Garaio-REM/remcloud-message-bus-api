@@ -2,20 +2,23 @@
 
 ## Events
 
-Type | GARAIO REM | REM | Description
----|---|---|---
-[Invoicing.Order.Created](#invoicingordercreated) | :white_check_mark: | :x: | An order has been created
-[Invoicing.Order.Accepted](#invoicingorderaccepted) | :white_check_mark: | :x: | An order has been accepted by GARAIO REM
-[Invoicing.Order.Rejected](#invoicingorderrejected) | :white_check_mark: | :x: | An order has been rejected by GARAIO REM
-[Invoicing.Order.Updated](#invoicingorderupdated) | :white_check_mark: | :x: | An already published order has been updated
-[Invoicing.Order.Deleted](#invoicingorderdeleted) | :white_check_mark: | :x: | An order created by a third party system has been deleted
-[Invoicing.Invoice.Created](#invoicinginvoicecreated) | :white_check_mark: | :x: | An invoice has been created
-[Invoicing.Invoice.Accepted](#invoicinginvoiceaccepted) | :white_check_mark: | :x: | An invoice has been accepted by GARAIO REM
-[Invoicing.Invoice.Rejected](#invoicinginvoicerejected) | :white_check_mark: | :x: | An invoice has been rejected by GARAIO REM
-[Invoicing.Invoice.Deleted](#invoicinginvoicedeleted) | :white_check_mark: | :x: | An incomplete invoice has been deleted in GARAIO REM
-[Invoicing.Invoice.Booked](#invoicinginvoicebooked) | :white_check_mark: | :x: | An invoice was booked in GARAIO REM
-[Invoicing.Invoice.Cancelled](#invoicinginvoicecancelled) | :white_check_mark: | :x: | An invoice has been cancelled in GARAIO REM (Storno)
-[Invoicing.Invoice.Payed](#invoicinginvoicepayed) | :white_check_mark: | :x: | An invoice has been payed by GARAIO REM
+| Type                                                      | GARAIO REM         | REM | Description                                               |
+| --------------------------------------------------------- | ------------------ | --- | --------------------------------------------------------- |
+| [Invoicing.Order.Created](#invoicingordercreated)         | :white_check_mark: | :x: | Create an order in GARAIO REM                             |
+| [Invoicing.Order.WasCreated](#invoicingorderwascreated)   | :white_check_mark: | :x: | An order has been created in GARAIO REM                   |
+| [Invoicing.Order.Accepted](#invoicingorderaccepted)       | :white_check_mark: | :x: | An order has been accepted by GARAIO REM                  |
+| [Invoicing.Order.Rejected](#invoicingorderrejected)       | :white_check_mark: | :x: | An order has been rejected by GARAIO REM                  |
+| [Invoicing.Order.Updated](#invoicingorderupdated)         | :white_check_mark: | :x: | Update an already published order in GARAIO REM           |
+| [Invoicing.Order.WasUpdated](#invoicingorderwasupdated)   | :white_check_mark: | :x: | An order has been updated in GARAIO REM                   |
+| [Invoicing.Order.Deleted](#invoicingorderdeleted)         | :white_check_mark: | :x: | Delete rder created by a third party system in GARAIO REM |
+| [Invoicing.Order.WasDeleted](#invoicingorderwasdeleted)   | :white_check_mark: | :x: | An order has been deleted in GARAIO REM                   |
+| [Invoicing.Invoice.Created](#invoicinginvoicecreated)     | :white_check_mark: | :x: | An invoice has been created                               |
+| [Invoicing.Invoice.Accepted](#invoicinginvoiceaccepted)   | :white_check_mark: | :x: | An invoice has been accepted by GARAIO REM                |
+| [Invoicing.Invoice.Rejected](#invoicinginvoicerejected)   | :white_check_mark: | :x: | An invoice has been rejected by GARAIO REM                |
+| [Invoicing.Invoice.Deleted](#invoicinginvoicedeleted)     | :white_check_mark: | :x: | An incomplete invoice has been deleted in GARAIO REM      |
+| [Invoicing.Invoice.Booked](#invoicinginvoicebooked)       | :white_check_mark: | :x: | An invoice was booked in GARAIO REM                       |
+| [Invoicing.Invoice.Cancelled](#invoicinginvoicecancelled) | :white_check_mark: | :x: | An invoice has been cancelled in GARAIO REM (Storno)      |
+| [Invoicing.Invoice.Payed](#invoicinginvoicepayed)         | :white_check_mark: | :x: | An invoice has been payed by GARAIO REM                   |
 
 ### Invoicing.Order.Created
 
@@ -91,6 +94,47 @@ Notes
 }
 ```
 
+### Invoicing.Order.WasCreated
+
+This is an event sent by GARAIO REM.
+
+| Field                                         | Type      | Content / Remarks                                                                |
+| --------------------------------------------- | --------- | -------------------------------------------------------------------------------- |
+| `eventType`                                   | `string`  | Invoicing.Order.WasCreated                                                       |
+| `data`                                        | `hash`    |                                                                                  |
+| &nbsp;&nbsp;`reference`                       | `longint` | unique identifier of the order                                                   |
+| &nbsp;&nbsp;`externalReference`               | `string`  | external identifier from the order provider                                      |
+| &nbsp;&nbsp;`accountingReference`             | `string`  | reference of the accounting                                                      |
+| &nbsp;&nbsp;`invoiceItems`                    | `array`   | at least one invoice item is guaranteed                                          |
+| &nbsp;&nbsp;&nbsp;&nbsp;`itemNumber`          | `integer` | invoice item number to preserve order                                            |
+| &nbsp;&nbsp;&nbsp;&nbsp;`accountNumber`       | `string`  | accounting account number, prefixed by the accounting reference, eg "6056.10122" |
+| &nbsp;&nbsp;&nbsp;&nbsp;`costCenterNumber`    | `string`  | cost center number                                                               |
+| &nbsp;&nbsp;&nbsp;&nbsp;`taxCode`             | `string`  | tax code known to GARAIO REM, eg 'NO'                                            |
+| &nbsp;&nbsp;&nbsp;&nbsp;`masterdataReference` | `string`  | optional reference of a property / building / unit                               |
+
+#### Example
+
+```json
+{
+  "body": {
+    "eventType": "Invoicing.Order.WasCreated",
+    "data": {
+      "externalReference": "1337",
+      "reference": 123,
+      "accountingReference": "1",
+      "invoiceItems": [
+        {
+          "accountNumber": "641201",
+          "costCenterNumber": "800",
+          "taxCode": "19",
+          "masterdataReference": "10001"
+        }
+      ]
+    }
+  }
+}
+```
+
 ### Invoicing.Order.Accepted
 
 This message goes from GARAIO REM to the order provider and signals that GARAIO REM has stored the order
@@ -153,7 +197,7 @@ This message goes from the order provider to GARAIO REM. Set the recipient prope
 This message completely replaces an existing order in GARAIO REM; if you pass, for example, only one orderItem for an order that has two order items, the order will have one orderItem after the update
 
 | Field                                                      | Type         | Content / Remarks                                                                                                                                                              |
-| ------------------------------------------                 | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| ---------------------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `eventType`                                                | `string`     | `Invoicing.Order.Updated`                                                                                                                                                      |
 | `data`                                                     | `hash`       |                                                                                                                                                                                |
 | &nbsp;&nbsp;`reference`                                    | `string`     | unique identifier; maybe required, see (1)                                                                                                                                     |
@@ -225,6 +269,40 @@ Notes:
 }
 ```
 
+### Invoicing.Order.WasUpdated
+
+This is an event sent by GARAIO REM.
+
+| Field                           | Type      | Content / Remarks                           |
+| ------------------------------- | --------- | ------------------------------------------- |
+| `eventType`                     | `string`  | Invoicing.Order.WasUpdated                  |
+| `data`                          | `hash`    |                                             |
+| &nbsp;&nbsp;`reference`         | `longint` | unique identifier of the order              |
+| &nbsp;&nbsp;`externalReference` | `string`  | external identifier from the order provider |
+
+#### Example
+
+```json
+{
+  "body": {
+    "eventType": "Invoicing.Order.WasUpdated",
+    "data": {
+      "externalReference": "1337",
+      "reference": 123,
+      "accountingReference": "1",
+      "invoiceItems": [
+        {
+          "accountNumber": "641201",
+          "costCenterNumber": "800",
+          "taxCode": "19",
+          "masterdataReference": "10001"
+        }
+      ]
+    }
+  }
+}
+```
+
 #### Responses
 
 You will get back either a [Invoicing.Order.Accepted](#invoicingorderaccepted) or a [Invoicing.Order.Rejected](#invoicingorderrejected).
@@ -250,6 +328,31 @@ Notes
 {"eventType":"Invoicing.Order.Deleted",
   "data":{
     "externalReference":"54820394-001",
+  }
+}
+```
+
+### Invoicing.Order.WasDeleted
+
+This is an event sent by GARAIO REM.
+
+| Field                           | Type      | Content / Remarks                           |
+| ------------------------------- | --------- | ------------------------------------------- |
+| `eventType`                     | `string`  | Invoicing.Order.WasUpdated                  |
+| `data`                          | `hash`    |                                             |
+| &nbsp;&nbsp;`reference`         | `longint` | unique identifier of the order              |
+| &nbsp;&nbsp;`externalReference` | `string`  | external identifier from the order provider |
+
+#### Example
+
+```json
+{
+  "body": {
+    "eventType": "Invoicing.Order.WasDeleted",
+    "data": {
+      "reference": 123,
+      "externalReference": "1337"
+    }
   }
 }
 ```
@@ -283,7 +386,7 @@ You may want to set the `source_app_id` if the invoice origin does not correspon
 | Field                                                      | Type      | Content / Remarks                                                                                                                                               |
 | ---------------------------------------------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `eventType`                                                | `string`  | Invoicing.Invoice.Created                                                                                                                                       |
-| `data`                                                  | `hash`    |                                                                                                                                                                 |
+| `data`                                                     | `hash`    |                                                                                                                                                                 |
 | &nbsp;&nbsp;`externalReference`                            | `string`  | external identifier from the invoice provider (7)                                                                                                               |
 | &nbsp;&nbsp;`reference`                                    | `longint` | **For direct use by customers only**. Use with caution and read notes first. Overrides generated GREM reference. (1)                                            |
 | &nbsp;&nbsp;`orderReference`                               | `longint` | optional reference of the associated order; must be an order reference generated by GARAIO REM; leave it empty if you pass an externalOrderReference            |
@@ -322,7 +425,7 @@ You may want to set the `source_app_id` if the invoice origin does not correspon
 | &nbsp;&nbsp;&nbsp;&nbsp;`maintenanceLogText`               | `string`  | optional uses bookingText if empty                                                                                                                              |
 | &nbsp;&nbsp;&nbsp;&nbsp;`developmentCode`                  | `string`  | optional development code retrieved from a GraphQL query (codeTable developments); sometimes required see (5)                                                   |
 | &nbsp;&nbsp;&nbsp;&nbsp;`developmentAccountingPlanCode`    | `string`  | optional development accounting plan code retrieved from a GraphQL query (codeTable developmentAccountingPlans); sometimes required see (5)                     |
-| &nbsp;&nbsp;&nbsp;&nbsp;`individualItemBalancingReference` | `string`  | optional reference used to individually reconcile the line item (Einzelpostensaldierend Referenz/EPSID)                                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;`individualItemBalancingReference` | `string`  | optional reference used to individually reconcile the line item (Einzelpostensaldierend Referenz/EPSID)                                                         |
 
 Notes
 
