@@ -94,6 +94,7 @@ or to a domain outside of property management. **IMPORTANT: Message attribute na
 | [Pending Issue](pending_issue.md)                     | Events related to pending issues ("Pendenzen")                                 |
 | [Planning Application](planning_application.md)       | Events related to planning applications                                        |
 | [Property Check](property_check_context.md)           | Events that are related to a Property Check                                    |
+| [Rent](rent_context.md)                               | Events that are related to rent                                                |
 | [Sedex](sedex.md)                                     | Allows clients to send and receive Sedex-Messages                              |
 | [Tenancy Application](tenancy_application_context.md) | Events related to tenancy applications                                         |
 | [Tenant Portal](tenant_portal.md)                     | Events that occur on a Tenant Portal                                           |
