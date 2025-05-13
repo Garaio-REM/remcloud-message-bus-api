@@ -480,6 +480,7 @@ Field | Type | Content / Remarks
 &nbsp;&nbsp;`bfsId` | string | [Read about it](https://www.bfs.admin.ch/bfs/de/home/register/gebaeude-wohnungsregister/gebaeudeadressen.html), might be null
 &nbsp;&nbsp;`unitCategoryCode` | string | Code to identify the unit category
 &nbsp;&nbsp;`headVotes` | integer | Number of head votes for the condominium unit
+&nbsp;&nbsp;`unitVotes` | integer | Number of unit votes for the condominium unit
 &nbsp;&nbsp;`m2` | decimal | Area in square meters, might be null
 &nbsp;&nbsp;`m3` | decimal | Volume in cubic meters, might be null
 
@@ -498,6 +499,7 @@ Field | Type | Content / Remarks
     "bfsId": null,
     "unitCategoryCode": "1",
     "headVotes": 1,
+    "unitVotes": 1,
     "m2": null,
     "m3": null
   }
