@@ -105,8 +105,7 @@ This is an event sent by GARAIO REM.
 | &nbsp;&nbsp;`reference`                       | `longint` | unique identifier of the order                                                   |
 | &nbsp;&nbsp;`externalReference`               | `string`  | external identifier from the order provider                                      |
 | &nbsp;&nbsp;`accountingReference`             | `string`  | reference of the accounting                                                      |
-| &nbsp;&nbsp;`invoiceItems`                    | `array`   | at least one invoice item is guaranteed                                          |
-| &nbsp;&nbsp;&nbsp;&nbsp;`itemNumber`          | `integer` | invoice item number to preserve order                                            |
+| &nbsp;&nbsp;`orderItems`                      | `array`   | order items                                                                      |
 | &nbsp;&nbsp;&nbsp;&nbsp;`accountNumber`       | `string`  | accounting account number, prefixed by the accounting reference, eg "6056.10122" |
 | &nbsp;&nbsp;&nbsp;&nbsp;`costCenterNumber`    | `string`  | cost center number                                                               |
 | &nbsp;&nbsp;&nbsp;&nbsp;`taxCode`             | `string`  | tax code known to GARAIO REM, eg 'NO'                                            |
@@ -116,21 +115,19 @@ This is an event sent by GARAIO REM.
 
 ```json
 {
-  "body": {
-    "eventType": "Invoicing.Order.WasCreated",
-    "data": {
-      "externalReference": "1337",
-      "reference": 123,
-      "accountingReference": "1",
-      "invoiceItems": [
-        {
-          "accountNumber": "641201",
-          "costCenterNumber": "800",
-          "taxCode": "19",
-          "masterdataReference": "10001"
-        }
-      ]
-    }
+  "eventType": "Invoicing.Order.WasCreated",
+  "data": {
+    "externalReference": "1337",
+    "reference": 123,
+    "accountingReference": "1",
+    "orderItems": [
+      {
+        "accountNumber": "641201",
+        "costCenterNumber": "800",
+        "taxCode": "19",
+        "masterdataReference": "10001"
+      }
+    ]
   }
 }
 ```
@@ -273,32 +270,37 @@ Notes:
 
 This is an event sent by GARAIO REM.
 
-| Field                           | Type      | Content / Remarks                           |
-| ------------------------------- | --------- | ------------------------------------------- |
-| `eventType`                     | `string`  | Invoicing.Order.WasUpdated                  |
-| `data`                          | `hash`    |                                             |
-| &nbsp;&nbsp;`reference`         | `longint` | unique identifier of the order              |
-| &nbsp;&nbsp;`externalReference` | `string`  | external identifier from the order provider |
+| Field                                         | Type      | Content / Remarks                                                                |
+| --------------------------------------------- | --------- | -------------------------------------------------------------------------------- |
+| `eventType`                                   | `string`  | Invoicing.Order.WasUpdated                                                       |
+| `data`                                        | `hash`    |                                                                                  |
+| &nbsp;&nbsp;`reference`                       | `longint` | unique identifier of the order                                                   |
+| &nbsp;&nbsp;`externalReference`               | `string`  | external identifier from the order provider                                      |
+| &nbsp;&nbsp;`accountingReference`             | `string`  | reference of the accounting                                                      |
+| &nbsp;&nbsp;`orderItems`                      | `array`   | order items                                                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;`accountNumber`       | `string`  | accounting account number, prefixed by the accounting reference, eg "6056.10122" |
+| &nbsp;&nbsp;&nbsp;&nbsp;`costCenterNumber`    | `string`  | cost center number                                                               |
+| &nbsp;&nbsp;&nbsp;&nbsp;`taxCode`             | `string`  | tax code known to GARAIO REM, eg 'NO'                                            |
+| &nbsp;&nbsp;&nbsp;&nbsp;`masterdataReference` | `string`  | optional reference of a property / building / unit                               |
+
 
 #### Example
 
 ```json
 {
-  "body": {
-    "eventType": "Invoicing.Order.WasUpdated",
-    "data": {
-      "externalReference": "1337",
-      "reference": 123,
-      "accountingReference": "1",
-      "invoiceItems": [
-        {
-          "accountNumber": "641201",
-          "costCenterNumber": "800",
-          "taxCode": "19",
-          "masterdataReference": "10001"
-        }
-      ]
-    }
+  "eventType": "Invoicing.Order.WasUpdated",
+  "data": {
+    "externalReference": "1337",
+    "reference": 123,
+    "accountingReference": "1",
+    "orderItems": [
+      {
+        "accountNumber": "641201",
+        "costCenterNumber": "800",
+        "taxCode": "19",
+        "masterdataReference": "10001"
+      }
+    ]
   }
 }
 ```
@@ -347,12 +349,10 @@ This is an event sent by GARAIO REM.
 
 ```json
 {
-  "body": {
-    "eventType": "Invoicing.Order.WasDeleted",
-    "data": {
-      "reference": 123,
-      "externalReference": "1337"
-    }
+  "eventType": "Invoicing.Order.WasDeleted",
+  "data": {
+    "reference": 123,
+    "externalReference": "1337"
   }
 }
 ```
