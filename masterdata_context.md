@@ -9,6 +9,7 @@
 | [Masterdata.FacilityManager.Created](#masterdatafacilitymanagercreated)           | :white_check_mark: | :x:                | A facility manager has been created                                                               |
 | [Masterdata.FacilityManager.Updated](#masterdatafacilitymanagerupdated)           | :white_check_mark: | :x:                | A facility manager has been updated                                                               |
 | [Masterdata.FacilityManager.Deleted](#masterdatafacilitymanagerdeleted)           | :white_check_mark: | :x:                | A facility manager has been deleted                                                               |
+| [Masterdata.Property.RolesUpdated](#masterdatapropertyrolesupdated)               | :white_check_mark: | :x:                | The role assignment for a property changed                                                                   |
 | [Masterdata.Property.TagAdded](#masterdatapropertytagadded)                       | :white_check_mark: | :x:                | A tag was added to a property; please read the specs for this event carefully                     |
 | [Masterdata.Property.TagRemoved](#masterdatapropertytagremoved)                   | :white_check_mark: | :x:                | A tag was removed from a property; please read the specs for this event carefully                 |
 | [Masterdata.Building.Created](#masterdatabuildingcreated)                         | :white_check_mark: | :white_check_mark: | A building has been created                                                                       |
@@ -174,6 +175,60 @@ Field | Type | Content / Remarks
     "propertyReference":"1234",
     "personReference":"5678",
     "validUntil":"2019-03-31",
+  }
+}
+```
+
+### Masterdata.Property.RolesUpdated
+
+| Field                                  | Type   | Content / Remarks                  |
+| -------------------------------------- | ------ | ---------------------------------- |
+| `eventType`                            | string | Masterdata.Property.RolesUpdated   |
+| `data`                                 | hash   |                                    |
+| &nbsp;&nbsp;`propertyReference`        | string | unique identifier for the property |
+| &nbsp;&nbsp;`roleChanges`              | array  |                                    |
+| &nbsp;&nbsp;&nbsp;&nbsp;`userRoleCode` | string | user role code, eg R001            |
+| &nbsp;&nbsp;&nbsp;&nbsp;`surname`      | string |                                    |
+| &nbsp;&nbsp;&nbsp;&nbsp;`firstName`    | string |                                    |
+| &nbsp;&nbsp;&nbsp;&nbsp;`languageCode` | string | de, fr, it or en                   |
+| &nbsp;&nbsp;&nbsp;&nbsp;`phoneNumber`  | string |                                    |
+| &nbsp;&nbsp;&nbsp;&nbsp;`email`        | string |                                    |
+| &nbsp;&nbsp;&nbsp;&nbsp;`username`     | string |                                    |
+
+Returns the changed role assignments in `roleChanges`.
+
+#### Differences to Masterdata.ManagementTeam.Updated
+
+There is also [Masterdata.ManagementTeam.Updated](#masterdatamanagementteamupdated). Both messages are sent on changes to the role assignment in the _Rollenprofil_ of the relevant _Buchhaltung_.
+The difference lies in which role assignments trigger the messages:
+
+* `Masterdata.Property.RolesUpdated` is sent on any role assigment change.
+* `Masterdata.ManagementTeam.Updated` is sent if the changed assignment's role is a team role. Team roles are configured as "Verantwortlichkeit" via the GREM UI: "System-Parameter verwalten / Team".
+
+#### Example
+
+```json
+{"eventType":"Masterdata.Property.RolesUpdated",
+  "data":{
+    "propertyReference":"1234",
+    "roleChanges":[
+      {"userRoleCode":"R001",
+       "surname":"Muster",
+       "firstName":"Max",
+       "languageCode":"de",
+       "phoneNumber":"555 123 456",
+       "email":"max.muster@test-mail.com",
+       "username":"user1"
+      },
+      {"userRoleCode":"R002",
+       "surname":"Muster",
+       "firstName":"Maxine",
+       "languageCode":"fr",
+       "phoneNumber":"555 654 321",
+       "email":"maxine.muster@test-mail.com",
+       "username":"user2"
+      }
+    ]
   }
 }
 ```
@@ -508,19 +563,22 @@ Field | Type | Content / Remarks
 
 ### Masterdata.ManagementTeam.Updated
 
-| Field                                | Type   | Content / Remarks                        |
-| ------------------------------------ | ------ | ---------------------------------------- |
-| eventType                            | string | Masterdata.ManagementTeam.Updated        |
-| data                                 | hash   |                                          |
-| &nbsp;&nbsp;propertyReference        | string | unique identifier for the property       |
-| &nbsp;&nbsp;managementTeamChanges    | array  |                                          |
-| &nbsp;&nbsp;&nbsp;&nbsp;userRoleCode | string | user role code, eg R001                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;surname      | string |                                          |
-| &nbsp;&nbsp;&nbsp;&nbsp;firstName    | string |                                          |
-| &nbsp;&nbsp;&nbsp;&nbsp;languageCode | string | de, fr, it or en; **must be lower case** |
-| &nbsp;&nbsp;&nbsp;&nbsp;phoneNumber  | string |                                          |
-| &nbsp;&nbsp;&nbsp;&nbsp;email        | string |                                          |
-| &nbsp;&nbsp;&nbsp;&nbsp;username     | string |                                          |
+| Field                                  | Type   | Content / Remarks                  |
+| -------------------------------------- | ------ | ---------------------------------- |
+| `eventType`                            | string | Masterdata.ManagementTeam.Updated  |
+| `data`                                 | hash   |                                    |
+| &nbsp;&nbsp;`propertyReference`        | string | unique identifier for the property |
+| &nbsp;&nbsp;`managementTeamChanges`    | array  |                                    |
+| &nbsp;&nbsp;&nbsp;&nbsp;`userRoleCode` | string | user role code, eg R001            |
+| &nbsp;&nbsp;&nbsp;&nbsp;`surname`      | string |                                    |
+| &nbsp;&nbsp;&nbsp;&nbsp;`firstName`    | string |                                    |
+| &nbsp;&nbsp;&nbsp;&nbsp;`languageCode` | string | de, fr, it or en                   |
+| &nbsp;&nbsp;&nbsp;&nbsp;`phoneNumber`  | string |                                    |
+| &nbsp;&nbsp;&nbsp;&nbsp;`email`        | string |                                    |
+| &nbsp;&nbsp;&nbsp;&nbsp;`username`     | string |                                    |
+
+Returns the changed role assignments in `managementTeamChanges`.
+There is also [Masterdata.Property.RolesUpdated](#masterdatapropertyrolesupdated). The difference between those two messages is explained there.
 
 #### Example
 
