@@ -203,7 +203,7 @@ There is also [Masterdata.ManagementTeam.Updated](#masterdatamanagementteamupdat
 The difference lies in which role assignments trigger the messages:
 
 * `Masterdata.Property.RolesUpdated` is sent on any role assigment change.
-* `Masterdata.ManagementTeam.Updated` is sent if the changed assignment's role is a team role. Team roles are configured as "Verantwortlichkeit" via the GREM UI: "System-Parameter verwalten / Team".
+* `Masterdata.ManagementTeam.Updated` is sent if the changed assignment's role is a team role. Team roles are configured via "Verantwortlichkeit" via the GREM UI: "System-Parameter verwalten / Team".
 
 #### Example
 
