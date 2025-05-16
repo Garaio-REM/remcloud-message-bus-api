@@ -9,7 +9,7 @@
 | [Masterdata.FacilityManager.Created](#masterdatafacilitymanagercreated)           | :white_check_mark: | :x:                | A facility manager has been created                                                               |
 | [Masterdata.FacilityManager.Updated](#masterdatafacilitymanagerupdated)           | :white_check_mark: | :x:                | A facility manager has been updated                                                               |
 | [Masterdata.FacilityManager.Deleted](#masterdatafacilitymanagerdeleted)           | :white_check_mark: | :x:                | A facility manager has been deleted                                                               |
-| [Masterdata.Property.RolesUpdated](#masterdatapropertyrolesupdated)               | :white_check_mark: | :x:                | The role assignment for a property changed                                                                   |
+| [Masterdata.Property.RolesUpdated](#masterdatapropertyrolesupdated)               | :white_check_mark: | :x:                | The role assignment for a property changed                                                        |
 | [Masterdata.Property.TagAdded](#masterdatapropertytagadded)                       | :white_check_mark: | :x:                | A tag was added to a property; please read the specs for this event carefully                     |
 | [Masterdata.Property.TagRemoved](#masterdatapropertytagremoved)                   | :white_check_mark: | :x:                | A tag was removed from a property; please read the specs for this event carefully                 |
 | [Masterdata.Building.Created](#masterdatabuildingcreated)                         | :white_check_mark: | :white_check_mark: | A building has been created                                                                       |
@@ -26,7 +26,10 @@
 | [Masterdata.PersonContactData.Update](#masterdatapersoncontactdataupdate)         | :white_check_mark: | :x:                | Update the contact data of a person with this message                                             |
 | [Masterdata.PersonPaymentDetails.Update](#masterdatapersonpaymentdetailsupdate)   | :white_check_mark: | :x:                | Update the payment details of a person with this message                                          |
 | [Masterdata.Person.Create](#masterdatapersoncreate)                               | :white_check_mark: | :x:                | Create a new person record with this message                                                      |
+| [Masterdata.Person.Created](#masterdatapersoncreated)                             | :white_check_mark: | :x:                | A new person was created                                                                          |
 | [Masterdata.Person.Update](#masterdatapersonupdate)                               | :white_check_mark: | :x:                | Update the masterdata of a person with this message                                               |
+| [Masterdata.Person.Updated](#masterdatapersonupdated)                             | :white_check_mark: | :x:                | A person was updated                                                                              |
+| [Masterdata.Person.Deleted](#masterdatapersondeleted)                             | :white_check_mark: | :x:                | A person was deleted                                                                              |
 
 ### Masterdata.Property.Created
 
@@ -632,9 +635,9 @@ This message is sent from an external message publisher to a GARAIO REM instance
 Set the recipient property in the headers, eg `"grem_wincasa"`. All attributes are optional unless noted otherwise in the remarks.
 Rules for all array attributes:
 
-- do not send the attribute if you do not want to create current data of this type
-- send an empty array (`[]`) to delete all current data of this type
-- send an array of valid date to fully replace the current data of this type
+* do not send the attribute if you do not want to create current data of this type
+* send an empty array (`[]`) to delete all current data of this type
+* send an array of valid date to fully replace the current data of this type
 
 GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-message) / [Rejected](./result_messages.md#rejected-message) message containing the personReference and reject reasons, where appropriate
 
@@ -712,10 +715,10 @@ This message is sent from an external message publisher to a GARAIO REM instance
 Set the recipient property in the headers, eg `"grem_wincasa"`. All attributes are optional unless noted otherwise in the remarks.
 Rules for all array attributes:
 
-- do not send the attribute if you do not want to create current data of this type
-- send an empty array (`[]`) to delete all current data of this type
-- send an array of valid date to fully replace the current data of this type
-- payment details that exist but are not contained in the paymentDetails will be locked
+* do not send the attribute if you do not want to create current data of this type
+* send an empty array (`[]`) to delete all current data of this type
+* send an array of valid date to fully replace the current data of this type
+* payment details that exist but are not contained in the paymentDetails will be locked
 
 GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-message) / [Rejected](./result_messages.md#rejected-message) message containing the personReference and reject reasons, where appropriate
 
@@ -891,6 +894,16 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
 }
 ```
 
+### Masterdata.Person.Created
+
+A person was created. Use the GraphQL API to fetch further information.
+
+| Field                   | Type     | Content / Remarks          |
+| ----------------------- | -------- | -------------------------- |
+| `eventType`             | `string` | `Masterdata.Person.Create` |
+| `data`                  | `hash`   |                            |
+| &nbsp;&nbsp;`reference` | `string` |                            |
+
 ### Masterdata.Person.Update
 
 This message is sent from an external message publisher to a GARAIO REM instance and allows to update contact data of a person.
@@ -1019,3 +1032,23 @@ Field | Type | Content / Remarks
   }
 }
 ```
+
+### Masterdata.Person.Updated
+
+A person was updated. Use the GraphQL API to fetch further information.
+
+| Field                   | Type     | Content / Remarks           |
+| ----------------------- | -------- | --------------------------- |
+| `eventType`             | `string` | `Masterdata.Person.Updated` |
+| `data`                  | `hash`   |                             |
+| &nbsp;&nbsp;`reference` | `string` |                             |
+
+### Masterdata.Person.Deleted
+
+A person was deleted.
+
+| Field                   | Type     | Content / Remarks           |
+| ----------------------- | -------- | --------------------------- |
+| `eventType`             | `string` | `Masterdata.Person.Deleted` |
+| `data`                  | `hash`   |                             |
+| &nbsp;&nbsp;`reference` | `string` |                             |
