@@ -962,6 +962,7 @@ Field | Type | Content / Remarks
 &nbsp;&nbsp;&nbsp;&nbsp;`supplement`    | `string` | address supplement, e.g. Elektro-Fachgeschäft; **optional**
 &nbsp;&nbsp;&nbsp;&nbsp;`countryCode` | `string` | ISO country code, eg `'CH'`; **required**
 &nbsp;&nbsp;&nbsp;&nbsp;`validFrom` | `string` | optional ISO 8601 encoded date; pass a future date to create or update an address that becomes valid in the future
+&nbsp;&nbsp;&nbsp;&nbsp;`deleted` | `boolean` | pass `true` to delete the address
 &nbsp;&nbsp;`contactData`| `hash` | [ContactData](types/contact_data.md) of this person.
 
 #### examples
@@ -1002,6 +1003,20 @@ Field | Type | Content / Remarks
       "street":"Salamattweg 15",
       "countryCode":"CH",
       "validFrom":"2024-04-01"
+    }
+  }
+}
+```
+
+##### delete an existing address valid in the future (assuming today is the 4.3.2024)
+
+```json
+{"eventType":"Masterdata.Person.Update",
+  "data":{
+    "personReference":"123456",
+    "address":{
+      "validFrom":"2024-04-01",
+      "deleted":true
     }
   }
 }
