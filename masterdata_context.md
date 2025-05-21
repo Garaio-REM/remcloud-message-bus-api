@@ -898,11 +898,12 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
 
 A person was created. Use the GraphQL API to fetch further information.
 
-| Field                   | Type     | Content / Remarks          |
-| ----------------------- | -------- | -------------------------- |
-| `eventType`             | `string` | `Masterdata.Person.Create` |
-| `data`                  | `hash`   |                            |
-| &nbsp;&nbsp;`reference` | `string` |                            |
+| Field                    | Type     | Content / Remarks                                                                            |
+| ------------------------ | -------- | -------------------------------------------------------------------------------------------- |
+| `eventType`              | `string` | `Masterdata.Person.Created`                                                                  |
+| `data`                   | `hash`   |                                                                                              |
+| &nbsp;&nbsp;`reference`  | `string` |                                                                                              |
+| &nbsp;&nbsp;`personType` | `string` | person code for this person. One of `'natural_person'`, `'legal_person'` or `'condominium'`. |
 
 ### Masterdata.Person.Update
 
@@ -1052,18 +1053,20 @@ Field | Type | Content / Remarks
 
 A person was updated. Use the GraphQL API to fetch further information.
 
-| Field                   | Type     | Content / Remarks           |
-| ----------------------- | -------- | --------------------------- |
-| `eventType`             | `string` | `Masterdata.Person.Updated` |
-| `data`                  | `hash`   |                             |
-| &nbsp;&nbsp;`reference` | `string` |                             |
+| Field                    | Type     | Content / Remarks                                                                            |
+| ------------------------ | -------- | -------------------------------------------------------------------------------------------- |
+| `eventType`              | `string` | `Masterdata.Person.Updated`                                                                  |
+| `data`                   | `hash`   |                                                                                              |
+| &nbsp;&nbsp;`reference`  | `string` |                                                                                              |
+| &nbsp;&nbsp;`personType` | `string` | person code for this person. One of `'natural_person'`, `'legal_person'` or `'condominium'`. |
 
 ### Masterdata.Person.Deleted
 
 A person was deleted.
 
-| Field                   | Type     | Content / Remarks           |
-| ----------------------- | -------- | --------------------------- |
-| `eventType`             | `string` | `Masterdata.Person.Deleted` |
-| `data`                  | `hash`   |                             |
-| &nbsp;&nbsp;`reference` | `string` |                             |
+| Field                    | Type     | Content / Remarks                                                                            |
+| ------------------------ | -------- | -------------------------------------------------------------------------------------------- |
+| `eventType`              | `string` | `Masterdata.Person.Deleted`                                                                  |
+| `data`                   | `hash`   |                                                                                              |
+| &nbsp;&nbsp;`reference`  | `string` |                                                                                              |
+| &nbsp;&nbsp;`personType` | `string` | person code for this person. One of `'natural_person'`, `'legal_person'` or `'condominium'`. |
