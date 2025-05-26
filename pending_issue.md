@@ -23,7 +23,7 @@ This message is sent by an external message published to GARAIO REM. Set the rec
 | &nbsp;&nbsp;`categoryCode`      | `string`  | Category code (from code table `kategorie`) **required**                        |
 | &nbsp;&nbsp;`recipientUsername` | `string`  | Username of the recipient **required**                                          |
 | &nbsp;&nbsp;`senderUsername`    | `string`  | Username of the sender (1)                                                      |
-| &nbsp;&nbsp;`externalUrl`       | `string`  | URL for the link displayed in GREM, e.g. `https://www.example.com` **required** |
+| &nbsp;&nbsp;`backlinkUrl`       | `string`  | URL for the link displayed in GREM, e.g. `https://www.example.com` **required** |
 | &nbsp;&nbsp;`targetType`        | `string`  | Class of business object this issue applies to (2)                              |
 | &nbsp;&nbsp;`targetReference`   | `string`  | Reference of business object this issue applies to (2)                          |
 | &nbsp;&nbsp;`description`       | `string`  | Description                                                                     |
@@ -60,6 +60,7 @@ Notes
     "categoryCode": "00",
     "recipientUsername": "Testuser_1",
     "senderUsername": "Testuser_2",
+    "externalReference": "ref",
     "backlinkUrl": "https://example.com"
   }
 }
