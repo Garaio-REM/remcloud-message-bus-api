@@ -42,6 +42,7 @@ data | hash |
 &nbsp;&nbsp;zipCode | string |
 &nbsp;&nbsp;city | string |
 &nbsp;&nbsp;countryCode | string | ISO country code, eg 'CH'
+&nbsp;&nbsp;languageCode | string | ISO language code, eg 'de'
 &nbsp;&nbsp;startOfAdministration | string | ISO 8601 encoded date, eg '2019-03-01'
 &nbsp;&nbsp;endOfAdministration | string | ISO 8601 encoded date, eg '2019-03-01'
 &nbsp;&nbsp;administrationKind| string | One of the following values: <ul><li>MEG</li><li>VOLL</li><li>TECHNISCH</li><li>ADMINISTRATIV</li><li>BACKMANAGEMENT</li><li>CENTERMANAGEMENT</li><li>EXTERNAL_SYSTEM</li><li>STEWE</li><li>INKASSO</li><li>UNBEKANNT</li></ul>
@@ -64,18 +65,19 @@ data | hash |
 
 ### Masterdata.Property.Updated
 
-Field | Type | Content / Remarks
----|---|---
-eventType | string | Masterdata.Property.Updated
-data | hash |
-&nbsp;&nbsp;reference | string | unique identifier for the property
-&nbsp;&nbsp;description | string |
-&nbsp;&nbsp;zipCode | string |
-&nbsp;&nbsp;city | string |
-&nbsp;&nbsp;countryCode | string | ISO country code, eg 'CH'
-&nbsp;&nbsp;mandateTerminatedBy | string | ISO date, eg '2018-12-31'
-&nbsp;&nbsp;endOfAdministration | string | ISO 8601 encoded date, eg '2019-03-01'
-&nbsp;&nbsp;administrationKind| string | (REM1 only) One of the following values: <ul><li>MEG</li><li>VOLL</li><li>TECHNISCH</li><li>ADMINISTRATIV</li><li>BACKMANAGEMENT</li><li>CENTERMANAGEMENT</li><li>EXTERNAL_SYSTEM</li><li>STEWE</li><li>INKASSO</li><li>UNBEKANNT</li></ul>
+| Field | Type | Content / Remarks |
+|---|---|---|
+| eventType | string | Masterdata.Property.Updated |
+| data | hash | |
+| &nbsp;&nbsp;reference | string | unique identifier for the property |
+| &nbsp;&nbsp;description | string | |
+| &nbsp;&nbsp;zipCode | string | |
+| &nbsp;&nbsp;city | string | |
+| &nbsp;&nbsp;countryCode | string | ISO country code, eg 'CH' |
+| &nbsp;&nbsp;languageCode | string | ISO language code, eg 'de' |
+| &nbsp;&nbsp;mandateTerminatedBy | string | ISO date, eg '2018-12-31' |
+| &nbsp;&nbsp;endOfAdministration | string | ISO 8601 encoded date, eg '2019-03-01' |
+| &nbsp;&nbsp;administrationKind | string | (REM1 only) One of the following values: <ul><li>MEG</li><li>VOLL</li><li>TECHNISCH</li><li>ADMINISTRATIV</li><li>BACKMANAGEMENT</li><li>CENTERMANAGEMENT</li><li>EXTERNAL_SYSTEM</li><li>STEWE</li><li>INKASSO</li><li>UNBEKANNT</li></ul> |
 
 #### Example
 

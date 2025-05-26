@@ -2,13 +2,79 @@
 
 ## Events
 
-| Type                                                      | GARAIO REM         | REM | Description                                                        |
-| --------------------------------------------------------- | ------------------ | --- | ------------------------------------------------------------------ |
-| [Accounting.Account.Create](#accountingaccountcreate)     | :white_check_mark: | :x: | Create an account on an accounting                                 |
+| Type                                                          | GARAIO REM         | REM | Description                              |
+| ------------------------------------------------------------- | ------------------ | --- | ---------------------------------------- |
+| [Accounting.Accounting.Created](#accountingaccountingcreated) | :white_check_mark: | :x: | An accounting was created                |
+| [Accounting.Accounting.Updated](#accountingaccountingupdated) | :white_check_mark: | :x: | An accounting was updated                |
+| [Accounting.Accounting.Deleted](#accountingaccountingdeleted) | :white_check_mark: | :x: | An accounting was deleted                |
+| [Accounting.Account.Create](#accountingaccountcreate)         | :white_check_mark: | :x: | Create an account on an accounting       |
+
+### Accounting.Accounting.Created
+
+An accounting was created
+
+| Field                                 | Type      | Content / Remarks                                                                                                                                                                      |
+| ------------------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `eventType`                           | `string`  | `Accounting.Accounting.Created`                                                                                                                                                        |
+| `data`                                | `hash`    |                                                                                                                                                                                        |
+| &nbsp;&nbsp;`reference`               | `string`  | Reference of the accounting                                                                                                                                                            |
+
+#### Example
+
+```json
+{
+  "eventType": "Accounting.Accounting.Created",
+  "data": {
+    "reference": "1569"
+  }
+}
+```
+
+### Accounting.Accounting.Updated
+
+An accounting was updated
+
+| Field                                 | Type      | Content / Remarks                                                                                                                                                                      |
+| ------------------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `eventType`                           | `string`  | `Accounting.Accounting.Updated`                                                                                                                                                        |
+| `data`                                | `hash`    |                                                                                                                                                                                        |
+| &nbsp;&nbsp;`reference`               | `string`  | Reference of the accounting                                                                                                                                                            |
+
+#### Example
+
+```json
+{
+  "eventType": "Accounting.Accounting.Updated",
+  "data": {
+    "reference": "1569"
+  }
+}
+```
+
+### Accounting.Accounting.Deleted
+
+An accounting was deleted
+
+| Field                                 | Type      | Content / Remarks                                                                                                                                                                      |
+| ------------------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `eventType`                           | `string`  | `Accounting.Accounting.Deleted`                                                                                                                                                        |
+| `data`                                | `hash`    |                                                                                                                                                                                        |
+| &nbsp;&nbsp;`reference`               | `string`  | Reference of the accounting                                                                                                                                                            |
+
+#### Example
+
+```json
+{
+  "eventType": "Accounting.Accounting.Deleted",
+  "data": {
+    "reference": "1569"
+  }
+}
+```
 
 ### Accounting.Account.Create
 
-Create an account on an accountig
+Create an account on an accounting
 
 | Field                                 | Type      | Content / Remarks                                                                                                                                                                      |
 | ------------------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
