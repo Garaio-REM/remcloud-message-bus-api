@@ -8,6 +8,9 @@
 | [Accounting.Accounting.Updated](#accountingaccountingupdated) | :white_check_mark: | :x: | An accounting was updated                |
 | [Accounting.Accounting.Deleted](#accountingaccountingdeleted) | :white_check_mark: | :x: | An accounting was deleted                |
 | [Accounting.Account.Create](#accountingaccountcreate)         | :white_check_mark: | :x: | Create an account on an accounting       |
+| [Accounting.Account.Created](#accountingaccountcreated)       | :white_check_mark: | :x: | An account was created                   |
+| [Accounting.Account.Updated](#accountingaccountupdated)       | :white_check_mark: | :x: | An account was updated                   |
+| [Accounting.Account.Deleted](#accountingaccountdeleted)       | :white_check_mark: | :x: | An account was deleted                   |
 
 ### Accounting.Accounting.Created
 
@@ -162,3 +165,72 @@ Additional `data` fields:
 The [Reject](./result_messages.md#rejected-message) message.
 
 No additional `data` fields.
+
+### Accounting.Account.Created
+
+An account was created
+
+| Field                                 | Type      | Content / Remarks                                                                                                                                                                      |
+| ------------------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `eventType`                           | `string`  | `Accounting.Account.Created`                                                                                                                                                           |
+| `data`                                | `hash`    |                                                                                                                                                                                        |
+| &nbsp;&nbsp;`accountingReference`     | `string`  | Reference of the accounting                                                                                                                                                            |
+| &nbsp;&nbsp;`number`                  | `string`  | Number of the created account                                                                                                                                                          |
+
+#### Example
+
+```json
+{
+  "eventType": "Accounting.Account.Created",
+  "data": {
+    "accountingReference": "1569",
+    "number": "10210"
+  }
+}
+```
+
+### Accounting.Account.Updated
+
+An account was updated
+
+| Field                                 | Type      | Content / Remarks                                                                                                                                                                      |
+| ------------------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `eventType`                           | `string`  | `Accounting.Account.Updated`                                                                                                                                                           |
+| `data`                                | `hash`    |                                                                                                                                                                                        |
+| &nbsp;&nbsp;`accountingReference`     | `string`  | Reference of the accounting                                                                                                                                                            |
+| &nbsp;&nbsp;`number`                  | `string`  | Number of the updated account                                                                                                                                                          |
+
+#### Example
+
+```json
+{
+  "eventType": "Accounting.Account.Updated",
+  "data": {
+    "accountingReference": "1569",
+    "number": "10210"
+  }
+}
+```
+
+### Accounting.Account.Deleted
+
+An account was deleted
+
+| Field                                 | Type      | Content / Remarks                                                                                                                                                                      |
+| ------------------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `eventType`                           | `string`  | `Accounting.Account.Deleted`                                                                                                                                                           |
+| `data`                                | `hash`    |                                                                                                                                                                                        |
+| &nbsp;&nbsp;`accountingReference`     | `string`  | Reference of the accounting                                                                                                                                                            |
+| &nbsp;&nbsp;`number`                  | `string`  | Number of the deleted account                                                                                                                                                          |
+
+#### Example
+
+```json
+{
+  "eventType": "Accounting.Account.Deleted",
+  "data": {
+    "accountingReference": "1569",
+    "number": "10210"
+  }
+}
+```
