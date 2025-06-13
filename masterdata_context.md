@@ -6,6 +6,8 @@
 | ------------------------------------------------------------------------------------- | ------------------ | ------------------ | ------------------------------------------------------------------------------------------------- |
 | [Masterdata.Property.Created](#masterdatapropertycreated)                             | :white_check_mark: | :white_check_mark: | A new property has been created                                                                   |
 | [Masterdata.Property.Updated](#masterdatapropertyupdated)                             | :white_check_mark: | :white_check_mark: | Data associated to a property has changed; you get changed attributes only                        |
+| [Masterdata.Property.Deleted](#masterdatapropertydeleted)                             | :white_check_mark: | :x:                | A property was deleted; you get the reference of the deleted property                             |
+| [Masterdata.Property.Activated](#masterdatapropertyactivated)                         | :white_check_mark: | :x:                | A property has been activated; you get the reference of the activated property                    |
 | [Masterdata.FacilityManager.Created](#masterdatafacilitymanagercreated)               | :white_check_mark: | :x:                | A facility manager has been created                                                               |
 | [Masterdata.FacilityManager.Updated](#masterdatafacilitymanagerupdated)               | :white_check_mark: | :x:                | A facility manager has been updated                                                               |
 | [Masterdata.FacilityManager.Deleted](#masterdatafacilitymanagerdeleted)               | :white_check_mark: | :x:                | A facility manager has been deleted                                                               |
@@ -89,6 +91,42 @@ data | hash |
     "reference":"1234",
     "description":"my property renamed",
     "endOfAdministration": "2018-12-31"
+  }
+}
+```
+
+### Masterdata.Property.Deleted
+
+| Field | Type | Content / Remarks |
+|---|---|---|
+| eventType | string | Masterdata.Property.Deleted |
+| data | hash | |
+| &nbsp;&nbsp;reference | string | unique identifier for the property |
+
+#### Example
+
+```json
+{"eventType":"Masterdata.Property.Deleted",
+  "data":{
+    "reference":"1234"
+  }
+}
+```
+
+### Masterdata.Property.Activated
+
+| Field | Type | Content / Remarks |
+|---|---|---|
+| eventType | string | Masterdata.Property.Activated |
+| data | hash | |
+| &nbsp;&nbsp;reference | string | unique identifier for the property |
+
+#### Example
+
+```json
+{"eventType":"Masterdata.Property.Activated",
+  "data":{
+    "reference":"1234"
   }
 }
 ```
