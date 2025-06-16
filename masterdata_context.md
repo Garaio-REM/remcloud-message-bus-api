@@ -463,8 +463,6 @@ data | hash |
 &nbsp;&nbsp;reference | string | unique identifier for the unit; the first segment of the key is the property reference, the second is the building reference eg '1234.01.0001'
 &nbsp;&nbsp;unitCategoryCode | string | code to identify the unit category; the list of unit categories is part of the Graphql API
 &nbsp;&nbsp;unitTypeCode | string | code to identify the unit type; the list of unit types is part of the Graphql API
-&nbsp;&nbsp;idxCategory | string | code to identify the unit category according to the IDX standard; the list of unit categories is described in the IDX definition
-&nbsp;&nbsp;idxType | integer | code to identify the unit type according to the IDX standard; the idxType depends on the idxCategory and is described in the IDX definition
 &nbsp;&nbsp;storeyCode | string | code to identify the unit storey; the list of storeys is part of the Graphql API; might be null
 &nbsp;&nbsp;location | string | location of the unit, where appropriate, eg left, middle, right; this is free text and might be null
 &nbsp;&nbsp;numberOfRooms | string | number of rooms as a decimal, eg "3.5"; might be null
@@ -483,8 +481,6 @@ data | hash |
     "reference":"1234.01.0001",
     "unitCategoryCode":"1",
     "unitTypeCode":"01",
-    "idxCategory":"APPT",
-    "idxType":1,
     "storeyCode":"1",
     "location":"links",
     "numberOfRooms":"3.5",
@@ -503,8 +499,6 @@ data | hash |
 &nbsp;&nbsp;reference | string | unique identifier for the unit; the first segment of the key is the property reference, the second is the building reference eg '1234.01.0001'
 &nbsp;&nbsp;unitCategoryCode | string | code to identify the unit category; the list of unit categories is part of the Graphql API
 &nbsp;&nbsp;unitTypeCode | string | code to identify the unit type; the list of unit types is part of the Graphql API
-&nbsp;&nbsp;idxCategory | string | code to identify the unit category according to the IDX standard; the list of unit categories is described in the IDX definition
-&nbsp;&nbsp;idxType | integer | code to identify the unit type according to the IDX standard; the idxType depends on the idxCategory and is described in the IDX definition
 &nbsp;&nbsp;storeyCode | string | code to identify the unit storey; the list of storeys is part of the Graphql API; might be null
 &nbsp;&nbsp;location | string | location of the unit, where appropriate, eg left, middle, right; this is free text and might be null
 &nbsp;&nbsp;numberOfRooms | string | number of rooms as a decimal, eg "3.5"; might be null
