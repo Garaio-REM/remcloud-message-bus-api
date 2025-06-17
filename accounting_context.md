@@ -11,6 +11,9 @@
 | [Accounting.Account.Created](#accountingaccountcreated)       | :white_check_mark: | :x: | An account was created                   |
 | [Accounting.Account.Updated](#accountingaccountupdated)       | :white_check_mark: | :x: | An account was updated                   |
 | [Accounting.Account.Deleted](#accountingaccountdeleted)       | :white_check_mark: | :x: | An account was deleted                   |
+| [Accounting.CostCenter.Created](#accountingcostcentercreated) | :white_check_mark: | :x: | A cost center was created                |
+| [Accounting.CostCenter.Updated](#accountingcostcenterupdated) | :white_check_mark: | :x: | A cost center was updated                |
+| [Accounting.CostCenter.Deleted](#accountingcostcenterdeleted) | :white_check_mark: | :x: | A cost center was deleted                |
 
 ### Accounting.Accounting.Created
 
@@ -228,6 +231,69 @@ An account was deleted
 ```json
 {
   "eventType": "Accounting.Account.Deleted",
+  "data": {
+    "accountingReference": "1569",
+    "number": "10210"
+  }
+}
+```
+
+### Accounting.CostCenter.Created
+
+| Field                                 | Type      | Content / Remarks                                                                                                                                                                      |
+| ------------------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `eventType`                           | `string`  | `Accounting.CostCenter.Created`                                                                                                                                                        |
+| `data`                                | `hash`    |                                                                                                                                                                                        |
+| &nbsp;&nbsp;`accountingReference`     | `string`  | Reference of the accounting                                                                                                                                                            |
+| &nbsp;&nbsp;`number`                  | `string`  | Number of the created cost center                                                                                                                                                      |
+
+#### Example
+
+```json
+{
+  "eventType": "Accounting.CostCenter.Created",
+  "data": {
+    "accountingReference": "1569",
+    "number": "10210"
+  }
+}
+```
+
+### Accounting.CostCenter.Updated
+
+| Field                                 | Type      | Content / Remarks                                                                                                                                                                      |
+| ------------------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `eventType`                           | `string`  | `Accounting.CostCenter.Updated`                                                                                                                                                        |
+| `data`                                | `hash`    |                                                                                                                                                                                        |
+| &nbsp;&nbsp;`accountingReference`     | `string`  | Reference of the accounting                                                                                                                                                            |
+| &nbsp;&nbsp;`number`                  | `string`  | Number of the updated cost center                                                                                                                                                      |
+
+#### Example
+
+```json
+{
+  "eventType": "Accounting.CostCenter.Updated",
+  "data": {
+    "accountingReference": "1569",
+    "number": "10210"
+  }
+}
+```
+
+### Accounting.CostCenter.Deleted
+
+| Field                                 | Type      | Content / Remarks                                                                                                                                                                      |
+| ------------------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `eventType`                           | `string`  | `Accounting.CostCenter.Deleted`                                                                                                                                                           |
+| `data`                                | `hash`    |                                                                                                                                                                                        |
+| &nbsp;&nbsp;`accountingReference`     | `string`  | Reference of the accounting                                                                                                                                                            |
+| &nbsp;&nbsp;`number`                  | `string`  | Number of the deleted cost center                                                                                                                                                          |
+
+#### Example
+
+```json
+{
+  "eventType": "Accounting.CostCenter.Deleted",
   "data": {
     "accountingReference": "1569",
     "number": "10210"
