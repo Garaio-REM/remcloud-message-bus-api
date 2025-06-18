@@ -23,7 +23,7 @@
 | [Masterdata.Unit.Deleted](#masterdataunitdeleted)                                     | :white_check_mark: | :white_check_mark: | The unit was deleted                                                                              |
 | [Masterdata.Unit.ReferenceChanged](#masterdataunitreferencechanged)                   | :white_check_mark: | :white_check_mark: | The unit reference has changed                                                                    |
 | [Masterdata.Unit.ListingInformationUpdated](#masterdataunitlistinginformationupdated) | :white_check_mark: | :x:                | The listing information of the unit has updated                                                   |
-| [Masterdata.Unit.Reservation](#masterdataunitreservation)                             | :white_check_mark: | :x:                | The reservation information of the unit has been created/updated/deleted                          |
+| [Masterdata.Unit.ReservationChanged](#masterdataunitreservationchanged)               | :white_check_mark: | :x:                | The reservation information of the unit has been created/updated/deleted                          |
 | [Masterdata.Condominium.Updated](#masterdatacondominiumupdated)                       | :white_check_mark: | :x:                | Data associated to a condominium has changed; you get the reference plus all changed attributes   |
 | [Masterdata.ManagementTeam.Updated](#masterdatamanagementteamupdated)                 | :white_check_mark: | :x:                | A change to a property management team was applied; only changed roles are published              |
 | [Masterdata.Configuration.SedexIdChanged](#masterdataconfigurationsedexidchanged)     | :x:                | :white_check_mark: | A new SedexID has been configured                                                                 |
@@ -69,19 +69,19 @@ data | hash |
 
 ### Masterdata.Property.Updated
 
-| Field | Type | Content / Remarks |
-|---|---|---|
-| eventType | string | Masterdata.Property.Updated |
-| data | hash | |
-| &nbsp;&nbsp;reference | string | unique identifier for the property |
-| &nbsp;&nbsp;description | string | |
-| &nbsp;&nbsp;zipCode | string | |
-| &nbsp;&nbsp;city | string | |
-| &nbsp;&nbsp;countryCode | string | ISO country code, eg 'CH' |
-| &nbsp;&nbsp;languageCode | string | ISO language code, eg 'de' |
-| &nbsp;&nbsp;mandateTerminatedBy | string | ISO date, eg '2018-12-31' |
-| &nbsp;&nbsp;endOfAdministration | string | ISO 8601 encoded date, eg '2019-03-01' |
-| &nbsp;&nbsp;administrationKind | string | (REM1 only) One of the following values: <ul><li>MEG</li><li>VOLL</li><li>TECHNISCH</li><li>ADMINISTRATIV</li><li>BACKMANAGEMENT</li><li>CENTERMANAGEMENT</li><li>EXTERNAL_SYSTEM</li><li>STEWE</li><li>INKASSO</li><li>UNBEKANNT</li></ul> |
+| Field                           | Type   | Content / Remarks                                                                                                                                                                                                                           |
+| ------------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| eventType                       | string | Masterdata.Property.Updated                                                                                                                                                                                                                 |
+| data                            | hash   |                                                                                                                                                                                                                                             |
+| &nbsp;&nbsp;reference           | string | unique identifier for the property                                                                                                                                                                                                          |
+| &nbsp;&nbsp;description         | string |                                                                                                                                                                                                                                             |
+| &nbsp;&nbsp;zipCode             | string |                                                                                                                                                                                                                                             |
+| &nbsp;&nbsp;city                | string |                                                                                                                                                                                                                                             |
+| &nbsp;&nbsp;countryCode         | string | ISO country code, eg 'CH'                                                                                                                                                                                                                   |
+| &nbsp;&nbsp;languageCode        | string | ISO language code, eg 'de'                                                                                                                                                                                                                  |
+| &nbsp;&nbsp;mandateTerminatedBy | string | ISO date, eg '2018-12-31'                                                                                                                                                                                                                   |
+| &nbsp;&nbsp;endOfAdministration | string | ISO 8601 encoded date, eg '2019-03-01'                                                                                                                                                                                                      |
+| &nbsp;&nbsp;administrationKind  | string | (REM1 only) One of the following values: <ul><li>MEG</li><li>VOLL</li><li>TECHNISCH</li><li>ADMINISTRATIV</li><li>BACKMANAGEMENT</li><li>CENTERMANAGEMENT</li><li>EXTERNAL_SYSTEM</li><li>STEWE</li><li>INKASSO</li><li>UNBEKANNT</li></ul> |
 
 #### Example
 
@@ -97,10 +97,10 @@ data | hash |
 
 ### Masterdata.Property.Deleted
 
-| Field | Type | Content / Remarks |
-|---|---|---|
-| eventType | string | Masterdata.Property.Deleted |
-| data | hash | |
+| Field                 | Type   | Content / Remarks                  |
+| --------------------- | ------ | ---------------------------------- |
+| eventType             | string | Masterdata.Property.Deleted        |
+| data                  | hash   |                                    |
 | &nbsp;&nbsp;reference | string | unique identifier for the property |
 
 #### Example
@@ -115,10 +115,10 @@ data | hash |
 
 ### Masterdata.Property.Activated
 
-| Field | Type | Content / Remarks |
-|---|---|---|
-| eventType | string | Masterdata.Property.Activated |
-| data | hash | |
+| Field                 | Type   | Content / Remarks                  |
+| --------------------- | ------ | ---------------------------------- |
+| eventType             | string | Masterdata.Property.Activated      |
+| data                  | hash   |                                    |
 | &nbsp;&nbsp;reference | string | unique identifier for the property |
 
 #### Example
