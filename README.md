@@ -59,6 +59,14 @@ The headers are part of the message properties and must specify at least the app
 
 Some messages must contain additional properties. Please refer to [Header Properties](/header_properties.md) for more information.
 
+### Message Body
+
+The following general rules apply to message body attributes:
+
+* update messages: pass `null` if you want to clear a value, do not pass the attribute at all if you don't want to change it
+* create messages: do not pass the attribute at all if you don't have a value for it
+* You should never pass an empty string for an attribute; pass `null` instead or, better, do not pass the attribute at all
+
 ### Events
 
 Events are messages that can be received by multiple subscribers. The message body contains a json data structure.
