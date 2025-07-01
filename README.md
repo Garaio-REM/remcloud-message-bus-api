@@ -63,9 +63,10 @@ Some messages must contain additional properties. Please refer to [Header Proper
 
 The following general rules apply to message body attributes:
 
-* update messages: pass `null` if you want to clear a value, do not pass the attribute at all if you don't want to change it
-* create messages: do not pass the attribute at all if you don't have a value for it
-* You should never pass an empty string for an attribute; pass `null` instead or, better, do not pass the attribute at all
+* update messages: pass `null` if you want to clear a value (given that the attribute is not required), do not pass the attribute at all if you don't want to change it
+* create messages: do not pass the attribute at all if you don't have a value for it and the attribute is not required
+* required enum attributes with default (e.g. `Accounting.Account.Create.type`): to apply the default value, do not pass the attribute at all; `null` is considered an invalid value
+* You should never pass an empty string (`''`) for an attribute
 
 ### Events
 
