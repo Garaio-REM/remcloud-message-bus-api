@@ -114,7 +114,7 @@ Create an account on an accounting
 | &nbsp;&nbsp;`vatNumber_2`             | `string`  | VAT number 2 (used to fill the VAT form)                                                                                                                                               |
 | &nbsp;&nbsp;`taxType`                 | `string`  | Tax type; pass INPUT or SALE when creating a KontoSteuer                                                                                                                               |
 | &nbsp;&nbsp;`taxAccountNumber`        | `string`  | Account number of the tax account to use when posting with a VAT Code                                                                                                                  |
-| &nbsp;&nbsp;`taxQuota`                | `string`  | Optional tax quota percentage                                                                                                                                                          |
+| &nbsp;&nbsp;`taxQuota`                | `decimal`  | Optional tax quota percentage                                                                                                                                                          |
 | &nbsp;&nbsp;`revenueAccountNumber`    | `string`  | Revenue account number                                                                                                                                                                 |
 
 Notes
@@ -145,6 +145,7 @@ Notes
     "accountingReference": "1569",
     "type": "KontoSteuer",
     "taxType": "INPUT",
+    "taxQuota": 90.0,
     "number": "10210",
     "accountGroupNumber": "1020",
     "titleDe": "Steuerkonto 10210",
