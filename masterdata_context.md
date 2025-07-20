@@ -928,6 +928,8 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
 | &nbsp;&nbsp;&nbsp;&nbsp;`supplement`     | `string`                     | address supplement, e.g. Elektro-Fachgeschäft; **optional**                                                                                                                                                        |
 | &nbsp;&nbsp;&nbsp;&nbsp;`countryCode`    | `string`                     | ISO country code, eg `'CH'`. Defaults to 'CH'.                                                                                                                                                                     |
 | &nbsp;&nbsp;`contactData`                | `hash`                       | [ContactData](types/contact_data.md) of this person.                                                                                                                                                               |
+| &nbsp;&nbsp;`paymentDetails`             | `array`                      | [PaymentDetails](types/payment_details.md) of this person.                                                                                                                                                         |
+
 
 #### example
 
@@ -948,7 +950,14 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
       "zipCode":"3007",
       "street":"Gartenstrasse 1/3",
       "countryCode":"CH"
-    }
+    },
+    "paymentDetails": [
+      {
+        "iban":"DE19500105176829385733",
+        "bic":"WELLDEVBD",
+        "defaultPaymentDetail":true
+      }
+    ]
   }
 }
 ```
@@ -1049,6 +1058,7 @@ Field | Type | Content / Remarks
 &nbsp;&nbsp;&nbsp;&nbsp;`validFrom` | `string` | optional ISO 8601 encoded date; pass a future date to create or update an address that becomes valid in the future
 &nbsp;&nbsp;&nbsp;&nbsp;`deleted` | `boolean` | pass `true` to delete the address
 &nbsp;&nbsp;`contactData`| `hash` | [ContactData](types/contact_data.md) of this person.
+&nbsp;&nbsp;`paymentDetails`| `array`| [PaymentDetails](types/payment_details.md) of this person.
 
 #### examples
 
@@ -1071,7 +1081,14 @@ Field | Type | Content / Remarks
       "street":"Gartenstrasse 1/3",
       "countryCode":"CH",
       "postbox":"123456"
-    }
+    },
+    "paymentDetails": [
+      {
+        "iban":"DE19500105176829385733",
+        "bic":"WELLDEVBD",
+        "defaultPaymentDetail":true
+      }
+    ]
   }
 }
 ```
