@@ -2,38 +2,39 @@
 
 ## Events
 
-| Type                                                                                  | GARAIO REM         | REM                | Description                                                                                       |
-| ------------------------------------------------------------------------------------- | ------------------ | ------------------ | ------------------------------------------------------------------------------------------------- |
-| [Masterdata.Property.Created](#masterdatapropertycreated)                             | :white_check_mark: | :white_check_mark: | A new property has been created                                                                   |
-| [Masterdata.Property.Updated](#masterdatapropertyupdated)                             | :white_check_mark: | :white_check_mark: | Data associated to a property has changed; you get changed attributes only                        |
-| [Masterdata.Property.Deleted](#masterdatapropertydeleted)                             | :white_check_mark: | :x:                | A property was deleted; you get the reference of the deleted property                             |
-| [Masterdata.Property.Activated](#masterdatapropertyactivated)                         | :white_check_mark: | :x:                | A property has been activated; you get the reference of the activated property                    |
-| [Masterdata.FacilityManager.Created](#masterdatafacilitymanagercreated)               | :white_check_mark: | :x:                | A facility manager has been created                                                               |
-| [Masterdata.FacilityManager.Updated](#masterdatafacilitymanagerupdated)               | :white_check_mark: | :x:                | A facility manager has been updated                                                               |
-| [Masterdata.FacilityManager.Deleted](#masterdatafacilitymanagerdeleted)               | :white_check_mark: | :x:                | A facility manager has been deleted                                                               |
-| [Masterdata.Property.RolesUpdated](#masterdatapropertyrolesupdated)                   | :white_check_mark: | :x:                | The role assignment for a property changed                                                        |
-| [Masterdata.Property.TagAdded](#masterdatapropertytagadded)                           | :white_check_mark: | :x:                | A tag was added to a property; please read the specs for this event carefully                     |
-| [Masterdata.Property.TagRemoved](#masterdatapropertytagremoved)                       | :white_check_mark: | :x:                | A tag was removed from a property; please read the specs for this event carefully                 |
-| [Masterdata.Building.Created](#masterdatabuildingcreated)                             | :white_check_mark: | :white_check_mark: | A building has been created                                                                       |
-| [Masterdata.Building.Updated](#masterdatabuildingupdated)                             | :white_check_mark: | :white_check_mark: | Data associated to a building has changed; you get the reference plus all changed attributes      |
-| [Masterdata.Building.Deleted](#masterdatabuildingdeleted)                             | :white_check_mark: | :white_check_mark: | The building was deleted                                                                          |
-| [Masterdata.Building.ReferenceChanged](#masterdatabuildingreferencechanged)           | :white_check_mark: | :x:                | The building reference has changed                                                                |
-| [Masterdata.Unit.Created](#masterdataunitcreated)                                     | :white_check_mark: | :white_check_mark: | A rentable unit has been created                                                                  |
-| [Masterdata.Unit.Updated](#masterdataunitupdated)                                     | :white_check_mark: | :white_check_mark: | Data associated to a rentable unit has changed; you get the reference plus all changed attributes |
-| [Masterdata.Unit.Deleted](#masterdataunitdeleted)                                     | :white_check_mark: | :white_check_mark: | The unit was deleted                                                                              |
-| [Masterdata.Unit.ReferenceChanged](#masterdataunitreferencechanged)                   | :white_check_mark: | :white_check_mark: | The unit reference has changed                                                                    |
-| [Masterdata.Unit.ListingInformationUpdated](#masterdataunitlistinginformationupdated) | :white_check_mark: | :x:                | The listing information of the unit has updated                                                   |
-| [Masterdata.Unit.ReservationChanged](#masterdataunitreservationchanged)               | :white_check_mark: | :x:                | The reservation information of the unit has been created/updated/deleted                          |
-| [Masterdata.Condominium.Updated](#masterdatacondominiumupdated)                       | :white_check_mark: | :x:                | Data associated to a condominium has changed; you get the reference plus all changed attributes   |
-| [Masterdata.ManagementTeam.Updated](#masterdatamanagementteamupdated)                 | :white_check_mark: | :x:                | A change to a property management team was applied; only changed roles are published              |
-| [Masterdata.Configuration.SedexIdChanged](#masterdataconfigurationsedexidchanged)     | :x:                | :white_check_mark: | A new SedexID has been configured                                                                 |
-| [Masterdata.PersonContactData.Update](#masterdatapersoncontactdataupdate)             | :white_check_mark: | :x:                | Update the contact data of a person with this message                                             |
-| [Masterdata.PersonPaymentDetails.Update](#masterdatapersonpaymentdetailsupdate)       | :white_check_mark: | :x:                | Update the payment details of a person with this message                                          |
-| [Masterdata.Person.Create](#masterdatapersoncreate)                                   | :white_check_mark: | :x:                | Create a new person record with this message                                                      |
-| [Masterdata.Person.Created](#masterdatapersoncreated)                                 | :white_check_mark: | :x:                | A new person was created                                                                          |
-| [Masterdata.Person.Update](#masterdatapersonupdate)                                   | :white_check_mark: | :x:                | Update the masterdata of a person with this message                                               |
-| [Masterdata.Person.Updated](#masterdatapersonupdated)                                 | :white_check_mark: | :x:                | A person was updated                                                                              |
-| [Masterdata.Person.Deleted](#masterdatapersondeleted)                                 | :white_check_mark: | :x:                | A person was deleted                                                                              |
+| Type                                                                                    | GARAIO REM         | REM                | Description                                                                                       |
+|-----------------------------------------------------------------------------------------| ------------------ | ------------------ |---------------------------------------------------------------------------------------------------|
+| [Masterdata.Property.Created](#masterdatapropertycreated)                               | :white_check_mark: | :white_check_mark: | A new property has been created                                                                   |
+| [Masterdata.Property.Updated](#masterdatapropertyupdated)                               | :white_check_mark: | :white_check_mark: | Data associated to a property has changed; you get changed attributes only                        |
+| [Masterdata.Property.Deleted](#masterdatapropertydeleted)                               | :white_check_mark: | :x:                | A property was deleted; you get the reference of the deleted property                             |
+| [Masterdata.Property.Activated](#masterdatapropertyactivated)                           | :white_check_mark: | :x:                | A property has been activated; you get the reference of the activated property                    |
+| [Masterdata.FacilityManager.Created](#masterdatafacilitymanagercreated)                 | :white_check_mark: | :x:                | A facility manager has been created                                                               |
+| [Masterdata.FacilityManager.Updated](#masterdatafacilitymanagerupdated)                 | :white_check_mark: | :x:                | A facility manager has been updated                                                               |
+| [Masterdata.FacilityManager.Deleted](#masterdatafacilitymanagerdeleted)                 | :white_check_mark: | :x:                | A facility manager has been deleted                                                               |
+| [Masterdata.Property.RolesUpdated](#masterdatapropertyrolesupdated)                     | :white_check_mark: | :x:                | The role assignment for a property changed                                                        |
+| [Masterdata.Property.TagAdded](#masterdatapropertytagadded)                             | :white_check_mark: | :x:                | A tag was added to a property; please read the specs for this event carefully                     |
+| [Masterdata.Property.TagRemoved](#masterdatapropertytagremoved)                         | :white_check_mark: | :x:                | A tag was removed from a property; please read the specs for this event carefully                 |
+| [Masterdata.Building.Created](#masterdatabuildingcreated)                               | :white_check_mark: | :white_check_mark: | A building has been created                                                                       |
+| [Masterdata.Building.Updated](#masterdatabuildingupdated)                               | :white_check_mark: | :white_check_mark: | Data associated to a building has changed; you get the reference plus all changed attributes      |
+| [Masterdata.Building.Deleted](#masterdatabuildingdeleted)                               | :white_check_mark: | :white_check_mark: | The building was deleted                                                                          |
+| [Masterdata.Building.ReferenceChanged](#masterdatabuildingreferencechanged)             | :white_check_mark: | :x:                | The building reference has changed                                                                |
+| [Masterdata.Unit.Created](#masterdataunitcreated)                                       | :white_check_mark: | :white_check_mark: | A rentable unit has been created                                                                  |
+| [Masterdata.Unit.Updated](#masterdataunitupdated)                                       | :white_check_mark: | :white_check_mark: | Data associated to a rentable unit has changed; you get the reference plus all changed attributes |
+| [Masterdata.Unit.Deleted](#masterdataunitdeleted)                                       | :white_check_mark: | :white_check_mark: | The unit was deleted                                                                              |
+| [Masterdata.Unit.ReferenceChanged](#masterdataunitreferencechanged)                     | :white_check_mark: | :white_check_mark: | The unit reference has changed                                                                    |
+| [Masterdata.Unit.ListingInformationUpdated](#masterdataunitlistinginformationupdated)   | :white_check_mark: | :x:                | The listing information of the unit has updated                                                   |
+| [Masterdata.Unit.ReservationChanged](#masterdataunitreservationchanged)                 | :white_check_mark: | :x:                | The reservation information of the unit has been created/updated/deleted                          |
+| [Masterdata.Condominium.Updated](#masterdatacondominiumupdated)                         | :white_check_mark: | :x:                | Data associated to a condominium has changed; you get the reference plus all changed attributes   |
+| [Masterdata.House.ListingInformationUpdated](#masterdatahouselistinginformationupdated) | :white_check_mark: | :x:                | The listing information of the house has updated                                                  |
+| [Masterdata.ManagementTeam.Updated](#masterdatamanagementteamupdated)                   | :white_check_mark: | :x:                | A change to a property management team was applied; only changed roles are published              |
+| [Masterdata.Configuration.SedexIdChanged](#masterdataconfigurationsedexidchanged)       | :x:                | :white_check_mark: | A new SedexID has been configured                                                                 |
+| [Masterdata.PersonContactData.Update](#masterdatapersoncontactdataupdate)               | :white_check_mark: | :x:                | Update the contact data of a person with this message                                             |
+| [Masterdata.PersonPaymentDetails.Update](#masterdatapersonpaymentdetailsupdate)         | :white_check_mark: | :x:                | Update the payment details of a person with this message                                          |
+| [Masterdata.Person.Create](#masterdatapersoncreate)                                     | :white_check_mark: | :x:                | Create a new person record with this message                                                      |
+| [Masterdata.Person.Created](#masterdatapersoncreated)                                   | :white_check_mark: | :x:                | A new person was created                                                                          |
+| [Masterdata.Person.Update](#masterdatapersonupdate)                                     | :white_check_mark: | :x:                | Update the masterdata of a person with this message                                               |
+| [Masterdata.Person.Updated](#masterdatapersonupdated)                                   | :white_check_mark: | :x:                | A person was updated                                                                              |
+| [Masterdata.Person.Deleted](#masterdatapersondeleted)                                   | :white_check_mark: | :x:                | A person was deleted                                                                              |
 
 ### Masterdata.Property.Created
 
@@ -644,6 +645,27 @@ Field | Type | Content / Remarks
     "unitVotes": 1,
     "m2": null,
     "m3": null
+  }
+}
+```
+
+### Masterdata.House.ListingInformationUpdated
+
+Listing information of a house in GARAIO REM has been updated. This message reflects such an update.
+
+Field | Type    | Content / Remarks
+---|---------|---
+eventType | string  | Masterdata.House.ListingInformationUpdated
+data | hash    |
+&nbsp;&nbsp;reference | string  | unique identifier for the house; the first segment of the key is the property reference, the second is the house reference eg '1234.01'
+
+#### Example
+
+```json
+{
+  "eventType":"Masterdata.Unit.ListingInformationUpdated",
+  "data":{
+    "reference":"1234.01"
   }
 }
 ```
