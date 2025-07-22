@@ -1059,6 +1059,7 @@ Field | Type | Content / Remarks
 &nbsp;&nbsp;&nbsp;&nbsp;`deleted` | `boolean` | pass `true` to delete the address
 &nbsp;&nbsp;`contactData`| `hash` | [ContactData](types/contact_data.md) of this person.
 &nbsp;&nbsp;`paymentDetails`| `array`| [PaymentDetails](types/payment_details.md) of this person.
+&nbsp;&nbsp;`paymentDeactivationReason`| `string`| Reason why payment details that are not transmitted will be locked; It is **required** only when either updating payment details with an empty array or adding new payment details for a person who already has existing ones
 
 #### examples
 
@@ -1088,7 +1089,8 @@ Field | Type | Content / Remarks
         "bic":"WELLDEVBD",
         "defaultPaymentDetail":true
       }
-    ]
+    ],
+    "paymentDeactivationReason":"deactivated by API"
   }
 }
 ```
