@@ -1,4 +1,4 @@
-# PaymentsDetails
+# PaymentDetails
 
 Payment details of a person. This is a Array of hash structured as follows.
 
@@ -14,7 +14,7 @@ Field | Type | Content / Remarks
 
 ## Merging strategy
 
-When updating `PaymentsDetails`, fields are merged as follows:
+When updating `PaymentDetails`, fields are merged as follows:
 
 * do not send the attribute if you do not want to create current data of this type
 * send an empty array (`[]`) to delete all current data of this type
