@@ -219,6 +219,7 @@ This message completely replaces an existing order in GARAIO REM; if you pass, f
 | &nbsp;&nbsp;`backlinkUrl`                                  | `string`     | optional url to navigate to the order on the sending system; **must be a complete url that the local browser can resolve (including protocol), e.g. <https://www.google.com>** |
 | &nbsp;&nbsp;`clerkUsername`                                | `string`     | Username of clerk (Sachbearbeiter) to assign.                                                                                                                                  |
 | &nbsp;&nbsp;`completedAt`                                  | `date\|null` | The day the ordered work has been completed. If null, this means the work has not been completed yet.                                                                          |
+| &nbsp;&nbsp;`done`                                         | `boolean`    | mark the order as done (erledigt)                                                                                                                                              |
 | &nbsp;&nbsp;`orderItems`                                   | `array`      | List of order items; may be empty; orderItems that exists in the order but are not passed here will be deleted                                                                 |
 | &nbsp;&nbsp;&nbsp;&nbsp;`itemNumber`                       | `integer`    | invoice item number to preserve order; **required**                                                                                                                            |
 | &nbsp;&nbsp;&nbsp;&nbsp;`accountNumber`                    | `string`     | accounting account number, eg "10122"; must be valid for the accounting that belongs to the `masterdataReference`  **required**                                                |
@@ -271,6 +272,18 @@ Notes:
 }
 ```
 
+#### Example (marking the order as done)
+
+```json
+{
+  "eventType":"Invoicing.Order.Updated",
+  "data":{
+    "reference":"1234",
+    "done":true
+  }
+}
+```
+
 ### Invoicing.Order.WasUpdated
 
 This is an event sent by GARAIO REM.
@@ -287,7 +300,6 @@ This is an event sent by GARAIO REM.
 | &nbsp;&nbsp;&nbsp;&nbsp;`costCenterNumber`    | `string`  | cost center number                                                               |
 | &nbsp;&nbsp;&nbsp;&nbsp;`taxCode`             | `string`  | tax code known to GARAIO REM, eg 'NO'                                            |
 | &nbsp;&nbsp;&nbsp;&nbsp;`masterdataReference` | `string`  | optional reference of a property / building / unit                               |
-
 
 #### Example
 
