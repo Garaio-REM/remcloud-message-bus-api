@@ -54,6 +54,31 @@ Additional `data` fields:
 | `referencedTable` | `string`  | Value given in the `Update` message           |
 | `reference`       | `string`  | Value given in the `Update` message, if given |
 | `id`              | `integer` | Value given in the `Update` message, if given |
+| `customTables`    | `hash`    | Custom table data, see [custom tables](./custom_tables.md) for a detailed explanation |
+
+##### Example
+
+```json
+{
+  "eventType": "Custom.EntityData.UpdateAccepted",
+  "data": {
+    "referencedTable": "verwaltungseinheiten",
+    "reference": "200601",
+    "customTables": {
+      "verwaltungseinheit_allgemein": {
+        "id": 374,
+        "verwaltungseinheit_id": 2308,
+        "kaufdatum": null,
+        "verkaufdatum": null,
+        "baujahr": "ca. 1980",
+        "lock_version": 1,
+        "created_at": "2020-12-10 12:00:00 +0100",
+        "updated_at": "2025-06-15 16:15:30 +0200"
+      }
+    }
+  }
+}
+```
 
 #### Custom.EntityData.UpdateRejected
 
