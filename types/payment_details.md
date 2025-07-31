@@ -21,6 +21,10 @@ Notes
 When updating `PaymentDetails`, fields are merged as follows:
 
 * do not send the attribute if you do not want to create current data of this type
-* send an empty array (`[]`) to delete all current data of this type
-* send an array of valid data to fully replace the current data of this type
-* payment details that exist but are not contained in the paymentDetails will be locked
+* send an empty array ([]) to lock all existing payment details. 
+  * it is required to provide a deactivation reason via either Masterdata.Person.Update.paymentDeactivationReason or Masterdata.PersonPaymentDetails.Update.deactivationReason, depending on the event type. 
+* send multiple paymentDetails entries to completely replace all existing payment data of this type.
+* send a single paymentDetails entry to:
+  * lock all previously existing payment details. 
+  * add the new entry. 
+  * a deactivation reason is also required as mentioned above.

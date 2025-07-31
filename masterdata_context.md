@@ -800,13 +800,13 @@ Set the recipient property in the headers, eg `"grem_wincasa"`. All attributes a
 
 GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-message) / [Rejected](./result_messages.md#rejected-message) message containing the personReference and reject reasons, where appropriate
 
-| Field                            | Type     | Content / Remarks                                                                   |
-| -------------------------------- | -------- | ----------------------------------------------------------------------------------- |
-| `eventType`                      | `string` | Masterdata.PersonPaymentDetails.Update                                              |
-| `data`                           | `hash`   |                                                                                     |
-| &nbsp;&nbsp;`personReference`    | `string` | reference of the person that should receive the communication updates; **required** |
-| &nbsp;&nbsp;`paymentDetails`     | `array`  | [PaymentDetails](types/payment_details.md) of this person.                          |
-| &nbsp;&nbsp;`deactivationReason` | `string` | Reason why payment details that are not transmitted will be locked; **required**    |
+| Field                            | Type     | Content / Remarks                                                                                                                                                                                                                    |
+| -------------------------------- | -------- |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `eventType`                      | `string` | Masterdata.PersonPaymentDetails.Update                                                                                                                                                                                               |
+| `data`                           | `hash`   |                                                                                                                                                                                                                                      |
+| &nbsp;&nbsp;`personReference`    | `string` | reference of the person that should receive the communication updates; **required**                                                                                                                                                  |
+| &nbsp;&nbsp;`paymentDetails`     | `array`  | [PaymentDetails](types/payment_details.md) of this person.                                                                                                                                                                           |
+| &nbsp;&nbsp;`deactivationReason` | `string` | Reason why payment details that are not transmitted will be locked; It is **required** only when either updating payment details with an empty array or adding new single payment details for a person who already has existing ones |
 
 #### Examples
 
@@ -905,8 +905,6 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
 | &nbsp;&nbsp;`hasPaymentBlock`            | `boolean`                    | declares whether this person has a payment block. `true` if they should have a payment block and `false` if they shouldn't.                                                                                        |
 | &nbsp;&nbsp;`paymentBlockReason`         | `string`                     | reason for the payment block for this person.                                                                                                                                                                      |
 | &nbsp;&nbsp;`correspondenceLanguageCode` | `string`                     | `'de'`, `'fr'`, `'it'` or `'en'`; must be lower case, defaults to `de`.                                                                                                                                            |
-| &nbsp;&nbsp;`iban`                       | `string`                     | IBAN for this person.                                                                                                                                                                                              |
-| &nbsp;&nbsp;`bic`                        | `string`                     | BIC for this person.                                                                                                                                                                                               |
 | &nbsp;&nbsp;`address`                    | `hash`                       | current address                                                                                                                                                                                                    |
 | &nbsp;&nbsp;&nbsp;&nbsp;`city`           | `string`                     | city; **required**                                                                                                                                                                                                 |
 | &nbsp;&nbsp;&nbsp;&nbsp;`zipCode`        | `string`                     | zipCode; **required**                                                                                                                                                                                              |
@@ -1047,7 +1045,7 @@ Field | Type | Content / Remarks
 &nbsp;&nbsp;&nbsp;&nbsp;`deleted` | `boolean` | pass `true` to delete the address
 &nbsp;&nbsp;`contactData`| `hash` | [ContactData](types/contact_data.md) of this person.
 &nbsp;&nbsp;`paymentDetails`| `array`| [PaymentDetails](types/payment_details.md) of this person.
-&nbsp;&nbsp;`paymentDeactivationReason`| `string`| Reason why payment details that are not transmitted will be locked; It is **required** only when either updating payment details with an empty array or adding new payment details for a person who already has existing ones
+&nbsp;&nbsp;`paymentDeactivationReason`| `string`| Reason why payment details that are not transmitted will be locked; It is **required** only when either updating payment details with an empty array or adding new single payment details for a person who already has existing ones
 
 #### examples
 
