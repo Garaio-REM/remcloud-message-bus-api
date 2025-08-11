@@ -8,17 +8,18 @@
 
 ### Letters.Letter.Create
 
-| Field                                  | Type      | Content / Remarks                                                                       |
-|----------------------------------------|-----------|-----------------------------------------------------------------------------------------|
-| `eventType`                            | `string`  | `Letters.Letter.Create`                                                                 |
-| `data`                                 | `hash`    |                                                                                         |
-| &nbsp;&nbsp;`letterTemplateReference`  | `string`  | template used for generating the letter, Reference of the letter template, **required** |
-| &nbsp;&nbsp;`propertyReference`        | `string`  | reference of the administrative unit, **required**                                      |
-| &nbsp;&nbsp;`clerkUsername`            | `string`  | username of the responsible person, **required**                                        |
-| &nbsp;&nbsp;`dueDate`                  | `string`  | due date of the letter, **required**                                       |
-| &nbsp;&nbsp;`description`              | `string`  | subject or short description of the letter, **optional**                                |
-| &nbsp;&nbsp;`signatureLeft`            | `string`  | username for the left-side signature block , **optional**                               |
-| &nbsp;&nbsp;`signatureRight`           | `string`  | username for the right-side signature block, **optional**                               |
+| Field                                 | Type     | Content / Remarks                                                                               |
+|---------------------------------------|----------|-------------------------------------------------------------------------------------------------|
+| `eventType`                           | `string` | `Letters.Letter.Create`                                                                         |
+| `data`                                | `hash`   |                                                                                                 |
+| &nbsp;&nbsp;`letterTemplateReference` | `string` | template used for generating the letter, Reference of the letter template, **required**         |
+| &nbsp;&nbsp;`propertyReference`       | `string` | reference of the administrative unit, **required**                                              |
+| &nbsp;&nbsp;`clerkUsername`           | `string` | username of the responsible person, **required**                                                |
+| &nbsp;&nbsp;`dueDate`                 | `string` | ISO 8601 encoded due date of the letter, **required**                                           |
+| &nbsp;&nbsp;`description`             | `string` | subject or short description of the letter, **optional**                                        |
+| &nbsp;&nbsp;`signatureLeft`           | `string` | username for the left-side signature block , **optional**                                       |
+| &nbsp;&nbsp;`signatureRight`          | `string` | username for the right-side signature block, **optional**                                       |
+| &nbsp;&nbsp;`customAttributes`        | `hash`   | customAttributes that are used in the letterTemplate. E.g. the text of the letter. **optional** |
 
 #### Example
 
@@ -28,11 +29,14 @@
   "data": {
     "letterTemplateReference": "liegenschaft_blanko",
     "clerkUsername": "admgar",
-    "dueDate": "24.07.2025",
+    "dueDate": "2025-07-24",
     "propertyReference": "13000",
     "description": "Serial Condominium Letter ONE UNIT",
     "signatureLeft": "welldev",
-    "signatureRight": "garaio.dev"
+    "signatureRight": "garaio.dev",
+    "customAttributes": {
+      "brieftext": "<p>HTML content of the letter</p>"
+    }
   }
 }
 ```
