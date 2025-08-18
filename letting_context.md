@@ -3,11 +3,16 @@
 ## Events
 
 | Type                                                                                                | GARAIO REM         | REM                | Description                                                                    |
-| --------------------------------------------------------------------------------------------------- | ------------------ | ------------------ | ------------------------------------------------------------------------------ |
+| --------------------------------------------------------------------------------------------------- | ------------------ | ------------------ |--------------------------------------------------------------------------------|
 | [Letting.Tenancy.Created](#lettingtenancycreated)                                                   | :white_check_mark: | :x:                | A tenancy has been created; does not reliably signal a tenant move in. (1)     |
 | [Letting.Tenancy.Updated](#lettingtenancyupdated)                                                   | :white_check_mark: | :x:                | Start and / or end date of a tenancy have been changed                         |
 | [Letting.Tenancy.Deleted](#lettingtenancydeleted)                                                   | :white_check_mark: | :x:                | A tenancy has been deleted; this means that the tenancy never became effective |
 | [Letting.Tenancy.TenancyAgreementReferenceChanged](#lettingtenancytenancyagreementreferencechanged) | :white_check_mark: | :x:                | The reference of a tenancy agreement has changed                               |
+| [Letting.TenancyAgreement.DraftCreated](#lettingtenancytenancyagreementdraftcreated)                | :white_check_mark: | :x:                | The tenancy agreement has reached to validated state                           |
+| [Letting.TenancyAgreement.DraftUpdated](#lettingtenancytenancyagreementdraftupdated)                | :white_check_mark: | :x:                | The validated tenancy agreement has some changes                               |
+| [Letting.TenancyAgreement.Updated](#lettingtenancytenancyagreementupdated)                          | :white_check_mark: | :x:                | The activated tenancy agreement has some changes.                              |
+| [Letting.TenancyAgreement.Terminated](#lettingtenancytenancyagreementterminated)                    | :white_check_mark: | :x:                | The tenancy agreement has been cancelled.                                      |
+| [Letting.TenancyAgreement.Deactivated](#lettingtenancytenancyagreementdeactivated)                  | :white_check_mark: | :x:                | The tenancy agreement has been deactivated.                                    |
 | [Letting.Reservation.Update](#lettingreservationupdate)                                             | :white_check_mark: | :x:                | Updates the reservation status of a unit.                                      |
 | [Letting.TenancyAgreement.Create](#lettingtenancyagreementcreate)                                   | :white_check_mark: | :x:                | A tenancy agreement should be created in GARAIO REM                            |
 | [Letting.TenancyAgreement.Activate](#lettingtenancyagreementactivate)                               | :white_check_mark: | :x:                | A tenancy agreement should be activated in GARAIO REM                          |
@@ -171,6 +176,138 @@ A user might change the reference of a unit in GARAIO REM which affects tenancy 
   "data":{
     "tenancyAgreementReference":"1234.01.0001.01",
     "newTenancyAgreementReference":"1234.01.0011.01",
+  }
+}
+```
+
+### Letting.TenancyAgreement.DraftCreated
+
+The tenancy agreement (Mietvertrag or Nachtrag) has become validated. 
+
+| Field                 | Type     | Content / Remarks                                                                                           |
+|-----------------------| -------- |-------------------------------------------------------------------------------------------------------------|
+| eventType             | `string` | Letting.TenancyAgreement.DraftCreated                                                                       |
+| data                  | `hash`   |                                                                                                             |
+| &nbsp;&nbsp;reference | `string` | unique tenancy agreement identifier, eg '1234.01.0001.01'                                                   |
+| &nbsp;&nbsp;versionStartDate | `string` | The starting date of the tenancy agreement.                                                          |
+| &nbsp;&nbsp;state     | `string` | The current state of the tenancy agreement. It can be in validated, activated, deactivated, cancelled state |
+
+#### Example
+
+```json
+{
+  "eventType":"Letting.TenancyAgreement.DraftCreated",
+  "data": {
+    "reference":"1234.01.0001.01",
+    "versionStartDate":"2025-08-03",
+    "state":"validated"
+  }
+}
+```
+
+### Letting.TenancyAgreement.DraftUpdated
+
+The validated tenancy agreement has some changes. If the starting date of the tenancy has been updated, we
+include a new key `newVersionStartDate` in the message body and send the old starting date in the `versionStartDate` key. 
+
+| Field                    | Type     | Content / Remarks                                                                                                                               |
+|--------------------------| -------- |-------------------------------------------------------------------------------------------------------------------------------------------------|
+| eventType                | `string` | Letting.TenancyAgreement.DraftUpdated                                                                                                           |
+| data                     | `hash`   |                                                                                                                                                 |
+| &nbsp;&nbsp;reference    | `string` | unique tenancy agreement identifier, eg '1234.01.0001.01'                                                                                       |
+| &nbsp;&nbsp;versionStartDate    | `string` | The starting date of the tenancy agreement, always sent. If starting date of tenancy agreement changes, this will be old starting date.  |
+| &nbsp;&nbsp;newVersionStartDate | `string` | The updated starting date of the tenancy agreement. Sent only when starting date of tenancy changes                                      |
+| &nbsp;&nbsp;state        | `string` | The current state of the tenancy agreement. It can be in validated, activated, deactivated, cancelled state                                     |
+
+#### Example
+
+```json
+{
+  "eventType":"Letting.TenancyAgreement.DraftUpdated",
+  "data": {
+    "reference":"1234.01.0001.01",
+    "versionStartDate":"2025-08-03",
+    "newVersionStartDate":"2025-09-03",
+    "state":"validated"
+  }
+}
+```
+
+### Letting.TenancyAgreement.Updated
+
+The activated tenancy agreement has some new updates or a Nachtrag (ammendment) has been activated.   
+If the starting date of the tenancy has been updated, we
+include a new key `newVersionStartDate` in the message body and send the old starting date in the `versionStartDate` key. 
+
+| Field                    | Type     | Content / Remarks                                                                                                                                  |
+|--------------------------| -------- |----------------------------------------------------------------------------------------------------------------------------------------------------|
+| eventType                | `string` | Letting.TenancyAgreement.Updated                                                                                                                   |
+| data                     | `hash`   |                                                                                                                                                    |
+| &nbsp;&nbsp;reference    | `string` | unique tenancy agreement identifier, eg '1234.01.0001.01'                                                                                          |
+| &nbsp;&nbsp;versionStartDate    | `string` | The starting date of the tenancy agreement, always sent. If starting date of tenancy agreement changes, this will be old starting date.     |
+| &nbsp;&nbsp;newVersionStartDate | `string` | The updated starting date of the tenancy agreement. Sent only when starting date of tenancy changes                                         |
+| &nbsp;&nbsp;state        | `string` | The current state of the tenancy agreement. It can be in validated, activated, deactivated, cancelled state                                        |
+
+#### Example
+
+```json
+{
+  "eventType":"Letting.TenancyAgreement.Updated",
+  "data": {
+    "reference":"1234.01.0001.01",
+    "versionStartDate":"2025-08-03",
+    "newVersionStartDate":"2025-09-03",
+    "state":"activated"
+  }
+}
+```
+
+### Letting.TenancyAgreement.Terminated
+
+The tenancy agreement has been cancelled.
+
+| Field                    | Type     | Content / Remarks                                                                                                                     |
+|--------------------------| -------- |---------------------------------------------------------------------------------------------------------------------------------------|
+| eventType                | `string` | Letting.TenancyAgreement.Terminated                                                                                                   |
+| data                     | `hash`   |                                                                                                                                       |
+| &nbsp;&nbsp;reference    | `string` | unique tenancy agreement identifier, eg '1234.01.0001.01'                                                                             |
+| &nbsp;&nbsp;versionStartDate    | `string` | The starting date of the tenancy agreement.                                                                                    |
+| &nbsp;&nbsp;state        | `string` | The current state of the tenancy agreement. It can be in validated, activated, deactivated, cancelled state                           |
+
+#### Example
+
+```json
+{
+  "eventType":"Letting.TenancyAgreement.Terminated",
+  "data": {
+    "reference":"1234.01.0001.01",
+    "versionStartDate":"2025-08-03",
+    "state":"cancelled"
+  }
+}
+```
+
+### Letting.TenancyAgreement.Deactivated
+
+The tenancy agreement has been deactivated.
+
+| Field                    | Type     | Content / Remarks                                                                                                                      |
+|--------------------------| -------- |----------------------------------------------------------------------------------------------------------------------------------------|
+| eventType                | `string` | Letting.TenancyAgreement.Deactivated                                                                                                   |
+| data                     | `hash`   |                                                                                                                                        |
+| &nbsp;&nbsp;reference    | `string` | unique tenancy agreement identifier, eg '1234.01.0001.01'                                                                              |
+| &nbsp;&nbsp;versionStartDate    | `string` | The starting date of the tenancy agreement.                                                                                     |
+| &nbsp;&nbsp;state        | `string` | The current state of the tenancy agreement. It can be in validated, activated, deactivated, cancelled state                            |
+
+#### Example
+
+```json
+{
+  "eventType":"Letting.TenancyAgreement.Deactivated",
+  "data": {
+    "reference":"1234.01.0001.01",
+    "versionStartDate":"2025-08-03",
+    "state":"deactivated"
   }
 }
 ```
