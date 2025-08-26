@@ -3,16 +3,18 @@
 ## Events
 
 | Type                                                                                                | GARAIO REM         | REM                | Description                                                                    |
-| --------------------------------------------------------------------------------------------------- | ------------------ | ------------------ |--------------------------------------------------------------------------------|
+| --------------------------------------------------------------------------------------------------- | ------------------ | ------------------ | ------------------------------------------------------------------------------ |
 | [Letting.Tenancy.Created](#lettingtenancycreated)                                                   | :white_check_mark: | :x:                | A tenancy has been created; does not reliably signal a tenant move in. (1)     |
 | [Letting.Tenancy.Updated](#lettingtenancyupdated)                                                   | :white_check_mark: | :x:                | Start and / or end date of a tenancy have been changed                         |
 | [Letting.Tenancy.Deleted](#lettingtenancydeleted)                                                   | :white_check_mark: | :x:                | A tenancy has been deleted; this means that the tenancy never became effective |
 | [Letting.Tenancy.TenancyAgreementReferenceChanged](#lettingtenancytenancyagreementreferencechanged) | :white_check_mark: | :x:                | The reference of a tenancy agreement has changed                               |
-| [Letting.TenancyAgreement.DraftCreated](#lettingtenancytenancyagreementdraftcreated)                | :white_check_mark: | :x:                | The tenancy agreement has reached to validated state                           |
-| [Letting.TenancyAgreement.DraftUpdated](#lettingtenancytenancyagreementdraftupdated)                | :white_check_mark: | :x:                | The validated tenancy agreement has some changes                               |
-| [Letting.TenancyAgreement.Updated](#lettingtenancytenancyagreementupdated)                          | :white_check_mark: | :x:                | The activated tenancy agreement has some changes.                              |
-| [Letting.TenancyAgreement.Terminated](#lettingtenancytenancyagreementterminated)                    | :white_check_mark: | :x:                | The tenancy agreement has been cancelled.                                      |
-| [Letting.TenancyAgreement.Deactivated](#lettingtenancytenancyagreementdeactivated)                  | :white_check_mark: | :x:                | The tenancy agreement has been deactivated.                                    |
+| [Letting.TenancyAgreement.DraftCreated](#lettingtenancyagreementdraftcreated)                       | :white_check_mark: | :x:                | The tenancy agreement has reached to validated state                           |
+| [Letting.TenancyAgreement.DraftUpdated](#lettingtenancyagreementdraftupdated)                       | :white_check_mark: | :x:                | The validated tenancy agreement has some changes                               |
+| [Letting.TenancyAgreement.DraftDeleted](#lettingtenancyagreementdraftdeleted)                       | :white_check_mark: | :x:                | The validated tenancy agreement was deleted.                                   |
+| [Letting.TenancyAgreement.Created](#lettingtenancyagreementcreated)                                 | :white_check_mark: | :x:                | The tenancy agreement has been activated.                                      |
+| [Letting.TenancyAgreement.Updated](#lettingtenancyagreementupdated)                                 | :white_check_mark: | :x:                | The activated tenancy agreement has some changes.                              |
+| [Letting.TenancyAgreement.Terminated](#lettingtenancyagreementterminated)                           | :white_check_mark: | :x:                | The tenancy agreement has been cancelled.                                      |
+| [Letting.TenancyAgreement.Deactivated](#lettingtenancyagreementdeactivated)                         | :white_check_mark: | :x:                | The tenancy agreement has been deactivated.                                    |
 | [Letting.Reservation.Update](#lettingreservationupdate)                                             | :white_check_mark: | :x:                | Updates the reservation status of a unit.                                      |
 | [Letting.TenancyAgreement.Create](#lettingtenancyagreementcreate)                                   | :white_check_mark: | :x:                | A tenancy agreement should be created in GARAIO REM                            |
 | [Letting.TenancyAgreement.Activate](#lettingtenancyagreementactivate)                               | :white_check_mark: | :x:                | A tenancy agreement should be activated in GARAIO REM                          |
@@ -182,15 +184,15 @@ A user might change the reference of a unit in GARAIO REM which affects tenancy 
 
 ### Letting.TenancyAgreement.DraftCreated
 
-The tenancy agreement (Mietvertrag or Nachtrag) has become validated. 
+The tenancy agreement (Mietvertrag or Nachtrag) has become validated.
 
-| Field                 | Type     | Content / Remarks                                                                                           |
-|-----------------------| -------- |-------------------------------------------------------------------------------------------------------------|
-| eventType             | `string` | Letting.TenancyAgreement.DraftCreated                                                                       |
-| data                  | `hash`   |                                                                                                             |
-| &nbsp;&nbsp;reference | `string` | unique tenancy agreement identifier, eg '1234.01.0001.01'                                                   |
-| &nbsp;&nbsp;versionStartDate | `string` | The starting date of the tenancy agreement.                                                          |
-| &nbsp;&nbsp;state     | `string` | The current state of the tenancy agreement. It can be in validated, activated, deactivated, cancelled state |
+| Field                        | Type     | Content / Remarks                                                                                           |
+| ---------------------------- | -------- | ----------------------------------------------------------------------------------------------------------- |
+| eventType                    | `string` | Letting.TenancyAgreement.DraftCreated                                                                       |
+| data                         | `hash`   |                                                                                                             |
+| &nbsp;&nbsp;reference        | `string` | unique tenancy agreement identifier, eg '1234.01.0001.01'                                                   |
+| &nbsp;&nbsp;versionStartDate | `string` | The starting date of the tenancy agreement.                                                                 |
+| &nbsp;&nbsp;state            | `string` | The current state of the tenancy agreement. It can be in validated, activated, deactivated, cancelled state |
 
 #### Example
 
@@ -208,16 +210,16 @@ The tenancy agreement (Mietvertrag or Nachtrag) has become validated.
 ### Letting.TenancyAgreement.DraftUpdated
 
 The validated tenancy agreement has some changes. If the starting date of the tenancy has been updated, we
-include a new key `newVersionStartDate` in the message body and send the old starting date in the `versionStartDate` key. 
+include a new key `newVersionStartDate` in the message body and send the old starting date in the `versionStartDate` key.
 
-| Field                    | Type     | Content / Remarks                                                                                                                               |
-|--------------------------| -------- |-------------------------------------------------------------------------------------------------------------------------------------------------|
-| eventType                | `string` | Letting.TenancyAgreement.DraftUpdated                                                                                                           |
-| data                     | `hash`   |                                                                                                                                                 |
-| &nbsp;&nbsp;reference    | `string` | unique tenancy agreement identifier, eg '1234.01.0001.01'                                                                                       |
-| &nbsp;&nbsp;versionStartDate    | `string` | The starting date of the tenancy agreement, always sent. If starting date of tenancy agreement changes, this will be old starting date.  |
-| &nbsp;&nbsp;newVersionStartDate | `string` | The updated starting date of the tenancy agreement. Sent only when starting date of tenancy changes                                      |
-| &nbsp;&nbsp;state        | `string` | The current state of the tenancy agreement. It can be in validated, activated, deactivated, cancelled state                                     |
+| Field                           | Type     | Content / Remarks                                                                                                                       |
+| ------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| eventType                       | `string` | Letting.TenancyAgreement.DraftUpdated                                                                                                   |
+| data                            | `hash`   |                                                                                                                                         |
+| &nbsp;&nbsp;reference           | `string` | unique tenancy agreement identifier, eg '1234.01.0001.01'                                                                               |
+| &nbsp;&nbsp;versionStartDate    | `string` | The starting date of the tenancy agreement, always sent. If starting date of tenancy agreement changes, this will be old starting date. |
+| &nbsp;&nbsp;newVersionStartDate | `string` | The updated starting date of the tenancy agreement. Sent only when starting date of tenancy changes                                     |
+| &nbsp;&nbsp;state               | `string` | The current state of the tenancy agreement. It can be in validated, activated, deactivated, cancelled state                             |
 
 #### Example
 
@@ -226,6 +228,7 @@ include a new key `newVersionStartDate` in the message body and send the old sta
   "eventType":"Letting.TenancyAgreement.DraftUpdated",
   "data": {
     "reference":"1234.01.0001.01",
+    "type":"contract",
     "versionStartDate":"2025-08-03",
     "newVersionStartDate":"2025-09-03",
     "state":"validated"
@@ -233,20 +236,72 @@ include a new key `newVersionStartDate` in the message body and send the old sta
 }
 ```
 
+### Letting.TenancyAgreement.DraftDeleted
+
+The validated tenancy agreement was deleted.
+
+| Field                        | Type     | Content / Remarks                                                                                                                       |
+| ---------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| eventType                    | `string` | Letting.TenancyAgreement.DraftDeleted                                                                                                   |
+| data                         | `hash`   |                                                                                                                                         |
+| &nbsp;&nbsp;reference        | `string` | unique tenancy agreement identifier, eg '1234.01.0001.01'                                                                               |
+| &nbsp;&nbsp;type             | `string` | `"contract"` for a "Mietvertrag" draft, `"addendum"` for a "Nachtrag" draft.                                                            |
+| &nbsp;&nbsp;versionStartDate | `string` | The starting date of the tenancy agreement, always sent. If starting date of tenancy agreement changes, this will be old starting date. |
+| &nbsp;&nbsp;state            | `string` | The current state of the tenancy agreement. It can be in validated, activated, deactivated, cancelled state                             |
+
+#### Example
+
+```json
+{
+  "eventType":"Letting.TenancyAgreement.DraftDeleted",
+  "data": {
+    "reference":"1234.01.0001.01",
+    "type":"contract",
+    "versionStartDate":"2025-08-03",
+    "state":"validated"
+  }
+}
+```
+
+### Letting.TenancyAgreement.Created
+
+A validated tenancy agreement has has been activated.
+
+| Field                        | Type     | Content / Remarks                                                                                                                       |
+| ---------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| eventType                    | `string` | Letting.TenancyAgreement.Created                                                                                                        |
+| data                         | `hash`   |                                                                                                                                         |
+| &nbsp;&nbsp;reference        | `string` | unique tenancy agreement identifier, eg '1234.01.0001.01'                                                                               |
+| &nbsp;&nbsp;versionStartDate | `string` | The starting date of the tenancy agreement, always sent. If starting date of tenancy agreement changes, this will be old starting date. |
+| &nbsp;&nbsp;state            | `string` | The current state of the tenancy agreement. It can be in validated, activated, deactivated, cancelled state                             |
+
+#### Example
+
+```json
+{
+  "eventType":"Letting.TenancyAgreement.Created",
+  "data": {
+    "reference":"1234.01.0001.01",
+    "versionStartDate":"2025-08-03",
+    "state":"activated"
+  }
+}
+```
+
 ### Letting.TenancyAgreement.Updated
 
-The activated tenancy agreement has some new updates or a Nachtrag (ammendment) has been activated.   
+The activated tenancy agreement has some new updates or a Nachtrag (ammendment) has been activated.
 If the starting date of the tenancy has been updated, we
-include a new key `newVersionStartDate` in the message body and send the old starting date in the `versionStartDate` key. 
+include a new key `newVersionStartDate` in the message body and send the old starting date in the `versionStartDate` key.
 
-| Field                    | Type     | Content / Remarks                                                                                                                                  |
-|--------------------------| -------- |----------------------------------------------------------------------------------------------------------------------------------------------------|
-| eventType                | `string` | Letting.TenancyAgreement.Updated                                                                                                                   |
-| data                     | `hash`   |                                                                                                                                                    |
-| &nbsp;&nbsp;reference    | `string` | unique tenancy agreement identifier, eg '1234.01.0001.01'                                                                                          |
-| &nbsp;&nbsp;versionStartDate    | `string` | The starting date of the tenancy agreement, always sent. If starting date of tenancy agreement changes, this will be old starting date.     |
-| &nbsp;&nbsp;newVersionStartDate | `string` | The updated starting date of the tenancy agreement. Sent only when starting date of tenancy changes                                         |
-| &nbsp;&nbsp;state        | `string` | The current state of the tenancy agreement. It can be in validated, activated, deactivated, cancelled state                                        |
+| Field                           | Type     | Content / Remarks                                                                                                                       |
+| ------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| eventType                       | `string` | Letting.TenancyAgreement.Updated                                                                                                        |
+| data                            | `hash`   |                                                                                                                                         |
+| &nbsp;&nbsp;reference           | `string` | unique tenancy agreement identifier, eg '1234.01.0001.01'                                                                               |
+| &nbsp;&nbsp;versionStartDate    | `string` | The starting date of the tenancy agreement, always sent. If starting date of tenancy agreement changes, this will be old starting date. |
+| &nbsp;&nbsp;newVersionStartDate | `string` | The updated starting date of the tenancy agreement. Sent only when starting date of tenancy changes                                     |
+| &nbsp;&nbsp;state               | `string` | The current state of the tenancy agreement. It can be in validated, activated, deactivated, cancelled state                             |
 
 #### Example
 
@@ -266,13 +321,13 @@ include a new key `newVersionStartDate` in the message body and send the old sta
 
 The tenancy agreement has been cancelled.
 
-| Field                    | Type     | Content / Remarks                                                                                                                     |
-|--------------------------| -------- |---------------------------------------------------------------------------------------------------------------------------------------|
-| eventType                | `string` | Letting.TenancyAgreement.Terminated                                                                                                   |
-| data                     | `hash`   |                                                                                                                                       |
-| &nbsp;&nbsp;reference    | `string` | unique tenancy agreement identifier, eg '1234.01.0001.01'                                                                             |
-| &nbsp;&nbsp;versionStartDate    | `string` | The starting date of the tenancy agreement.                                                                                    |
-| &nbsp;&nbsp;state        | `string` | The current state of the tenancy agreement. It can be in validated, activated, deactivated, cancelled state                           |
+| Field                        | Type     | Content / Remarks                                                                                           |
+| ---------------------------- | -------- | ----------------------------------------------------------------------------------------------------------- |
+| eventType                    | `string` | Letting.TenancyAgreement.Terminated                                                                         |
+| data                         | `hash`   |                                                                                                             |
+| &nbsp;&nbsp;reference        | `string` | unique tenancy agreement identifier, eg '1234.01.0001.01'                                                   |
+| &nbsp;&nbsp;versionStartDate | `string` | The starting date of the tenancy agreement.                                                                 |
+| &nbsp;&nbsp;state            | `string` | The current state of the tenancy agreement. It can be in validated, activated, deactivated, cancelled state |
 
 #### Example
 
@@ -291,13 +346,13 @@ The tenancy agreement has been cancelled.
 
 The tenancy agreement has been deactivated.
 
-| Field                    | Type     | Content / Remarks                                                                                                                      |
-|--------------------------| -------- |----------------------------------------------------------------------------------------------------------------------------------------|
-| eventType                | `string` | Letting.TenancyAgreement.Deactivated                                                                                                   |
-| data                     | `hash`   |                                                                                                                                        |
-| &nbsp;&nbsp;reference    | `string` | unique tenancy agreement identifier, eg '1234.01.0001.01'                                                                              |
-| &nbsp;&nbsp;versionStartDate    | `string` | The starting date of the tenancy agreement.                                                                                     |
-| &nbsp;&nbsp;state        | `string` | The current state of the tenancy agreement. It can be in validated, activated, deactivated, cancelled state                            |
+| Field                        | Type     | Content / Remarks                                                                                           |
+| ---------------------------- | -------- | ----------------------------------------------------------------------------------------------------------- |
+| eventType                    | `string` | Letting.TenancyAgreement.Deactivated                                                                        |
+| data                         | `hash`   |                                                                                                             |
+| &nbsp;&nbsp;reference        | `string` | unique tenancy agreement identifier, eg '1234.01.0001.01'                                                   |
+| &nbsp;&nbsp;versionStartDate | `string` | The starting date of the tenancy agreement.                                                                 |
+| &nbsp;&nbsp;state            | `string` | The current state of the tenancy agreement. It can be in validated, activated, deactivated, cancelled state |
 
 #### Example
 
@@ -651,34 +706,34 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
 
 ##### accepted response message
 
-| Field                                               | Type      | Content / Remarks                                                                     |
-| --------------------------------------------------- | --------- | ------------------------------------------------------------------------------------- |
-| `tenancyAgreementReference`                         | `string`  | The generated tenancy agreement reference                                             |
-| `vat`                                               | `hash`    | VAT (MWSt) info                                                                       |
-| &nbsp;&nbsp;`validFrom`                             | `string`  | ISO 8601 encoded date, eg `'2023-06-01'`                                              |
-| &nbsp;&nbsp;`liable`                                | `boolean` | Is the tenancy agreement VAT liable?                                                  |
-| &nbsp;&nbsp;`code`                                  | `string`  | VAT code (see `MWST` code table)                                                      |
-| &nbsp;&nbsp;`rate`                                  | `decimal` | VAT rate                                                                              |
-| &nbsp;&nbsp;`primaryTenancyAgreementReference`      | `string`  | reference of the primary tenancy agreement (if applicable)                            |
-| `rentalCosts`                                       | `hash`    | rental costs info                                                                     |
-| &nbsp;&nbsp;`netRent`                               | `decimal` | net rent in CHF                                                                       |
-| &nbsp;&nbsp;`grossRentExcludingVat`                 | `decimal` | gross rent without vat in CHF                                                         |
-| &nbsp;&nbsp;`additionalCosts`                       | `decimal` | additional costs in CHF                                                               |
-| &nbsp;&nbsp;`additionalCostsComponents`             | `array`   | additional costs components (code, amount, see `Mietzinskomponente-Typen` code table) |
-| `rentReserves`                                      | `hash`    | Rent reserves ("Mietzinsreserven")                                                    |
-| &nbsp;&nbsp;`fromRentBasePercent`                   | `decimal` | "Aufgrund Mietzinsbasis", in Percent                                                  |
-| &nbsp;&nbsp;`fromRentBaseAmount`                    | `decimal` | "Aufgrund Mietzinsbasis", in CHF                                                      |
-| &nbsp;&nbsp;`mortgageRateAdjustment`                | `decimal` | "Hypozinsanpassung", in Percent                                                       |
-| &nbsp;&nbsp;`countryIndexAdjustment`                | `decimal` | "Landesindexanpassung", in Percent                                                    |
-| &nbsp;&nbsp;`costIncreaseAdjustment`                | `decimal` | "Kostensteigerungsanpassung", in Percent                                              |
-| &nbsp;&nbsp;`fromInsufficientReturnPercent`          | `decimal` | "aufgrund ungenügender Bruttorendite", in Percent                                     |
-| &nbsp;&nbsp;`fromInsufficientReturnAmount`           | `decimal` | "aufgrund ungenügender Bruttorendite", in CHF                                         |
-| &nbsp;&nbsp;`fromLocalStandardsPercent`             | `decimal` | "aufgrund Orts- und Quartierüblichkeit", in Percent                                   |
-| &nbsp;&nbsp;`fromLocalStandardsAmount`              | `decimal` | "aufgrund Orts- und Quartierüblichkeit", in CHF                                       |
-| &nbsp;&nbsp;`fromValueAddingInvestmentsPercent`     | `decimal` | "aufgrund wertvermehrender Investitionen", in Percent                                 |
-| &nbsp;&nbsp;`fromValueAddingInvestmentsAmount`      | `decimal` | "aufgrund wertvermehrender Investitionen", in CHF                                     |
-| &nbsp;&nbsp;`fromValueAddingInvestmentsPotentials`  | `array`   | Array of hashes (typeCode, amount, notes, see `Mietzinsreserven` code table)          |
-| &nbsp;&nbsp;`fromValueAddingInvestmentsTable`       | `array`   | Array of hashes (title, percent, amount)                                              |
+| Field                                              | Type      | Content / Remarks                                                                     |
+| -------------------------------------------------- | --------- | ------------------------------------------------------------------------------------- |
+| `tenancyAgreementReference`                        | `string`  | The generated tenancy agreement reference                                             |
+| `vat`                                              | `hash`    | VAT (MWSt) info                                                                       |
+| &nbsp;&nbsp;`validFrom`                            | `string`  | ISO 8601 encoded date, eg `'2023-06-01'`                                              |
+| &nbsp;&nbsp;`liable`                               | `boolean` | Is the tenancy agreement VAT liable?                                                  |
+| &nbsp;&nbsp;`code`                                 | `string`  | VAT code (see `MWST` code table)                                                      |
+| &nbsp;&nbsp;`rate`                                 | `decimal` | VAT rate                                                                              |
+| &nbsp;&nbsp;`primaryTenancyAgreementReference`     | `string`  | reference of the primary tenancy agreement (if applicable)                            |
+| `rentalCosts`                                      | `hash`    | rental costs info                                                                     |
+| &nbsp;&nbsp;`netRent`                              | `decimal` | net rent in CHF                                                                       |
+| &nbsp;&nbsp;`grossRentExcludingVat`                | `decimal` | gross rent without vat in CHF                                                         |
+| &nbsp;&nbsp;`additionalCosts`                      | `decimal` | additional costs in CHF                                                               |
+| &nbsp;&nbsp;`additionalCostsComponents`            | `array`   | additional costs components (code, amount, see `Mietzinskomponente-Typen` code table) |
+| `rentReserves`                                     | `hash`    | Rent reserves ("Mietzinsreserven")                                                    |
+| &nbsp;&nbsp;`fromRentBasePercent`                  | `decimal` | "Aufgrund Mietzinsbasis", in Percent                                                  |
+| &nbsp;&nbsp;`fromRentBaseAmount`                   | `decimal` | "Aufgrund Mietzinsbasis", in CHF                                                      |
+| &nbsp;&nbsp;`mortgageRateAdjustment`               | `decimal` | "Hypozinsanpassung", in Percent                                                       |
+| &nbsp;&nbsp;`countryIndexAdjustment`               | `decimal` | "Landesindexanpassung", in Percent                                                    |
+| &nbsp;&nbsp;`costIncreaseAdjustment`               | `decimal` | "Kostensteigerungsanpassung", in Percent                                              |
+| &nbsp;&nbsp;`fromInsufficientReturnPercent`        | `decimal` | "aufgrund ungenügender Bruttorendite", in Percent                                     |
+| &nbsp;&nbsp;`fromInsufficientReturnAmount`         | `decimal` | "aufgrund ungenügender Bruttorendite", in CHF                                         |
+| &nbsp;&nbsp;`fromLocalStandardsPercent`            | `decimal` | "aufgrund Orts- und Quartierüblichkeit", in Percent                                   |
+| &nbsp;&nbsp;`fromLocalStandardsAmount`             | `decimal` | "aufgrund Orts- und Quartierüblichkeit", in CHF                                       |
+| &nbsp;&nbsp;`fromValueAddingInvestmentsPercent`    | `decimal` | "aufgrund wertvermehrender Investitionen", in Percent                                 |
+| &nbsp;&nbsp;`fromValueAddingInvestmentsAmount`     | `decimal` | "aufgrund wertvermehrender Investitionen", in CHF                                     |
+| &nbsp;&nbsp;`fromValueAddingInvestmentsPotentials` | `array`   | Array of hashes (typeCode, amount, notes, see `Mietzinsreserven` code table)          |
+| &nbsp;&nbsp;`fromValueAddingInvestmentsTable`      | `array`   | Array of hashes (title, percent, amount)                                              |
 
 ```json
 {"eventType":"Letting.TenancyAgreement.CreateAccepted",
@@ -817,20 +872,20 @@ Additional `data` fields:
 
 ### Letting.TenancyAgreementSecurityDepot.Update
 
-| Field                            | Type      | Content / Remarks                                                                                                          |
-| -------------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------- |
-| eventType                        | `string`  | Letting.TenancyAgreementSecurityDepot.Update                                                                               |
-| data                             | `hash`    |                                                                                                                            |
-| &nbsp;&nbsp;reference            | `string`  | tenancy agreement reference; **required**                                                                                  |
-| &nbsp;&nbsp;depositTypeCode      | `string`  | deposit type code ("Depot-Art"); **required**                                                                              |
-| &nbsp;&nbsp;custodianReference   | `string`  | person that is the custodian for the depot; reference (1)                                                                  |
-| &nbsp;&nbsp;payerReference       | `string`  | person that pays the depot; reference (1)                                                                                  |
-| &nbsp;&nbsp;depositAmount        | `decimal` | amount to pay in CHF (1)                                                                                                   |
-| &nbsp;&nbsp;paidAmount           | `decimal` | paid amount in CHF (1)                                                                                                     |
-| &nbsp;&nbsp;depositAccountNumber | `string`  | payment information. freetext, use e.g. for IBAN (1)                                                                       |
-| &nbsp;&nbsp;refundedAt           | `string`  | ISO 8601 encoded date, eg '2019-05-25'                                                                                     |
-| &nbsp;&nbsp;refundedByInfo       | `string`  | refunded by information, freetext                                                                                          |
-| &nbsp;&nbsp;remoteUrl            | `string`  | optional url to a remote secutity depot management system; will be rendereed in the Mietvertrag Aktionen menu, if present  |
+| Field                            | Type      | Content / Remarks                                                                                                         |
+| -------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------- |
+| eventType                        | `string`  | Letting.TenancyAgreementSecurityDepot.Update                                                                              |
+| data                             | `hash`    |                                                                                                                           |
+| &nbsp;&nbsp;reference            | `string`  | tenancy agreement reference; **required**                                                                                 |
+| &nbsp;&nbsp;depositTypeCode      | `string`  | deposit type code ("Depot-Art"); **required**                                                                             |
+| &nbsp;&nbsp;custodianReference   | `string`  | person that is the custodian for the depot; reference (1)                                                                 |
+| &nbsp;&nbsp;payerReference       | `string`  | person that pays the depot; reference (1)                                                                                 |
+| &nbsp;&nbsp;depositAmount        | `decimal` | amount to pay in CHF (1)                                                                                                  |
+| &nbsp;&nbsp;paidAmount           | `decimal` | paid amount in CHF (1)                                                                                                    |
+| &nbsp;&nbsp;depositAccountNumber | `string`  | payment information. freetext, use e.g. for IBAN (1)                                                                      |
+| &nbsp;&nbsp;refundedAt           | `string`  | ISO 8601 encoded date, eg '2019-05-25'                                                                                    |
+| &nbsp;&nbsp;refundedByInfo       | `string`  | refunded by information, freetext                                                                                         |
+| &nbsp;&nbsp;remoteUrl            | `string`  | optional url to a remote secutity depot management system; will be rendereed in the Mietvertrag Aktionen menu, if present |
 
 Notes:
 
