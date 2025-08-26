@@ -48,9 +48,8 @@ data | hash |
 &nbsp;&nbsp;city | string |
 &nbsp;&nbsp;countryCode | string | ISO country code, eg 'CH'
 &nbsp;&nbsp;languageCode | string | ISO language code, eg 'de'
-&nbsp;&nbsp;startOfAdministration | string | ISO 8601 encoded date, eg '2019-03-01'
-&nbsp;&nbsp;endOfAdministration | string | ISO 8601 encoded date, eg '2019-03-01'
-&nbsp;&nbsp;administrationKind| string | One of the following values: <ul><li>MEG</li><li>VOLL</li><li>TECHNISCH</li><li>ADMINISTRATIV</li><li>BACKMANAGEMENT</li><li>CENTERMANAGEMENT</li><li>EXTERNAL_SYSTEM</li><li>STEWE</li><li>INKASSO</li><li>UNBEKANNT</li></ul>
+&nbsp;&nbsp;mandateTerminatedBy | string | ISO 8601 encoded date, eg '2019-03-01'
+&nbsp;&nbsp;landlordReference | string | Reference of the person representing the landlord
 
 #### Example
 
@@ -62,8 +61,8 @@ data | hash |
     "zipCode":"3000",
     "city":"Bern",
     "countryCode":"CH",
-    "endOfAdministration": "2018-12-31",
-    "administrationKind": "MEG"
+    "mandateTerminatedBy": "2018-12-31",
+    "landlordReference": "1234"
   }
 }
 ```
@@ -81,8 +80,7 @@ data | hash |
 | &nbsp;&nbsp;countryCode         | string | ISO country code, eg 'CH'                                                                                                                                                                                                                   |
 | &nbsp;&nbsp;languageCode        | string | ISO language code, eg 'de'                                                                                                                                                                                                                  |
 | &nbsp;&nbsp;mandateTerminatedBy | string | ISO date, eg '2018-12-31'                                                                                                                                                                                                                   |
-| &nbsp;&nbsp;endOfAdministration | string | ISO 8601 encoded date, eg '2019-03-01'                                                                                                                                                                                                      |
-| &nbsp;&nbsp;administrationKind  | string | (REM1 only) One of the following values: <ul><li>MEG</li><li>VOLL</li><li>TECHNISCH</li><li>ADMINISTRATIV</li><li>BACKMANAGEMENT</li><li>CENTERMANAGEMENT</li><li>EXTERNAL_SYSTEM</li><li>STEWE</li><li>INKASSO</li><li>UNBEKANNT</li></ul> |
+| &nbsp;&nbsp;landlordReference   | string | Reference of the person representing the landlord                                                                                                                                                                                           |
 
 #### Example
 
@@ -91,7 +89,7 @@ data | hash |
   "data":{
     "reference":"1234",
     "description":"my property renamed",
-    "endOfAdministration": "2018-12-31"
+    "mandateTerminatedBy": "2018-12-31"
   }
 }
 ```
@@ -937,7 +935,6 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
 | &nbsp;&nbsp;&nbsp;&nbsp;`countryCode`    | `string`                     | ISO country code, eg `'CH'`. Defaults to 'CH'.                                                                                                                                                                     |
 | &nbsp;&nbsp;`contactData`                | `hash`                       | [ContactData](types/contact_data.md) of this person.                                                                                                                                                               |
 | &nbsp;&nbsp;`paymentDetails`             | `array`                      | [PaymentDetails](types/payment_details.md) of this person.                                                                                                                                                         |
-
 
 #### example
 
