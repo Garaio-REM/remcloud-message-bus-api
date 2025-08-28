@@ -4,25 +4,27 @@
 
 | Type                                                                                                | GARAIO REM         | REM                | Description                                                                    |
 | --------------------------------------------------------------------------------------------------- | ------------------ | ------------------ | ------------------------------------------------------------------------------ |
-| [Letting.Tenancy.Created](#lettingtenancycreated)                                                   | :white_check_mark: | :x:                | A tenancy has been created; does not reliably signal a tenant move in. (1)     |
-| [Letting.Tenancy.Updated](#lettingtenancyupdated)                                                   | :white_check_mark: | :x:                | Start and / or end date of a tenancy have been changed                         |
-| [Letting.Tenancy.Deleted](#lettingtenancydeleted)                                                   | :white_check_mark: | :x:                | A tenancy has been deleted; this means that the tenancy never became effective |
-| [Letting.Tenancy.TenancyAgreementReferenceChanged](#lettingtenancytenancyagreementreferencechanged) | :white_check_mark: | :x:                | The reference of a tenancy agreement has changed                               |
-| [Letting.TenancyAgreement.DraftCreated](#lettingtenancyagreementdraftcreated)                       | :white_check_mark: | :x:                | The tenancy agreement has reached to validated state                           |
-| [Letting.TenancyAgreement.DraftUpdated](#lettingtenancyagreementdraftupdated)                       | :white_check_mark: | :x:                | The validated tenancy agreement has some changes                               |
-| [Letting.TenancyAgreement.DraftDeleted](#lettingtenancyagreementdraftdeleted)                       | :white_check_mark: | :x:                | The validated tenancy agreement was deleted.                                   |
-| [Letting.TenancyAgreement.Created](#lettingtenancyagreementcreated)                                 | :white_check_mark: | :x:                | The tenancy agreement has been activated.                                      |
-| [Letting.TenancyAgreement.Updated](#lettingtenancyagreementupdated)                                 | :white_check_mark: | :x:                | The activated tenancy agreement has some changes.                              |
-| [Letting.TenancyAgreement.Terminated](#lettingtenancyagreementterminated)                           | :white_check_mark: | :x:                | The tenancy agreement has been cancelled.                                      |
-| [Letting.TenancyAgreement.Deactivated](#lettingtenancyagreementdeactivated)                         | :white_check_mark: | :x:                | The tenancy agreement has been deactivated.                                    |
 | [Letting.Reservation.Update](#lettingreservationupdate)                                             | :white_check_mark: | :x:                | Updates the reservation status of a unit.                                      |
-| [Letting.TenancyAgreement.Create](#lettingtenancyagreementcreate)                                   | :white_check_mark: | :x:                | A tenancy agreement should be created in GARAIO REM                            |
-| [Letting.TenancyAgreement.Activate](#lettingtenancyagreementactivate)                               | :white_check_mark: | :x:                | A tenancy agreement should be activated in GARAIO REM                          |
-| [Letting.TenancyAgreement.Delete](#lettingtenancyagreementdelete)                                   | :white_check_mark: | :x:                | A tenancy agreement should be deleted in GARAIO REM                            |
-| [Letting.TenancyAgreementSecurityDepot.Update](#lettingtenancyagreementsecuritydepotupdate)         | :white_check_mark: | :x:                | Updates the reservation status of a unit.                                      |
-| [Letting.TenancyAgreementDetails.Update](#lettingtenancyagreementdetailsupdate)                     | :white_check_mark: | :x:                | Updates some details of a tenancy agreement.                                   |
+| [Letting.Tenancy.Created](#lettingtenancycreated)                                                   | :white_check_mark: | :x:                | A tenancy has been created; does not reliably signal a tenant move in. (1)     |
+| [Letting.Tenancy.Deleted](#lettingtenancydeleted)                                                   | :white_check_mark: | :x:                | A tenancy has been deleted; this means that the tenancy never became effective |
 | [Letting.Tenancy.MoveInConfirmed](#lettingtenancymoveinconfirmed)                                   | :x:                | :white_check_mark: | Confirms a tenant will move or has moved into a unit. (2)                      |
 | [Letting.Tenancy.MoveOutConfirmed](#lettingtenancymoveoutconfirmed)                                 | :x:                | :white_check_mark: | Confirms a tenant will move out or has moved out of a unit. (3)                |
+| [Letting.Tenancy.TenancyAgreementReferenceChanged](#lettingtenancytenancyagreementreferencechanged) | :white_check_mark: | :x:                | The reference of a tenancy agreement has changed                               |
+| [Letting.Tenancy.Updated](#lettingtenancyupdated)                                                   | :white_check_mark: | :x:                | Start and / or end date of a tenancy have been changed                         |
+| [Letting.TenancyAgreement.Activate](#lettingtenancyagreementactivate)                               | :white_check_mark: | :x:                | A tenancy agreement should be activated in GARAIO REM                          |
+| [Letting.TenancyAgreement.Create](#lettingtenancyagreementcreate)                                   | :white_check_mark: | :x:                | A tenancy agreement should be created in GARAIO REM                            |
+| [Letting.TenancyAgreement.Created](#lettingtenancyagreementcreated)                                 | :white_check_mark: | :x:                | The tenancy agreement has been activated.                                      |
+| [Letting.TenancyAgreement.Deactivated](#lettingtenancyagreementdeactivated)                         | :white_check_mark: | :x:                | The tenancy agreement has been deactivated.                                    |
+| [Letting.TenancyAgreement.Delete](#lettingtenancyagreementdelete)                                   | :white_check_mark: | :x:                | A tenancy agreement should be deleted in GARAIO REM                            |
+| [Letting.TenancyAgreement.DraftCreated](#lettingtenancyagreementdraftcreated)                       | :white_check_mark: | :x:                | The tenancy agreement has reached to validated state                           |
+| [Letting.TenancyAgreement.DraftDeleted](#lettingtenancyagreementdraftdeleted)                       | :white_check_mark: | :x:                | The validated tenancy agreement was deleted.                                   |
+| [Letting.TenancyAgreement.DraftUpdated](#lettingtenancyagreementdraftupdated)                       | :white_check_mark: | :x:                | The validated tenancy agreement has some changes                               |
+| [Letting.TenancyAgreement.Terminated](#lettingtenancyagreementterminated)                           | :white_check_mark: | :x:                | The tenancy agreement has been cancelled.                                      |
+| [Letting.TenancyAgreement.TerminationUpdated](#lettingtenancyagreementterminationupdated)           | :white_check_mark: | :x:                | The terminated tenancy was updated.                                            |
+| [Letting.TenancyAgreement.TerminationRevoked](#lettingtenancyagreementterminationrevoked)           | :white_check_mark: | :x:                | The termination was revoked.                                                   |
+| [Letting.TenancyAgreement.Updated](#lettingtenancyagreementupdated)                                 | :white_check_mark: | :x:                | The activated tenancy agreement has some changes.                              |
+| [Letting.TenancyAgreementDetails.Update](#lettingtenancyagreementdetailsupdate)                     | :white_check_mark: | :x:                | Updates some details of a tenancy agreement.                                   |
+| [Letting.TenancyAgreementSecurityDepot.Update](#lettingtenancyagreementsecuritydepotupdate)         | :white_check_mark: | :x:                | Updates the reservation status of a unit.                                      |
 | [Letting.Tenant.Updated](#lettingtenantupdated)                                                     | :white_check_mark: | :x:                | Notification when tenant information has been updated/changed                  |
 
 Notes
@@ -338,6 +340,56 @@ The tenancy agreement has been cancelled.
     "reference":"1234.01.0001.01",
     "versionStartDate":"2025-08-03",
     "state":"cancelled"
+  }
+}
+```
+
+### Letting.TenancyAgreement.TerminationUpdated
+
+The cancelled tenancy agreement has been updated. This corresponds to editing the tenancy agreement confirmation after termination.
+
+| Field                        | Type     | Content / Remarks                                                                                           |
+| ---------------------------- | -------- | ----------------------------------------------------------------------------------------------------------- |
+| eventType                    | `string` | Letting.TenancyAgreement.TerminationUpdated                                                                 |
+| data                         | `hash`   |                                                                                                             |
+| &nbsp;&nbsp;reference        | `string` | unique tenancy agreement identifier, eg '1234.01.0001.01'                                                   |
+| &nbsp;&nbsp;versionStartDate | `string` | The starting date of the tenancy agreement.                                                                 |
+| &nbsp;&nbsp;state            | `string` | The current state of the tenancy agreement. It can be in validated, activated, deactivated, cancelled state |
+
+#### Example
+
+```json
+{
+  "eventType":"Letting.TenancyAgreement.TerminationUpdated",
+  "data": {
+    "reference":"1234.01.0001.01",
+    "versionStartDate":"2025-08-03",
+    "state":"cancelled"
+  }
+}
+```
+
+### Letting.TenancyAgreement.TerminationRevoked
+
+The cancellation of a tenancy agreement is taken back.
+
+| Field                        | Type     | Content / Remarks                                                                                           |
+| ---------------------------- | -------- | ----------------------------------------------------------------------------------------------------------- |
+| eventType                    | `string` | Letting.TenancyAgreement.TerminationRevoked                                                                 |
+| data                         | `hash`   |                                                                                                             |
+| &nbsp;&nbsp;reference        | `string` | unique tenancy agreement identifier, eg '1234.01.0001.01'                                                   |
+| &nbsp;&nbsp;versionStartDate | `string` | The starting date of the tenancy agreement.                                                                 |
+| &nbsp;&nbsp;state            | `string` | The current state of the tenancy agreement. It can be in validated, activated, deactivated, cancelled state |
+
+#### Example
+
+```json
+{
+  "eventType":"Letting.TenancyAgreement.TerminationRevoked",
+  "data": {
+    "reference":"1234.01.0001.01",
+    "versionStartDate":"2025-08-03",
+    "state":"activated"
   }
 }
 ```
