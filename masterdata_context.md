@@ -18,6 +18,7 @@
 | [Masterdata.Building.Updated](#masterdatabuildingupdated)                               | :white_check_mark: | :white_check_mark: | Data associated to a building has changed; you get the reference plus all changed attributes      |
 | [Masterdata.Building.Deleted](#masterdatabuildingdeleted)                               | :white_check_mark: | :white_check_mark: | The building was deleted                                                                          |
 | [Masterdata.Building.ReferenceChanged](#masterdatabuildingreferencechanged)             | :white_check_mark: | :x:                | The building reference has changed                                                                |
+| [Masterdata.Building.ListingInformationUpdated](#masterdatahouselistinginformationupdated) | :white_check_mark: | :x:                | The listing information of the house has updated                                                  |
 | [Masterdata.Unit.Created](#masterdataunitcreated)                                       | :white_check_mark: | :white_check_mark: | A rentable unit has been created                                                                  |
 | [Masterdata.Unit.Updated](#masterdataunitupdated)                                       | :white_check_mark: | :white_check_mark: | Data associated to a rentable unit has changed; you get the reference plus all changed attributes |
 | [Masterdata.Unit.Deleted](#masterdataunitdeleted)                                       | :white_check_mark: | :white_check_mark: | The unit was deleted                                                                              |
@@ -25,7 +26,6 @@
 | [Masterdata.Unit.ListingInformationUpdated](#masterdataunitlistinginformationupdated)   | :white_check_mark: | :x:                | The listing information of the unit has updated                                                   |
 | [Masterdata.Unit.ReservationChanged](#masterdataunitreservationchanged)                 | :white_check_mark: | :x:                | The reservation information of the unit has been created/updated/deleted                          |
 | [Masterdata.Condominium.Updated](#masterdatacondominiumupdated)                         | :white_check_mark: | :x:                | Data associated to a condominium has changed; you get the reference plus all changed attributes   |
-| [Masterdata.House.ListingInformationUpdated](#masterdatahouselistinginformationupdated) | :white_check_mark: | :x:                | The listing information of the house has updated                                                  |
 | [Masterdata.ManagementTeam.Updated](#masterdatamanagementteamupdated)                   | :white_check_mark: | :x:                | A change to a property management team was applied; only changed roles are published              |
 | [Masterdata.Configuration.SedexIdChanged](#masterdataconfigurationsedexidchanged)       | :x:                | :white_check_mark: | A new SedexID has been configured                                                                 |
 | [Masterdata.PersonContactData.Update](#masterdatapersoncontactdataupdate)               | :white_check_mark: | :x:                | Update the contact data of a person with this message                                             |
@@ -647,15 +647,15 @@ Field | Type | Content / Remarks
 }
 ```
 
-### Masterdata.House.ListingInformationUpdated
+### Masterdata.Building.ListingInformationUpdated
 
-Listing information of a house in GARAIO REM has been updated. This message reflects such an update.
+Listing information of a building in GARAIO REM has been updated. This message reflects such an update.
 
 Field | Type    | Content / Remarks
 ---|---------|---
-eventType | string  | Masterdata.House.ListingInformationUpdated
+eventType | string  | Masterdata.Building.ListingInformationUpdated
 data | hash    |
-&nbsp;&nbsp;reference | string  | unique identifier for the house; the first segment of the key is the property reference, the second is the house reference eg '1234.01'
+&nbsp;&nbsp;reference | string  | unique identifier for the building; the first segment of the key is the property reference, the second is the building reference eg '1234.01'
 
 #### Example
 
