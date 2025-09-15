@@ -56,8 +56,9 @@ This message goes from the order provider to GARAIO REM. Set the recipient prope
 | &nbsp;&nbsp;&nbsp;&nbsp;`amount`                           | `decimal` | Quantity - optional / required depending on the accountNumber, eg. number of windows                                                                                           |
 | &nbsp;&nbsp;&nbsp;&nbsp;`individualItemBalancingReference` | `string`  | optional reference used to individually reconcile the line item (Einzelpostensaldierend Referenz/EPSID)                                                                        |
 | &nbsp;&nbsp;&nbsp;&nbsp;`valueDate`                        | `string`  | ISO 8601 encoded date, eg '2025-07-09' (valuta); optional, defaults to the invoice order created date                                                                          |
+| &nbsp;&nbsp;&nbsp;&nbsp;`masterdataReference`              | `string`  | optional the line item reference to masterdata - (this is independent from the Order Masterdatenreference)                                                                     |
 
-Notes
+**Notes**
 
 * (1) See [about reference and externalReference](#about-reference-and-externalreference-in-the-context-of-invoicing).
 
@@ -108,11 +109,12 @@ This is an event sent by GARAIO REM.
 | &nbsp;&nbsp;`reference`                       | `longint` | unique identifier of the order                                                   |
 | &nbsp;&nbsp;`externalReference`               | `string`  | external identifier from the order provider                                      |
 | &nbsp;&nbsp;`accountingReference`             | `string`  | reference of the accounting                                                      |
+| &nbsp;&nbsp;`masterdataReference`             | `string`  | reference of a property / building / unit                                        |
 | &nbsp;&nbsp;`orderItems`                      | `array`   | order items                                                                      |
 | &nbsp;&nbsp;&nbsp;&nbsp;`accountNumber`       | `string`  | accounting account number, prefixed by the accounting reference, eg "6056.10122" |
 | &nbsp;&nbsp;&nbsp;&nbsp;`costCenterNumber`    | `string`  | cost center number                                                               |
 | &nbsp;&nbsp;&nbsp;&nbsp;`taxCode`             | `string`  | tax code known to GARAIO REM, eg 'NO'                                            |
-| &nbsp;&nbsp;&nbsp;&nbsp;`masterdataReference` | `string`  | optional reference of a property / building / unit                               |
+| &nbsp;&nbsp;&nbsp;&nbsp;`masterdataReference` | `string`  | reference of a property / building / unit (if available)                         |
 
 #### Example
 
@@ -123,12 +125,13 @@ This is an event sent by GARAIO REM.
     "externalReference": "1337",
     "reference": 123,
     "accountingReference": "1",
+    "masterdataReference": "10001",
     "orderItems": [
       {
         "accountNumber": "641201",
         "costCenterNumber": "800",
         "taxCode": "19",
-        "masterdataReference": "10001"
+        "masterdataReference": "10001.01"
       }
     ]
   }
@@ -230,8 +233,9 @@ This message completely replaces an existing order in GARAIO REM; if you pass, f
 | &nbsp;&nbsp;&nbsp;&nbsp;`amount`                           | `decimal`    | Quantity - optional / required depending on the accountNumber, eg. number of windows                                                                                           |
 | &nbsp;&nbsp;&nbsp;&nbsp;`individualItemBalancingReference` | `string`     | optional reference used to individually reconcile the line item (Einzelpostensaldierend Referenz/EPSID)                                                                        |
 | &nbsp;&nbsp;&nbsp;&nbsp;`valueDate`                        | `string`     | ISO 8601 encoded date, eg '2025-07-09' (valuta); optional, defaults to the invoice order updated date                                                                          |
+| &nbsp;&nbsp;&nbsp;&nbsp;`masterdataReference`              | `string`  | optional the line item reference to masterdata - (this is independent from the Order Masterdatenreference)                                                                     |
 
-Notes:
+**Notes:**
 
 * (1) You have to provide either `reference` or `externalReference`. The reference you provide must be a reference that has previously been published in a `Invoicing.Order.Created` message.
 
@@ -295,11 +299,12 @@ This is an event sent by GARAIO REM.
 | &nbsp;&nbsp;`reference`                       | `longint` | unique identifier of the order                                                   |
 | &nbsp;&nbsp;`externalReference`               | `string`  | external identifier from the order provider                                      |
 | &nbsp;&nbsp;`accountingReference`             | `string`  | reference of the accounting                                                      |
+| &nbsp;&nbsp;`masterdataReference`             | `string`  | reference of a property / building / unit                                        |
 | &nbsp;&nbsp;`orderItems`                      | `array`   | order items                                                                      |
 | &nbsp;&nbsp;&nbsp;&nbsp;`accountNumber`       | `string`  | accounting account number, prefixed by the accounting reference, eg "6056.10122" |
 | &nbsp;&nbsp;&nbsp;&nbsp;`costCenterNumber`    | `string`  | cost center number                                                               |
 | &nbsp;&nbsp;&nbsp;&nbsp;`taxCode`             | `string`  | tax code known to GARAIO REM, eg 'NO'                                            |
-| &nbsp;&nbsp;&nbsp;&nbsp;`masterdataReference` | `string`  | optional reference of a property / building / unit                               |
+| &nbsp;&nbsp;&nbsp;&nbsp;`masterdataReference` | `string`  | reference of a property / building / unit  (if available)                        |
 
 #### Example
 
@@ -310,12 +315,13 @@ This is an event sent by GARAIO REM.
     "externalReference": "1337",
     "reference": 123,
     "accountingReference": "1",
+    "masterdataReference": "10001",
     "orderItems": [
       {
         "accountNumber": "641201",
         "costCenterNumber": "800",
         "taxCode": "19",
-        "masterdataReference": "10001"
+        "masterdataReference": "10001.01.0001"
       }
     ]
   }
