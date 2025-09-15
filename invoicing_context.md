@@ -56,7 +56,7 @@ This message goes from the order provider to GARAIO REM. Set the recipient prope
 | &nbsp;&nbsp;&nbsp;&nbsp;`amount`                           | `decimal` | Quantity - optional / required depending on the accountNumber, eg. number of windows                                                                                           |
 | &nbsp;&nbsp;&nbsp;&nbsp;`individualItemBalancingReference` | `string`  | optional reference used to individually reconcile the line item (Einzelpostensaldierend Referenz/EPSID)                                                                        |
 | &nbsp;&nbsp;&nbsp;&nbsp;`valueDate`                        | `string`  | ISO 8601 encoded date, eg '2025-07-09' (valuta); optional, defaults to the invoice order created date                                                                          |
-| &nbsp;&nbsp;&nbsp;&nbsp;`masterdataReference`              | `string`  | optional the line item reference to masterdata - (this is independent from the Order Masterdatenreference)                                                                     |
+| &nbsp;&nbsp;&nbsp;&nbsp;`masterdataReference`              | `string`  | optional the line item reference to masterdata - if not given the Line-Item masterdataReference will be nil                                                                    |
 
 **Notes**
 
@@ -233,7 +233,7 @@ This message completely replaces an existing order in GARAIO REM; if you pass, f
 | &nbsp;&nbsp;&nbsp;&nbsp;`amount`                           | `decimal`    | Quantity - optional / required depending on the accountNumber, eg. number of windows                                                                                           |
 | &nbsp;&nbsp;&nbsp;&nbsp;`individualItemBalancingReference` | `string`     | optional reference used to individually reconcile the line item (Einzelpostensaldierend Referenz/EPSID)                                                                        |
 | &nbsp;&nbsp;&nbsp;&nbsp;`valueDate`                        | `string`     | ISO 8601 encoded date, eg '2025-07-09' (valuta); optional, defaults to the invoice order updated date                                                                          |
-| &nbsp;&nbsp;&nbsp;&nbsp;`masterdataReference`              | `string`  | optional the line item reference to masterdata - (this is independent from the Order Masterdatenreference)                                                                     |
+| &nbsp;&nbsp;&nbsp;&nbsp;`masterdataReference`              | `string`     | optional the line item reference to masterdata - if not given the Line-Item masterdataReference will be nil                                                                    |
 
 **Notes:**
 
