@@ -35,6 +35,9 @@
 | [Masterdata.Person.Update](#masterdatapersonupdate)                                     | :white_check_mark: | :x:                | Update the masterdata of a person with this message                                               |
 | [Masterdata.Person.Updated](#masterdatapersonupdated)                                   | :white_check_mark: | :x:                | A person was updated                                                                              |
 | [Masterdata.Person.Deleted](#masterdatapersondeleted)                                   | :white_check_mark: | :x:                | A person was deleted                                                                              |
+| [Masterdata.Property.AddressCreated](#masterdatapropertyaddresscreated)                 | :white_check_mark: | :x:                | A new property address has been created                                                           |
+| [Masterdata.Property.AddressUpdated](#masterdatapropertyaddressupdated)                 | :white_check_mark: | :x:                | Data associated to a property addresss has changed; you get changed attributes only               |
+| [Masterdata.Property.AddressDeleted](#masterdatapropertyaddressdeleted)                 | :white_check_mark: | :x:                | A property address was deleted; you get the reference of the deleted property                     |
 
 ### Masterdata.Property.Created
 
@@ -1178,3 +1181,76 @@ A person was deleted.
 | `data`                   | `hash`   |                                                                                              |
 | &nbsp;&nbsp;`reference`  | `string` |                                                                                              |
 | &nbsp;&nbsp;`personType` | `string` | person code for this person. One of `'natural_person'`, `'legal_person'` or `'condominium'`. |
+
+### Masterdata.Property.AddressCreated
+
+| Field                           | Type     | Content / Remarks                                                                       |
+| ------------------------------- | -------- | --------------------------------------------------------------------------------------- |
+| `eventType`                     | `string` | `Masterdata.Property.AddressCreated`                                                    |
+| `data`                          | `hash`   |                                                                                         |
+| &nbsp;&nbsp;`reference`         | `string` | reference for this property address                                                     |
+| &nbsp;&nbsp;`personReference`   | `string` | reference for the person on the property address                                        |
+| &nbsp;&nbsp;`propertyReference` | `string` | reference for the property                                                              |
+| &nbsp;&nbsp;`remarks`           | `string` |                                                                                         |
+| &nbsp;&nbsp;`typeCode`          | `string` | type for this property address ; (see code table "Liegenschaftadresse" for valid codes) |
+
+#### Example
+
+```json
+{"eventType":"Masterdata.Property.AddressCreated",
+  "data":{
+    "reference":"1234",
+    "personReference":"1234",
+    "propertyReference":"1234",
+    "remarks":"Einwohnerkontrolle geschlossen bis 24. Dez",
+    "typeCode": "1"
+  }
+}
+```
+
+### Masterdata.Property.AddressUpdated
+
+| Field                           | Type     | Content / Remarks                                                                       |
+| ------------------------------- | -------- | --------------------------------------------------------------------------------------- |
+| `eventType`                     | `string` | `Masterdata.Property.AddressUpdated`                                                    |
+| `data`                          | `hash`   |                                                                                         |
+| &nbsp;&nbsp;`reference`         | `string` | reference for this property address                                                     |
+| &nbsp;&nbsp;`personReference`   | `string` | reference for the person on the property address                                        |
+| &nbsp;&nbsp;`propertyReference` | `string` | reference for the property                                                              |
+| &nbsp;&nbsp;`remarks`           | `string` |                                                                                         |
+| &nbsp;&nbsp;`typeCode`          | `string` | type for this property address ; (see code table "Liegenschaftadresse" for valid codes) |
+
+#### Example
+
+```json
+{"eventType":"Masterdata.Property.AddressUpdated",
+  "data":{
+    "reference":"1234",
+    "personReference":"1234",
+    "propertyReference":"1234",
+    "remarks":"Einwohnerkontrolle wieder offen"
+  }
+}
+```
+
+### Masterdata.Property.AddressDeleted
+
+| Field                           | Type     | Content / Remarks                                                                       |
+| ------------------------------- | -------- | --------------------------------------------------------------------------------------- |
+| `eventType`                     | `string` | `Masterdata.Property.AddressDeleted`                                                    |
+| `data`                          | `hash`   |                                                                                         |
+| &nbsp;&nbsp;`reference`         | `string` | reference for this property address                                                     |
+| &nbsp;&nbsp;`personReference`   | `string` | reference for the person on the property address                                        |
+| &nbsp;&nbsp;`propertyReference` | `string` | reference for the property                                                              |
+
+#### Example
+
+```json
+{"eventType":"Masterdata.Property.AddressDeleted",
+  "data":{
+    "reference":"1234",
+    "personReference":"1234",
+    "propertyReference":"1234"
+  }
+}
+```
