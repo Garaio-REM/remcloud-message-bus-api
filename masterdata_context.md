@@ -350,6 +350,7 @@ data | hash |
 &nbsp;&nbsp;&nbsp;longitude | decimal | Longitude
 &nbsp;&nbsp;startOfAdministration | string | ISO 8601 encoded date, eg '2019-03-01'
 &nbsp;&nbsp;endOfAdministration | string | ISO 8601 encoded date, eg '2019-03-01'
+&nbsp;&nbsp;buildingTypeCode | string | code to identify the building type; the list of building types is part of the Graphql API (buildingTypes)
 
 #### Example
 
@@ -370,7 +371,8 @@ data | hash |
     "wgs84Position":{
       "latitude":44.640672,
       "longitude":4.756836
-    }
+    },
+    "buildingTypeCode":"01"
   }
 }
 ```
@@ -397,6 +399,7 @@ data | hash |
 &nbsp;&nbsp;&nbsp;longitude | decimal | Longitude
 &nbsp;&nbsp;startOfAdministration | string | ISO 8601 encoded date, eg '2019-03-01'
 &nbsp;&nbsp;endOfAdministration | string | ISO 8601 encoded date, eg '2019-03-01'
+&nbsp;&nbsp;buildingTypeCode | string | code to identify the building type; the list of building types is part of the Graphql API (buildingTypes)
 
 #### Example
 
