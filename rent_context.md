@@ -25,7 +25,6 @@ Note: Updates on RentIncreasePotential and TheoreticalRent messages are publishe
 | data | hash | |
 | &nbsp;&nbsp;unitReference | string | unique identifier for the unit this rent belongs to |
 | &nbsp;&nbsp;validFrom | string | ISO 8601 encoded date when this rent configuration becomes valid |
-| &nbsp;&nbsp;approved | boolean | whether the rent is approved |
 | &nbsp;&nbsp;netRent | number | net rent amount |
 | &nbsp;&nbsp;totalArea | number | total area in m² |
 | &nbsp;&nbsp;effectiveArea | number | effective/usable area in m² |
@@ -45,7 +44,6 @@ Note: Updates on RentIncreasePotential and TheoreticalRent messages are publishe
   "data": {
     "unitReference": "1234.01.0001",
     "validFrom": "2025-04-01",
-    "approved": true,
     "netRent": 1500.00,
     "totalArea": 75.5,
     "effectiveArea": 70.0,
@@ -130,7 +128,6 @@ Note: Updates on RentIncreasePotential and TheoreticalRent messages are publishe
 | data | hash | |
 | &nbsp;&nbsp;unitReference | string | unique identifier for the unit this rent increase potential belongs to |
 | &nbsp;&nbsp;validFrom | string | ISO 8601 encoded date when this rent increase potential becomes valid |
-| &nbsp;&nbsp;approved | boolean | whether the rent increase potential is approved |
 | &nbsp;&nbsp;amount | decimal | amount of the rent increase potential |
 | &nbsp;&nbsp;note | string | additional note or remark about the rent increase potential |
 | &nbsp;&nbsp;typeCode | string | code indicating the type of rent increase potential; (see code table entries (`mietzinsreserve_typ`) for valid codes) |
@@ -143,7 +140,6 @@ Note: Updates on RentIncreasePotential and TheoreticalRent messages are publishe
   "data": {
     "unitReference": "1234.01.0001",
     "validFrom": "2025-04-01",
-    "approved": true,
     "amount": 500.00,
     "note": "Annual rent reserve",
     "typeCode": "STANDARD"
@@ -182,7 +178,6 @@ Note: Updates on RentIncreasePotential and TheoreticalRent messages are publishe
 | data | hash | |
 | &nbsp;&nbsp;unitReference | string | unique identifier for the unit this theoretical rent belongs to |
 | &nbsp;&nbsp;validFrom | string | ISO 8601 encoded date when this theoretical rent becomes valid |
-| &nbsp;&nbsp;approved | boolean | whether the theoretical rent is approved |
 | &nbsp;&nbsp;amount | decimal | amount of the theoretical rent |
 | &nbsp;&nbsp;note | string | additional note or remark about the theoretical rent |
 | &nbsp;&nbsp;typeCode | string | code indicating the type of theoretical rent; (see code table entries (`theoretischer_mietzins_typ`) for valid codes) |
@@ -195,7 +190,6 @@ Note: Updates on RentIncreasePotential and TheoreticalRent messages are publishe
   "data": {
     "unitReference": "1234.01.0001",
     "validFrom": "2025-04-01",
-    "approved": true,
     "amount": 500.00,
     "note": "Auf Wunsch ET",
     "typeCode": "STANDARD"
@@ -234,7 +228,6 @@ Note: Updates on RentIncreasePotential and TheoreticalRent messages are publishe
 | data | hash | |
 | &nbsp;&nbsp;unitReference | string | unique identifier for the unit this published rental cost belongs to |
 | &nbsp;&nbsp;validFrom | string | ISO 8601 encoded date when this published rental cost becomes valid |
-| &nbsp;&nbsp;approved | boolean | whether the published rental cost is approved |
 | &nbsp;&nbsp;netRent | number | net rent amount |
 | &nbsp;&nbsp;totalArea | number | total area in m² |
 | &nbsp;&nbsp;effectiveArea | number | effective/usable area in m² |
@@ -251,7 +244,6 @@ Note: Updates on RentIncreasePotential and TheoreticalRent messages are publishe
   "data": {
     "unitReference": "1234.01.0001",
     "validFrom": "2025-04-01",
-    "approved": true,
     "netRent": 1500.00,
     "totalArea": 75.5,
     "effectiveArea": 70.0,
