@@ -2,19 +2,21 @@
 
 ## Events
 
-| Type                                                          | GARAIO REM         | REM | Description                              |
-| ------------------------------------------------------------- | ------------------ | --- | ---------------------------------------- |
-| [Accounting.Accounting.Created](#accountingaccountingcreated) | :white_check_mark: | :x: | An accounting was created                |
-| [Accounting.Accounting.Updated](#accountingaccountingupdated) | :white_check_mark: | :x: | An accounting was updated                |
-| [Accounting.Accounting.Deleted](#accountingaccountingdeleted) | :white_check_mark: | :x: | An accounting was deleted                |
-| [Accounting.Account.Create](#accountingaccountcreate)         | :white_check_mark: | :x: | Create an account on an accounting       |
-| [Accounting.Account.Update](#accountingaccountupdate)         | :white_check_mark: | :x: | Update an account on an accounting       |
-| [Accounting.Account.Created](#accountingaccountcreated)       | :white_check_mark: | :x: | An account was created                   |
-| [Accounting.Account.Updated](#accountingaccountupdated)       | :white_check_mark: | :x: | An account was updated                   |
-| [Accounting.Account.Deleted](#accountingaccountdeleted)       | :white_check_mark: | :x: | An account was deleted                   |
-| [Accounting.CostCenter.Created](#accountingcostcentercreated) | :white_check_mark: | :x: | A cost center was created                |
-| [Accounting.CostCenter.Updated](#accountingcostcenterupdated) | :white_check_mark: | :x: | A cost center was updated                |
-| [Accounting.CostCenter.Deleted](#accountingcostcenterdeleted) | :white_check_mark: | :x: | A cost center was deleted                |
+| Type                                                                                                          | GARAIO REM         | REM | Description                                      |
+| ------------------------------------------------------------------------------------------------------------- | ------------------ | --- | ------------------------------------------------ |
+| [Accounting.Accounting.Created](#accountingaccountingcreated)                                                 | :white_check_mark: | :x: | An accounting was created                        |
+| [Accounting.Accounting.Updated](#accountingaccountingupdated)                                                 | :white_check_mark: | :x: | An accounting was updated                        |
+| [Accounting.Accounting.Deleted](#accountingaccountingdeleted)                                                 | :white_check_mark: | :x: | An accounting was deleted                        |
+| [Accounting.Account.Create](#accountingaccountcreate)                                                         | :white_check_mark: | :x: | Create an account on an accounting               |
+| [Accounting.Account.Update](#accountingaccountupdate)                                                         | :white_check_mark: | :x: | Update an account on an accounting               |
+| [Accounting.Account.Created](#accountingaccountcreated)                                                       | :white_check_mark: | :x: | An account was created                           |
+| [Accounting.Account.Updated](#accountingaccountupdated)                                                       | :white_check_mark: | :x: | An account was updated                           |
+| [Accounting.Account.Deleted](#accountingaccountdeleted)                                                       | :white_check_mark: | :x: | An account was deleted                           |
+| [Accounting.BusinessYear.Updated](#accountingbusinessyearupdated)                                             | :white_check_mark: | :x: | Business year period status changed              |
+| [Accounting.BusinessYearExportConfiguration.Updated](#accountingbusinessyearexportconfigurationupdated)       | :white_check_mark: | :x: | Business year export configuration changed       |
+| [Accounting.CostCenter.Created](#accountingcostcentercreated)                                                 | :white_check_mark: | :x: | A cost center was created                        |
+| [Accounting.CostCenter.Updated](#accountingcostcenterupdated)                                                 | :white_check_mark: | :x: | A cost center was updated                        |
+| [Accounting.CostCenter.Deleted](#accountingcostcenterdeleted)                                                 | :white_check_mark: | :x: | A cost center was deleted                        |
 
 ### Accounting.Accounting.Created
 
@@ -316,6 +318,93 @@ An account was deleted
   "data": {
     "accountingReference": "1569",
     "number": "10210"
+  }
+}
+```
+
+### Accounting.BusinessYear.Updated
+
+Business year period status changed. This message is published when:
+
+* Period closing operations occur (period or business year closure)
+* Period status changes in UpdateGeschaeftsjahrCommand (abgeschlossen_bis or in_abschluss_bis changes)
+* Export is enabled for this business year (either closed or open periods)
+
+| Field                                 | Type      | Content / Remarks                                                                                                                                                                      |
+| ------------------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `eventType`                           | `string`  | `Accounting.BusinessYear.Updated`                                                                                                                                                      |
+| `data`                                | `hash`    |                                                                                                                                                                                        |
+| &nbsp;&nbsp;`accountingReference`     | `string`  | Reference of the accounting                                                                                                                                                            |
+| &nbsp;&nbsp;`businessYear`            | `hash`    | Business year details                                                                                                                                                                  |
+| &nbsp;&nbsp;&nbsp;&nbsp;`start`       | `string`  | Start date of the business year; ISO 8601 date                                                                                                                                         |
+| &nbsp;&nbsp;&nbsp;&nbsp;`end`         | `string`  | End date of the business year; ISO 8601 date                                                                                                                                           |
+| &nbsp;&nbsp;&nbsp;&nbsp;`periodicity` | `string`  | Periodicity of the business year; one of: `monthly`, `quarterly`, `semi-annual`, `yearly`                                                                                              |
+| &nbsp;&nbsp;&nbsp;&nbsp;`periods`     | `array`   | Array of period objects                                                                                                                                                                |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`start` | `string` | Start date of the period; ISO 8601 date                                                                                                                                          |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`end`   | `string` | End date of the period; ISO 8601 date                                                                                                                                            |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`status` | `string` | Period status; one of: `open` (can be booked to), `blocked` (in closing process), `closed` (closed and locked)                                                             |
+
+#### Example
+
+```json
+{
+  "eventType": "Accounting.BusinessYear.Updated",
+  "data": {
+    "accountingReference": "1569",
+    "businessYear": {
+      "start": "2024-01-01",
+      "end": "2024-12-31",
+      "periodicity": "monthly",
+      "periods": [
+        {
+          "start": "2024-01-01",
+          "end": "2024-01-31",
+          "status": "closed"
+        },
+        {
+          "start": "2024-02-01",
+          "end": "2024-02-29",
+          "status": "blocked"
+        },
+        {
+          "start": "2024-03-01",
+          "end": "2024-03-31",
+          "status": "open"
+        }
+      ]
+    }
+  }
+}
+```
+
+### Accounting.BusinessYearExportConfiguration.Updated
+
+Business year export configuration was updated. This message is published when the owner portal export settings change for a business year.
+
+| Field                                 | Type      | Content / Remarks                                                                                                                                                                      |
+| ------------------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `eventType`                           | `string`  | `Accounting.BusinessYearExportConfiguration.Updated`                                                                                                                                   |
+| `data`                                | `hash`    |                                                                                                                                                                                        |
+| &nbsp;&nbsp;`accountingReference`     | `string`  | Reference of the accounting                                                                                                                                                            |
+| &nbsp;&nbsp;`businessYear`            | `hash`    | Business year identification                                                                                                                                                           |
+| &nbsp;&nbsp;&nbsp;&nbsp;`start`       | `string`  | Start date of the business year; ISO 8601 date                                                                                                                                         |
+| &nbsp;&nbsp;&nbsp;&nbsp;`end`         | `string`  | End date of the business year; ISO 8601 date                                                                                                                                           |
+| &nbsp;&nbsp;`exportClosedPeriods`     | `boolean` | Whether closed periods should be exported to owner portal                                                                                                                              |
+| &nbsp;&nbsp;`exportOpenPeriods`       | `boolean` | Whether open periods should be exported to owner portal                                                                                                                                |
+
+#### Example
+
+```json
+{
+  "eventType": "Accounting.BusinessYearExportConfiguration.Updated",
+  "data": {
+    "accountingReference": "1569",
+    "businessYear": {
+      "start": "2024-01-01",
+      "end": "2024-12-31"
+    },
+    "exportClosedPeriods": true,
+    "exportOpenPeriods": false
   }
 }
 ```
