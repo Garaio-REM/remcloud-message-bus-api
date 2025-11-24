@@ -938,10 +938,18 @@ Additional `data` fields:
 | &nbsp;&nbsp;refundedAt           | `string`  | ISO 8601 encoded date, eg '2019-05-25'                                                                                    |
 | &nbsp;&nbsp;refundedByInfo       | `string`  | refunded by information, freetext                                                                                         |
 | &nbsp;&nbsp;remoteUrl            | `string`  | optional url to a remote secutity depot management system; will be rendereed in the Mietvertrag Aktionen menu, if present |
+| &nbsp;&nbsp;processingState      | `string`  | processing status code from the depot management system; optional field to track security deposit workflow state (see `depot_status` code table) |
 
 Notes:
 
 * (1) Whether the field is required depends on the configuration of your depositTypeCode.
+* (2) The `processingState` field uses the `depot_status` code table with the following predefined values:
+  * `01` - Security deposit completed (Sicherheitsleistung abgeschlossen)
+  * `02` - Security deposit created, payment pending (Sicherheitsleistung erstellt, Einzahlung offen)
+  * `03` - Security deposit submitted, creation pending (Sicherheitsleistung übermittelt, Erstellung offen)
+  * `04` - Error, processing pending (Fehler, Verarbeitung offen)
+  * `05` - Resolution completed (Auflösung abgeschlossen)
+  * `06` - Resolution in progress (Auflösung in Bearbeitung)
 
 #### Example
 
@@ -957,7 +965,8 @@ Notes:
     "paidAmount":"0",
     "depositAccountNumber":"CH00 0000 0000 0000 0000 0",
     "refundedAt":"2019-05-25",
-    "refundedByInfo":"some info"
+    "refundedByInfo":"some info",
+    "processingState":"01"
   }
 }
 ```
