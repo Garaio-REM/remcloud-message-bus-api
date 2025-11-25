@@ -938,18 +938,15 @@ Additional `data` fields:
 | &nbsp;&nbsp;refundedAt           | `string`  | ISO 8601 encoded date, eg '2019-05-25'                                                                                    |
 | &nbsp;&nbsp;refundedByInfo       | `string`  | refunded by information, freetext                                                                                         |
 | &nbsp;&nbsp;remoteUrl            | `string`  | optional url to a remote secutity depot management system; will be rendereed in the Mietvertrag Aktionen menu, if present |
-| &nbsp;&nbsp;processingState      | `string`  | processing status code from the depot management system; optional field to track security deposit workflow state (see `depot_status` code table) |
+| &nbsp;&nbsp;processingState      | `object`  | multilingual processing status text from the depot management system; optional field to track security deposit workflow state |
+| &nbsp;&nbsp;&nbsp;&nbsp;de       | `string`  | German status text |
+| &nbsp;&nbsp;&nbsp;&nbsp;fr       | `string`  | French status text |
+| &nbsp;&nbsp;&nbsp;&nbsp;it       | `string`  | Italian status text |
+| &nbsp;&nbsp;&nbsp;&nbsp;en       | `string`  | English status text |
 
 Notes:
 
 * (1) Whether the field is required depends on the configuration of your depositTypeCode.
-* (2) The `processingState` field uses the `depot_status` code table with the following predefined values:
-  * `01` - Security deposit completed (Sicherheitsleistung abgeschlossen)
-  * `02` - Security deposit created, payment pending (Sicherheitsleistung erstellt, Einzahlung offen)
-  * `03` - Security deposit submitted, creation pending (Sicherheitsleistung übermittelt, Erstellung offen)
-  * `04` - Error, processing pending (Fehler, Verarbeitung offen)
-  * `05` - Resolution completed (Auflösung abgeschlossen)
-  * `06` - Resolution in progress (Auflösung in Bearbeitung)
 
 #### Example
 
@@ -966,7 +963,12 @@ Notes:
     "depositAccountNumber":"CH00 0000 0000 0000 0000 0",
     "refundedAt":"2019-05-25",
     "refundedByInfo":"some info",
-    "processingState":"01"
+    "processingState": {
+      "de": "Auflösung abgeschlossen",
+      "fr": "Résiliation terminée",
+      "it": "Risoluzione conclusa",
+      "en": "Resolution completed"
+    }
   }
 }
 ```
