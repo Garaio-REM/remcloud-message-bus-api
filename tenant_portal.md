@@ -82,10 +82,17 @@ This message goes from GARAIO REM to the portal and signals that the tenant has 
 
 * (1) might be null if the reason does not map to a specific attribute
 
+**Rejection Reasons:**
+
+| Reason | Description |
+|--------|-------------|
+| `FEATURE_DISABLED` | The mieterportal feature is not enabled |
+| `ALREADY_ONBOARDED` | The person is already onboarded for the same app_id |
+
 #### Example
 
 ```json
-{"eventType":"Invoicing.Order.Rejected",
+{"eventType":"TenantPortal.Tenant.Rejected",
   "data":{
     "tenantReference":"1234",
     "unitReference":"1234.01.0001",
@@ -93,6 +100,22 @@ This message goes from GARAIO REM to the portal and signals that the tenant has 
       {"attribute":"tenantReference",
        "lineNumber":null,
        "reason":"ungültige Person-Referenz: invalid'"
+      }
+    ]
+  }
+}
+```
+
+#### Example (Already Onboarded)
+
+```json
+{"eventType":"TenantPortal.Tenant.Rejected",
+  "data":{
+    "tenantReference":"1234",
+    "unitReference":"1234.01.0001",
+    "reasons":[
+      {"reason":"ALREADY_ONBOARDED",
+       "message":"Person ist bereits onboarded"
       }
     ]
   }
@@ -141,7 +164,7 @@ Additional `data` fields:
 
 ### TenantPortal.Tenant.Offboarded
 
-This message is sent when a tenant has been offboarded from the tenant portal.
+This message is sent when a tenant has been offboarded from the tenant portal. GARAIO REM will set the tenant's portal info to `onboarded=false` and record the offboarding date. The portal info record is preserved (not deleted) to maintain history.
 
 | Field                         | Type     | Content / Remarks                                |
 |-------------------------------|----------|--------------------------------------------------|

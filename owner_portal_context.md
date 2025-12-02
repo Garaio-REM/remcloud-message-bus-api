@@ -54,6 +54,14 @@ Additional `data` fields:
 | ---------------- | ------ | -------------------------------------------------------- |
 | `ownerReference` | string | reference of the GARAIO REM owner (person); **required** |
 
+**Rejection Reasons:**
+
+| Reason | Description |
+|--------|-------------|
+| `FEATURE_DISABLED` | The eigentuemerportal feature is not enabled |
+| `ALREADY_ONBOARDED` | The person is already onboarded for the same app_id |
+| `OWNER_ALREADY_REGISTERED` | The person is already registered for a different owner portal |
+
 ### OwnerPortal.Owner.Onboarded
 
 This message represents a message from an owner portal that is sent when an owner has been onboarded

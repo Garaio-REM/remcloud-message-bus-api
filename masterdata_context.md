@@ -1135,6 +1135,25 @@ Field | Type | Content / Remarks
 }
 ```
 
+##### update an existing address valid in the future (assuming today is the 4.3.2024)
+
+If an address with the given `validFrom` date already exists, it will be updated instead of rejected.
+
+```json
+{"eventType":"Masterdata.Person.Update",
+  "data":{
+    "personReference":"123456",
+    "address":{
+      "city":"Zürich",
+      "zipCode":"8000",
+      "street":"Bahnhofstrasse 1",
+      "countryCode":"CH",
+      "validFrom":"2024-04-01"
+    }
+  }
+}
+```
+
 ##### delete an existing address valid in the future (assuming today is the 4.3.2024)
 
 ```json
