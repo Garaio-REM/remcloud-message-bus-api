@@ -947,7 +947,7 @@ Additional `data` fields:
 Notes:
 
 * (1) Whether the field is required depends on the configuration of your depositTypeCode.
-* processingState must be either empty, null, or a JSON object with only the keys `de`, `fr`, `it`, `en` and non-empty string values. Empty or blank strings are invalid.
+* processingState must be either empty or a JSON object with exactly the keys `de`, `fr`, `it`, `en` and non-empty string values. Empty or blank strings are invalid.
 
 #### Example
 
