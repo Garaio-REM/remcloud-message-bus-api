@@ -1,5 +1,7 @@
 # Owner Portal Context
 
+All attributes are optional unless noted otherwise in the remarks
+
 ## Events
 
 | Type                                                        | GARAIO REM         | REM | Description                                       |

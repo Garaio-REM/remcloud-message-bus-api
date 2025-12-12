@@ -4,6 +4,8 @@
 
 Events in this context are always fired for a single grem instance. The [recipient](/header_properties.md/#AdditionalHeaderProperties) header property must be set to the grem instance name in order to route the event to the customer, e.g. recipient: grem_demo1
 
+All attributes are optional unless noted otherwise in the remarks
+
 Type | GARAIO REM | REM | Description
 ---|---|---|---
 [`TenantPortal.Tenant.Registered`](#tenantportaltenantregistered) | :white_check_mark: | :x: | A tenant has been registered in the tenant portal and an access code has been created
@@ -18,9 +20,9 @@ Field | Type | Content / Remarks
 ---|---|---
 `eventType` | `string` | TenantPortal.Tenant.Registered
 `data` | `hash` |
-&nbsp;&nbsp;`tenantReference` | `string` | unique person identifier, eg `'1234'` |
-&nbsp;&nbsp;`unitReference` | `string` | String referencing an existing unit in the target GARAIO REM |
-&nbsp;&nbsp;`registrationCode` | `string` | Registration code coming from the TenantPortal |
+&nbsp;&nbsp;`tenantReference` | `string` | unique person identifier, eg `'1234'`, **required** |
+&nbsp;&nbsp;`unitReference` | `string` | String referencing an existing unit in the target GARAIO REM; **legacy field, will be removed** |
+&nbsp;&nbsp;`registrationCode` | `string` | Registration code coming from the TenantPortal, , **required** |
 &nbsp;&nbsp;`onboardingUrl` | `string` | Onboarding url which will be sent to the tenant |
 &nbsp;&nbsp;`token` | `string` | Optional registration token for authentication |
 &nbsp;&nbsp;`validUntil` | `string` | Optional expiration date for the registration (ISO 8601 format) |
@@ -45,11 +47,11 @@ Field | Type | Content / Remarks
 
 This message goes from GARAIO REM to the portal and signals that the tenant has been accepted by Garai REM.
 
-| Field                         | Type     | Content / Remarks                                           |
+| Field                         | Type     | Content / Remarks                                            |
 |-------------------------------|----------|--------------------------------------------------------------|
 | `eventType`                   | `string` | Invoicing.Order.Accepted                                     |
-| `data`                       | `hash`   |                                                              |
-| &nbsp;&nbsp;`tenantReference` | `string` | unique person identifier, eg `'1234'`                        |
+| `data`                       | `hash`   |                                                               |
+| &nbsp;&nbsp;`tenantReference` | `string` | unique person identifier, eg `'1234'`                       |
 | &nbsp;&nbsp;`unitReference`   | `string` | String referencing an existing unit in the target GARAIO REM |
 
 #### Example
@@ -67,10 +69,10 @@ This message goes from GARAIO REM to the portal and signals that the tenant has 
 
 This message goes from GARAIO REM to the portal and signals that the tenant has been rejected by Garai REM. GARAIO REM validation errors are mapped into the reasons array.
 
-| Field                               | Type     | Content / Remarks                                           |
+| Field                               | Type     | Content / Remarks                                            |
 |-------------------------------------|----------|--------------------------------------------------------------|
 | `eventType`                         | `string` | Invoicing.Order.Rejected                                     |
-| `data`                             | `hash`   |                                                              |
+| `data`                             | `hash`   |                                                               |
 | &nbsp;&nbsp;`tenantReference`       | `string` | unique person identifier, eg `'1234'`                        |
 | &nbsp;&nbsp;`unitReference`         | `string` | String referencing an existing unit in the target GARAIO REM |
 | &nbsp;&nbsp;`reasons`               | `array`  |                                                              |
@@ -126,10 +128,10 @@ This message goes from GARAIO REM to the portal and signals that the tenant has 
 
 This message is sent when a tenant has completed onboarding on the tenant portal.
 
-| Field                         | Type     | Content / Remarks                                |
-|-------------------------------|----------|--------------------------------------------------|
-| `eventType`                   | `string` | TenantPortal.Tenant.Onboarded                    |
-| `data`                        | `hash`   |                                                  |
+| Field                         | Type     | Content / Remarks                                   |
+|-------------------------------|----------|-----------------------------------------------------|
+| `eventType`                   | `string` | TenantPortal.Tenant.Onboarded                       |
+| `data`                        | `hash`   |                                                     |
 | &nbsp;&nbsp;`tenantReference` | `string` | unique person identifier, eg `'1234'`; **required** |
 
 #### Example
@@ -166,10 +168,10 @@ Additional `data` fields:
 
 This message is sent when a tenant has been offboarded from the tenant portal. GARAIO REM will set the tenant's portal info to `onboarded=false` and record the offboarding date. The portal info record is preserved (not deleted) to maintain history.
 
-| Field                         | Type     | Content / Remarks                                |
-|-------------------------------|----------|--------------------------------------------------|
-| `eventType`                   | `string` | TenantPortal.Tenant.Offboarded                   |
-| `data`                        | `hash`   |                                                  |
+| Field                         | Type     | Content / Remarks                                   |
+|-------------------------------|----------|-----------------------------------------------------|
+| `eventType`                   | `string` | TenantPortal.Tenant.Offboarded                      |
+| `data`                        | `hash`   |                                                     |
 | &nbsp;&nbsp;`tenantReference` | `string` | unique person identifier, eg `'1234'`; **required** |
 
 #### Example
