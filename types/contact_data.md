@@ -28,3 +28,58 @@ When updating `ContactData`, fields are merged as follows:
 * If you set a field, the existing entries in the given field will be replaced.
 * If you set a field to `[]`, the existing entries in the given field are deleted.
 * If you omit a field, the existing entries in the given field are left in place.
+
+## Type Example
+
+```
+contactData": {
+  "mobilePhoneNumbers": [
+    { "value": "+41790001122" },
+    { "value": "+41790005577" }
+  ]
+}
+```
+
+**NOTE**: Previously we accidentally accepted data not completely consistent to our described format and incorrectly and accepted the format:
+
+```
+contactData": {
+  "mobilePhoneNumbers": [
+    { 
+      "value": "+41790001122", 
+      "value": "+41790005577" 
+    }
+  ]
+}
+```
+
+_This old format is **deprecated** and will be removed in a future release and now only accepts the first value in the hash._
+
+_Strictly following the documented format allows us to implement new features associated with each value (in particular, email addresses)._
+
+### Full Message Example 
+
+to update contact data and document delivery preferences you can send a message with user's contact changes and document delivery preferences:
+
+```
+{
+  "eventType": "Masterdata.Person.Update",
+  "data": {
+    "personReference": "100150",
+    "modeOfDispatch": "email",
+    "sendEmail": "john@example.com",
+    "contactData": {
+      "mobilePhoneNumbers": [
+        { "value": "+41790001122" },
+        { "value": "+41790005577" }
+      ], 
+      "privateEmails": [
+        { "value": "john@example.com" },
+        { "value": "jane@example.com" }
+      ]
+    }
+  }
+}
+```
+
+**NOTE**: `sendEmail` is the email address to which the document should be sent when `modeOfDispatch` is set to `email`.
