@@ -974,6 +974,14 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
       "street":"Gartenstrasse 1/3",
       "countryCode":"CH"
     },
+    "contactData": {
+      "mobilePhoneNumbers": [ "+41791234567", "+41798765432" ],
+      "privateEmails": [],
+      "contacts": [
+        {"name": "John Doe", "contactAddress": "john.doe@example.com"},
+        {"name": "Jane Doe", "contactAddress": "+41791234567"}
+      ]
+    }
     "paymentDetails": [
       {
         "iban":"DE19500105176829385733",
