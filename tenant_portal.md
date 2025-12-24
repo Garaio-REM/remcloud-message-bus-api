@@ -21,7 +21,7 @@ Field | Type | Content / Remarks
 `eventType` | `string` | TenantPortal.Tenant.Registered
 `data` | `hash` |
 &nbsp;&nbsp;`tenantReference` | `string` | unique person identifier, eg `'1234'`, **required** |
-&nbsp;&nbsp;`unitReference` | `string` | String referencing an existing unit in the target GARAIO REM; **legacy field, will be removed** |
+&nbsp;&nbsp;`unitReference` | `string` | String referencing an existing unit in the target GARAIO REM; **deprecated, will be ignored** |
 &nbsp;&nbsp;`registrationCode` | `string` | Registration code coming from the TenantPortal, , **required** |
 &nbsp;&nbsp;`onboardingUrl` | `string` | Onboarding url which will be sent to the tenant |
 &nbsp;&nbsp;`token` | `string` | Optional registration token for authentication |
