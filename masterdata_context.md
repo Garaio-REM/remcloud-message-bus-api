@@ -894,10 +894,9 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
 
 ### Masterdata.Person.Create
 
-This message is sent from an external message publisher to a GARAIO REM instance and allows to update contact data of a person.
+This message is sent from an external message publisher to a GARAIO REM instance and allows to create a new person record.
 Set the recipient property in the headers, eg `"grem_wincasa"`. All attributes are optional unless noted otherwise in the remarks.
-
-GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-message) / [Rejected](./result_messages.md#rejected-message) message containing the personReference and reject reasons, where appropriate
+GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-message) / [Rejected](./result_messages.md#rejected-message) message containing the personReference and reject reasons, where appriate
 
 | Field                                    | Type                         | Content / Remarks                                                                                                                                                                                                  |
 | ---------------------------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -924,8 +923,6 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
 | &nbsp;&nbsp;`nationalityCode`            | `string`                     | ISO country code, eg `'CH'`                                                                                                                                                                                        |
 | &nbsp;&nbsp;`sensitive`                  | `boolean`                    | sensitive flag. `true` if the person is sensitive and only people with the "Personen Admin" role can mutate that record afterwards.                                                                                |
 | &nbsp;&nbsp;`rating`                     | `string`                     | defines the creditor rating of this person.                                                                                                                                                                        |
-| &nbsp;&nbsp;`modeOfDispatch`             | `string`                     | defines the mode of dispatch for this person. One of the following values will be accepted: `email`, `post`                                                                                                        |
-| &nbsp;&nbsp;`sendEMail`                  | `string`                     | email address where the person wants to receive documents if `modeOfDispatch` is set to `email`                                                                                                                    |
 | &nbsp;&nbsp;`isCreditor`                 | `boolean`                    | declares whether this person has a creditor profile.                                                                                                                                                               |
 | &nbsp;&nbsp;`creditorProfileIsBlocked`   | `boolean`                    | declares whether this person's creditor profile is blocked.                                                                                                                                                        |
 | &nbsp;&nbsp;`discount`                   | `decimal`                    | discount for this person                                                                                                                                                                                           |
@@ -957,7 +954,8 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
 #### example
 
 ```json
-{"eventType":"Masterdata.Person.Create",
+{
+  "eventType":"Masterdata.Person.Create",
   "data":{
     "firstName":"Max",
     "surname":"Muster",
@@ -975,13 +973,21 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
       "countryCode":"CH"
     },
     "contactData": {
-      "mobilePhoneNumbers": [ "+41791234567", "+41798765432" ],
+      "mobilePhoneNumbers": [ 
+        {"address":"+41798765432", "comment":"backup"}, 
+        {"address":"+41791234567"} 
+      ],
+      "businessEmails": [
+        {"address":"primary@email.example.com", "comment":"primary", "document_receipt":true},
+        {"address":"secondary@email.example.com", "comment":"secondary"},
+        {"address":"terciary@email.example.com"}
+      ],
       "privateEmails": [],
       "contacts": [
         {"name": "John Doe", "contactAddress": "john.doe@example.com"},
         {"name": "Jane Doe", "contactAddress": "+41791234567"}
       ]
-    }
+    },
     "paymentDetails": [
       {
         "iban":"DE19500105176829385733",
@@ -992,6 +998,19 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
   }
 }
 ```
+
+**IMPORTANT**: Document delivery preferences are now controlled via the `document_receipt` field in `contactData`.
+The attributes: `modeOfDispatch` and `sendEMail` are now ignored.  
+
+Instead use ContactData email entry(ies) with `"document_receipt": true`:
+
+When multiple emails have `"document_receipt": true` then the order of priority is:
+
+1. the first **private email** with `"document_receipt": true` will be set to receive documents per email
+2. the first **business email** with `"document_receipt": true` will be set to receive documents per email
+3. the first **other email** with `"document_receipt": true` will be set to receive documents per email
+
+If there are no emails with `"document_receipt": true` then no documents can be sent via email
 
 ##### accepted response message
 
@@ -1059,8 +1078,6 @@ Field | Type | Content / Remarks
 &nbsp;&nbsp;`nationalityCode` | `string` | ISO country code, eg `'CH'`
 &nbsp;&nbsp;`sensitive` | `boolean` | sensitive flag. `true` if the person is sensitive and only people with the "Personen Admin" role can mutate that record afterwards.
 &nbsp;&nbsp;`rating` | `string` | defines the creditor rating of this person.
-&nbsp;&nbsp;`modeOfDispatch` | `string` | defines the mode of dispatch for this person. One of the following values will be accepted: `email`, `post`
-&nbsp;&nbsp;`sendEMail` | `string` |  email address where the person wants to receive documents if `modeOfDispatch` is set to `email`
 &nbsp;&nbsp;`isCreditor` | `boolean` | declares whether this person has a creditor profile.
 &nbsp;&nbsp;`creditorProfileIsBlocked` | `boolean` | declares whether this person's creditor profile is blocked.
 &nbsp;&nbsp;`discount` | `decimal` | discount for this person
@@ -1092,6 +1109,25 @@ Field | Type | Content / Remarks
 &nbsp;&nbsp;`paymentDetails`| `array`| [PaymentDetails](types/payment_details.md) of this person.
 &nbsp;&nbsp;`paymentDeactivationReason`| `string`| Reason why payment details that are not transmitted will be locked; It is **required** only when either updating payment details with an empty array or adding new single payment details for a person who already has existing ones
 
+
+#### Document Delivery Configuration
+
+**IMPORTANT:** Document delivery preferences are controlled via the document_receipt field in contactData.
+
+_Deprecated:_ The fields modeOfDispatch and sendEMail are deprecated and will be ignored.
+
+To configure document delivery via email, set `"document_receipt": true` on the desired email in contactData.
+
+Email Priority: When multiple emails have "document_receipt": true, the system selects based on this fixed order:
+
+- First privateEmails entry with "document_receipt": true
+- First businessEmails entry with "document_receipt": true
+- First otherEmails entry with "document_receipt": true
+- Best Practice: Set "document_receipt": true on only one email to avoid ambiguity.
+
+_Note:_ When updating contactData, only the fields you include are modified. Omitted fields preserve existing values. See ContactData for full merging behavior.
+
+
 #### examples
 
 ```json
@@ -1121,7 +1157,25 @@ Field | Type | Content / Remarks
         "defaultPaymentDetail":true
       }
     ],
-    "paymentDeactivationReason":"deactivated by API"
+    "paymentDeactivationReason":"deactivated by API",
+    "contactData": {
+      "mobilePhoneNumbers": [
+        { "address": "+41798765432", "comment": "Backup phone" },
+        { "address": "+41791234567" }
+      ],
+      "privateEmails": [
+        { "address": "primary@example.com", "comment": "Primary email", "document_receipt": true },
+        { "address": "secondary@example.com" }
+      ],
+      "businessEmails": [
+        { "address": "work@example.com", "comment": "Work email", "document_receipt": true }
+      ],
+      "otherEmails": [],
+      "contacts": [
+        { "name": "John Doe", "contactAddress": "john.doe@example.com" },
+        { "name": "Jane Doe", "contactAddress": "+41791234567" }
+      ]
+    }
   }
 }
 ```
