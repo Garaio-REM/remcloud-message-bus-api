@@ -1,25 +1,73 @@
 # ContactData
 
-Contact data of a person. This is a JSON hash structured as follows.
+## Field Structure (v1.27 - Current)
 
-| Field                        | Type     | Content / Remarks                                                            |
-| ---------------------------- | -------- | ---------------------------------------------------------------------------- |
-| `privateEmails`              | `array`  | list of new private emails: `["email@example1.com","email@example2.com"]`    |
-| `businessEmails`             | `array`  | list of new business emails: `["email@example1.com","email@example2.com"]`   |
-| `otherEmails`                | `array`  | list of new other emails: `["email@example1.com","email@example2.com"]`      | 
-| `privatePhoneNumbers`        | `array`  | list of new private phone numbers: ["+41793456789","+41798765432"]           |
-| `businessPhoneNumbers`       | `array`  | list of new business phone numbers: `["+41312345678","41318765432"]`         |
-| `mobilePhoneNumbers`         | `array`  | list of new mobile phone numbers: `["+41793456789","+41798765432"]`          |
-| `otherPhoneNumbers`          | `array`  | list of new other phone numbers: `["+41312345678","41318765432"]`            |
-| `privateFaxNumbers`          | `array`  | list of new private fax numbers: {"value":"+1234567890"}`                    |
-| `businessFaxNumbers`         | `array`  | list of new business fax numbers: `["+41312345678","41318765432"]`           |
-| `otherFaxNumbers`            | `array`  | list of new other fax numbers: `["+41312345678","41318765432"]`              |
-| `privateUrls`                | `array`  | list of new private urls: `["https://example1.com","https://example2.org"]`  |
-| `businessUrls`               | `array`  | list of new business urls: `["https://example1.com","https://example2.org"]` |
-| `otherUrls`                  | `array`  | list of new other urls: `["https://example1.com","https://example2.org"]`    |
-| `contacts`                   | `array`  | of Hashes `[{"name":"John Doe", "contactAddress":"john@example.com"}]`         |
-| &nbsp;&nbsp;`name`           | `string` | name of the contact: `"name":"John Doe"`                                     |
-| &nbsp;&nbsp;`contactAddress` | `string` | address/email/phone of the contact: `"contactAddress":"john@example.com"`    |
+All contact data fields accept **objects** with the following structure:
+
+| Field                  | Type    | Content / Remarks                                |
+| ---------------------- | ------- | ------------------------------------------------ |
+| `privateEmails`        | `array` | Array of email objects (private context)         |
+| `businessEmails`       | `array` | Array of email objects (business context)        |
+| `otherEmails`          | `array` | Array of email objects (other context)           |
+| `privatePhoneNumbers`  | `array` | Array of phone number objects (private context)  |
+| `businessPhoneNumbers` | `array` | Array of phone number objects (business context) |
+| `mobilePhoneNumbers`   | `array` | Array of phone number objects (mobile context)   |
+| `otherPhoneNumbers`    | `array` | Array of phone number objects (other context)    |
+| `privateFaxNumbers`    | `array` | Array of fax number objects (private context)    |
+| `businessFaxNumbers`   | `array` | Array of fax number objects (business context)   |
+| `otherFaxNumbers`      | `array` | Array of fax number objects (other context)      |
+| `privateUrls`          | `array` | Array of URL objects (private context)           |
+| `businessUrls`         | `array` | Array of URL objects (business context)          |
+| `otherUrls`            | `array` | Array of URL objects (other context)             |
+| `contacts`             | `array` | Array of contact objects                         |
+
+**Backward Compatibility** (v1.26 - Deprecated)
+
+```json
+{
+  "privateEmails": ["email1@example.com", "email2@example.com"],
+  "mobilePhoneNumbers": ["+41791234567", "+41798765432"]
+}
+```
+
+**NOTE:** v1.26 format is supported through v1.27 (but cannot set an email to recieve documents):
+
+### Object Structure for Communication Channels
+
+Each communication channel (email, phone, fax, URL) is represented as an object:
+
+| Field              | Type      | Required | Default | Description                                                      |
+| ------------------ | --------- | -------- | ------- | ---------------------------------------------------------------- |
+| `address`          | `string`  | Yes      | -       | The actual address (email, phone number, fax, URL)               |
+| `comment`          | `string`  | No       | `null`  | A descriptive comment for this channel                           |
+| `document_receipt` | `boolean` | No       | `false` | **For emails only**: If `true`, this email can receive documents |
+
+### Object Structure for Contacts
+
+| Field            | Type     | Required | Description                              |
+| ---------------- | -------- | -------- | ---------------------------------------- |
+| `name`           | `string` | Yes      | Name of the contact person               |
+| `contactAddress` | `string` | Yes      | Contact information (email, phone, etc.) |
+
+### Setting Document Delivery Email
+
+To configure which email should receive documents, set `document_receipt: true` on the desired email:
+
+```json
+"contactData": {
+  "businessEmails": [
+    {
+      "address": "documents@example.com",
+      "comment": "Document delivery email",
+      "document_receipt": true
+    },
+    {
+      "address": "contact@example.com",
+      "comment": "General contact"
+    }
+  ]
+}
+```
 
 ## Merging strategy
 
@@ -33,8 +81,17 @@ When updating `ContactData`, fields are merged as follows:
 
 ```json
 "contactData": {
-  "mobilePhoneNumbers": [ "+41791234567", "+41798765432"], # data to update in 'mobilePhoneNumbers' (replaces all existing data)
+  # new / replacement list of 'mobilePhoneNumbers'
+  "mobilePhoneNumbers": [ 
+    {"address":"+41798765432", "comment":"backup"}, 
+    {"address":"+41791234567"} 
+  ],
   "privateEmails": [], # deletes all existing 'privateEmails' data
+  "businessEmails": [
+    {"address":"primary@email.example.com", "comment":"primary", "document_receipt":true},
+    {"address":"secondary@email.example.com", "comment":"secondary"},
+    {"address":"terciary@email.example.com"}
+  ],
   "contacts": [
     {"name": "John Doe", "contactAddress": "john.doe@example.com"},
     {"name": "Jane Doe", "contactAddress": "jane.doe@example.com"}
@@ -42,30 +99,41 @@ When updating `ContactData`, fields are merged as follows:
 }
 ```
 
-**NOTE**: Previously we accepted data inconsistent with our described format.
-_Other format are **deprecated** and will be removed in a future release._
+## Full Message Example / Document Delivery Configuration
 
-### Full Message Example 
-
-to update contact data and document delivery preferences you can send a message with user's contact changes and document delivery preferences:
+**IMPORTANT**: Document delivery preferences are now controlled via the `document_receipt` field in `contactData`.
+The attributes: `modeOfDispatch` and `sendEMail` are now ignored.  
 
 ```json
 {
   "eventType": "Masterdata.Person.Update",
   "data": {
     "personReference": "100150",
-    "modeOfDispatch": "email",
-    "sendEmail": "john@example.com",
     "contactData": {
-      "mobilePhoneNumbers": [ "+41791234567", "+41798765432" ],
-      "privateEmails": [],
+      "mobilePhoneNumbers": [
+        { "address": "+41798765432", "comment": "Backup phone" },
+        { "address": "+41791234567" }
+      ],
+      "privateEmails": [
+        { "address": "primary@example.com", "comment": "Primary email", "document_receipt": true },
+        { "address": "secondary@example.com", "comment": "Secondary email" }
+      ],
+      "businessEmails": [
+        { "address": "work@example.com", "comment": "Work email", "document_receipt": true }
+      ],
+      "otherEmails": [], # deletes all 'other' emails
       "contacts": [
-        {"name": "John Doe", "contactAddress": "john.doe@example.com"},
-        {"name": "Jane Doe", "contactAddress": "+41791234567"}
+        { "name": "John Doe", "contactAddress": "john.doe@example.com" },
+        { "name": "Jane Doe", "contactAddress": "+41791234567" }
       ]
     }
   }
 }
 ```
 
-**NOTE**: `sendEmail` is the email address to which the document should be sent when `modeOfDispatch` is set to `email`.
+**IMPORTANT:**
+
+Emails with: `"document_receipt": true` will be set receive documents via email instead per post.
+However, if a person has both email with `document_receipt`  and a portal configured, documents will be distributed via the portal instead of email.
+
+_The v1.26 attributes: `modeOfDispatch` and `sendEMail` are now ignored._

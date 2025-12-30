@@ -754,47 +754,97 @@ data | hash |
 ### Masterdata.PersonContactData.Update
 
 This message is sent from an external message publisher to a GARAIO REM instance and allows to update contact data of a person.
-Set the recipient property in the headers, eg `"grem_wincasa"`. All attributes are optional unless noted otherwise in the remarks.
-Rules for all array attributes:
+Set the recipient property in the headers, eg `"grem_wincasa"`. All attributes are optional unless noted otherwise in the remarks and folow the format design found at [contact_data](https://github.com/Garaio-REM/remcloud-message-bus-api/blob/master/types/contact_data.md)
 
-* do not send the attribute if you do not want to create current data of this type
+**Rules for all array attributes:**
+
+* do not send the attribute if you do not want to change current data of this type
 * send an empty array (`[]`) to delete all current data of this type
-* send an array of valid date to fully replace the current data of this type
+* send an array of valid data to fully replace the current data of this type
 
-GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-message) / [Rejected](./result_messages.md#rejected-message) message containing the personReference and reject reasons, where appropriate
+GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-message) / [Rejected](./result_messages.md#rejected-message) message containing the personReference and reject reasons, where appropriate.
 
 Field | Type | Content / Remarks
 ---|---|---
 `eventType` | `string` | Masterdata.PersonContactData.Update
 `data` | `hash` |
 &nbsp;&nbsp;`personReference` | `string` | reference of the person that should receive the communication updates; **required**
-&nbsp;&nbsp;`privateEmails` | `array` | list of new private emails
-&nbsp;&nbsp;`businessEmails` | `array` | list of new business emails
-&nbsp;&nbsp;`otherEmails` | `array` | list of new other emails
-&nbsp;&nbsp;`privatePhoneNumbers` | `array` | list of new private phone numbers
-&nbsp;&nbsp;`businessPhoneNumbers` | `array` | list of new business phone numbers
-&nbsp;&nbsp;`mobilePhoneNumbers` | `array` | list of new mobile phone numbers
-&nbsp;&nbsp;`otherPhoneNumbers` | `array` | list of new other phone numbers
-&nbsp;&nbsp;`privateFaxNumbers` | `array` | list of new private fax numbers
-&nbsp;&nbsp;`businessFaxNumbers` | `array` | list of new business fax numbers
-&nbsp;&nbsp;`otherFaxNumbers` | `array` | list of new other fax numbers
-&nbsp;&nbsp;`privateUrls` | `array` | list of new private urls
-&nbsp;&nbsp;`businessUrls` | `array` | list of new business urls
-&nbsp;&nbsp;`otherUrls` | `array` | list of new other urls
-&nbsp;&nbsp;`contacts` | `array` |
+&nbsp;&nbsp;`businessEmails` | `array` | list of new business emails (objects with `address`, `comment`, `document_receipt`)
+&nbsp;&nbsp;`privateEmails` | `array` | list of new private emails (objects with `address`, `comment`, `document_receipt`)
+&nbsp;&nbsp;`otherEmails` | `array` | list of new other emails (objects with `address`, `comment`, `document_receipt`)
+&nbsp;&nbsp;`businessPhoneNumbers` | `array` | list of new business phone numbers (objects with `address`, `comment`)
+&nbsp;&nbsp;`privatePhoneNumbers` | `array` | list of new private phone numbers (objects with `address`, `comment`)
+&nbsp;&nbsp;`mobilePhoneNumbers` | `array` | list of new mobile phone numbers (objects with `address`, `comment`)
+&nbsp;&nbsp;`otherPhoneNumbers` | `array` | list of new other phone numbers (objects with `address`, `comment`)
+&nbsp;&nbsp;`businessFaxNumbers` | `array` | list of new business fax numbers (objects with `address`, `comment`)
+&nbsp;&nbsp;`privateFaxNumbers` | `array` | list of new private fax numbers (objects with `address`, `comment`)
+&nbsp;&nbsp;`otherFaxNumbers` | `array` | list of new other fax numbers (objects with `address`, `comment`)
+&nbsp;&nbsp;`businessUrls` | `array` | list of new business urls (objects with `address`, `comment`)
+&nbsp;&nbsp;`privateUrls` | `array` | list of new private urls (objects with `address`, `comment`)
+&nbsp;&nbsp;`otherUrls` | `array` | list of new other urls (objects with `address`, `comment`)
+&nbsp;&nbsp;`contacts` | `array` | list of contact persons
 &nbsp;&nbsp;&nbsp;&nbsp;`name` | `string` | name of the contact
 &nbsp;&nbsp;&nbsp;&nbsp;`contactAddress` | `string` | address / email / phone number of the contact; **required**
 
+**IMPORTANT:**
+
+Emails with: `"document_receipt": true` will be set receive documents via email instead per post.
+However, if a person has both email with `document_receipt`  and a portal configured, documents will be distributed via the portal instead of email.
+
+#### Contact Data Format
+
+**Current format (v1.27+):** Each communication entry is an object with the following fields:
+
+Field | Type | Required | Description
+---|---|---|---
+`address` | `string` | **required** | The email address, phone number, fax number, or URL
+`comment` | `string` | optional | A comment or description for this entry
+`document_receipt` | `boolean` | optional | For emails only: set to `true` to use this email for document delivery. Defaults to `false`.
+
+**Deprecated format (v1.26):** Simple string arrays are still supported for backward compatibility but should not be used for new integrations. In this format, `document_receipt` defaults to `false`.
+
 #### Examples
 
-##### add email, phone number and contact data
+##### New format (v1.27) 
+
+**Add email, phone number and contact data**
+
+```json
+{
+  "eventType": "Masterdata.PersonContactData.Update",
+  "data": {
+    "personReference": "123456",
+    "businessEmails": [
+      { "address": "business@outlook.com", "comment": "business", "document_receipt": true },
+      { "address": "alternative@outlook.com", "comment": "alternative email" }
+    ],
+    "privateEmails": [
+      { "address": "me@outlook.com", "comment": "Personal", "document_receipt": true }
+    ],
+    "privatePhoneNumbers": [
+      { "address": "+41 79 123 45 67", "comment": "Mobile" }, 
+      { "address": "+41 79 876 54 32" }
+    ],
+    "contacts": [
+      { "name": "Max Muster", "contactAddress": "him@outlook.com" }
+    ]
+  }
+}
+```
+
+##### Old format (v1.26) - DEPRECATED, still work in (v1.27)
+
+**Add email, phone number and contact data** 
+
+Limitation: you cannot set comments nor email addresses to receive documents.
 
 ```json
 {"eventType":"Masterdata.PersonContactData.Update",
   "data":{
     "personReference":"123456",
+    "businessEmails": ["business@outlook.com", "alternative@outlook.com"],
     "privateEmails":["me@outlook.com"],
-    "privatePhoneNumbers":["+41 79 123 45 67"],
+    "privatePhoneNumbers":["+41 79 123 45 67", "+41 79 876 54 32"],
     "contacts":[
       {
         "name":"Max Muster",
@@ -894,10 +944,9 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
 
 ### Masterdata.Person.Create
 
-This message is sent from an external message publisher to a GARAIO REM instance and allows to update contact data of a person.
+This message is sent from an external message publisher to a GARAIO REM instance and allows to create a new person record.
 Set the recipient property in the headers, eg `"grem_wincasa"`. All attributes are optional unless noted otherwise in the remarks.
-
-GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-message) / [Rejected](./result_messages.md#rejected-message) message containing the personReference and reject reasons, where appropriate
+GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-message) / [Rejected](./result_messages.md#rejected-message) message containing the personReference and reject reasons, where appriate
 
 | Field                                    | Type                         | Content / Remarks                                                                                                                                                                                                  |
 | ---------------------------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -924,8 +973,6 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
 | &nbsp;&nbsp;`nationalityCode`            | `string`                     | ISO country code, eg `'CH'`                                                                                                                                                                                        |
 | &nbsp;&nbsp;`sensitive`                  | `boolean`                    | sensitive flag. `true` if the person is sensitive and only people with the "Personen Admin" role can mutate that record afterwards.                                                                                |
 | &nbsp;&nbsp;`rating`                     | `string`                     | defines the creditor rating of this person.                                                                                                                                                                        |
-| &nbsp;&nbsp;`modeOfDispatch`             | `string`                     | defines the mode of dispatch for this person. One of the following values will be accepted: `email`, `post`                                                                                                        |
-| &nbsp;&nbsp;`sendEMail`                  | `string`                     | email address where the person wants to receive documents if `modeOfDispatch` is set to `email`                                                                                                                    |
 | &nbsp;&nbsp;`isCreditor`                 | `boolean`                    | declares whether this person has a creditor profile.                                                                                                                                                               |
 | &nbsp;&nbsp;`creditorProfileIsBlocked`   | `boolean`                    | declares whether this person's creditor profile is blocked.                                                                                                                                                        |
 | &nbsp;&nbsp;`discount`                   | `decimal`                    | discount for this person                                                                                                                                                                                           |
@@ -957,7 +1004,8 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
 #### example
 
 ```json
-{"eventType":"Masterdata.Person.Create",
+{
+  "eventType":"Masterdata.Person.Create",
   "data":{
     "firstName":"Max",
     "surname":"Muster",
@@ -975,13 +1023,21 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
       "countryCode":"CH"
     },
     "contactData": {
-      "mobilePhoneNumbers": [ "+41791234567", "+41798765432" ],
+      "mobilePhoneNumbers": [ 
+        {"address":"+41798765432", "comment":"backup"}, 
+        {"address":"+41791234567"} 
+      ],
+      "businessEmails": [
+        {"address":"primary@email.example.com", "comment":"primary", "document_receipt":true},
+        {"address":"secondary@email.example.com", "comment":"secondary"},
+        {"address":"terciary@email.example.com"}
+      ],
       "privateEmails": [],
       "contacts": [
         {"name": "John Doe", "contactAddress": "john.doe@example.com"},
         {"name": "Jane Doe", "contactAddress": "+41791234567"}
       ]
-    }
+    },
     "paymentDetails": [
       {
         "iban":"DE19500105176829385733",
@@ -992,6 +1048,12 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
   }
 }
 ```
+
+**IMPORTANT:**
+
+Emails with: `"document_receipt": true` will be set receive documents via email instead per post.
+However, if a person has both email with `document_receipt`  and a portal configured, documents will be distributed via the portal instead of email.
+_The v1.26 attributes: `modeOfDispatch` and `sendEMail` are now ignored._
 
 ##### accepted response message
 
@@ -1059,8 +1121,6 @@ Field | Type | Content / Remarks
 &nbsp;&nbsp;`nationalityCode` | `string` | ISO country code, eg `'CH'`
 &nbsp;&nbsp;`sensitive` | `boolean` | sensitive flag. `true` if the person is sensitive and only people with the "Personen Admin" role can mutate that record afterwards.
 &nbsp;&nbsp;`rating` | `string` | defines the creditor rating of this person.
-&nbsp;&nbsp;`modeOfDispatch` | `string` | defines the mode of dispatch for this person. One of the following values will be accepted: `email`, `post`
-&nbsp;&nbsp;`sendEMail` | `string` |  email address where the person wants to receive documents if `modeOfDispatch` is set to `email`
 &nbsp;&nbsp;`isCreditor` | `boolean` | declares whether this person has a creditor profile.
 &nbsp;&nbsp;`creditorProfileIsBlocked` | `boolean` | declares whether this person's creditor profile is blocked.
 &nbsp;&nbsp;`discount` | `decimal` | discount for this person
@@ -1092,6 +1152,15 @@ Field | Type | Content / Remarks
 &nbsp;&nbsp;`paymentDetails`| `array`| [PaymentDetails](types/payment_details.md) of this person.
 &nbsp;&nbsp;`paymentDeactivationReason`| `string`| Reason why payment details that are not transmitted will be locked; It is **required** only when either updating payment details with an empty array or adding new single payment details for a person who already has existing ones
 
+
+#### Document Delivery Configuration
+
+**IMPORTANT**: 
+
+Emails with: `"document_receipt": true` will be set receive documents via email instead per post.
+However, if a person has both email with `document_receipt`  and a portal configured, documents will be distributed via the portal instead of email.
+_The v1.26 attributes: `modeOfDispatch` and `sendEMail` are now ignored._
+
 #### examples
 
 ```json
@@ -1121,7 +1190,26 @@ Field | Type | Content / Remarks
         "defaultPaymentDetail":true
       }
     ],
-    "paymentDeactivationReason":"deactivated by API"
+    "paymentDeactivationReason":"deactivated by API",
+    "contactData": {
+      "mobilePhoneNumbers": [
+        { "address": "+41798765432", "comment": "Backup phone" },
+        { "address": "+41791234567" }
+      ],
+      "privateEmails": [
+        { "address": "primary@example.com", "comment": "private", "document_receipt": true },
+        { "address": "secondary@example.com", "document_receipt": true  }
+      ],
+      "businessEmails": [
+        { "address": "work@example.com", "comment": "work", "document_receipt": true },
+        { "address": "other@example.com" }
+      ],
+      "otherEmails": [],
+      "contacts": [
+        { "name": "John Doe", "contactAddress": "john.doe@example.com" },
+        { "name": "Jane Doe", "contactAddress": "+41791234567" }
+      ]
+    }
   }
 }
 ```
