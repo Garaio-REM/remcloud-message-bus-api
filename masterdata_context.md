@@ -754,47 +754,97 @@ data | hash |
 ### Masterdata.PersonContactData.Update
 
 This message is sent from an external message publisher to a GARAIO REM instance and allows to update contact data of a person.
-Set the recipient property in the headers, eg `"grem_wincasa"`. All attributes are optional unless noted otherwise in the remarks.
-Rules for all array attributes:
+Set the recipient property in the headers, eg `"grem_wincasa"`. All attributes are optional unless noted otherwise in the remarks and folow the format design found at [contact_data](https://github.com/Garaio-REM/remcloud-message-bus-api/blob/master/types/contact_data.md)
 
-* do not send the attribute if you do not want to create current data of this type
+**Rules for all array attributes:**
+
+* do not send the attribute if you do not want to change current data of this type
 * send an empty array (`[]`) to delete all current data of this type
-* send an array of valid date to fully replace the current data of this type
+* send an array of valid data to fully replace the current data of this type
 
-GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-message) / [Rejected](./result_messages.md#rejected-message) message containing the personReference and reject reasons, where appropriate
+GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-message) / [Rejected](./result_messages.md#rejected-message) message containing the personReference and reject reasons, where appropriate.
 
 Field | Type | Content / Remarks
 ---|---|---
 `eventType` | `string` | Masterdata.PersonContactData.Update
 `data` | `hash` |
 &nbsp;&nbsp;`personReference` | `string` | reference of the person that should receive the communication updates; **required**
-&nbsp;&nbsp;`privateEmails` | `array` | list of new private emails
-&nbsp;&nbsp;`businessEmails` | `array` | list of new business emails
-&nbsp;&nbsp;`otherEmails` | `array` | list of new other emails
-&nbsp;&nbsp;`privatePhoneNumbers` | `array` | list of new private phone numbers
-&nbsp;&nbsp;`businessPhoneNumbers` | `array` | list of new business phone numbers
-&nbsp;&nbsp;`mobilePhoneNumbers` | `array` | list of new mobile phone numbers
-&nbsp;&nbsp;`otherPhoneNumbers` | `array` | list of new other phone numbers
-&nbsp;&nbsp;`privateFaxNumbers` | `array` | list of new private fax numbers
-&nbsp;&nbsp;`businessFaxNumbers` | `array` | list of new business fax numbers
-&nbsp;&nbsp;`otherFaxNumbers` | `array` | list of new other fax numbers
-&nbsp;&nbsp;`privateUrls` | `array` | list of new private urls
-&nbsp;&nbsp;`businessUrls` | `array` | list of new business urls
-&nbsp;&nbsp;`otherUrls` | `array` | list of new other urls
-&nbsp;&nbsp;`contacts` | `array` |
+&nbsp;&nbsp;`businessEmails` | `array` | list of new business emails (objects with `address`, `comment`, `document_receipt`)
+&nbsp;&nbsp;`privateEmails` | `array` | list of new private emails (objects with `address`, `comment`, `document_receipt`)
+&nbsp;&nbsp;`otherEmails` | `array` | list of new other emails (objects with `address`, `comment`, `document_receipt`)
+&nbsp;&nbsp;`businessPhoneNumbers` | `array` | list of new business phone numbers (objects with `address`, `comment`)
+&nbsp;&nbsp;`privatePhoneNumbers` | `array` | list of new private phone numbers (objects with `address`, `comment`)
+&nbsp;&nbsp;`mobilePhoneNumbers` | `array` | list of new mobile phone numbers (objects with `address`, `comment`)
+&nbsp;&nbsp;`otherPhoneNumbers` | `array` | list of new other phone numbers (objects with `address`, `comment`)
+&nbsp;&nbsp;`businessFaxNumbers` | `array` | list of new business fax numbers (objects with `address`, `comment`)
+&nbsp;&nbsp;`privateFaxNumbers` | `array` | list of new private fax numbers (objects with `address`, `comment`)
+&nbsp;&nbsp;`otherFaxNumbers` | `array` | list of new other fax numbers (objects with `address`, `comment`)
+&nbsp;&nbsp;`businessUrls` | `array` | list of new business urls (objects with `address`, `comment`)
+&nbsp;&nbsp;`privateUrls` | `array` | list of new private urls (objects with `address`, `comment`)
+&nbsp;&nbsp;`otherUrls` | `array` | list of new other urls (objects with `address`, `comment`)
+&nbsp;&nbsp;`contacts` | `array` | list of contact persons
 &nbsp;&nbsp;&nbsp;&nbsp;`name` | `string` | name of the contact
 &nbsp;&nbsp;&nbsp;&nbsp;`contactAddress` | `string` | address / email / phone number of the contact; **required**
 
+**IMPORTANT:**
+
+Emails with: `"document_receipt": true` will be set receive documents via email instead per post.
+However, if a person has both email with `document_receipt`  and a portal configured, documents will be distributed via the portal instead of email.
+
+#### Contact Data Format
+
+**Current format (v1.27+):** Each communication entry is an object with the following fields:
+
+Field | Type | Required | Description
+---|---|---|---
+`address` | `string` | **required** | The email address, phone number, fax number, or URL
+`comment` | `string` | optional | A comment or description for this entry
+`document_receipt` | `boolean` | optional | For emails only: set to `true` to use this email for document delivery. Defaults to `false`.
+
+**Deprecated format (v1.26):** Simple string arrays are still supported for backward compatibility but should not be used for new integrations. In this format, `document_receipt` defaults to `false`.
+
 #### Examples
 
-##### add email, phone number and contact data
+##### New format (v1.27) 
+
+**Add email, phone number and contact data**
+
+```json
+{
+  "eventType": "Masterdata.PersonContactData.Update",
+  "data": {
+    "personReference": "123456",
+    "businessEmails": [
+      { "address": "business@outlook.com", "comment": "business", "document_receipt": true },
+      { "address": "alternative@outlook.com", "comment": "alternative email" }
+    ],
+    "privateEmails": [
+      { "address": "me@outlook.com", "comment": "Personal", "document_receipt": true }
+    ],
+    "privatePhoneNumbers": [
+      { "address": "+41 79 123 45 67", "comment": "Mobile" }, 
+      { "address": "+41 79 876 54 32" }
+    ],
+    "contacts": [
+      { "name": "Max Muster", "contactAddress": "him@outlook.com" }
+    ]
+  }
+}
+```
+
+##### Old format (v1.26) - DEPRECATED, still work in (v1.27)
+
+**Add email, phone number and contact data** 
+
+Limitation: you cannot set comments nor email addresses to receive documents.
 
 ```json
 {"eventType":"Masterdata.PersonContactData.Update",
   "data":{
     "personReference":"123456",
+    "businessEmails": ["business@outlook.com", "alternative@outlook.com"],
     "privateEmails":["me@outlook.com"],
-    "privatePhoneNumbers":["+41 79 123 45 67"],
+    "privatePhoneNumbers":["+41 79 123 45 67", "+41 79 876 54 32"],
     "contacts":[
       {
         "name":"Max Muster",
@@ -999,18 +1049,11 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
 }
 ```
 
-**IMPORTANT**: Document delivery preferences are now controlled via the `document_receipt` field in `contactData`.
-The attributes: `modeOfDispatch` and `sendEMail` are now ignored.  
+**IMPORTANT:**
 
-Instead use ContactData email entry(ies) with `"document_receipt": true`:
-
-When multiple emails have `"document_receipt": true` then the order of priority is:
-
-1. the first **private email** with `"document_receipt": true` will be set to receive documents per email
-2. the first **business email** with `"document_receipt": true` will be set to receive documents per email
-3. the first **other email** with `"document_receipt": true` will be set to receive documents per email
-
-If there are no emails with `"document_receipt": true` then no documents can be sent via email
+Emails with: `"document_receipt": true` will be set receive documents via email instead per post.
+However, if a person has both email with `document_receipt`  and a portal configured, documents will be distributed via the portal instead of email.
+_The v1.26 attributes: `modeOfDispatch` and `sendEMail` are now ignored._
 
 ##### accepted response message
 
@@ -1112,21 +1155,11 @@ Field | Type | Content / Remarks
 
 #### Document Delivery Configuration
 
-**IMPORTANT:** Document delivery preferences are controlled via the document_receipt field in contactData.
+**IMPORTANT**: 
 
-_Deprecated:_ The fields modeOfDispatch and sendEMail are deprecated and will be ignored.
-
-To configure document delivery via email, set `"document_receipt": true` on the desired email in contactData.
-
-Email Priority: When multiple emails have "document_receipt": true, the system selects based on this fixed order:
-
-- First privateEmails entry with "document_receipt": true
-- First businessEmails entry with "document_receipt": true
-- First otherEmails entry with "document_receipt": true
-- Best Practice: Set "document_receipt": true on only one email to avoid ambiguity.
-
-_Note:_ When updating contactData, only the fields you include are modified. Omitted fields preserve existing values. See ContactData for full merging behavior.
-
+Emails with: `"document_receipt": true` will be set receive documents via email instead per post.
+However, if a person has both email with `document_receipt`  and a portal configured, documents will be distributed via the portal instead of email.
+_The v1.26 attributes: `modeOfDispatch` and `sendEMail` are now ignored._
 
 #### examples
 
@@ -1164,11 +1197,12 @@ _Note:_ When updating contactData, only the fields you include are modified. Omi
         { "address": "+41791234567" }
       ],
       "privateEmails": [
-        { "address": "primary@example.com", "comment": "Primary email", "document_receipt": true },
-        { "address": "secondary@example.com" }
+        { "address": "primary@example.com", "comment": "private", "document_receipt": true },
+        { "address": "secondary@example.com", "document_receipt": true  }
       ],
       "businessEmails": [
-        { "address": "work@example.com", "comment": "Work email", "document_receipt": true }
+        { "address": "work@example.com", "comment": "work", "document_receipt": true },
+        { "address": "other@example.com" }
       ],
       "otherEmails": [],
       "contacts": [

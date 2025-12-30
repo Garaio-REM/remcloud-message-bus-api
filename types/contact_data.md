@@ -131,10 +131,9 @@ The attributes: `modeOfDispatch` and `sendEMail` are now ignored.
 }
 ```
 
-**NOTE:** when multiple emails have `"document_receipt": true` then the order of priority is:
+**IMPORTANT:**
 
-1. the first **private email** with `"document_receipt": true` will be set to recieve documents per email
-2. the first **business email** with `"document_receipt": true` will be set to recieve documents per email
-3. the first **other email** with `"document_receipt": true` will be set to recieve documents per email
+Emails with: `"document_receipt": true` will be set receive documents via email instead per post.
+However, if a person has both email with `document_receipt`  and a portal configured, documents will be distributed via the portal instead of email.
 
-If there are no emails with `"document_receipt": true` then no documents can be sent via email (unless `"document_receipt": true` is already set in an email category the doesn't change)
+_The v1.26 attributes: `modeOfDispatch` and `sendEMail` are now ignored._
