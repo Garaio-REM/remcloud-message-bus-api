@@ -270,6 +270,9 @@ Note: Updates on RentIncreasePotential and TheoreticalRent messages are publishe
 | &nbsp;&nbsp;totalVolume | number | total volume in m³ (if changed) |
 | &nbsp;&nbsp;effectiveVolume | number | effective/usable volume in m³ (if changed) |
 | &nbsp;&nbsp;numberOfUnits | integer | number of units this rent applies to (if changed) |
+| &nbsp;&nbsp;components | array | array of rent components (if changed) |
+| &nbsp;&nbsp;&nbsp;&nbsp;type | string | component type code |
+| &nbsp;&nbsp;&nbsp;&nbsp;amount | number | net amount of the component |
 
 #### Example
 
@@ -285,7 +288,17 @@ Note: Updates on RentIncreasePotential and TheoreticalRent messages are publishe
     "areaTypeCode": "SIA416",
     "totalVolume": 226.5,
     "effectiveVolume": 210.0,
-    "numberOfUnits": 1
+    "numberOfUnits": 1,
+    "components": [
+      {
+        "type": "10",
+        "amount": 200.00
+      },
+      {
+        "type": "20",
+        "amount": 250.00
+      }
+    ]
   }
 }
 ```
