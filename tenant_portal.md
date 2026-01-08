@@ -45,11 +45,11 @@ Field | Type | Content / Remarks
 
 ### TenantPortal.Tenant.Accepted
 
-This message goes from GARAIO REM to the portal and signals that the tenant has been accepted by Garai REM.
+This message goes from GARAIO REM to the portal and signals that the tenant has been accepted by GARAIO REM.
 
 | Field                         | Type     | Content / Remarks                                            |
 |-------------------------------|----------|--------------------------------------------------------------|
-| `eventType`                   | `string` | Invoicing.Order.Accepted                                     |
+| `eventType`                   | `string` | TenantPortal.Tenant.Accepted                                     |
 | `data`                       | `hash`   |                                                               |
 | &nbsp;&nbsp;`tenantReference` | `string` | unique person identifier, eg `'1234'`                       |
 | &nbsp;&nbsp;`unitReference`   | `string` | String referencing an existing unit in the target GARAIO REM |
@@ -57,7 +57,7 @@ This message goes from GARAIO REM to the portal and signals that the tenant has 
 #### Example
 
 ```json
-{"eventType":"Invoicing.Order.Accepted",
+{"eventType":"TenantPortal.Tenant.Accepted",
   "data":{
     "tenantReference":"1234",
     "unitReference":"1234.01.0001"
@@ -67,11 +67,11 @@ This message goes from GARAIO REM to the portal and signals that the tenant has 
 
 ### TenantPortal.Tenant.Rejected
 
-This message goes from GARAIO REM to the portal and signals that the tenant has been rejected by Garai REM. GARAIO REM validation errors are mapped into the reasons array.
+This message goes from GARAIO REM to the portal and signals that the tenant has been rejected by GARAIO REM. GARAIO REM validation errors are mapped into the reasons array.
 
 | Field                               | Type     | Content / Remarks                                            |
 |-------------------------------------|----------|--------------------------------------------------------------|
-| `eventType`                         | `string` | Invoicing.Order.Rejected                                     |
+| `eventType`                         | `string` | TenantPortal.Tenant.Rejected                                     |
 | `data`                             | `hash`   |                                                               |
 | &nbsp;&nbsp;`tenantReference`       | `string` | unique person identifier, eg `'1234'`                        |
 | &nbsp;&nbsp;`unitReference`         | `string` | String referencing an existing unit in the target GARAIO REM |
