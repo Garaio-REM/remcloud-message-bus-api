@@ -42,12 +42,14 @@ All messages must specify at least the following AMQP message properties:
 | `timestamp`        | Unix timestamp                | `1553245964`                        | A timestamp to indicate when the message was created       |
 | `routing_key`      | `<message type>`              | `Notification.Message.Created`      | Pass the event type as the routing key                     |
 | `delivery_mode`    | Byte                          | `2`                                 | Always pass `2` (2)                                        |
+| `mandatory`        | `true`                        | `true`                              | Always pass `true` (4)                                     |
 
 Notes
 
 * (1) The app specific uid is an alphanumeric, app wide unique key
 * (2) `2` ensures the message persists even if the broker restarts. In some RabbitMQ-Client libraries, `delivery_mode` might be mapped to a boolean property called `persistent` which shall be set to `true`
 * (3) Messages that respond to a message (`*.Accepted` / `*.Rejected`) send back the `message_id` of the received message as the correlation_id so that the sender can map the response. The property is only present in [result messages](./result_messages.md).
+* (4) `true` ensures that you get an error if your message cannot be routed (e.g. because of wrong properties) instead of it being silently discarded.
 
 ### Headers
 
@@ -122,3 +124,4 @@ You send/manage custom table data alongside messages, see [custom tables](custom
 ## Examples
 
 [Ruby script to publish a notification message](examples/ruby/publish_notification.rb)
+
