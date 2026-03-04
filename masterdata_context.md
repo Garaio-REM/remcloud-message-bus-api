@@ -679,7 +679,7 @@ data | hash    |
 
 ```json
 {
-  "eventType":"Masterdata.Unit.ListingInformationUpdated",
+  "eventType":"Masterdata.Building.ListingInformationUpdated",
   "data":{
     "reference":"1234.01"
   }
@@ -888,30 +888,39 @@ Set the recipient property in the headers, eg `"grem_wincasa"`. All attributes a
 
 GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-message) / [Rejected](./result_messages.md#rejected-message) message containing the personReference and reject reasons, where appropriate
 
-| Field                            | Type     | Content / Remarks                                                                                                                                                                                                                    |
-| -------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `eventType`                      | `string` | Masterdata.PersonPaymentDetails.Update                                                                                                                                                                                               |
-| `data`                           | `hash`   |                                                                                                                                                                                                                                      |
-| &nbsp;&nbsp;`personReference`    | `string` | reference of the person that should receive the communication updates; **required**                                                                                                                                                  |
-| &nbsp;&nbsp;`paymentDetails`     | `array`  | [PaymentDetails](types/payment_details.md) of this person.                                                                                                                                                                           |
-| &nbsp;&nbsp;`deactivationReason` | `string` | Reason why payment details that are not transmitted will be locked; It is **required** only when either updating payment details with an empty array or adding new single payment details for a person who already has existing ones |
+| Field                              | Type     | Content / Remarks                                                                                                                                                                                                                    |
+| ---------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `eventType`                        | `string` | Masterdata.PersonPaymentDetails.Update                                                                                                                                                                                               |
+| `data`                             | `hash`   |                                                                                                                                                                                                                                      |
+| &nbsp;&nbsp;`personReference`      | `string` | **required** - reference of the person that should receive the communication updates                                                                                                                                                   |
+| &nbsp;&nbsp;`paymentDetails`       | `array`  | **required** - [PaymentDetails](types/payment_details.md) of this person.                                                                                                                                                                           |
+| &nbsp;&nbsp;`deactivationReason`   | `string` | Reason why payment details that are not transmitted will be locked (generally something like "deactivated by Mieterportal"). **required** when updating payment details with an empty array or adding new single payment details, can be omitted if all Payment Details are listed  |
 
 #### Examples
 
-##### add iban and bic
+##### Add Swiss Payment Detail
+
+- **personReference** - identifies the person to update
+- **deactivationReason** - in almost all cases this should be sent (unless you are sure you are sending ALL payment details).
+- **paymentDetails** - uses an array of paymentDetail hashes,  important detail fields:
+  - **iban** - always required!
+  - **bic** - MUST be omitted for swiss IBANs and must be included for non-Swiss IBANs. **Important:** When mutating existing payment details, if BIC is stored, then BIC must also be provided in the update.
+  - **locked** - true or false (in most cases this will be **false**) when sending a payment detail - especially when sending only one payment detail
+  - **defaultPaymentDetail** - should generally be included to avoid unexpected effects.  Only one detail can have the value **true**.
 
 ```json
-{"eventType":"Masterdata.PersonPaymentDetails.Update",
+{
+  "eventType":"Masterdata.PersonPaymentDetails.Update",
   "data":{
     "personReference":"123456",
     "paymentDetails":[
       {
-        "iban":"DE19500105176829385733",
-        "bic":"WELADEDLLEV",
+        "iban":"CH19500105176829385733",
+        "locked":false,
         "defaultPaymentDetail":true
       }
     ],
-    "deactivationReason":"deactivated by API"
+    "deactivationReason":"deactivated by Mieterportal" // describes why all other payment details are locked
   }
 }
 ```

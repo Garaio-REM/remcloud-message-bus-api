@@ -7,7 +7,7 @@ Payment details of a person. This is a Array of hash structured as follows.
 | &nbsp;&nbsp;`paymentDetails`                   | `array`   | list of new payment details                                                     |
 | &nbsp;&nbsp;&nbsp;&nbsp;`iban`                 | `string`  | iban; **required**                                                              |
 | &nbsp;&nbsp;&nbsp;&nbsp;`ibanName`             | `string`  | iban name, e.g. name of the bank                                                |
-| &nbsp;&nbsp;&nbsp;&nbsp;`bic`                  | `string`  | bic                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;`bic`                  | `string`  | **MUST be omitted when iban is Swiss** & required when iban is not Swiss. **Important:** When mutating existing payment details, if BIC is stored, then BIC must also be provided in the update |
 | &nbsp;&nbsp;&nbsp;&nbsp;`locked`               | `boolean` | should the payment detail be locked/disabled (blocked from usage)               |
 | &nbsp;&nbsp;&nbsp;&nbsp;`lockReason`           | `string`  | why should the payment detail be locked? required if you set `locked` to `true` |
 | &nbsp;&nbsp;&nbsp;&nbsp;`defaultPaymentDetail` | `boolean` | should this payment detail be the default?; see (1)                             |
@@ -28,11 +28,11 @@ When updating `paymentDetails`, fields are merged as follows:
 **NOTE:** When using Masterdata.Person.Update, the deactivation reason field is paymentDeactivationReason instead of deactivationReason.
 
 ## Type Example
+
 ```json
 "paymentDetails": [
   {
     "iban": "CH9300762011623852957",
-    "bic": "UBSWCHZH80A",
     "ibanName": "UBS Zürich",
     "defaultPaymentDetail": true
   },
@@ -57,12 +57,11 @@ When updating `paymentDetails`, fields are merged as follows:
     "paymentDetails": [
       {
         "iban": "CH9300762011623852957",
-        "bic": "UBSWCHZH80A",
         "ibanName": "UBS Zürich",
         "defaultPaymentDetail": true
       }
     ],
-    "deactivationReason": "Old account closed"
+    "deactivationReason": "Old account closed by Mieterportal"
   }
 }
 ```
@@ -74,12 +73,12 @@ When updating `paymentDetails`, fields are merged as follows:
   "data": {
     "personReference": "100150",
     "paymentDetails": [],
-    "deactivationReason": "Account verification required"
+    "deactivationReason": "Account verification required - closed by Mieterportal"
   }
 }
 ```
 
-**Example 3:** Unlock a previously locked payment detail
+**Example 3:** Unlock a previously locked payment detail (and it locks all unlisted payment details)
 ```json
 {
   "eventType": "Masterdata.PersonPaymentDetails.Update",
@@ -89,14 +88,21 @@ When updating `paymentDetails`, fields are merged as follows:
       {
         "iban": "CH9300762011623852957",
         "locked": false,
-        "lockReason": ""
+        "defaultPaymentDetail":true
+      },
+      {
+        "iban": "DE19500105176829385733",
+        "bic": "WELADEDLLEV",
+        "locked": false,
+        "defaultPaymentDetail": false
       }
-    ]
+    ],
+    "deactivationReason": "mieter portal activation of non-listed payment details"
   }
 }
 ```
 
-**Example 4:** Update via Masterdata.Person.Update
+**Example 4:** Update via Masterdata.Person.Update (and it locks all unlisted payment details)
 ```json
 {
   "eventType": "Masterdata.Person.Update",
@@ -106,6 +112,7 @@ When updating `paymentDetails`, fields are merged as follows:
       {
         "iban": "DE19500105176829385733",
         "bic": "WELADEDLLEV",
+        "locked": false,
         "defaultPaymentDetail": true
       }
     ],
