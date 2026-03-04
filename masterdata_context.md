@@ -904,7 +904,7 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
 - **deactivationReason** - in almost all cases this should be sent (unless you are sure you are sending ALL payment details).
 - **paymentDetails** - uses an array of paymentDetail hashes,  important detail fields:
   - **iban** - always required!
-  - **bic** - MUST be omitted for swiss IBANs and must be included for non-Swiss IBANs.
+  - **bic** - MUST be omitted for swiss IBANs and must be included for non-Swiss IBANs. **Important:** When mutating existing payment details, if BIC is stored, then BIC must also be provided in the update.
   - **locked** - true or false (in most cases this will be **false**) when sending a payment detail - especially when sending only one payment detail
   - **defaultPaymentDetail** - should generally be included to avoid unexpected effects.  Only one detail can have the value **true**.
 

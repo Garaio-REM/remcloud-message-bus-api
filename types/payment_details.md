@@ -7,7 +7,7 @@ Payment details of a person. This is a Array of hash structured as follows.
 | &nbsp;&nbsp;`paymentDetails`                   | `array`   | list of new payment details                                                     |
 | &nbsp;&nbsp;&nbsp;&nbsp;`iban`                 | `string`  | iban; **required**                                                              |
 | &nbsp;&nbsp;&nbsp;&nbsp;`ibanName`             | `string`  | iban name, e.g. name of the bank                                                |
-| &nbsp;&nbsp;&nbsp;&nbsp;`bic`                  | `string`  | **MUST be omitted when iban is Swiss** & required when iban is not Swiss                                                                            |
+| &nbsp;&nbsp;&nbsp;&nbsp;`bic`                  | `string`  | **MUST be omitted when iban is Swiss** & required when iban is not Swiss. **Important:** When mutating existing payment details, if BIC is stored, then BIC must also be provided in the update |
 | &nbsp;&nbsp;&nbsp;&nbsp;`locked`               | `boolean` | should the payment detail be locked/disabled (blocked from usage)               |
 | &nbsp;&nbsp;&nbsp;&nbsp;`lockReason`           | `string`  | why should the payment detail be locked? required if you set `locked` to `true` |
 | &nbsp;&nbsp;&nbsp;&nbsp;`defaultPaymentDetail` | `boolean` | should this payment detail be the default?; see (1)                             |
