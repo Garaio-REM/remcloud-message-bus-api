@@ -68,12 +68,12 @@ An accounting was updated
 
 An accounting was deleted
 
-| Field                   | Type     | Content / Remarks                     |
-| ----------------------- | -------- | ------------------------------------- |
-| `eventType`             | `string` | `Accounting.Accounting.Deleted`       |
-| `data`                  | `hash`   |                                       |
-| &nbsp;&nbsp;`reference` | `string` | Reference of the accounting           |
-| &nbsp;&nbsp;`active`    | `null`   | Always `null` for deleted accountings |
+| Field                   | Type      | Content / Remarks                                 |
+| ----------------------- | --------- | ------------------------------------------------- |
+| `eventType`             | `string`  | `Accounting.Accounting.Deleted`                   |
+| `data`                  | `hash`    |                                                   |
+| &nbsp;&nbsp;`reference` | `string`  | Reference of the accounting                       |
+| &nbsp;&nbsp;`active`    | `boolean` | Whether the accounting was active before deletion |
 
 #### Example
 
@@ -82,7 +82,7 @@ An accounting was deleted
   "eventType": "Accounting.Accounting.Deleted",
   "data": {
     "reference": "1569",
-    "active": null
+    "active": false
   }
 }
 ```
