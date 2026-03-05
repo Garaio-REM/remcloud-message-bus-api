@@ -27,6 +27,7 @@ An accounting was created
 | `eventType`                           | `string`  | `Accounting.Accounting.Created`                                                                                                                                                        |
 | `data`                                | `hash`    |                                                                                                                                                                                        |
 | &nbsp;&nbsp;`reference`               | `string`  | Reference of the accounting                                                                                                                                                            |
+| &nbsp;&nbsp;`active`                  | `boolean` | Whether the accounting is activated                                                                                                                                                    |
 
 #### Example
 
@@ -34,7 +35,8 @@ An accounting was created
 {
   "eventType": "Accounting.Accounting.Created",
   "data": {
-    "reference": "1569"
+    "reference": "1569",
+    "active": true
   }
 }
 ```
@@ -48,6 +50,7 @@ An accounting was updated
 | `eventType`                           | `string`  | `Accounting.Accounting.Updated`                                                                                                                                                        |
 | `data`                                | `hash`    |                                                                                                                                                                                        |
 | &nbsp;&nbsp;`reference`               | `string`  | Reference of the accounting                                                                                                                                                            |
+| &nbsp;&nbsp;`active`                  | `boolean` | Whether the accounting is activated                                                                                                                                                    |
 
 #### Example
 
@@ -55,7 +58,8 @@ An accounting was updated
 {
   "eventType": "Accounting.Accounting.Updated",
   "data": {
-    "reference": "1569"
+    "reference": "1569",
+    "active": true
   }
 }
 ```
@@ -69,6 +73,7 @@ An accounting was deleted
 | `eventType`                           | `string`  | `Accounting.Accounting.Deleted`                                                                                                                                                        |
 | `data`                                | `hash`    |                                                                                                                                                                                        |
 | &nbsp;&nbsp;`reference`               | `string`  | Reference of the accounting                                                                                                                                                            |
+| &nbsp;&nbsp;`active`                  | `null`    | Always `null` for deleted accountings                                                                                                                                                  |
 
 #### Example
 
@@ -76,7 +81,8 @@ An accounting was deleted
 {
   "eventType": "Accounting.Accounting.Deleted",
   "data": {
-    "reference": "1569"
+    "reference": "1569",
+    "active": null
   }
 }
 ```
@@ -262,6 +268,7 @@ An account was created
 | `eventType`                           | `string`  | `Accounting.Account.Created`                                                                                                                                                           |
 | `data`                                | `hash`    |                                                                                                                                                                                        |
 | &nbsp;&nbsp;`accountingReference`     | `string`  | Reference of the accounting                                                                                                                                                            |
+| &nbsp;&nbsp;`accountingActive`        | `boolean` | Whether the accounting is activated                                                                                                                                                    |
 | &nbsp;&nbsp;`number`                  | `string`  | Number of the created account                                                                                                                                                          |
 
 #### Example
@@ -271,6 +278,7 @@ An account was created
   "eventType": "Accounting.Account.Created",
   "data": {
     "accountingReference": "1569",
+    "accountingActive": true,
     "number": "10210"
   }
 }
@@ -285,6 +293,7 @@ An account was updated
 | `eventType`                           | `string`  | `Accounting.Account.Updated`                                                                                                                                                           |
 | `data`                                | `hash`    |                                                                                                                                                                                        |
 | &nbsp;&nbsp;`accountingReference`     | `string`  | Reference of the accounting                                                                                                                                                            |
+| &nbsp;&nbsp;`accountingActive`        | `boolean` | Whether the accounting is activated                                                                                                                                                    |
 | &nbsp;&nbsp;`number`                  | `string`  | Number of the updated account                                                                                                                                                          |
 
 #### Example
@@ -294,6 +303,7 @@ An account was updated
   "eventType": "Accounting.Account.Updated",
   "data": {
     "accountingReference": "1569",
+    "accountingActive": true,
     "number": "10210"
   }
 }
@@ -308,6 +318,7 @@ An account was deleted
 | `eventType`                           | `string`  | `Accounting.Account.Deleted`                                                                                                                                                           |
 | `data`                                | `hash`    |                                                                                                                                                                                        |
 | &nbsp;&nbsp;`accountingReference`     | `string`  | Reference of the accounting                                                                                                                                                            |
+| &nbsp;&nbsp;`accountingActive`        | `boolean` | Whether the accounting is activated                                                                                                                                                    |
 | &nbsp;&nbsp;`number`                  | `string`  | Number of the deleted account                                                                                                                                                          |
 
 #### Example
@@ -317,6 +328,7 @@ An account was deleted
   "eventType": "Accounting.Account.Deleted",
   "data": {
     "accountingReference": "1569",
+    "accountingActive": true,
     "number": "10210"
   }
 }
@@ -416,6 +428,7 @@ Business year export configuration was updated. This message is published when t
 | `eventType`                           | `string`  | `Accounting.CostCenter.Created`                                                                                                                                                        |
 | `data`                                | `hash`    |                                                                                                                                                                                        |
 | &nbsp;&nbsp;`accountingReference`     | `string`  | Reference of the accounting                                                                                                                                                            |
+| &nbsp;&nbsp;`accountingActive`        | `boolean` | Whether the accounting is activated                                                                                                                                                    |
 | &nbsp;&nbsp;`number`                  | `string`  | Number of the created cost center                                                                                                                                                      |
 
 #### Example
@@ -425,6 +438,7 @@ Business year export configuration was updated. This message is published when t
   "eventType": "Accounting.CostCenter.Created",
   "data": {
     "accountingReference": "1569",
+    "accountingActive": true,
     "number": "10210"
   }
 }
@@ -437,6 +451,7 @@ Business year export configuration was updated. This message is published when t
 | `eventType`                           | `string`  | `Accounting.CostCenter.Updated`                                                                                                                                                        |
 | `data`                                | `hash`    |                                                                                                                                                                                        |
 | &nbsp;&nbsp;`accountingReference`     | `string`  | Reference of the accounting                                                                                                                                                            |
+| &nbsp;&nbsp;`accountingActive`        | `boolean` | Whether the accounting is activated                                                                                                                                                    |
 | &nbsp;&nbsp;`number`                  | `string`  | Number of the updated cost center                                                                                                                                                      |
 
 #### Example
@@ -446,6 +461,7 @@ Business year export configuration was updated. This message is published when t
   "eventType": "Accounting.CostCenter.Updated",
   "data": {
     "accountingReference": "1569",
+    "accountingActive": true,
     "number": "10210"
   }
 }
@@ -458,6 +474,7 @@ Business year export configuration was updated. This message is published when t
 | `eventType`                           | `string`  | `Accounting.CostCenter.Deleted`                                                                                                                                                           |
 | `data`                                | `hash`    |                                                                                                                                                                                        |
 | &nbsp;&nbsp;`accountingReference`     | `string`  | Reference of the accounting                                                                                                                                                            |
+| &nbsp;&nbsp;`accountingActive`        | `boolean` | Whether the accounting is activated                                                                                                                                                    |
 | &nbsp;&nbsp;`number`                  | `string`  | Number of the deleted cost center                                                                                                                                                          |
 
 #### Example
@@ -467,6 +484,7 @@ Business year export configuration was updated. This message is published when t
   "eventType": "Accounting.CostCenter.Deleted",
   "data": {
     "accountingReference": "1569",
+    "accountingActive": true,
     "number": "10210"
   }
 }
