@@ -33,6 +33,24 @@ Notes
 * (2) This event is only raised for tenants that live or trade in a given unit. For example the event is not raised for tenants that act as guarantors or for tenants that have had their tenancy agreement changed while staying in the same unit.
 * (3) Like Letting.Tenancy.MoveInConfirmed the event is also only raised when a tenant has lived or traded in person at the given unit.
 
+### TenancyAgreement Lifecycle
+
+The following diagram shows the lifecycle of a tenancy agreement as reflected by events sent from GARAIO REM.
+
+```mermaid
+stateDiagram-v2
+    [*] --> Validated : Letting.TenancyAgreement.DraftCreated
+    Validated --> Validated : Letting.TenancyAgreement.DraftUpdated
+    Validated --> [*] : Letting.TenancyAgreement.DraftDeleted
+    Validated --> Activated : Letting.TenancyAgreement.Created
+    Activated --> Activated : Letting.TenancyAgreement.Updated
+    Activated --> Cancelled : Letting.TenancyAgreement.Terminated
+    Cancelled --> Cancelled : Letting.TenancyAgreement.TerminationUpdated
+    Cancelled --> Activated : Letting.TenancyAgreement.TerminationRevoked
+    Activated --> Deactivated : Letting.TenancyAgreement.Deactivated
+    Deactivated --> [*]
+```
+
 ### Letting.Tenancy.Created
 
 NOTE: We have discoved minor differences in the logic for sending the _preferred_ `email` and `phoneNumber` in mbus messages, the priority is always the same for all persons, while GraphQL queries send different values Legal and Physical persons.  At the moment, we are not planning to change this behaviour without consulting our partners, in order to prevent unexpected side effects.
