@@ -33,9 +33,9 @@ Notes
 * (2) This event is only raised for tenants that live or trade in a given unit. For example the event is not raised for tenants that act as guarantors or for tenants that have had their tenancy agreement changed while staying in the same unit.
 * (3) Like Letting.Tenancy.MoveInConfirmed the event is also only raised when a tenant has lived or traded in person at the given unit.
 
-### TenancyAgreement Lifecycle
+### Letting.TenancyAgreement Lifecycle
 
-The following diagram shows the lifecycle of a tenancy agreement as reflected by events sent from GARAIO REM.
+These events are sent by GARAIO REM:
 
 ```mermaid
 stateDiagram-v2
