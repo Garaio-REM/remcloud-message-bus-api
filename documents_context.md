@@ -5,6 +5,7 @@
 | Type                                            | GARAIO REM         | REM | Description               |
 | ----------------------------------------------- | ------------------ | --- | ------------------------- |
 | [Documents.Document.Create](#documentsdocumentadd) | :white_check_mark: | :x: | Stores a document in GREM |
+| [Documents.Document.Viewed](#documentsdocumentviewed) | :white_check_mark: | :x: | Marks a document as viewed in Garaio REM when accessed on a remote System (Portal) |
 
 ### Documents.Document.Create
 
@@ -65,6 +66,46 @@ Additional `data` fields:
 | `reference` | `string` | The reference of the newly created document. |
 
 #### Documents.Document.Rejected
+
+The [Reject](./result_messages.md#rejected-message) message.
+
+No additional `data` fields.
+
+### Documents.Document.Viewed
+
+This event is sent to mark a document as viewed in GARAIO REM when it has been accessed on a remote system (e.g., Portal).
+
+| Field                            | Type     | Content / Remarks                                                              |
+| -------------------------------- | -------- | ------------------------------------------------------------------------------ |
+| `eventType`                      | `string` | `Documents.Document.Viewed`                                                    |
+| `data`                           | `hash`   |                                                                                |
+| &nbsp;&nbsp;`documentId`         | `string` | The ID of the document that was viewed **required**                            |
+| &nbsp;&nbsp;`documentType`       | `string` | The type of the document (e.g., `BriefDokument`) **required**                  |
+| &nbsp;&nbsp;`personReference`    | `string` | The reference of the person who viewed the document **required**               |
+| &nbsp;&nbsp;`viewedOn`           | `string` | ISO 8601 timestamp when the document was viewed **required**                   |
+
+#### Example
+
+```json
+{
+  "app_id": "imofix",
+  "eventType": "Documents.Document.Viewed",
+  "data": {
+    "documentId": "16254",
+    "documentType": "BriefDokument",
+    "personReference": "100088",
+    "viewedOn": "2025-09-28T12:30:35Z"
+  }
+}
+```
+
+#### Documents.Document.Viewed.Accepted
+
+The [Accept](./result_messages.md#accepted-message) message.
+
+No additional `data` fields.
+
+#### Documents.Document.Viewed.Rejected
 
 The [Reject](./result_messages.md#rejected-message) message.
 
