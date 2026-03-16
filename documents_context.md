@@ -86,7 +86,9 @@ This event is sent to mark a document as viewed in GARAIO REM when it has been a
 
 Notes
 
-* (1) While `Dokument` is valid in most cases as a fallback, it is strongly recommended to send the specific document type when known. For documents sent for reading, the document type should be known and sending the specific type provides better data quality.
+* (1) While `Dokument` is valid in most cases as a fallback, it is strongly recommended to send the specific document type when known. For documents sent for reading, the document type should be known and sending the specific type provides better data quality. 
+
+**Note:** _**documentType** within `Documents.Document.Viewed` is different from **`docType`** used by `Documents.Document.Create`.  In the `Create` message GARAIO REM chooses the actual `documentType` to create based on the values given by `docType` and `relatedToType`._
 
 #### Example
 
