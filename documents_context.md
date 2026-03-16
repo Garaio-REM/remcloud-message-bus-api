@@ -105,6 +105,9 @@ Notes
 }
 ```
 
+**Note:** _**`app_id`** needs to be included while manually testing (or include a header within the message - as shown in the example).  Actual messages from a remote session will include an `app_id` from the message header. The `app_id`, is critical information in order to identify where the document was viewed._
+
+
 #### Documents.Document.Viewed.Accepted
 
 The [Accept](./result_messages.md#accepted-message) message.
