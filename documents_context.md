@@ -80,9 +80,13 @@ This event is sent to mark a document as viewed in GARAIO REM when it has been a
 | `eventType`                      | `string` | `Documents.Document.Viewed`                                                    |
 | `data`                           | `hash`   |                                                                                |
 | &nbsp;&nbsp;`documentId`         | `string` | The ID of the document that was viewed **required**                            |
-| &nbsp;&nbsp;`documentType`       | `string` | The type of the document (e.g., `BriefDokument`) **required**                  |
+| &nbsp;&nbsp;`documentType`       | `string` | The type of the document (e.g., `BriefDokument`) **required** (1)              |
 | &nbsp;&nbsp;`personReference`    | `string` | The reference of the person who viewed the document **required**               |
 | &nbsp;&nbsp;`viewedOn`           | `string` | ISO 8601 timestamp when the document was viewed **required**                   |
+
+Notes
+
+* (1) While `Dokument` is valid in most cases as a fallback, it is strongly recommended to send the specific document type when known. For documents sent for reading, the document type should be known and sending the specific type provides better data quality.
 
 #### Example
 
