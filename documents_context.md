@@ -5,6 +5,7 @@
 | Type                                            | GARAIO REM         | REM | Description               |
 | ----------------------------------------------- | ------------------ | --- | ------------------------- |
 | [Documents.Document.Create](#documentsdocumentadd) | :white_check_mark: | :x: | Stores a document in GREM |
+| [Documents.Document.Viewed](#documentsdocumentviewed) | :white_check_mark: | :x: | Marks a document as viewed in Garaio REM when accessed on a remote System (Portal) |
 
 ### Documents.Document.Create
 
@@ -65,6 +66,55 @@ Additional `data` fields:
 | `reference` | `string` | The reference of the newly created document. |
 
 #### Documents.Document.Rejected
+
+The [Reject](./result_messages.md#rejected-message) message.
+
+No additional `data` fields.
+
+### Documents.Document.Viewed
+
+This event is sent to mark a document as viewed in GARAIO REM when it has been accessed on a remote system (e.g., Portal).
+
+| Field                            | Type     | Content / Remarks                                                              |
+| -------------------------------- | -------- | ------------------------------------------------------------------------------ |
+| `eventType`                      | `string` | `Documents.Document.Viewed`                                                    |
+| `data`                           | `hash`   |                                                                                |
+| &nbsp;&nbsp;`documentId`         | `string` | The ID of the document that was viewed **required**                            |
+| &nbsp;&nbsp;`documentType`       | `string` | The type of the document (e.g., `BriefDokument`) **required** (1)              |
+| &nbsp;&nbsp;`personReference`    | `string` | The reference of the person who viewed the document **required**               |
+| &nbsp;&nbsp;`viewedOn`           | `string` | ISO 8601 timestamp when the document was viewed **required**                   |
+
+Notes
+
+* (1) While `Dokument` is valid in most cases as a fallback, it is strongly recommended to send the specific document type when known. For documents sent for reading, the document type should be known and sending the specific type provides better data quality. 
+
+**Note:** _**documentType** within `Documents.Document.Viewed` is different from **`docType`** used by `Documents.Document.Create`.  In the `Create` message GARAIO REM chooses the actual `documentType` to create based on the values given by `docType` and `relatedToType`._
+
+#### Example
+
+```json
+{
+  "app_id": "imofix",
+  "eventType": "Documents.Document.Viewed",
+  "data": {
+    "documentId": "16254",
+    "documentType": "BriefDokument",
+    "personReference": "100088",
+    "viewedOn": "2025-09-28T12:30:35Z"
+  }
+}
+```
+
+**Note:** _**`app_id`** needs to be included while manually testing (or include a header within the message - as shown in the example).  Actual messages from a remote session will include an `app_id` from the message header. The `app_id`, is critical information in order to identify where the document was viewed._
+
+
+#### Documents.Document.Viewed.Accepted
+
+The [Accept](./result_messages.md#accepted-message) message.
+
+No additional `data` fields.
+
+#### Documents.Document.Viewed.Rejected
 
 The [Reject](./result_messages.md#rejected-message) message.
 
