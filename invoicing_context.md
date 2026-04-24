@@ -231,7 +231,7 @@ This message completely replaces an existing order in GARAIO REM; if you pass, f
 | &nbsp;&nbsp;`backlinkUrl`                                  | `string`     | optional url to navigate to the order on the sending system; **must be a complete url that the local browser can resolve (including protocol), e.g. <https://www.google.com>** |
 | &nbsp;&nbsp;`clerkUsername`                                | `string`     | Username of clerk (Sachbearbeiter) to assign.                                                                                                                                  |
 | &nbsp;&nbsp;`orderCreatorUser`                             | `string`     | Username of the user who created the order - optional (2)                                                                                                                      |
-| &nbsp;&nbsp;`totalGrossAmount`                             | `decimal`    | Total gross amount of the order - includeing VAT - optional (2)                                                                                                                |
+| &nbsp;&nbsp;`totalGrossAmount`                             | `decimal`    | Total gross amount of the order - including VAT - optional (2)                                                                                                                 |
 | &nbsp;&nbsp;`completedAt`                                  | `date\|null` | The day the ordered work has been completed. If null, this means the work has not been completed yet.                                                                          |
 | &nbsp;&nbsp;`done`                                         | `boolean`    | mark the order as done (erledigt)                                                                                                                                              |
 | &nbsp;&nbsp;`orderItems`                                   | `array`      | List of order items; may be empty; orderItems that exists in the order but are not passed here will be deleted                                                                 |
@@ -249,7 +249,7 @@ This message completely replaces an existing order in GARAIO REM; if you pass, f
 **Notes:**
 
 * (1) You have to provide either `reference` or `externalReference`. The reference you provide must be a reference that has previously been published in a `Invoicing.Order.Created` message.
-* (2) The field will be updated if the keys: `orderCreatorUser` and/or `totalGrossAmount` are included - if not included in the message any pre-esisting value will remain unchanged.
+* (2) The field will be updated if the keys: `orderCreatorUser` and/or `totalGrossAmount` are included - if not included in the message any pre-existing value will remain unchanged.
 
 #### Example
 
