@@ -157,6 +157,7 @@ This message goes from GARAIO REM to the order provider and signals that GARAIO 
 | `data`                          | `hash`    |                                             |
 | &nbsp;&nbsp;`reference`         | `longint` | unique identifier of the order              |
 | &nbsp;&nbsp;`externalReference` | `string`  | external identifier from the order provider |
+| &nbsp;&nbsp;`gremUrl`           | `string`  | GREM URL to directly to the Order within GREM (preferentially uses the customer_url and falls back to the system default_url) |
 
 #### Example
 
@@ -165,6 +166,7 @@ This message goes from GARAIO REM to the order provider and signals that GARAIO 
   "data":{
     "reference":1234,
     "externalReference":"54820394-001",
+    "gremUrl":"https://demo.garaio-rem.net/kreditorenauftraege/9876",
   }
 }
 ```
