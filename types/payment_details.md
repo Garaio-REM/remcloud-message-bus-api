@@ -1,122 +1,156 @@
 # PaymentDetails
 
-Payment details of a person. This is a Array of hash structured as follows.
+  Payment details of a person. This is a Array of hash structured as follows.
 
-| Field                                          | Type      | Content / Remarks                                                               |
-| ---------------------------------------------- | --------- | ------------------------------------------------------------------------------- |
-| &nbsp;&nbsp;`paymentDetails`                   | `array`   | list of new payment details                                                     |
-| &nbsp;&nbsp;&nbsp;&nbsp;`iban`                 | `string`  | iban; **required**                                                              |
-| &nbsp;&nbsp;&nbsp;&nbsp;`ibanName`             | `string`  | iban name, e.g. name of the bank                                                |
-| &nbsp;&nbsp;&nbsp;&nbsp;`bic`                  | `string`  | **MUST be omitted when iban is Swiss** & required when iban is not Swiss. **Important:** When mutating existing payment details, if BIC is stored, then BIC must also be provided in the update |
-| &nbsp;&nbsp;&nbsp;&nbsp;`locked`               | `boolean` | should the payment detail be locked/disabled (blocked from usage)               |
-| &nbsp;&nbsp;&nbsp;&nbsp;`lockReason`           | `string`  | why should the payment detail be locked? required if you set `locked` to `true` |
-| &nbsp;&nbsp;&nbsp;&nbsp;`defaultPaymentDetail` | `boolean` | should this payment detail be the default?; see (1)                             |
+  | Field                                          | Type      | Content / Remarks                                                               |
+  | ---------------------------------------------- | --------- | ------------------------------------------------------------------------------- |
+  | &nbsp;&nbsp;`paymentDetails`                   | `array`   | list of new payment details                                                     |
+  | &nbsp;&nbsp;&nbsp;&nbsp;`iban`                 | `string`  | iban; **required**                                                              |
+  | &nbsp;&nbsp;&nbsp;&nbsp;`ibanName`             | `string`  | iban name, e.g. name of the bank                                                |
+  | &nbsp;&nbsp;&nbsp;&nbsp;`bic`                  | `string`  | **MUST be omitted when iban is Swiss** & required when iban is not Swiss. **Important:** When mutating existing payment details, if BIC is stored, then BIC must also be provided in the update |
+  | &nbsp;&nbsp;&nbsp;&nbsp;`locked`               | `boolean` | should the payment detail be locked/disabled (blocked from usage)               |
+  | &nbsp;&nbsp;&nbsp;&nbsp;`lockReason`           | `string`  | why should the payment detail be locked? required if you set `locked` to `true` |
+  | &nbsp;&nbsp;&nbsp;&nbsp;`defaultPaymentDetail` | `boolean` | should this payment detail be the default?; see (1)                             |
+  | &nbsp;&nbsp;&nbsp;&nbsp;`approverUsername`     | `string`  | GREM username of the person who approved this payment detail; see (2)           |
+  | &nbsp;&nbsp;&nbsp;&nbsp;`approvalDate`         | `string`  | ISO 8601 date of the external approval (e.g. `"2025-08-15"`); see (2)           |
 
-**Notes:**
+  **Notes:**
 
-* (1) Set it to `true` to make this the default payment detail. If more than one payment detail have this set to `true`, the last one takes precedence. Setting the flag to `false` has no effect.
+  * (1) Set it to `true` to make this the default payment detail. If more than one payment detail have this set to `true`, the last one takes precedence. Setting the
+   flag to `false` has no effect.
+  * (2) `approverUsername` and `approvalDate` must **both be present or both be absent** — providing only one is a validation error. These fields are only effective
+  when the GREM system parameter `zahlungsverbindungen_visieren_obligatorisch` is enabled:
+    * **Both present:** the payment detail is marked as approved (*visiert*) using the provided approver and date, bypassing the normal 4-eyes-principle check (which
+   is assumed to have been performed by the sending system).
+    * **Both absent:** normal approval behaviour applies — GREM auto-approves the payment detail if the system parameter is disabled, or leaves it pending approval
+  if it is enabled.
+    * To **revoke** an existing approval, send the entry without `approverUsername` and `approvalDate` (both omitted). When the system parameter is enabled this
+  transitions the payment detail back to *nicht visiert*.
 
-## Merging strategy
+  ## Merging strategy
 
-When updating `paymentDetails`, fields are merged as follows:
+  When updating `paymentDetails`, fields are merged as follows:
 
-* **Omit field** -> existing payment details remain unchanged
-* **Send `[]`** -> locks/disables usage of all existing payment details (requires `deactivationReason`)
-* **Send array with entries** -> updates/creates specified entries, locks all others not in the array (requires `deactivationReason` for locked ones)
-* **send multiple entries** -> to completely replace all existing payment data of this type.
+  * **Omit field** -> existing payment details remain unchanged
+  * **Send `[]`** -> locks/disables usage of all existing payment details (requires `deactivationReason`)
+  * **Send array with entries** -> updates/creates specified entries, locks all others not in the array (requires `deactivationReason` for locked ones)
+  * **send multiple entries** -> to completely replace all existing payment data of this type.
 
-**NOTE:** When using Masterdata.Person.Update, the deactivation reason field is paymentDeactivationReason instead of deactivationReason.
+  **NOTE:** When using Masterdata.Person.Update, the deactivation reason field is paymentDeactivationReason instead of deactivationReason.
 
-## Type Example
+  ## Type Example
 
-```json
-"paymentDetails": [
+  ```json
+  "paymentDetails": [
+    {
+      "iban": "CH9300762011623852957",
+      "ibanName": "UBS Zürich",
+      "defaultPaymentDetail": true
+    },
+    {
+      "iban": "DE19500105176829385733",
+      "bic": "WELADEDLLEV",
+      "ibanName": "Sparkasse Berlin",
+      "locked": false
+    }
+  ]
+  ```
+
+  ## Full Message Examples
+
+  **Example 1:** Add new payment detail and set as default
+
+  ```json
   {
-    "iban": "CH9300762011623852957",
-    "ibanName": "UBS Zürich",
-    "defaultPaymentDetail": true
-  },
+    "eventType": "Masterdata.PersonPaymentDetails.Update",
+    "data": {
+      "personReference": "100150",
+      "paymentDetails": [
+        {
+          "iban": "CH9300762011623852957",
+          "ibanName": "UBS Zürich",
+          "defaultPaymentDetail": true
+        }
+      ],
+      "deactivationReason": "Old account closed by Mieterportal"
+    }
+  }
+  ```
+
+  **Example 2:** Lock all existing payment details
+
+  ```json
   {
-    "iban": "DE19500105176829385733",
-    "bic": "WELADEDLLEV",
-    "ibanName": "Sparkasse Berlin",
-    "locked": false
+    "eventType": "Masterdata.PersonPaymentDetails.Update",
+    "data": {
+      "personReference": "100150",
+      "paymentDetails": [],
+      "deactivationReason": "Account verification required - closed by Mieterportal"
+    }
   }
-]
-```
+  ```
 
-## Full Message Examples
+  **Example 3:** Unlock a previously locked payment detail (and it locks all unlisted payment details)
 
-**Example 1:** Add new payment detail and set as default
-
-```json
-{
-  "eventType": "Masterdata.PersonPaymentDetails.Update",
-  "data": {
-    "personReference": "100150",
-    "paymentDetails": [
-      {
-        "iban": "CH9300762011623852957",
-        "ibanName": "UBS Zürich",
-        "defaultPaymentDetail": true
-      }
-    ],
-    "deactivationReason": "Old account closed by Mieterportal"
+  ```json
+  {
+    "eventType": "Masterdata.PersonPaymentDetails.Update",
+    "data": {
+      "personReference": "100150",
+      "paymentDetails": [
+        {
+          "iban": "CH9300762011623852957",
+          "locked": false,
+          "defaultPaymentDetail": true
+        },
+        {
+          "iban": "DE19500105176829385733",
+          "bic": "WELADEDLLEV",
+          "locked": false,
+          "defaultPaymentDetail": false
+        }
+      ],
+      "deactivationReason": "mieter portal activation of non-listed payment details"
+    }
   }
-}
-```
+  ```
 
-**Example 2:** Lock all existing payment details
-```json
-{
-  "eventType": "Masterdata.PersonPaymentDetails.Update",
-  "data": {
-    "personReference": "100150",
-    "paymentDetails": [],
-    "deactivationReason": "Account verification required - closed by Mieterportal"
-  }
-}
-```
+  **Example 4:** Update via Masterdata.Person.Update (and it locks all unlisted payment details)
 
-**Example 3:** Unlock a previously locked payment detail (and it locks all unlisted payment details)
-```json
-{
-  "eventType": "Masterdata.PersonPaymentDetails.Update",
-  "data": {
-    "personReference": "100150",
-    "paymentDetails": [
-      {
-        "iban": "CH9300762011623852957",
-        "locked": false,
-        "defaultPaymentDetail":true
-      },
-      {
-        "iban": "DE19500105176829385733",
-        "bic": "WELADEDLLEV",
-        "locked": false,
-        "defaultPaymentDetail": false
-      }
-    ],
-    "deactivationReason": "mieter portal activation of non-listed payment details"
+  ```json
+  {
+    "eventType": "Masterdata.Person.Update",
+    "data": {
+      "personReference": "100150",
+      "paymentDetails": [
+        {
+          "iban": "DE19500105176829385733",
+          "bic": "WELADEDLLEV",
+          "locked": false,
+          "defaultPaymentDetail": true
+        }
+      ],
+      "paymentDeactivationReason": "Migrating to new bank"
+    }
   }
-}
-```
+  ```
 
-**Example 4:** Update via Masterdata.Person.Update (and it locks all unlisted payment details)
-```json
-{
-  "eventType": "Masterdata.Person.Update",
-  "data": {
-    "personReference": "100150",
-    "paymentDetails": [
-      {
-        "iban": "DE19500105176829385733",
-        "bic": "WELADEDLLEV",
-        "locked": false,
-        "defaultPaymentDetail": true
-      }
-    ],
-    "paymentDeactivationReason": "Migrating to new bank"
+  **Example 5:** Add payment detail with external approval (requires `zahlungsverbindungen_visieren_obligatorisch` enabled in GREM)
+
+  ```json
+  {
+    "eventType": "Masterdata.PersonPaymentDetails.Update",
+    "data": {
+      "personReference": "100150",
+      "paymentDetails": [
+        {
+          "iban": "CH9300762011623852957",
+          "ibanName": "UBS Zürich",
+          "defaultPaymentDetail": true,
+          "approverUsername": "approver",
+          "approvalDate": "2025-08-15"
+        }
+      ]
+    }
   }
-}
-```
+  ```
