@@ -4,6 +4,8 @@
 these systems and enables other organisations to integrate with REM. The REM-Cloud Message Bus is a [RabbitMQ Message Bus](https://www.rabbitmq.com/).
 RabbitMQ itself implements [AMQP](https://www.amqp.org/).
 
+[Internal MBus Documentation and Configuration](https://gitlab.garaio-rem.com/garaio-rem/grem/internal-mbus-documentation)
+
 ## Versioning
 
 The master branch in this repository reflects current development. If you need the specs for a specific release, have a look at the corresponding branch.
@@ -124,4 +126,3 @@ You send/manage custom table data alongside messages, see [custom tables](custom
 ## Examples
 
 [Ruby script to publish a notification message](examples/ruby/publish_notification.rb)
-
