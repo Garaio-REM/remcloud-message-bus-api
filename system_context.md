@@ -14,50 +14,64 @@ Field | Type | Content / Remarks
 ---|---|---
 eventType | string | System.User.Created
 data | hash |
-&nbsp;&nbsp;reference | string | unique identifier for the user (username)
+&nbsp;&nbsp;reference | string | unique identifier for the user (username); see (1)
+&nbsp;&nbsp;apiId | string | stable API identifier (UUIDv7)
 
 #### Example
 
 ```json
 {"eventType":"System.User.Created",
   "data":{
-    "reference":"username"
+    "reference":"username",
+    "apiId":"01234567-89ab-7def-0123-456789abcdef"
   }
 }
 ```
 
 ### System.User.Updated
 
-Field | Type | Content / Remarks
----|---|---
-eventType | string | System.User.Updated
-data | hash |
-&nbsp;&nbsp;reference | string | unique identifier for the user (username)
+| Field                 | Type   | Content / Remarks                                  |
+| --------------------- | ------ | -------------------------------------------------- |
+| eventType             | string | System.User.Updated                                |
+| data                  | hash   |                                                    |
+| &nbsp;&nbsp;reference | string | unique identifier for the user (username); see (1) |
+| &nbsp;&nbsp;apiId     | string | stable API identifier (UUIDv7)                     |
+
+Notes
+
+* (1) The reference (username) may change in SSO setups when the username changes in the identity provider. Use `apiId` as a stable identifier.
 
 #### Example
 
 ```json
 {"eventType":"System.User.Updated",
   "data":{
-    "reference":"username"
+    "reference":"username",
+    "apiId":"01234567-89ab-7def-0123-456789abcdef"
   }
 }
 ```
 
 ### System.User.Deleted
 
-Field | Type | Content / Remarks
----|---|---
-eventType | string | System.User.Deleted
-data | hash |
-&nbsp;&nbsp;reference | string | unique identifier for the user (username)
+| Field                 | Type   | Content / Remarks                                  |
+| --------------------- | ------ | -------------------------------------------------- |
+| eventType             | string | System.User.Deleted                                |
+| data                  | hash   |                                                    |
+| &nbsp;&nbsp;reference | string | unique identifier for the user (username); see (1) |
+| &nbsp;&nbsp;apiId     | string | stable API identifier (UUIDv7)                     |
+
+Notes
+
+* (1) The reference (username) may change in SSO setups when the username changes in the identity provider. Use `apiId` as a stable identifier.
 
 #### Example
 
 ```json
 {"eventType":"System.User.Deleted",
   "data":{
-    "reference":"username"
+    "reference":"username",
+    "apiId":"01234567-89ab-7def-0123-456789abcdef"
   }
 }
 ```
