@@ -75,18 +75,19 @@ No additional `data` fields.
 
 This event is sent to mark a document as viewed in GARAIO REM when it has been accessed on a remote system (e.g., Portal).
 
-| Field                            | Type     | Content / Remarks                                                              |
-| -------------------------------- | -------- | ------------------------------------------------------------------------------ |
-| `eventType`                      | `string` | `Documents.Document.Viewed`                                                    |
-| `data`                           | `hash`   |                                                                                |
-| &nbsp;&nbsp;`documentId`         | `string` | The ID of the document that was viewed **required**                            |
-| &nbsp;&nbsp;`documentType`       | `string` | The type of the document (e.g., `BriefDokument`) **required** (1)              |
-| &nbsp;&nbsp;`personReference`    | `string` | The reference of the person who viewed the document **required**               |
-| &nbsp;&nbsp;`viewedOn`           | `string` | ISO 8601 timestamp when the document was viewed **required**                   |
+| Field                         | Type     | Content / Remarks                                                 |
+| ----------------------------- | -------- | ----------------------------------------------------------------- |
+| `eventType`                   | `string` | `Documents.Document.Viewed`                                       |
+| `data`                        | `hash`   |                                                                   |
+| &nbsp;&nbsp;`documentId`      | `string` | The ID of the document that was viewed **required**               |
+| &nbsp;&nbsp;`viewedOn`        | `string` | ISO-8601 timestamp when the document was viewed **required** (1)  |
+| &nbsp;&nbsp;`documentType`    | `string` | The type of the document (e.g., `BriefDokument`) **required** (2) |
+| &nbsp;&nbsp;`personReference` | `string` | The reference of the person who viewed the document **required**  |
 
 Notes
 
-* (1) While `Dokument` is valid in most cases as a fallback, it is strongly recommended to send the specific document type when known. For documents sent for reading, the document type should be known and sending the specific type provides better data quality. 
+* (1) ISO-8601 format: `2026-04-04T10:15:23Z` or `2026-04-04T10:15:23+00:00`
+* (2) While `Dokument` is valid in most cases as a fallback, it is strongly recommended to send the specific document type when known. For documents sent for reading, the document type should be known and sending the specific type provides better data quality. 
 
 **Note:** _**documentType** within `Documents.Document.Viewed` is different from **`docType`** used by `Documents.Document.Create`.  In the `Create` message GARAIO REM chooses the actual `documentType` to create based on the values given by `docType` and `relatedToType`._
 
