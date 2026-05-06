@@ -1,5 +1,7 @@
 # Orders and Invoicing Context
 
+[Internal MBus Documentation and Configuration](https://gitlab.garaio-rem.com/garaio-rem/grem/internal-mbus-documentation)
+
 ## Events
 
 | Type                                                      | GARAIO REM         | REM | Description                                               |
@@ -46,7 +48,6 @@ This message goes from the order provider to GARAIO REM. Set the recipient prope
 | &nbsp;&nbsp;`languageCode`                                 | `string`  | `de`, `fr`, `it` or `en`; will be used to send error reasons using the desired language; **must be lower case**                                                                |
 | &nbsp;&nbsp;`backlinkUrl`                                  | `string`  | optional url to navigate to the order on the sending system; **must be a complete url that the local browser can resolve (including protocol), e.g. <https://www.google.com>** |
 | &nbsp;&nbsp;`clerkUsername`                                | `string`  | Username of clerk (Sachbearbeiter) to assign.                                                                                                                                  |
-| &nbsp;&nbsp;`orderCreatorUser`                             | `string`  | Username of the user who created the order (optional)                                                                                                                          |
 | &nbsp;&nbsp;`totalGrossAmount`                             | `decimal` | Total gross amount of the order - including VAT (optional)                                                                                                                     |
 | &nbsp;&nbsp;`orderItems`                                   | `array`   | List of order items; may be empty                                                                                                                                              |
 | &nbsp;&nbsp;&nbsp;&nbsp;`itemNumber`                       | `integer` | invoice item number to preserve order; **required**                                                                                                                            |
@@ -83,7 +84,6 @@ This message goes from the order provider to GARAIO REM. Set the recipient prope
     "languageCode":"fr",
     "backlinkUrl":"https://instance.external_system.ch/order/3",
     "clerkUsername": "clerk",
-    "orderCreatorUser": "user123",
     "totalGrossAmount": 1500.00,
     "orderItems":[
       {
@@ -115,7 +115,6 @@ This is an event sent by GARAIO REM.
 | &nbsp;&nbsp;`externalReference`               | `string`  | external identifier from the order provider                                      |
 | &nbsp;&nbsp;`accountingReference`             | `string`  | reference of the accounting                                                      |
 | &nbsp;&nbsp;`masterdataReference`             | `string`  | reference of a property / building / unit                                        |
-| &nbsp;&nbsp;`orderCreatorUser`                | `string`  | Username of the user who created the order                                       |
 | &nbsp;&nbsp;`totalGrossAmount`                | `decimal` | Total gross amount of the order - including VAT                                  |
 | &nbsp;&nbsp;`orderItems`                      | `array`   | order items                                                                      |
 | &nbsp;&nbsp;&nbsp;&nbsp;`accountNumber`       | `string`  | accounting account number, prefixed by the accounting reference, eg "6056.10122" |
@@ -133,7 +132,6 @@ This is an event sent by GARAIO REM.
     "reference": 123,
     "accountingReference": "1",
     "masterdataReference": "10001",
-    "orderCreatorUser": "user123",
     "totalGrossAmount": 1500.00,
     "orderItems": [
       {
@@ -232,7 +230,6 @@ This message completely replaces an existing order in GARAIO REM; if you pass, f
 | &nbsp;&nbsp;`languageCode`                                 | `string`     | `de`, `fr`, `it` or `en`; determines error reasons language; **must be lower case**                                                                                            |
 | &nbsp;&nbsp;`backlinkUrl`                                  | `string`     | optional url to navigate to the order on the sending system; **must be a complete url that the local browser can resolve (including protocol), e.g. <https://www.google.com>** |
 | &nbsp;&nbsp;`clerkUsername`                                | `string`     | Username of clerk (Sachbearbeiter) to assign.                                                                                                                                  |
-| &nbsp;&nbsp;`orderCreatorUser`                             | `string`     | Username of the user who created the order - optional (2)                                                                                                                      |
 | &nbsp;&nbsp;`totalGrossAmount`                             | `decimal`    | Total gross amount of the order - including VAT - optional (2)                                                                                                                 |
 | &nbsp;&nbsp;`completedAt`                                  | `date\|null` | The day the ordered work has been completed. If null, this means the work has not been completed yet.                                                                          |
 | &nbsp;&nbsp;`done`                                         | `boolean`    | mark the order as done (erledigt)                                                                                                                                              |
@@ -251,7 +248,7 @@ This message completely replaces an existing order in GARAIO REM; if you pass, f
 **Notes:**
 
 * (1) You have to provide either `reference` or `externalReference`. The reference you provide must be a reference that has previously been published in a `Invoicing.Order.Created` message.
-* (2) The field will be updated if the keys: `orderCreatorUser` and/or `totalGrossAmount` are included - if not included in the message any pre-existing value will remain unchanged.
+* (2) The field will be updated if the key `totalGrossAmount` is included - if not included in the message any pre-existing value will remain unchanged.
 
 #### Example
 
@@ -272,7 +269,6 @@ This message completely replaces an existing order in GARAIO REM; if you pass, f
     "deliveryAddress":"Garaio AG\\nLaupenstrasse 45\\n3001 Bern",
     "languageCode":"fr",
     "clerkUsername":"Testuser_5",
-    "orderCreatorUser": "user123",
     "totalGrossAmount": 1500.00,
     "completedAt": "2023-01-01",
     "orderItems":[
@@ -316,7 +312,6 @@ This is an event sent by GARAIO REM.
 | &nbsp;&nbsp;`externalReference`               | `string`  | external identifier from the order provider                                      |
 | &nbsp;&nbsp;`accountingReference`             | `string`  | reference of the accounting                                                      |
 | &nbsp;&nbsp;`masterdataReference`             | `string`  | reference of a property / building / unit                                        |
-| &nbsp;&nbsp;`orderCreatorUser`                | `string`  | Username of the user who created the order.                                      |
 | &nbsp;&nbsp;`totalGrossAmount`                | `decimal` | Total gross amount of the order - including VAT.                                 |
 | &nbsp;&nbsp;`orderItems`                      | `array`   | order items                                                                      |
 | &nbsp;&nbsp;&nbsp;&nbsp;`accountNumber`       | `string`  | accounting account number, prefixed by the accounting reference, eg "6056.10122" |
@@ -334,7 +329,6 @@ This is an event sent by GARAIO REM.
     "reference": 123,
     "accountingReference": "1",
     "masterdataReference": "10001",
-    "orderCreatorUser": "user123",
     "totalGrossAmount": 1500.00,
     "orderItems": [
       {
