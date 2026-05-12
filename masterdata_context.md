@@ -805,7 +805,7 @@ Field | Type | Required | Description
 
 #### Examples
 
-##### New format (v1.27) 
+##### New format (v1.27)
 
 **Add email, phone number and contact data**
 
@@ -822,7 +822,7 @@ Field | Type | Required | Description
       { "address": "me@outlook.com", "comment": "Personal", "document_receipt": true }
     ],
     "privatePhoneNumbers": [
-      { "address": "+41 79 123 45 67", "comment": "Mobile" }, 
+      { "address": "+41 79 123 45 67", "comment": "Mobile" },
       { "address": "+41 79 876 54 32" }
     ],
     "contacts": [
@@ -834,7 +834,7 @@ Field | Type | Required | Description
 
 ##### Old format (v1.26) - DEPRECATED, still work in (v1.27)
 
-**Add email, phone number and contact data** 
+**Add email, phone number and contact data**
 
 Limitation: you cannot set comments nor email addresses to receive documents.
 
@@ -888,13 +888,13 @@ Set the recipient property in the headers, eg `"grem_wincasa"`. All attributes a
 
 GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-message) / [Rejected](./result_messages.md#rejected-message) message containing the personReference and reject reasons, where appropriate
 
-| Field                              | Type     | Content / Remarks                                                                                                                                                                                                                    |
-| ---------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `eventType`                        | `string` | Masterdata.PersonPaymentDetails.Update                                                                                                                                                                                               |
-| `data`                             | `hash`   |                                                                                                                                                                                                                                      |
-| &nbsp;&nbsp;`personReference`      | `string` | **required** - reference of the person that should receive the communication updates                                                                                                                                                   |
-| &nbsp;&nbsp;`paymentDetails`       | `array`  | **required** - [PaymentDetails](types/payment_details.md) of this person.                                                                                                                                                                           |
-| &nbsp;&nbsp;`deactivationReason`   | `string` | Reason why payment details that are not transmitted will be locked (generally something like "deactivated by Mieterportal"). **required** when updating payment details with an empty array or adding new single payment details, can be omitted if all Payment Details are listed  |
+| Field                            | Type     | Content / Remarks                                                                                                                                                                                                                                                                  |
+| -------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `eventType`                      | `string` | Masterdata.PersonPaymentDetails.Update                                                                                                                                                                                                                                             |
+| `data`                           | `hash`   |                                                                                                                                                                                                                                                                                    |
+| &nbsp;&nbsp;`personReference`    | `string` | **required** - reference of the person that should receive the communication updates                                                                                                                                                                                               |
+| &nbsp;&nbsp;`paymentDetails`     | `array`  | **required** - [PaymentDetails](types/payment_details.md) of this person.                                                                                                                                                                                                          |
+| &nbsp;&nbsp;`deactivationReason` | `string` | Reason why payment details that are not transmitted will be locked (generally something like "deactivated by Mieterportal"). **required** when updating payment details with an empty array or adding new single payment details, can be omitted if all Payment Details are listed |
 
 #### Examples
 
@@ -994,7 +994,7 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
 | &nbsp;&nbsp;`brandName`                  | `string`                     | brand name for this record                                                                                                                                                                                         |
 | &nbsp;&nbsp;`hasDunningBlock`            | `boolean`                    | declares whether this person has a dunning block. `true` if they should have a dunning block and `false` if they shouldn't.                                                                                        |
 | &nbsp;&nbsp;`isVATexempt`                | `boolean`                    | declares whether this record is VAT exempt. `true` if they should be VAT exempt and `false` if they shouldn't.                                                                                                     |
-| &nbsp;&nbsp;`UIDnumber`                  | `string`                     | UID number for this person. Must be a valid UID number (i.e. `461.079.435`).                                                                                                                                       |
+| &nbsp;&nbsp;`UIDnumber`                  | `string`                     | UID number for this person. Must be a valid UID number (i.e. `461.079.435`). (1)                                                                                                                                   |
 | &nbsp;&nbsp;`VATnr`                      | `string`                     | VAT number for this person. Must be a valid VAT number (i.e. `461.079.435`).                                                                                                                                       |
 | &nbsp;&nbsp;`hasPaymentBlock`            | `boolean`                    | declares whether this person has a payment block. `true` if they should have a payment block and `false` if they shouldn't.                                                                                        |
 | &nbsp;&nbsp;`paymentBlockReason`         | `string`                     | reason for the payment block for this person.                                                                                                                                                                      |
@@ -1009,6 +1009,10 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
 | &nbsp;&nbsp;&nbsp;&nbsp;`countryCode`    | `string`                     | ISO country code, eg `'CH'`. Defaults to 'CH'.                                                                                                                                                                     |
 | &nbsp;&nbsp;`contactData`                | `hash`                       | [ContactData](types/contact_data.md) of this person.                                                                                                                                                               |
 | &nbsp;&nbsp;`paymentDetails`             | `array`                      | [PaymentDetails](types/payment_details.md) of this person.                                                                                                                                                         |
+
+Notes
+
+* (1) falls back to `VATnr` if given
 
 #### example
 
@@ -1032,9 +1036,9 @@ GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-mess
       "countryCode":"CH"
     },
     "contactData": {
-      "mobilePhoneNumbers": [ 
-        {"address":"+41798765432", "comment":"backup"}, 
-        {"address":"+41791234567"} 
+      "mobilePhoneNumbers": [
+        {"address":"+41798765432", "comment":"backup"},
+        {"address":"+41791234567"}
       ],
       "businessEmails": [
         {"address":"primary@email.example.com", "comment":"primary", "document_receipt":true},
@@ -1107,64 +1111,68 @@ Set the recipient property in the headers, eg `"grem_wincasa"`. All attributes a
 
 GARAIO REM replies with a standard [Accepted](./result_messages.md#accepted-message) / [Rejected](./result_messages.md#rejected-message) message containing the personReference and reject reasons, where appropriate
 
-Field | Type | Content / Remarks
----|---|---
-`eventType` | `string` | `Masterdata.Person.Update`
-`data` | `hash` |
-&nbsp;&nbsp;`createdAt` | `string` | ISO 8601 encoded timestamp, eg `'2024-02-06T14:10:11+01:00'`. Left unchanged if not given. |
-&nbsp;&nbsp;`updatedAt` | `string` | ISO 8601 encoded timestamp, eg `'2024-02-06T14:10:11+01:00'`. Defaults to current time. |
-&nbsp;&nbsp;`personReference` | `string` | reference of the person that should receive the communication updates; **required**
-&nbsp;&nbsp;`firstName` | `string` | first name
-&nbsp;&nbsp;`surname` | `string` | surname for natural persons or company name for legal persons
-&nbsp;&nbsp;`nameSuffix1` | `string` | additional name suffix (i.e. `'c/o Garaio REM AG'`)
-&nbsp;&nbsp;`nameAddition2` | `string` | additional field to store name information on company records
-&nbsp;&nbsp;`salutation` | `string` | one of the following values will be accepted: `none`, `sir`, `madam`. Send _either_ `salutation` _or_ `salutationCode` but not both.
-&nbsp;&nbsp;`salutationCode` | `string` | a value of the salutation code table (see code table entries "Anreden" for valid codes). Send _either_ `salutation` _or_ `salutationCode` but not both.
-&nbsp;&nbsp;`additionalSalutation` | `string` (max 50 characters) | additional salutation (i.e. `Dr. med.`)
-&nbsp;&nbsp;`maritalStatus` | `string` | one of the following values will be accepted: `unmarried`, `married`, `widowed`, `divorced`, `separated`, `civil_union`. Send _either_ `maritalStatus` _or_ `maritalStatusCode` but not both.
-&nbsp;&nbsp;`maritalStatusCode` | `string` | a value of the marital status code table (see code table entries "Zivilstände" for valid codes). Send _either_ `maritalStatus` _or_ `maritalStatusCode` but not both.
-&nbsp;&nbsp;`jobTitle` | `string` | job title
-&nbsp;&nbsp;`dateOfBirth` | `string` | ISO 8601 encoded date, eg `'2019-03-01'`
-&nbsp;&nbsp;`dateOfDeath` | `string` | ISO 8601 encoded date, eg `'2019-03-01'`
-&nbsp;&nbsp;`homeTown` | `string` | home town
-&nbsp;&nbsp;`nationalityCode` | `string` | ISO country code, eg `'CH'`
-&nbsp;&nbsp;`sensitive` | `boolean` | sensitive flag. `true` if the person is sensitive and only people with the "Personen Admin" role can mutate that record afterwards.
-&nbsp;&nbsp;`rating` | `string` | defines the creditor rating of this person.
-&nbsp;&nbsp;`isCreditor` | `boolean` | declares whether this person has a creditor profile.
-&nbsp;&nbsp;`creditorProfileIsBlocked` | `boolean` | declares whether this person's creditor profile is blocked.
-&nbsp;&nbsp;`discount` | `decimal` | discount for this person
-&nbsp;&nbsp;`skonto` | `decimal` | skonto for this person in percent.
-&nbsp;&nbsp;`skontoInfo` | `string` | skonto information for this person.
-&nbsp;&nbsp;`skontoDays` | `integer` | skonto information for this person. Must be empty, 0 or a positive integer
-&nbsp;&nbsp;`creditorIndustry` | `string` | creditor industry code for this person. Must be a valid creditor industry code (see code table entries "Kreditorbranchen" for valid codes).
-&nbsp;&nbsp;`tenantIndustryCode` | `string` | tenant industry code for this person. Must be a valid tenant industry code (see code table entries "Mieterbranchen" for valid codes).
-&nbsp;&nbsp;`companyGroupReference` | `string` | company group reference for this person. Must be a valid reference of an existing company record in GARAIO REM.
-&nbsp;&nbsp;`brandName` | `string` | brand name for this record
-&nbsp;&nbsp;`hasDunningBlock` | `boolean` | declares whether this person has a dunning block. `true` if they should have a dunning block and `false` if they shouldn't.
-&nbsp;&nbsp;`isVATexempt` | `boolean` | declares whether this record is VAT exempt. `true` if they should be VAT exempt and `false` if they shouldn't.
-&nbsp;&nbsp;`UIDnumber` | `string` | UID number for this person. Must be a valid UID number (i.e. `461.079.435`).
-&nbsp;&nbsp;`VATnr` | `string` | VAT number for this person. Must be a valid VAT number (i.e. `461.079.435`).
-&nbsp;&nbsp;`hasPaymentBlock` | `boolean` | declares whether this person has a payment block. `true` if they should have a payment block and `false` if they shouldn't.
-&nbsp;&nbsp;`paymentBlockReason` | `string` | reason for the payment block for this person.
-&nbsp;&nbsp;`correspondenceLanguageCode` | `string` | `'de'`, `'fr'`, `'it'` or `'en'`; **must be lower case**
-&nbsp;&nbsp;`address` | `hash` | current address; do pass a complete address or leave it empty, partial updates are not supported
-&nbsp;&nbsp;&nbsp;&nbsp;`city` | `string` | city; **required**
-&nbsp;&nbsp;&nbsp;&nbsp;`zipCode` | `string` | zipCode; **required**
-&nbsp;&nbsp;&nbsp;&nbsp;`street` | `string` | street incl. number; **required**
-&nbsp;&nbsp;&nbsp;&nbsp;`postbox` | `string` | postbox; **optional**
-&nbsp;&nbsp;&nbsp;&nbsp;`mailboxNumber` | `string` | mailbox number; **optional**
-&nbsp;&nbsp;&nbsp;&nbsp;`supplement`    | `string` | address supplement, e.g. Elektro-Fachgeschäft; **optional**
-&nbsp;&nbsp;&nbsp;&nbsp;`countryCode` | `string` | ISO country code, eg `'CH'`; **required**
-&nbsp;&nbsp;&nbsp;&nbsp;`validFrom` | `string` | optional ISO 8601 encoded date; pass a future date to create or update an address that becomes valid in the future
-&nbsp;&nbsp;&nbsp;&nbsp;`deleted` | `boolean` | pass `true` to delete the address
-&nbsp;&nbsp;`contactData`| `hash` | [ContactData](types/contact_data.md) of this person.
-&nbsp;&nbsp;`paymentDetails`| `array`| [PaymentDetails](types/payment_details.md) of this person.
-&nbsp;&nbsp;`paymentDeactivationReason`| `string`| Reason why payment details that are not transmitted will be locked; It is **required** only when either updating payment details with an empty array or adding new single payment details for a person who already has existing ones
+| Field                                    | Type                         | Content / Remarks                                                                                                                                                                                                                    |
+| ---------------------------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `eventType`                              | `string`                     | `Masterdata.Person.Update`                                                                                                                                                                                                           |
+| `data`                                   | `hash`                       |                                                                                                                                                                                                                                      |
+| &nbsp;&nbsp;`createdAt`                  | `string`                     | ISO 8601 encoded timestamp, eg `'2024-02-06T14:10:11+01:00'`. Left unchanged if not given.                                                                                                                                           |
+| &nbsp;&nbsp;`updatedAt`                  | `string`                     | ISO 8601 encoded timestamp, eg `'2024-02-06T14:10:11+01:00'`. Defaults to current time.                                                                                                                                              |
+| &nbsp;&nbsp;`personReference`            | `string`                     | reference of the person that should receive the communication updates; **required**                                                                                                                                                  |
+| &nbsp;&nbsp;`firstName`                  | `string`                     | first name                                                                                                                                                                                                                           |
+| &nbsp;&nbsp;`surname`                    | `string`                     | surname for natural persons or company name for legal persons                                                                                                                                                                        |
+| &nbsp;&nbsp;`nameSuffix1`                | `string`                     | additional name suffix (i.e. `'c/o Garaio REM AG'`)                                                                                                                                                                                  |
+| &nbsp;&nbsp;`nameAddition2`              | `string`                     | additional field to store name information on company records                                                                                                                                                                        |
+| &nbsp;&nbsp;`salutation`                 | `string`                     | one of the following values will be accepted: `none`, `sir`, `madam`. Send _either_ `salutation` _or_ `salutationCode` but not both.                                                                                                 |
+| &nbsp;&nbsp;`salutationCode`             | `string`                     | a value of the salutation code table (see code table entries "Anreden" for valid codes). Send _either_ `salutation` _or_ `salutationCode` but not both.                                                                              |
+| &nbsp;&nbsp;`additionalSalutation`       | `string` (max 50 characters) | additional salutation (i.e. `Dr. med.`)                                                                                                                                                                                              |
+| &nbsp;&nbsp;`maritalStatus`              | `string`                     | one of the following values will be accepted: `unmarried`, `married`, `widowed`, `divorced`, `separated`, `civil_union`. Send _either_ `maritalStatus` _or_ `maritalStatusCode` but not both.                                        |
+| &nbsp;&nbsp;`maritalStatusCode`          | `string`                     | a value of the marital status code table (see code table entries "Zivilstände" for valid codes). Send _either_ `maritalStatus` _or_ `maritalStatusCode` but not both.                                                                |
+| &nbsp;&nbsp;`jobTitle`                   | `string`                     | job title                                                                                                                                                                                                                            |
+| &nbsp;&nbsp;`dateOfBirth`                | `string`                     | ISO 8601 encoded date, eg `'2019-03-01'`                                                                                                                                                                                             |
+| &nbsp;&nbsp;`dateOfDeath`                | `string`                     | ISO 8601 encoded date, eg `'2019-03-01'`                                                                                                                                                                                             |
+| &nbsp;&nbsp;`homeTown`                   | `string`                     | home town                                                                                                                                                                                                                            |
+| &nbsp;&nbsp;`nationalityCode`            | `string`                     | ISO country code, eg `'CH'`                                                                                                                                                                                                          |
+| &nbsp;&nbsp;`sensitive`                  | `boolean`                    | sensitive flag. `true` if the person is sensitive and only people with the "Personen Admin" role can mutate that record afterwards.                                                                                                  |
+| &nbsp;&nbsp;`rating`                     | `string`                     | defines the creditor rating of this person.                                                                                                                                                                                          |
+| &nbsp;&nbsp;`isCreditor`                 | `boolean`                    | declares whether this person has a creditor profile.                                                                                                                                                                                 |
+| &nbsp;&nbsp;`creditorProfileIsBlocked`   | `boolean`                    | declares whether this person's creditor profile is blocked.                                                                                                                                                                          |
+| &nbsp;&nbsp;`discount`                   | `decimal`                    | discount for this person                                                                                                                                                                                                             |
+| &nbsp;&nbsp;`skonto`                     | `decimal`                    | skonto for this person in percent.                                                                                                                                                                                                   |
+| &nbsp;&nbsp;`skontoInfo`                 | `string`                     | skonto information for this person.                                                                                                                                                                                                  |
+| &nbsp;&nbsp;`skontoDays`                 | `integer`                    | skonto information for this person. Must be empty, 0 or a positive integer                                                                                                                                                           |
+| &nbsp;&nbsp;`creditorIndustry`           | `string`                     | creditor industry code for this person. Must be a valid creditor industry code (see code table entries "Kreditorbranchen" for valid codes).                                                                                          |
+| &nbsp;&nbsp;`tenantIndustryCode`         | `string`                     | tenant industry code for this person. Must be a valid tenant industry code (see code table entries "Mieterbranchen" for valid codes).                                                                                                |
+| &nbsp;&nbsp;`companyGroupReference`      | `string`                     | company group reference for this person. Must be a valid reference of an existing company record in GARAIO REM.                                                                                                                      |
+| &nbsp;&nbsp;`brandName`                  | `string`                     | brand name for this record                                                                                                                                                                                                           |
+| &nbsp;&nbsp;`hasDunningBlock`            | `boolean`                    | declares whether this person has a dunning block. `true` if they should have a dunning block and `false` if they shouldn't.                                                                                                          |
+| &nbsp;&nbsp;`isVATexempt`                | `boolean`                    | declares whether this record is VAT exempt. `true` if they should be VAT exempt and `false` if they shouldn't.                                                                                                                       |
+| &nbsp;&nbsp;`UIDnumber`                  | `string`                     | UID number for this person. Must be a valid UID number (i.e. `461.079.435`). (1)                                                                                                                                                     |
+| &nbsp;&nbsp;`VATnr`                      | `string`                     | VAT number for this person. Must be a valid VAT number (i.e. `461.079.435`).                                                                                                                                                         |
+| &nbsp;&nbsp;`hasPaymentBlock`            | `boolean`                    | declares whether this person has a payment block. `true` if they should have a payment block and `false` if they shouldn't.                                                                                                          |
+| &nbsp;&nbsp;`paymentBlockReason`         | `string`                     | reason for the payment block for this person.                                                                                                                                                                                        |
+| &nbsp;&nbsp;`correspondenceLanguageCode` | `string`                     | `'de'`, `'fr'`, `'it'` or `'en'`; **must be lower case**                                                                                                                                                                             |
+| &nbsp;&nbsp;`address`                    | `hash`                       | current address; do pass a complete address or leave it empty, partial updates are not supported                                                                                                                                     |
+| &nbsp;&nbsp;&nbsp;&nbsp;`city`           | `string`                     | city; **required**                                                                                                                                                                                                                   |
+| &nbsp;&nbsp;&nbsp;&nbsp;`zipCode`        | `string`                     | zipCode; **required**                                                                                                                                                                                                                |
+| &nbsp;&nbsp;&nbsp;&nbsp;`street`         | `string`                     | street incl. number; **required**                                                                                                                                                                                                    |
+| &nbsp;&nbsp;&nbsp;&nbsp;`postbox`        | `string`                     | postbox; **optional**                                                                                                                                                                                                                |
+| &nbsp;&nbsp;&nbsp;&nbsp;`mailboxNumber`  | `string`                     | mailbox number; **optional**                                                                                                                                                                                                         |
+| &nbsp;&nbsp;&nbsp;&nbsp;`supplement`     | `string`                     | address supplement, e.g. Elektro-Fachgeschäft; **optional**                                                                                                                                                                          |
+| &nbsp;&nbsp;&nbsp;&nbsp;`countryCode`    | `string`                     | ISO country code, eg `'CH'`; **required**                                                                                                                                                                                            |
+| &nbsp;&nbsp;&nbsp;&nbsp;`validFrom`      | `string`                     | optional ISO 8601 encoded date; pass a future date to create or update an address that becomes valid in the future                                                                                                                   |
+| &nbsp;&nbsp;&nbsp;&nbsp;`deleted`        | `boolean`                    | pass `true` to delete the address                                                                                                                                                                                                    |
+| &nbsp;&nbsp;`contactData`                | `hash`                       | [ContactData](types/contact_data.md) of this person.                                                                                                                                                                                 |
+| &nbsp;&nbsp;`paymentDetails`             | `array`                      | [PaymentDetails](types/payment_details.md) of this person.                                                                                                                                                                           |
+| &nbsp;&nbsp;`paymentDeactivationReason`  | `string`                     | Reason why payment details that are not transmitted will be locked; It is **required** only when either updating payment details with an empty array or adding new single payment details for a person who already has existing ones |
+
+Notes
+
+* (1) falls back to `VATnr` if given
 
 
 #### Document Delivery Configuration
 
-**IMPORTANT**: 
+**IMPORTANT**:
 
 Emails with: `"document_receipt": true` will be set receive documents via email instead per post.
 However, if a person has both email with `document_receipt`  and a portal configured, documents will be distributed via the portal instead of email.
