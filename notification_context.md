@@ -9,9 +9,38 @@ Type | GARAIO REM | REM | Description
 
 ### Notification.Message.Created
 
-This message represents a message from a messaging participant to a GARAIO REM instance. Set the recipient property in the headers, eg "grem_derham"
+This message represents a message from a messaging participant to a GARAIO REM instance. 
 
-Field | Type | Content / Remarks
+Set the **MESSAGE header** `recipient` to the target REM instance identifier (e.g. `grem_derham`). 
+This controls which REM tenant queue receives the message.  This is **not** the notification recipient within REM, i.e. - full message with routing and properties:
+```
+{
+  # routing and other Message properties - mentioned above
+  exchange: "smart_invoice_publish",
+  routing_key: "Notification.Message.Created",
+  properties: [
+    content_type: "application/json",
+    timestamp: 1721215037,
+    persistent: true,
+    app_id: "smart_invoice",
+    message_id: "smart_invoice-34567",
+    headers: [app_id: "smart_invoice", recipient: "grem_derham"]
+    #                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ]
+  # actual message data we process
+  "eventType":"Notification.Message.Created",
+  "data":{
+    "externalReference":"12345",
+    "masterdataReference":"67890",
+    "mimetype":"text/plain",
+    "message":"something bad happened"
+  },
+}
+```
+
+**NOTE**: messages are not allowed to have comments `#` in the JSON payload.
+
+**Field** | **Type** | **Content / Remarks**
 ---|---|---
 eventType | string | Notification.Message.Created
 data | hash |
@@ -26,7 +55,9 @@ data | hash |
 &nbsp;&nbsp;message | string | notification message; **required**
 &nbsp;&nbsp;sender | string | optional sender info (email address, name...)
 
-(1) list of valid responsibilities: 
+**NOTE**: A minimal `Notification.Message.Created` message requires one of the following: `masterdataReference` or `recipientUsername` or `recipientResponsibility` in order to determine the recipient.
+
+**(1) Defined responsibilities**:
 
 - ASSISTANT
 - DATA_PROTECTION_OFFICER
@@ -39,12 +70,15 @@ data | hash |
 
 #### Example
 
-Minimal message **without** a `masterdataReference`:
+Minimal message **without `masterdataReference`**:
+
+**requires** a `recipientResponsibility` or `recipientUsername` to determine the recipient.
 
 ```json
 {"eventType":"Notification.Message.Created",
   "data":{
     "externalReference":"1234",
+    "recipientUsername":"bookkeeper_wht",
     "subject":"Invoice 12345678.pdf",
     "mimetype":"text/plain",
     "message":"something went wrong"
@@ -53,7 +87,9 @@ Minimal message **without** a `masterdataReference`:
 ```
 
 
-Minimal message **with** a `masterdataReference`:
+Minimal message **with `masterdataReference`**:
+
+the default recipient is determined by the `masterdataReference` **ASSISTANT** (thus `recipientResponsibility` or `recipientUsername` are not required).
 
 ```json
 {"eventType":"Notification.Message.Created",
@@ -66,7 +102,9 @@ Minimal message **with** a `masterdataReference`:
 }
 ```
 
-Minimal message with `recipientResponsibility`:
+Messages with `recipientResponsibility` (or `recipientUsername`) and `masterdataReference`:
+
+Override the default recipient determined by the `masterdataReference`.
 
 ```json
 {"eventType":"Notification.Message.Created",
