@@ -20,14 +20,26 @@ data | hash |
 &nbsp;&nbsp;categoryCode | string | optional for the category code - this value must match a 'code' within the 'notification_kategorie' of the CodeTabelle.  Blank or non-matching values will fall back to the default based on the sending system's name. (Ideally, in the future, these categories can be found via GraphQL, until they will be provided by Garaio REM personnel as needed).
 &nbsp;&nbsp;externalReference | string | external, unique case identifier; **required**
 &nbsp;&nbsp;masterdataReference | string | reference of a property / building / unit; **required** without **recipientUsername**
+&nbsp;&nbsp;recipientResponsibility | string | the responsibility (role) on which to send the notification (1) (by default notifications are delivered to the `masterdataReference` **ASSISTANT**)
 &nbsp;&nbsp;recipientUsername | string | optional recipient username (within GREM) to override the default recipient.  Blank or non-matching values will fallback to the default based on the given 'masterdataReference'. **required** without **masterdataReference**
 &nbsp;&nbsp;mimetype | string | mimetype describing the message format (text/plain, text/markdown...); **required**
 &nbsp;&nbsp;message | string | notification message; **required**
 &nbsp;&nbsp;sender | string | optional sender info (email address, name...)
 
+(1) list of valid responsibilities: 
+
+- ASSISTANT
+- DATA_PROTECTION_OFFICER
+- LETTING_MANAGER
+- MARKETPLACE_EMAIL_MANAGER
+- MARKETPLACE_MANAGER
+- OWNER_PORTAL_CONTACT
+- PROPERTY_MANAGER
+- PROPERTY_ACCOUNTANT
+
 #### Example
 
-Minimal message without a `masterdataReference`:
+Minimal message **without** a `masterdataReference`:
 
 ```json
 {"eventType":"Notification.Message.Created",
@@ -40,7 +52,8 @@ Minimal message without a `masterdataReference`:
 }
 ```
 
-Minimal message with a `masterdataReference`:
+
+Minimal message **with** a `masterdataReference`:
 
 ```json
 {"eventType":"Notification.Message.Created",
@@ -53,7 +66,21 @@ Minimal message with a `masterdataReference`:
 }
 ```
 
-Typical Message
+Minimal message with `recipientResponsibility`:
+
+```json
+{"eventType":"Notification.Message.Created",
+  "data":{
+    "externalReference":"1234",
+    "masterdataReference":"4712.01.0001",
+    "recipientResponsibility":"LETTING_MANAGER",
+    "mimetype":"text/plain",
+    "message":"something happened"
+  }
+}
+```
+
+**Typical Message**
 
 ```json
 {"eventType":"Notification.Message.Created",
