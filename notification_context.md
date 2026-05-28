@@ -2,14 +2,14 @@
 
 ## Events
 
-Type                                                        | GARAIO REM | REM | Description
-------------------------------------------------------------|------------|-----|-----------------------------------------------------------
-[Notification.Message.Created](#notificationmessagecreated) | ✅         | ❌   | A notification message has been created
-[Notification.Case.Closed](#notificationcaseclosed)         | ✅         | ❌   | The case related to the externalReference has been closed
+Type                                                        | GARAIO REM         | REM | Description
+------------------------------------------------------------|--------------------|-----|-------------------------------------------------------
+[Notification.Message.Created](#notificationmessagecreated) | :white_check_mark: | :x: | A notification message has been created
+[Notification.Case.Closed](#notificationcaseclosed)         | :white_check_mark: | :x: | The case related to the externalReference has been closed
 
 ### Notification.Message.Created
 
-This message represents a message from a messaging participant to a GARAIO REM instance.
+This message represents a message from a messaging participant to a GARAIO REM instance. It is critical that sender (app_id) is set property in the headers - messages need to this info for proper Notification Catigorization. See message the headers reference for more details.
 
 **Field**                           | **Type** | **Content / Remarks**
 ------------------------------------|----------|-----------------------
