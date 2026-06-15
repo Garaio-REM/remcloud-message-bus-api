@@ -9,7 +9,7 @@ Type                                                        | GARAIO REM        
 
 ### Notification.Message.Created
 
-This message represents a message from a messaging participant to a GARAIO REM instance. It is critical that sender (app_id) is set property in the headers - messages need to this info for proper Notification Catigorization. See message the headers reference for more details.
+This message represents a message from a messaging participant to a GARAIO REM instance. It is critical that sender (app_id) is set properly in the headers - messages need to this info for proper Notification Categorization. See message the headers reference for more details.
 
 **Field**                           | **Type** | **Content / Remarks**
 ------------------------------------|----------|-----------------------
@@ -19,7 +19,7 @@ data                                | hash     |
 &nbsp;&nbsp;mimetype                | string   | mimetype describing the message format (`text/plain`, `text/markdown`…); **required**
 &nbsp;&nbsp;message                 | string   | notification message; **required**
 &nbsp;&nbsp;masterdataReference     | string   | reference of a property / building / unit; **required** when `recipientUsername` and `recipientResponsibility` are both absent, and also **required** for any role-based `recipientResponsibility` (see responsibility table below)
-&nbsp;&nbsp;recipientUsername       | string   | username of a specific active GREM user to receive the notification. Must exist and be active — an unknown or inactive username is rejected. **required** if `masterdataReference` is absent
+&nbsp;&nbsp;recipientUsername       | string   | username of a specific active GREM user to receive the notification. Must exist and be active — an unknown or inactive username is rejected. **required: when both `masterdataReference` and `recipientResponsibility` are absent**
 &nbsp;&nbsp;recipientResponsibility | string   | routes the notification to the user currently holding this responsibility (see responsibility table below). Only used when `recipientUsername` is absent. Must resolve to an active user or the message is rejected.
 &nbsp;&nbsp;subject                 | string   | notification subject; optional
 &nbsp;&nbsp;backlinkUrl             | string   | optional URL to navigate back to the sending system; **when given it should be a complete URL the local browser can resolve (including protocol), e.g. `https://www.google.com`**
@@ -28,29 +28,29 @@ data                                | hash     |
 
 #### `recipientResponsibility` values
 
-Responsibilities come in two kinds, which differ in whether a `masterdataReference` is required:
+Responsibilities fall into two categories and have different requirements:
 
-**Role-based** — the responsible person is the user currently assigned to a specific role on the property identified by the `masterdataReference`. A `masterdataReference` is **required** for these; without one the message is rejected.
+1. **Role-based** — the responsible person is the user currently assigned to a specific role on the property identified by the `masterdataReference`. A `masterdataReference` is **required** for these; without one the message is rejected.
 
-Responsibility      | Description
---------------------|-------------------------
-ASSISTANT           | The property assistant
-PROPERTY_MANAGER    | The property manager (Bewirtschafter)
-PROPERTY_ACCOUNTANT | The property accountant (LIBU)
-MARKETPLACE_MANAGER | The marketplace manager
-LETTING_MANAGER     | The letting manager
+Responsibility       | Description
+---------------------|-------------------------
+ASSISTANT            | The property assistant
+PROPERTY_MANAGER     | The property manager (Bewirtschafter)
+PROPERTY_ACCOUNTANT  | The property accountant (LIBU)
+MARKETPLACE_MANAGER  | The marketplace manager
+LETTING_MANAGER      | The letting manager
+OWNER_PORTAL_CONTACT | The configured owner portal contact
 
-**User-based** — the responsible person is a system-level user configured in system parameters, not tied to any specific property. A `masterdataReference` is **ignored** for these; it may be present in the message but has no effect on recipient resolution.
+2. **User-based** — the responsible person is a system-level user configured in system parameters, not tied to any specific property. A `masterdataReference` is **ignored** for these; it may be present in the message but has no effect on recipient resolution.
 
 Responsibility            | Description
 --------------------------|---------------------------
 DATA_PROTECTION_OFFICER   | The configured data protection officer
-OWNER_PORTAL_CONTACT      | The configured owner portal contact
 MARKETPLACE_EMAIL_MANAGER | The configured marketplace email manager
 
 #### Recipient resolution
 
-A notification message must supply enough information to resolve exactly one active recipient. The following three paths are tried based on what fields are present. If the chosen path cannot resolve an active recipient the message is **rejected** — there is no cross-path fallback.
+A notification message must supply enough information to resolve exactly one active recipient. The following paths are tried based on what fields are present. If the chosen path cannot resolve an active recipient the message is **rejected** — there is no cross-path fallback.
 
 **Path 1 — `recipientUsername` is provided**
 
@@ -58,20 +58,19 @@ The named user must exist in GREM and be active. There is no fallback: an unknow
 
 **Path 2 — `recipientResponsibility` is provided (without `recipientUsername`)**
 
-The responsibility must be known, configured in system parameters, and currently resolve to an active user. For role-based responsibilities a `masterdataReference` is also required. There is no fallback: a responsibility that cannot be resolved always produces an error.
+The responsibility must be known, configured in system parameters, and currently resolve to an active user. For role-based responsibilities, a `masterdataReference` is also required. There is no fallback: a responsibility that cannot be resolved always produces an error and the notification will be rejected.
 
 **Path 3 — `masterdataReference` only (neither `recipientUsername` nor `recipientResponsibility`)**
 
-The recipient is resolved via the following fallback chain, in order:
+The recipient is resolved via the System Parameter setting.
 
-1. The current **Assistent** for the property
-2. The first active user found among the manager roles, checked in this order: `PROPERTY_MANAGER` → `PROPERTY_ACCOUNTANT` → `MARKETPLACE_MANAGER` → `LETTING_MANAGER`
-
-If none of these resolve to an active user the message is rejected.
+1. If the system parameter `ASSISTANT` role is not configured, the message is rejected.
+2. If no user is assigned to the `ASSISTANT` role for that property, the message is rejected.
+3. If the assigned `ASSISTANT` is inactive, the message is rejected and must be updated.
 
 **Path 4 — nothing provided**
 
-Rejected immediately. At minimum a `recipientUsername` or a `masterdataReference` is required.
+Rejected immediately. At minimum, one of `recipientUsername`, `recipientResponsibility`, or `masterdataReference` must be provided.
 
 #### Examples
 
@@ -89,7 +88,7 @@ Minimal message using `recipientUsername`:
 }
 ```
 
-Minimal message using `masterdataReference` (recipient resolved via fallback chain — assistent first, then manager roles):
+Minimal message using `masterdataReference` (recipient must be resolvable and active):
 
 ```json
 {
@@ -103,7 +102,7 @@ Minimal message using `masterdataReference` (recipient resolved via fallback cha
 }
 ```
 
-Message with a role-based `recipientResponsibility` (requires `masterdataReference`):
+Message with a **role-based** `recipientResponsibility` also requires the `masterdataReference`:
 
 ```json
 {
@@ -118,7 +117,7 @@ Message with a role-based `recipientResponsibility` (requires `masterdataReferen
 }
 ```
 
-Message with a user-based `recipientResponsibility` (`masterdataReference` not required):
+Message with a **user-based** `recipientResponsibility` does not require the `masterdataReference` (and won't be used for initial message routing):
 
 ```json
 {
