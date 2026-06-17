@@ -5,7 +5,7 @@
 Type                                                        | GARAIO REM         | REM | Description
 ------------------------------------------------------------|--------------------|-----|-------------------------------------------------------
 [Notification.Message.Created](#notificationmessagecreated) | :white_check_mark: | :x: | A notification message has been created
-[Notification.Case.Closed](#notificationcaseclosed)         | :white_check_mark: | :x: | The case related to the externalReference has been closed
+[Notification.Case.Closed](#notificationcaseclosed)         | :white_check_mark: | :x: | The case related to the externalReference has been removed
 
 ### Notification.Message.Created
 
@@ -151,7 +151,7 @@ Typical full message:
 
 ### Notification.Case.Closed
 
-This message notifies GARAIO REM that the case related to the `externalReference` has been closed. All notifications for that reference will be deleted. Set the `recipient` property in the message headers (e.g. `grem_derham`).
+This message notifies GARAIO REM that the case related to the `externalReference` has been removed. All notifications for that reference will be deleted. Set the `recipient` property in the message headers (e.g. `grem_derham`).
 
 Field                         | Type   | Content / Remarks
 ------------------------------|--------|-------------------------
