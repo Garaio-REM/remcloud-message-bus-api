@@ -4,23 +4,24 @@
 
 ## Events
 
-| Type                                                      | GARAIO REM         | REM | Description                                               |
-| --------------------------------------------------------- | ------------------ | --- | --------------------------------------------------------- |
-| [Invoicing.Order.Created](#invoicingordercreated)         | :white_check_mark: | :x: | Create an order in GARAIO REM                             |
-| [Invoicing.Order.WasCreated](#invoicingorderwascreated)   | :white_check_mark: | :x: | An order has been created in GARAIO REM                   |
-| [Invoicing.Order.Accepted](#invoicingorderaccepted)       | :white_check_mark: | :x: | An order has been accepted by GARAIO REM                  |
-| [Invoicing.Order.Rejected](#invoicingorderrejected)       | :white_check_mark: | :x: | An order has been rejected by GARAIO REM                  |
-| [Invoicing.Order.Updated](#invoicingorderupdated)         | :white_check_mark: | :x: | Update an already published order in GARAIO REM           |
-| [Invoicing.Order.WasUpdated](#invoicingorderwasupdated)   | :white_check_mark: | :x: | An order has been updated in GARAIO REM                   |
-| [Invoicing.Order.Deleted](#invoicingorderdeleted)         | :white_check_mark: | :x: | Delete rder created by a third party system in GARAIO REM |
-| [Invoicing.Order.WasDeleted](#invoicingorderwasdeleted)   | :white_check_mark: | :x: | An order has been deleted in GARAIO REM                   |
-| [Invoicing.Invoice.Created](#invoicinginvoicecreated)     | :white_check_mark: | :x: | An invoice has been created                               |
-| [Invoicing.Invoice.Accepted](#invoicinginvoiceaccepted)   | :white_check_mark: | :x: | An invoice has been accepted by GARAIO REM                |
-| [Invoicing.Invoice.Rejected](#invoicinginvoicerejected)   | :white_check_mark: | :x: | An invoice has been rejected by GARAIO REM                |
-| [Invoicing.Invoice.Deleted](#invoicinginvoicedeleted)     | :white_check_mark: | :x: | An incomplete invoice has been deleted in GARAIO REM      |
-| [Invoicing.Invoice.Booked](#invoicinginvoicebooked)       | :white_check_mark: | :x: | An invoice was booked in GARAIO REM                       |
-| [Invoicing.Invoice.Cancelled](#invoicinginvoicecancelled) | :white_check_mark: | :x: | An invoice has been cancelled in GARAIO REM (Storno)      |
-| [Invoicing.Invoice.Payed](#invoicinginvoicepayed)         | :white_check_mark: | :x: | An invoice has been payed by GARAIO REM                   |
+| Type                                                        | GARAIO REM         | REM | Description                                               |
+| ----------------------------------------------------------- | ------------------ | --- | --------------------------------------------------------- |
+| [Invoicing.Order.Created](#invoicingordercreated)           | :white_check_mark: | :x: | Create an order in GARAIO REM                             |
+| [Invoicing.Order.WasCreated](#invoicingorderwascreated)     | :white_check_mark: | :x: | An order has been created in GARAIO REM                   |
+| [Invoicing.Order.Accepted](#invoicingorderaccepted)         | :white_check_mark: | :x: | An order has been accepted by GARAIO REM                  |
+| [Invoicing.Order.Rejected](#invoicingorderrejected)         | :white_check_mark: | :x: | An order has been rejected by GARAIO REM                  |
+| [Invoicing.Order.Updated](#invoicingorderupdated)           | :white_check_mark: | :x: | Update an already published order in GARAIO REM           |
+| [Invoicing.Order.WasUpdated](#invoicingorderwasupdated)     | :white_check_mark: | :x: | An order has been updated in GARAIO REM                   |
+| [Invoicing.Order.Deleted](#invoicingorderdeleted)           | :white_check_mark: | :x: | Delete rder created by a third party system in GARAIO REM |
+| [Invoicing.Order.WasDeleted](#invoicingorderwasdeleted)     | :white_check_mark: | :x: | An order has been deleted in GARAIO REM                   |
+| [Invoicing.Invoice.Created](#invoicinginvoicecreated)       | :white_check_mark: | :x: | An invoice has been created                               |
+| [Invoicing.Invoice.Accepted](#invoicinginvoiceaccepted)     | :white_check_mark: | :x: | An invoice has been accepted by GARAIO REM                |
+| [Invoicing.Invoice.Rejected](#invoicinginvoicerejected)     | :white_check_mark: | :x: | An invoice has been rejected by GARAIO REM                |
+| [Invoicing.Invoice.Deleted](#invoicinginvoicedeleted)       | :white_check_mark: | :x: | An incomplete invoice has been deleted in GARAIO REM      |
+| [Invoicing.Invoice.Booked](#invoicinginvoicebooked)         | :white_check_mark: | :x: | An invoice was booked in GARAIO REM                       |
+| [Invoicing.Invoice.Cancelled](#invoicinginvoicecancelled)   | :white_check_mark: | :x: | An invoice has been cancelled in GARAIO REM (Storno)      |
+| [Invoicing.Invoice.Payed](#invoicinginvoicepayed)           | :white_check_mark: | :x: | An invoice has been payed by GARAIO REM                   |
+| [Invoicing.Invoice.WasUpdated](#invoicinginvoicewasupdated) | :white_check_mark: | :x: | An invoice has been updated in GARAIO REM                 |
 
 ### Invoicing.Order.Created
 
@@ -149,12 +150,12 @@ This is an event sent by GARAIO REM.
 
 This message goes from GARAIO REM to the order provider and signals that GARAIO REM has stored the order
 
-| Field                           | Type      | Content / Remarks                           |
-| ------------------------------- | --------- | ------------------------------------------- |
-| `eventType`                     | `string`  | Invoicing.Order.Accepted                    |
-| `data`                          | `hash`    |                                             |
-| &nbsp;&nbsp;`reference`         | `longint` | unique identifier of the order              |
-| &nbsp;&nbsp;`externalReference` | `string`  | external identifier from the order provider |
+| Field                           | Type      | Content / Remarks                                                                                                             |
+| ------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `eventType`                     | `string`  | Invoicing.Order.Accepted                                                                                                      |
+| `data`                          | `hash`    |                                                                                                                               |
+| &nbsp;&nbsp;`reference`         | `longint` | unique identifier of the order                                                                                                |
+| &nbsp;&nbsp;`externalReference` | `string`  | external identifier from the order provider                                                                                   |
 | &nbsp;&nbsp;`gremUrl`           | `string`  | GREM URL to directly to the Order within GREM (preferentially uses the customer_url and falls back to the system default_url) |
 
 #### Example
@@ -719,6 +720,27 @@ This message goes from GARAIO REM to the invoice provider and signals that GARAI
     "orderReference": null,
     "externalOrderReference": null,
     "paymentDate":"2021-03-10"
+  }
+}
+```
+
+### Invoicing.Invoice.WasUpdated
+
+This is an event sent by GARAIO REM.
+
+| Field                   | Type      | Content / Remarks                                          |
+| ----------------------- | --------- | ---------------------------------------------------------- |
+| `eventType`             | `string`  | Invoicing.Invoice.WasUpdated                               |
+| `data`                  | `hash`    |                                                            |
+| &nbsp;&nbsp;`reference` | `longint` | unique identifier for the invoice, generated by GARAIO REM |
+
+#### Example
+
+```json
+{
+  "eventType": "Invoicing.Invoice.WasUpdated",
+  "data": {
+    "reference": 1234
   }
 }
 ```
