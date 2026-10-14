@@ -116,7 +116,7 @@ This is an event sent by GARAIO REM.
 | &nbsp;&nbsp;`externalReference`               | `string`  | external identifier from the order provider                                      |
 | &nbsp;&nbsp;`accountingReference`             | `string`  | reference of the accounting                                                      |
 | &nbsp;&nbsp;`masterdataReference`             | `string`  | reference of a property / building / unit                                        |
-| &nbsp;&nbsp;`totalGrossAmount`                | `decimal` | Total gross amount of the order - including VAT                                  |
+| &nbsp;&nbsp;`totalGrossAmount`                | `string`  | Total gross amount of the order - including VAT; null if none                    |
 | &nbsp;&nbsp;`orderItems`                      | `array`   | order items                                                                      |
 | &nbsp;&nbsp;&nbsp;&nbsp;`accountNumber`       | `string`  | accounting account number, prefixed by the accounting reference, eg "6056.10122" |
 | &nbsp;&nbsp;&nbsp;&nbsp;`costCenterNumber`    | `string`  | cost center number                                                               |
@@ -133,7 +133,7 @@ This is an event sent by GARAIO REM.
     "reference": 123,
     "accountingReference": "1",
     "masterdataReference": "10001",
-    "totalGrossAmount": 1500.00,
+    "totalGrossAmount": "1500.00",
     "orderItems": [
       {
         "accountNumber": "641201",
@@ -313,7 +313,7 @@ This is an event sent by GARAIO REM.
 | &nbsp;&nbsp;`externalReference`               | `string`  | external identifier from the order provider                                      |
 | &nbsp;&nbsp;`accountingReference`             | `string`  | reference of the accounting                                                      |
 | &nbsp;&nbsp;`masterdataReference`             | `string`  | reference of a property / building / unit                                        |
-| &nbsp;&nbsp;`totalGrossAmount`                | `decimal` | Total gross amount of the order - including VAT.                                 |
+| &nbsp;&nbsp;`totalGrossAmount`                | `string`  | Total gross amount of the order - including VAT; null if none                    |
 | &nbsp;&nbsp;`orderItems`                      | `array`   | order items                                                                      |
 | &nbsp;&nbsp;&nbsp;&nbsp;`accountNumber`       | `string`  | accounting account number, prefixed by the accounting reference, eg "6056.10122" |
 | &nbsp;&nbsp;&nbsp;&nbsp;`costCenterNumber`    | `string`  | cost center number                                                               |
@@ -330,7 +330,7 @@ This is an event sent by GARAIO REM.
     "reference": 123,
     "accountingReference": "1",
     "masterdataReference": "10001",
-    "totalGrossAmount": 1500.00,
+    "totalGrossAmount": "1500.00",
     "orderItems": [
       {
         "accountNumber": "641201",

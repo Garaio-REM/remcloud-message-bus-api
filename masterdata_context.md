@@ -142,7 +142,7 @@ Field | Type | Content / Remarks
 `eventType` | `string` | Masterdata.FacilityManager.Created
 `data` | `hash` |
 &nbsp;&nbsp;`propertyReference` | `string` | reference of the property the facility manager works for; null, if he works for a specific building
-&nbsp;&nbsp;`buildingReference` | `string` | reference of the building the facility manager works for; null, if he works for a whole property
+&nbsp;&nbsp;`buildingReference` | `string` | reference of the building the facility manager works for; omitted if he works for a whole property
 &nbsp;&nbsp;`personReference` | `string` | reference of the person that represents the facility manager
 &nbsp;&nbsp;`employerReference` | `string` | reference of the person that represents the facility manager employer
 &nbsp;&nbsp;`roleCode` | `string` | code of the role the facility manager has; (see code table "Hauswarte" for valid codes)
@@ -179,7 +179,7 @@ Field | Type | Content / Remarks
 `eventType` | `string` | Masterdata.FacilityManager.Updated
 `data` | `hash` |
 &nbsp;&nbsp;`propertyReference` | `string` | reference of the property the facility manager works for; null, if he works for a specific building
-&nbsp;&nbsp;`buildingReference` | `string` | reference of the building the facility manager works for; null, if he works for a whole property
+&nbsp;&nbsp;`buildingReference` | `string` | reference of the building the facility manager works for; omitted if he works for a whole property
 &nbsp;&nbsp;`personReference` | `string` | reference of the person that represents the facility manager
 &nbsp;&nbsp;`employerReference` | `string` | reference of the person that represents the facility manager employer
 &nbsp;&nbsp;`roleCode` | `string` | code of the role the facility manager has; (see code table "Hauswarte" for valid codes)
