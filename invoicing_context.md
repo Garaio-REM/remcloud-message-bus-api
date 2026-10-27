@@ -4,24 +4,27 @@
 
 ## Events
 
-| Type                                                        | GARAIO REM         | REM | Description                                               |
-| ----------------------------------------------------------- | ------------------ | --- | --------------------------------------------------------- |
-| [Invoicing.Order.Created](#invoicingordercreated)           | :white_check_mark: | :x: | Create an order in GARAIO REM                             |
-| [Invoicing.Order.WasCreated](#invoicingorderwascreated)     | :white_check_mark: | :x: | An order has been created in GARAIO REM                   |
-| [Invoicing.Order.Accepted](#invoicingorderaccepted)         | :white_check_mark: | :x: | An order has been accepted by GARAIO REM                  |
-| [Invoicing.Order.Rejected](#invoicingorderrejected)         | :white_check_mark: | :x: | An order has been rejected by GARAIO REM                  |
-| [Invoicing.Order.Updated](#invoicingorderupdated)           | :white_check_mark: | :x: | Update an already published order in GARAIO REM           |
-| [Invoicing.Order.WasUpdated](#invoicingorderwasupdated)     | :white_check_mark: | :x: | An order has been updated in GARAIO REM                   |
-| [Invoicing.Order.Deleted](#invoicingorderdeleted)           | :white_check_mark: | :x: | Delete rder created by a third party system in GARAIO REM |
-| [Invoicing.Order.WasDeleted](#invoicingorderwasdeleted)     | :white_check_mark: | :x: | An order has been deleted in GARAIO REM                   |
-| [Invoicing.Invoice.Created](#invoicinginvoicecreated)       | :white_check_mark: | :x: | An invoice has been created                               |
-| [Invoicing.Invoice.Accepted](#invoicinginvoiceaccepted)     | :white_check_mark: | :x: | An invoice has been accepted by GARAIO REM                |
-| [Invoicing.Invoice.Rejected](#invoicinginvoicerejected)     | :white_check_mark: | :x: | An invoice has been rejected by GARAIO REM                |
-| [Invoicing.Invoice.Deleted](#invoicinginvoicedeleted)       | :white_check_mark: | :x: | An incomplete invoice has been deleted in GARAIO REM      |
-| [Invoicing.Invoice.Booked](#invoicinginvoicebooked)         | :white_check_mark: | :x: | An invoice was booked in GARAIO REM                       |
-| [Invoicing.Invoice.Cancelled](#invoicinginvoicecancelled)   | :white_check_mark: | :x: | An invoice has been cancelled in GARAIO REM (Storno)      |
-| [Invoicing.Invoice.Payed](#invoicinginvoicepayed)           | :white_check_mark: | :x: | An invoice has been payed by GARAIO REM                   |
-| [Invoicing.Invoice.WasUpdated](#invoicinginvoicewasupdated) | :white_check_mark: | :x: | An invoice has been updated in GARAIO REM                 |
+| Type                                                                      | GARAIO REM         | REM | Description                                               |
+| ------------------------------------------------------------------------- | ------------------ | --- | --------------------------------------------------------- |
+| [Invoicing.Order.Created](#invoicingordercreated)                         | :white_check_mark: | :x: | Create an order in GARAIO REM                             |
+| [Invoicing.Order.WasCreated](#invoicingorderwascreated)                   | :white_check_mark: | :x: | An order has been created in GARAIO REM                   |
+| [Invoicing.Order.Accepted](#invoicingorderaccepted)                       | :white_check_mark: | :x: | An order has been accepted by GARAIO REM                  |
+| [Invoicing.Order.Rejected](#invoicingorderrejected)                       | :white_check_mark: | :x: | An order has been rejected by GARAIO REM                  |
+| [Invoicing.Order.Updated](#invoicingorderupdated)                         | :white_check_mark: | :x: | Update an already published order in GARAIO REM           |
+| [Invoicing.Order.WasUpdated](#invoicingorderwasupdated)                   | :white_check_mark: | :x: | An order has been updated in GARAIO REM                   |
+| [Invoicing.Order.Deleted](#invoicingorderdeleted)                         | :white_check_mark: | :x: | Delete rder created by a third party system in GARAIO REM |
+| [Invoicing.Order.WasDeleted](#invoicingorderwasdeleted)                   | :white_check_mark: | :x: | An order has been deleted in GARAIO REM                   |
+| [Invoicing.Invoice.Created](#invoicinginvoicecreated)                     | :white_check_mark: | :x: | An invoice has been created                               |
+| [Invoicing.Invoice.Accepted](#invoicinginvoiceaccepted)                   | :white_check_mark: | :x: | An invoice has been accepted by GARAIO REM                |
+| [Invoicing.Invoice.Rejected](#invoicinginvoicerejected)                   | :white_check_mark: | :x: | An invoice has been rejected by GARAIO REM                |
+| [Invoicing.Invoice.Deleted](#invoicinginvoicedeleted)                     | :white_check_mark: | :x: | An incomplete invoice has been deleted in GARAIO REM      |
+| [Invoicing.Invoice.Booked](#invoicinginvoicebooked)                       | :white_check_mark: | :x: | An invoice was booked in GARAIO REM                       |
+| [Invoicing.Invoice.Cancelled](#invoicinginvoicecancelled)                 | :white_check_mark: | :x: | An invoice has been cancelled in GARAIO REM (Storno)      |
+| [Invoicing.Invoice.Payed](#invoicinginvoicepayed)                         | :white_check_mark: | :x: | An invoice has been payed by GARAIO REM                   |
+| [Invoicing.Invoice.WasUpdated](#invoicinginvoicewasupdated)               | :white_check_mark: | :x: | An invoice has been updated in GARAIO REM                 |
+| [Invoicing.EnergyData.Create](#invoicingenergydatacreate)                 | :white_check_mark: | :x: | Create energy data records for an invoice in GARAIO REM   |
+| [Invoicing.EnergyData.CreateAccepted](#invoicingenergydatacreateaccepted) | :white_check_mark: | :x: | Energy data have been accepted by GARAIO REM              |
+| [Invoicing.EnergyData.CreateRejected](#invoicingenergydatacreaterejected) | :white_check_mark: | :x: | Energy data have been rejected by GARAIO REM              |
 
 ### Invoicing.Order.Created
 
@@ -741,6 +744,119 @@ This is an event sent by GARAIO REM.
   "eventType": "Invoicing.Invoice.WasUpdated",
   "data": {
     "reference": 1234
+  }
+}
+```
+
+### Invoicing.EnergyData.Create
+
+This message goes from the invoice provider to GARAIO REM and creates energy consumption records (Energiedaten) for an invoice that GARAIO REM has already accepted. Set the `recipient` property in the headers, eg "grem_derham".
+
+| Field                                           | Type      | Content / Remarks                                                                                    |
+| ----------------------------------------------- | --------- | ---------------------------------------------------------------------------------------------------- |
+| `eventType`                                     | `string`  | Invoicing.EnergyData.Create                                                                          |
+| `data`                                          | `hash`    |                                                                                                      |
+| &nbsp;&nbsp;`invoiceReference`                  | `string`  | reference of the invoice, from [Invoicing.Invoice.Accepted](#invoicinginvoiceaccepted); **required** |
+| &nbsp;&nbsp;`energyData`                        | `array`   | energy data records; **required**, at least one record (1)                                           |
+| &nbsp;&nbsp;&nbsp;&nbsp;`medium`                | `string`  | **required**; one of `STROM`, `WASSER`, `GAS`, `FERNWAERME`, `HEIZOEL`, `HOLZ_PELLETS`, `ANDERE`     |
+| &nbsp;&nbsp;&nbsp;&nbsp;`quantity`              | `decimal` | optional; consumed quantity                                                                          |
+| &nbsp;&nbsp;&nbsp;&nbsp;`unit`                  | `string`  | optional; one of `kwh`, `m3`, `l`, `kg`                                                              |
+| &nbsp;&nbsp;&nbsp;&nbsp;`consumptionFrom`       | `string`  | optional; ISO 8601 encoded date, start of the consumption period                                     |
+| &nbsp;&nbsp;&nbsp;&nbsp;`consumptionTo`         | `string`  | optional; ISO 8601 encoded date, end of the consumption period; must be after `consumptionFrom`      |
+| &nbsp;&nbsp;&nbsp;&nbsp;`meterNumber`           | `string`  | optional                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;`measuringPointNumber`  | `string`  | optional                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;`previousMeterReading`  | `decimal` | optional                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;`currentMeterReading`   | `decimal` | optional                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;`meterReplacement`      | `boolean` | optional; defaults to `false`                                                                        |
+| &nbsp;&nbsp;&nbsp;&nbsp;`meterReplacementValue` | `decimal` | optional; meter reading at the replacement                                                           |
+| &nbsp;&nbsp;&nbsp;&nbsp;`meterReplacementDate`  | `string`  | optional; ISO 8601 encoded date                                                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;`unitPrice`             | `decimal` | optional                                                                                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;`onAccount`             | `boolean` | optional; `true` for an on-account (Akonto) invoice; defaults to `false`                             |
+| &nbsp;&nbsp;&nbsp;&nbsp;`tenantElectricity`     | `boolean` | optional; `true` for tenant electricity (Wohnungsstrom); defaults to `false`                         |
+
+Notes
+
+* (1) All records are created in one transaction: if a single record is invalid, GARAIO REM creates none and replies with [Invoicing.EnergyData.CreateRejected](#invoicingenergydatacreaterejected).
+
+#### Example
+
+```json
+{"eventType":"Invoicing.EnergyData.Create",
+  "data":{
+    "invoiceReference":"1234",
+    "energyData":[
+      {"medium":"STROM",
+       "quantity":1234.56,
+       "unit":"kwh",
+       "consumptionFrom":"2024-01-01",
+       "consumptionTo":"2024-12-31",
+       "meterNumber":"Z-001",
+       "measuringPointNumber":"MP-001",
+       "previousMeterReading":1000.0,
+       "currentMeterReading":2234.56,
+       "meterReplacement":true,
+       "meterReplacementValue":100.0,
+       "meterReplacementDate":"2024-06-15",
+       "unitPrice":0.25,
+       "onAccount":false,
+       "tenantElectricity":true
+      },
+      {"medium":"WASSER",
+       "quantity":42.0,
+       "unit":"m3"
+      }
+    ]
+  }
+}
+```
+
+#### Responses
+
+You will get back either a [Invoicing.EnergyData.CreateAccepted](#invoicingenergydatacreateaccepted) or a [Invoicing.EnergyData.CreateRejected](#invoicingenergydatacreaterejected).
+
+### Invoicing.EnergyData.CreateAccepted
+
+The [Accept](./result_messages.md#accepted-message) message.
+
+Additional `data` fields:
+
+| Field       | Type     | Content / Remarks                     |
+| ----------- | -------- | ------------------------------------- |
+| `reference` | `string` | the `invoiceReference` of the request |
+
+#### Example
+
+```json
+{"eventType":"Invoicing.EnergyData.CreateAccepted",
+  "data":{
+    "reference":"1234"
+  }
+}
+```
+
+### Invoicing.EnergyData.CreateRejected
+
+The [Reject](./result_messages.md#rejected-message) message. No energy data record has been created.
+
+| Field                               | Type      | Content / Remarks                                                                                              |
+| ----------------------------------- | --------- | -------------------------------------------------------------------------------------------------------------- |
+| `eventType`                         | `string`  | Invoicing.EnergyData.CreateRejected                                                                            |
+| `data`                              | `hash`    |                                                                                                                |
+| &nbsp;&nbsp;`reasons`               | `array`   |                                                                                                                |
+| &nbsp;&nbsp;&nbsp;&nbsp;`attribute` | `string`  | name of the attribute, eg. "medium"                                                                            |
+| &nbsp;&nbsp;&nbsp;&nbsp;`index`     | `integer` | position of the invalid record in `energyData`, starting at 0; missing if the reason does not concern a record |
+| &nbsp;&nbsp;&nbsp;&nbsp;`reason`    | `string`  | reason, eg. "not found"                                                                                        |
+
+#### Example
+
+```json
+{"eventType":"Invoicing.EnergyData.CreateRejected",
+  "data":{
+    "reasons":[
+      {"attribute":"invoiceReference",
+       "reason":"not found"
+      }
+    ]
   }
 }
 ```
