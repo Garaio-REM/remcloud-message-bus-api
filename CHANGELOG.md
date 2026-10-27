@@ -4,6 +4,10 @@
 
 - Add `Documents.Document.Create`
 
+## master (2026-10-27)
+
+Document `Invoicing.EnergyData.Create`, `Invoicing.EnergyData.CreateAccepted` and `Invoicing.EnergyData.CreateRejected`
+
 ## master (2024-05-27)
 
 add complete mietzinsreserve to TenancyAgreement.Create.Accepted message
